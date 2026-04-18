@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866eec25f719e7547b6ea8e144a331da, type: 3}
+  m_Name: DefaultRockWallDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::RockWallDefinition
+  revealStages:
+  - worldWidth: 11.04
+    worldHeight: 11.408
+    cellsPerUnit: 10.869565
+    revealThreshold: 0.2
+    cameraPadding: {x: 3.4, y: 1.35}
+    cameraLookOffset: {x: 0, y: 0}
+  - worldWidth: 20.24
+    worldHeight: 20.976
+    cellsPerUnit: 10.869565
+    revealThreshold: 0.22
+    cameraPadding: {x: 4.2, y: 1.8}
+    cameraLookOffset: {x: 0.8, y: 0.4}
+  - worldWidth: 33.12
+    worldHeight: 31.648
+    cellsPerUnit: 10.869565
+    revealThreshold: 1
+    cameraPadding: {x: 5.4, y: 2.4}
+    cameraLookOffset: {x: 1.8, y: 0.8}
