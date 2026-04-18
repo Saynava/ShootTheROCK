@@ -1,0 +1,736 @@
+﻿# Shoot the ROCK Scene State Flat Snapshot
+# Deterministic line-oriented snapshot for git diffs
+# Scene: Assets/Scenes/SampleScene.unity
+# Saved: 2026-04-18 21:52:37
+
+Global Light 2D | GameObject | activeInHierarchy	true
+Global Light 2D | GameObject | activeSelf	true
+Global Light 2D | GameObject | layer	0
+Global Light 2D | GameObject | siblingIndex	1
+Global Light 2D | GameObject | tag	Untagged
+Global Light 2D | Light2D#0 | __type	Light2D
+Global Light 2D | Light2D#0 | m_AlphaBlendOnOverlap	false
+Global Light 2D | Light2D#0 | m_ApplyToSortingLayers	Array(size=1)
+Global Light 2D | Light2D#0 | m_BlendStyleIndex	0
+Global Light 2D | Light2D#0 | m_Color	RGBA(1, 1, 1, 1)
+Global Light 2D | Light2D#0 | m_ComponentVersion	Version_2
+Global Light 2D | Light2D#0 | m_DeprecatedPointLightCookieSprite	null
+Global Light 2D | Light2D#0 | m_FalloffIntensity	0.5
+Global Light 2D | Light2D#0 | m_Intensity	1
+Global Light 2D | Light2D#0 | m_LightCookieSprite	null
+Global Light 2D | Light2D#0 | m_LightOrder	0
+Global Light 2D | Light2D#0 | m_LightType	Global
+Global Light 2D | Light2D#0 | m_LightVolumeEnabled	false
+Global Light 2D | Light2D#0 | m_LightVolumeIntensity	1
+Global Light 2D | Light2D#0 | m_LocalBounds	center=(0, 0, 0), size=(1.997, 1.997, 0)
+Global Light 2D | Light2D#0 | m_NormalMapDistance	3
+Global Light 2D | Light2D#0 | m_NormalMapQuality	Disabled
+Global Light 2D | Light2D#0 | m_OverlapOperation	Additive
+Global Light 2D | Light2D#0 | m_PointLightInnerAngle	360
+Global Light 2D | Light2D#0 | m_PointLightInnerRadius	0
+Global Light 2D | Light2D#0 | m_PointLightOuterAngle	360
+Global Light 2D | Light2D#0 | m_PointLightOuterRadius	1
+Global Light 2D | Light2D#0 | m_ShadowIntensity	0.75
+Global Light 2D | Light2D#0 | m_ShadowSoftness	0
+Global Light 2D | Light2D#0 | m_ShadowSoftnessFalloffIntensity	0.5
+Global Light 2D | Light2D#0 | m_ShadowVolumeIntensity	0.75
+Global Light 2D | Light2D#0 | m_ShadowVolumeIntensityEnabled	false
+Global Light 2D | Light2D#0 | m_ShadowsEnabled	false
+Global Light 2D | Light2D#0 | m_ShapeLightFalloffOffset	(0, 0)
+Global Light 2D | Light2D#0 | m_ShapeLightFalloffSize	0.5
+Global Light 2D | Light2D#0 | m_ShapeLightParametricAngleOffset	0
+Global Light 2D | Light2D#0 | m_ShapeLightParametricRadius	1
+Global Light 2D | Light2D#0 | m_ShapeLightParametricSides	5
+Global Light 2D | Light2D#0 | m_ShapePath	Array(size=4)
+Global Light 2D | Light2D#0 | m_UseNormalMap	false
+Global Light 2D | Transform#0 | __type	Transform
+Global Light 2D | Transform#0 | m_ConstrainProportionsScale	false
+Global Light 2D | Transform#0 | m_LocalPosition	(0, 0, 0)
+Global Light 2D | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+Global Light 2D | Transform#0 | m_LocalScale	(1, 1, 1)
+Main Camera | AudioListener#0 | __type	AudioListener
+Main Camera | Camera#0 | __type	Camera
+Main Camera | Camera#0 | far clip plane	1000
+Main Camera | Camera#0 | field of view	34
+Main Camera | Camera#0 | m_AllowDynamicResolution	false
+Main Camera | Camera#0 | m_AllowMSAA	false
+Main Camera | Camera#0 | m_Anamorphism	0
+Main Camera | Camera#0 | m_Aperture	16
+Main Camera | Camera#0 | m_BackGroundColor	RGBA(0, 0, 0, 1)
+Main Camera | Camera#0 | m_BarrelClipping	0.25
+Main Camera | Camera#0 | m_BladeCount	5
+Main Camera | Camera#0 | m_ClearFlags	Solid Color
+Main Camera | Camera#0 | m_CullingMask	-1
+Main Camera | Camera#0 | m_Curvature	(2, 11)
+Main Camera | Camera#0 | m_Depth	-1
+Main Camera | Camera#0 | m_FOVAxisMode	0
+Main Camera | Camera#0 | m_FocalLength	50
+Main Camera | Camera#0 | m_FocusDistance	10
+Main Camera | Camera#0 | m_ForceIntoRT	false
+Main Camera | Camera#0 | m_GateFitMode	2
+Main Camera | Camera#0 | m_HDR	true
+Main Camera | Camera#0 | m_Iso	200
+Main Camera | Camera#0 | m_LensShift	(0, 0)
+Main Camera | Camera#0 | m_NormalizedViewPortRect	x=0, y=0, w=1, h=1
+Main Camera | Camera#0 | m_OcclusionCulling	false
+Main Camera | Camera#0 | m_RenderingPath	Use Graphics Settings
+Main Camera | Camera#0 | m_SensorSize	(36, 24)
+Main Camera | Camera#0 | m_ShutterSpeed	0.005
+Main Camera | Camera#0 | m_StereoConvergence	10
+Main Camera | Camera#0 | m_StereoSeparation	0.022
+Main Camera | Camera#0 | m_TargetDisplay	0
+Main Camera | Camera#0 | m_TargetEye	0
+Main Camera | Camera#0 | m_TargetTexture	null
+Main Camera | Camera#0 | m_projectionMatrixMode	1
+Main Camera | Camera#0 | near clip plane	0.3
+Main Camera | Camera#0 | orthographic	true
+Main Camera | Camera#0 | orthographic size	7.054
+Main Camera | CameraFramingController#0 | __type	CameraFramingController
+Main Camera | CameraFramingController#0 | autoFrameEnabled	false
+Main Camera | CameraFramingController#0 | minimumLookAheadFromCannon	9.5
+Main Camera | CameraFramingController#0 | minimumOrthographicSize	1
+Main Camera | CameraFramingController#0 | settlePositionDistance	0.025
+Main Camera | CameraFramingController#0 | settleSizeDistance	0.025
+Main Camera | CameraFramingController#0 | smoothTime	0.55
+Main Camera | GameObject | activeInHierarchy	true
+Main Camera | GameObject | activeSelf	true
+Main Camera | GameObject | layer	0
+Main Camera | GameObject | siblingIndex	0
+Main Camera | GameObject | tag	MainCamera
+Main Camera | Transform#0 | __type	Transform
+Main Camera | Transform#0 | m_ConstrainProportionsScale	false
+Main Camera | Transform#0 | m_LocalPosition	(55, -2.821, -10)
+Main Camera | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+Main Camera | Transform#0 | m_LocalScale	(1, 1, 1)
+Main Camera | UniversalAdditionalCameraData#0 | __type	UniversalAdditionalCameraData
+Main Camera | UniversalAdditionalCameraData#0 | m_AllowHDROutput	true
+Main Camera | UniversalAdditionalCameraData#0 | m_AllowXRRendering	true
+Main Camera | UniversalAdditionalCameraData#0 | m_Antialiasing	No Anti-aliasing
+Main Camera | UniversalAdditionalCameraData#0 | m_AntialiasingQuality	High
+Main Camera | UniversalAdditionalCameraData#0 | m_CameraType	Base
+Main Camera | UniversalAdditionalCameraData#0 | m_Cameras	Array(size=0)
+Main Camera | UniversalAdditionalCameraData#0 | m_ClearDepth	true
+Main Camera | UniversalAdditionalCameraData#0 | m_Dithering	false
+Main Camera | UniversalAdditionalCameraData#0 | m_RenderPostProcessing	false
+Main Camera | UniversalAdditionalCameraData#0 | m_RenderShadows	true
+Main Camera | UniversalAdditionalCameraData#0 | m_RendererIndex	-1
+Main Camera | UniversalAdditionalCameraData#0 | m_RequiresColorTexture	false
+Main Camera | UniversalAdditionalCameraData#0 | m_RequiresDepthTexture	false
+Main Camera | UniversalAdditionalCameraData#0 | m_RequiresDepthTextureOption	Use settings from Render Pipeline Asset
+Main Camera | UniversalAdditionalCameraData#0 | m_RequiresOpaqueTextureOption	Use settings from Render Pipeline Asset
+Main Camera | UniversalAdditionalCameraData#0 | m_ScreenCoordScaleBias	(0, 0, 0, 0)
+Main Camera | UniversalAdditionalCameraData#0 | m_ScreenSizeOverride	(0, 0, 0, 0)
+Main Camera | UniversalAdditionalCameraData#0 | m_StopNaN	false
+Main Camera | UniversalAdditionalCameraData#0 | m_UseScreenCoordOverride	false
+Main Camera | UniversalAdditionalCameraData#0 | m_Version	Depth And Opaque Texture Options
+Main Camera | UniversalAdditionalCameraData#0 | m_VolumeFrameworkUpdateModeOption	Use Pipeline Settings
+Main Camera | UniversalAdditionalCameraData#0 | m_VolumeLayerMask	1
+Main Camera | UniversalAdditionalCameraData#0 | m_VolumeTrigger	null
+ShootTheRockScene | GameObject | activeInHierarchy	true
+ShootTheRockScene | GameObject | activeSelf	true
+ShootTheRockScene | GameObject | layer	0
+ShootTheRockScene | GameObject | siblingIndex	2
+ShootTheRockScene | GameObject | tag	Untagged
+ShootTheRockScene | ShootTheRockSceneRoot#0 | __type	ShootTheRockSceneRoot
+ShootTheRockScene | ShootTheRockSceneRoot#0 | autoRefreshPreview	true
+ShootTheRockScene | ShootTheRockSceneRoot#0 | cameraFramingController	Main Camera
+ShootTheRockScene | ShootTheRockSceneRoot#0 | cannonBarrel	ShootTheRockScene/CannonRoot/Barrel
+ShootTheRockScene | ShootTheRockSceneRoot#0 | cannonBase	ShootTheRockScene/CannonRoot/Base
+ShootTheRockScene | ShootTheRockSceneRoot#0 | cannonRoot	ShootTheRockScene/CannonRoot
+ShootTheRockScene | ShootTheRockSceneRoot#0 | firePoint	ShootTheRockScene/CannonRoot/FirePoint
+ShootTheRockScene | ShootTheRockSceneRoot#0 | floorCollider	ShootTheRockScene/GroundFloor
+ShootTheRockScene | ShootTheRockSceneRoot#0 | floorTransform	ShootTheRockScene/GroundFloor
+ShootTheRockScene | ShootTheRockSceneRoot#0 | moneyCanvas	ShootTheRockScene/MoneyCanvas
+ShootTheRockScene | ShootTheRockSceneRoot#0 | moneyHud	ShootTheRockScene/MoneyCanvas
+ShootTheRockScene | ShootTheRockSceneRoot#0 | moneyText	ShootTheRockScene/MoneyCanvas/MoneyText
+ShootTheRockScene | ShootTheRockSceneRoot#0 | rockWall	ShootTheRockScene/RockWall
+ShootTheRockScene | ShootTheRockSceneRoot#0 | sceneCamera	Main Camera
+ShootTheRockScene | ShootTheRockSceneRoot#0 | wallAnchor	ShootTheRockScene/WallAnchor
+ShootTheRockScene | ShootTheRockSceneRoot#0 | wallDefinition	Assets/_Game/Data/Wall/DefaultRockWallDefinition.asset
+ShootTheRockScene | Transform#0 | __type	Transform
+ShootTheRockScene | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene | Transform#0 | m_LocalPosition	(50, 0, 0)
+ShootTheRockScene | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene | Transform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/CannonRoot | GameObject | activeInHierarchy	true
+ShootTheRockScene/CannonRoot | GameObject | activeSelf	true
+ShootTheRockScene/CannonRoot | GameObject | layer	0
+ShootTheRockScene/CannonRoot | GameObject | siblingIndex	4
+ShootTheRockScene/CannonRoot | GameObject | tag	Untagged
+ShootTheRockScene/CannonRoot | Transform#0 | __type	Transform
+ShootTheRockScene/CannonRoot | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/CannonRoot | Transform#0 | m_LocalPosition	(-5, -8.285, 0)
+ShootTheRockScene/CannonRoot | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/CannonRoot | Transform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/CannonRoot/Barrel | GameObject | activeInHierarchy	true
+ShootTheRockScene/CannonRoot/Barrel | GameObject | activeSelf	true
+ShootTheRockScene/CannonRoot/Barrel | GameObject | layer	0
+ShootTheRockScene/CannonRoot/Barrel | GameObject | siblingIndex	1
+ShootTheRockScene/CannonRoot/Barrel | GameObject | tag	Untagged
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/CannonRoot/Barrel | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/CannonRoot/Barrel | Transform#0 | __type	Transform
+ShootTheRockScene/CannonRoot/Barrel | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/CannonRoot/Barrel | Transform#0 | m_LocalPosition	(0.54, 0, 0)
+ShootTheRockScene/CannonRoot/Barrel | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/CannonRoot/Barrel | Transform#0 | m_LocalScale	(1.12, 0.17, 1)
+ShootTheRockScene/CannonRoot/Base | GameObject | activeInHierarchy	true
+ShootTheRockScene/CannonRoot/Base | GameObject | activeSelf	true
+ShootTheRockScene/CannonRoot/Base | GameObject | layer	0
+ShootTheRockScene/CannonRoot/Base | GameObject | siblingIndex	0
+ShootTheRockScene/CannonRoot/Base | GameObject | tag	Untagged
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/CannonRoot/Base | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/CannonRoot/Base | Transform#0 | __type	Transform
+ShootTheRockScene/CannonRoot/Base | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/CannonRoot/Base | Transform#0 | m_LocalPosition	(0, 0, 0)
+ShootTheRockScene/CannonRoot/Base | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/CannonRoot/Base | Transform#0 | m_LocalScale	(0.62, 0.62, 1)
+ShootTheRockScene/CannonRoot/FirePoint | GameObject | activeInHierarchy	true
+ShootTheRockScene/CannonRoot/FirePoint | GameObject | activeSelf	true
+ShootTheRockScene/CannonRoot/FirePoint | GameObject | layer	0
+ShootTheRockScene/CannonRoot/FirePoint | GameObject | siblingIndex	2
+ShootTheRockScene/CannonRoot/FirePoint | GameObject | tag	Untagged
+ShootTheRockScene/CannonRoot/FirePoint | Transform#0 | __type	Transform
+ShootTheRockScene/CannonRoot/FirePoint | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/CannonRoot/FirePoint | Transform#0 | m_LocalPosition	(1.06, 0, 0)
+ShootTheRockScene/CannonRoot/FirePoint | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/CannonRoot/FirePoint | Transform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | __type	BoxCollider2D
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_AutoTiling	false
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_CallbackLayers	-1
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_CompositeOperation	None
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_CompositeOrder	0
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_ContactCaptureLayers	-1
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_Density	1
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_EdgeRadius	0
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_ExcludeLayers	0
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_ForceReceiveLayers	-1
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_ForceSendLayers	-1
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_IncludeLayers	0
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_IsTrigger	false
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_LayerOverridePriority	0
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_Material	null
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_Offset	(0, 0)
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_Size	(1, 1)
+ShootTheRockScene/GroundFloor | BoxCollider2D#0 | m_UsedByEffector	false
+ShootTheRockScene/GroundFloor | GameObject | activeInHierarchy	true
+ShootTheRockScene/GroundFloor | GameObject | activeSelf	true
+ShootTheRockScene/GroundFloor | GameObject | layer	0
+ShootTheRockScene/GroundFloor | GameObject | siblingIndex	1
+ShootTheRockScene/GroundFloor | GameObject | tag	Untagged
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/GroundFloor | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/GroundFloor | Transform#0 | __type	Transform
+ShootTheRockScene/GroundFloor | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/GroundFloor | Transform#0 | m_LocalPosition	(8, -8.95, 0)
+ShootTheRockScene/GroundFloor | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/GroundFloor | Transform#0 | m_LocalScale	(180, 0.85, 1)
+ShootTheRockScene/MoneyCanvas | Canvas#0 | __type	Canvas
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_AdditionalShaderChannelsFlag	None
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_Camera	null
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_OverridePixelPerfect	false
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_OverrideSorting	false
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_PixelPerfect	false
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_PlaneDistance	100
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_ReceivesEvents	true
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_RenderMode	Screen Space - Overlay
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_SortingBucketNormalizedSize	0
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_UpdateRectTransformForStandalone	Enabled
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_UseReflectionProbes	false
+ShootTheRockScene/MoneyCanvas | Canvas#0 | m_VertexColorAlwaysGammaSpace	false
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | __type	CanvasScaler
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_DefaultSpriteDPI	96
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_DynamicPixelsPerUnit	1
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_FallbackScreenDPI	96
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_MatchWidthOrHeight	0
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_PhysicalUnit	Points
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_PresetInfoIsWorld	false
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_ReferencePixelsPerUnit	100
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_ReferenceResolution	(1920, 1080)
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_ScaleFactor	1
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_ScreenMatchMode	Match Width Or Height
+ShootTheRockScene/MoneyCanvas | CanvasScaler#0 | m_UiScaleMode	Scale With Screen Size
+ShootTheRockScene/MoneyCanvas | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas | GraphicRaycaster#0 | __type	GraphicRaycaster
+ShootTheRockScene/MoneyCanvas | GraphicRaycaster#0 | m_BlockingMask	-1
+ShootTheRockScene/MoneyCanvas | GraphicRaycaster#0 | m_BlockingObjects	None
+ShootTheRockScene/MoneyCanvas | GraphicRaycaster#0 | m_IgnoreReversedGraphics	true
+ShootTheRockScene/MoneyCanvas | MoneyHud#0 | __type	MoneyHud
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_AnchorMax	(0, 0)
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_AnchoredPosition	(910, 540)
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_LocalPosition	(910, 540, 0)
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_Pivot	(0.5, 0.5)
+ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_SizeDelta	(1920, 1080)
+ShootTheRockScene/MoneyCanvas/MoneyText | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/MoneyText | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/MoneyText | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/MoneyText | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/MoneyText | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/MoneyText | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/MoneyText | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_AnchorMax	(0, 1)
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_AnchorMin	(0, 1)
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_AnchoredPosition	(28, -28)
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_LocalPosition	(-932, 512, 0)
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_Pivot	(0, 1)
+ShootTheRockScene/MoneyCanvas/MoneyText | RectTransform#0 | m_SizeDelta	(420, 90)
+ShootTheRockScene/MoneyCanvas/MoneyText | Text#0 | __type	Text
+ShootTheRockScene/MoneyCanvas/MoneyText | Text#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/MoneyCanvas/MoneyText | Text#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/MoneyText | Text#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/MoneyText | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/MoneyText | Text#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/MoneyText | Text#0 | m_Text	"$0"
+ShootTheRockScene/MoneyCanvas/UpgradePanel | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel | GameObject | siblingIndex	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_Color	RGBA(0, 0, 0, 0.55)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/UpgradePanel | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_AnchorMax	(0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_AnchorMin	(0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_AnchoredPosition	(28, -130)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_LocalPosition	(-932, 410, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_Pivot	(0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_SizeDelta	(380, 260)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Button#0 | __type	Button
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Button#0 | m_Interactable	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Button#0 | m_TargetGraphic	ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Button#0 | m_Transition	Color Tint
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | GameObject | siblingIndex	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_Color	RGBA(1, 1, 1, 0.18)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchorMax	(1, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchoredPosition	(0, 112)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalPosition	(190, -148, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_Pivot	(0.5, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_SizeDelta	(-24, 40)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_AnchorMax	(1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_AnchoredPosition	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_LocalPosition	(0, 20, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_Pivot	(0.5, 0.5)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | RectTransform#0 | m_SizeDelta	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | Text#0 | __type	Text
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | Text#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | Text#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | Text#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | Text#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton/Text | Text#0 | m_Text	"NO CANNON"
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Button#0 | __type	Button
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Button#0 | m_Interactable	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Button#0 | m_TargetGraphic	ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Button#0 | m_Transition	Color Tint
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | GameObject | siblingIndex	2
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_Color	RGBA(1, 1, 1, 0.18)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchorMax	(1, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchoredPosition	(0, 62)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalPosition	(190, -198, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_Pivot	(0.5, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_SizeDelta	(-24, 40)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_AnchorMax	(1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_AnchoredPosition	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_LocalPosition	(0, 20, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_Pivot	(0.5, 0.5)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | RectTransform#0 | m_SizeDelta	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | Text#0 | __type	Text
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | Text#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | Text#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | Text#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | Text#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton/Text | Text#0 | m_Text	"NO CANNON"
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Button#0 | __type	Button
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Button#0 | m_Interactable	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Button#0 | m_TargetGraphic	ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Button#0 | m_Transition	Color Tint
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | GameObject | siblingIndex	3
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_Color	RGBA(1, 1, 1, 0.18)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchorMax	(1, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchoredPosition	(0, 12)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalPosition	(190, -248, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_Pivot	(0.5, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_SizeDelta	(-24, 40)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_AnchorMax	(1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_AnchoredPosition	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_LocalPosition	(0, 20, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_Pivot	(0.5, 0.5)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | RectTransform#0 | m_SizeDelta	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | __type	Text
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_Text	"NEXT LVL (NO WALL)"
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_AnchorMax	(1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_AnchorMin	(0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_AnchoredPosition	(0, -10)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_LocalPosition	(190, -10, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_Pivot	(0.5, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_SizeDelta	(-24, 94)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | Text#0 | __type	Text
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | Text#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | Text#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | Text#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | Text#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | Text#0 | m_Text	"LVL ?/? CANNON Waiting for cannon"
+ShootTheRockScene/RockWall | GameObject | activeInHierarchy	true
+ShootTheRockScene/RockWall | GameObject | activeSelf	true
+ShootTheRockScene/RockWall | GameObject | layer	0
+ShootTheRockScene/RockWall | GameObject | siblingIndex	3
+ShootTheRockScene/RockWall | GameObject | tag	Untagged
+ShootTheRockScene/RockWall | MeshFilter#0 | __type	MeshFilter
+ShootTheRockScene/RockWall | MeshFilter#0 | m_Mesh	RockWallMesh
+ShootTheRockScene/RockWall | MeshRenderer#0 | __type	MeshRenderer
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_CastShadows	On
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_Materials	Array(size=4)
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_RayTracingMode	2
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_ReceiveShadows	true
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/RockWall | MeshRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | __type	PolygonCollider2D
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_AutoTiling	false
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_CallbackLayers	-1
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_CompositeOperation	None
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_CompositeOrder	0
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_ContactCaptureLayers	-1
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_Density	1
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_ExcludeLayers	0
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_ForceReceiveLayers	-1
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_ForceSendLayers	-1
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_IncludeLayers	0
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_IsTrigger	false
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_LayerOverridePriority	0
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_Material	null
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_Offset	(0, 0)
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_UseDelaunayMesh	true
+ShootTheRockScene/RockWall | PolygonCollider2D#0 | m_UsedByEffector	false
+ShootTheRockScene/RockWall | RockWall#0 | __type	RockWall
+ShootTheRockScene/RockWall | RockWall#0 | absorbTransformScaleIntoSize	true
+ShootTheRockScene/RockWall | RockWall#0 | activeProgressionFrameIndex	0
+ShootTheRockScene/RockWall | RockWall#0 | autoRebuildInEditMode	true
+ShootTheRockScene/RockWall | RockWall#0 | baseImpactDamage	1.15
+ShootTheRockScene/RockWall | RockWall#0 | cameraLookOffset	(0, 0)
+ShootTheRockScene/RockWall | RockWall#0 | cameraPadding	(3.4, 1.35)
+ShootTheRockScene/RockWall | RockWall#0 | cellMaxHitPoints	4
+ShootTheRockScene/RockWall | RockWall#0 | cellsPerUnit	10.87
+ShootTheRockScene/RockWall | RockWall#0 | centerDamageMultiplier	1.2
+ShootTheRockScene/RockWall | RockWall#0 | edgeDamageMultiplier	0.7
+ShootTheRockScene/RockWall | RockWall#0 | progressionFrames	Array(size=3)
+ShootTheRockScene/RockWall | RockWall#0 | useCameraBoundLevels	true
+ShootTheRockScene/RockWall | RockWall#0 | worldHeight	11.408
+ShootTheRockScene/RockWall | RockWall#0 | worldWidth	11.04
+ShootTheRockScene/RockWall | Transform#0 | __type	Transform
+ShootTheRockScene/RockWall | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/RockWall | Transform#0 | m_LocalPosition	(10.52, -2.821, 0)
+ShootTheRockScene/RockWall | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/RockWall | Transform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/WallAnchor | GameObject | activeInHierarchy	true
+ShootTheRockScene/WallAnchor | GameObject | activeSelf	true
+ShootTheRockScene/WallAnchor | GameObject | layer	0
+ShootTheRockScene/WallAnchor | GameObject | siblingIndex	2
+ShootTheRockScene/WallAnchor | GameObject | tag	Untagged
+ShootTheRockScene/WallAnchor | Transform#0 | __type	Transform
+ShootTheRockScene/WallAnchor | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/WallAnchor | Transform#0 | m_LocalPosition	(5, -8.525, 0)
+ShootTheRockScene/WallAnchor | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/WallAnchor | Transform#0 | m_LocalScale	(1, 1, 1)
