@@ -1,7 +1,7 @@
 ﻿# Shoot the ROCK Scene State Flat Snapshot
 # Deterministic line-oriented snapshot for git diffs
 # Scene: Assets/Scenes/SampleScene.unity
-# Saved: 2026-04-18 22:01:36
+# Saved: 2026-04-18 22:19:41
 
 Global Light 2D | GameObject | activeInHierarchy	true
 Global Light 2D | GameObject | activeSelf	true
@@ -87,8 +87,12 @@ Main Camera | Camera#0 | orthographic	true
 Main Camera | Camera#0 | orthographic size	7.054
 Main Camera | CameraFramingController#0 | __type	CameraFramingController
 Main Camera | CameraFramingController#0 | autoFrameEnabled	false
-Main Camera | CameraFramingController#0 | minimumLookAheadFromCannon	9.5
+Main Camera | CameraFramingController#0 | fallbackCannonViewportAnchor	(0.18, 0.22)
+Main Camera | CameraFramingController#0 | minimumAnimatedZoomStep	1.16
 Main Camera | CameraFramingController#0 | minimumOrthographicSize	1
+Main Camera | CameraFramingController#0 | preserveCannonViewportAnchor	true
+Main Camera | CameraFramingController#0 | revealZoomOutMultiplier	1.18
+Main Camera | CameraFramingController#0 | revealZoomOutPerLevel	0.12
 Main Camera | CameraFramingController#0 | settlePositionDistance	0.025
 Main Camera | CameraFramingController#0 | settleSizeDistance	0.025
 Main Camera | CameraFramingController#0 | smoothTime	0.55
