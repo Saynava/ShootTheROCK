@@ -11,11 +11,11 @@ using UnityEngine.SceneManagement;
 
 public static class ShootTheRockSceneStateSnapshot
 {
-    private const string SummaryPath = "Assets/_Game/UI/ShootTheRockSceneStateSnapshot.md";
-    private const string FlatPath = "Assets/_Game/UI/ShootTheRockSceneStateSnapshot.flat.txt";
-    private const string ChangePath = "Assets/_Game/UI/ShootTheRockSceneStateChanges.md";
-    private const string ProjectSummaryPath = "Assets/_Game/UI/ShootTheRockProjectStateSummary.md";
-    private const string RestoreSnapshotPath = "Assets/_Game/UI/ShootTheRockRestoreSnapshot.json";
+    private const string SummaryPath = "Assets/_Game/State/ShootTheRockSceneStateSnapshot.md";
+    private const string FlatPath = "Assets/_Game/State/ShootTheRockSceneStateSnapshot.flat.txt";
+    private const string ChangePath = "Assets/_Game/State/ShootTheRockSceneStateChanges.md";
+    private const string ProjectSummaryPath = "Assets/_Game/State/ShootTheRockProjectStateSummary.md";
+    private const string RestoreSnapshotPath = "Assets/_Game/State/ShootTheRockRestoreSnapshot.json";
     private const string RestoreSnapshotVersion = "2026-04-18-shoottherock-restore-state-v1";
 
     private const int MaxStringLength = 220;
