@@ -1,6 +1,6 @@
 ﻿# Shoot the ROCK Scene State Snapshot
 
-- Saved local time: 2026-04-19 13:49:33
+- Saved local time: 2026-04-19 18:44:27
 - Scene: Assets/Scenes/SampleScene.unity
 - Unity version: 6000.4.0f1
 - Purpose: compact but inspectable current-state snapshot for agent follow-up work
@@ -11,10 +11,10 @@
 
 ## Snapshot coverage
 - Tracked roots: 3
-- GameObjects captured: 22
-- Components captured: 66
-- Serialized property lines captured: 626
-- Total flat records: 802
+- GameObjects captured: 24
+- Components captured: 73
+- Serialized property lines captured: 672
+- Total flat records: 865
 
 ## Tracked roots
 - `Main Camera`

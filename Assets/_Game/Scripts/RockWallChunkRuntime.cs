@@ -11,6 +11,9 @@ public class RockWallChunkRuntime : MonoBehaviour
     private Color32[] pixelBuffer;
     private int textureWidth;
     private int textureHeight;
+    private bool hasSolidPixels;
+    private readonly Dictionary<Vector2Int, Vector2Int> boundaryEdges = new Dictionary<Vector2Int, Vector2Int>(1024);
+    private readonly List<List<Vector2>> colliderPaths = new List<List<Vector2>>(8);
 
     public void Build(
         bool[,] solidCells,
@@ -31,6 +34,7 @@ public class RockWallChunkRuntime : MonoBehaviour
         int activeMinColumn,
         int activeMaxColumn,
         Color[] damageTierColors,
+        bool rebuildVisual,
         bool rebuildCollider)
     {
         using (ShootTheRockPerformance.ChunkBuildMarker.Auto())
@@ -43,34 +47,38 @@ public class RockWallChunkRuntime : MonoBehaviour
             float pixelsPerUnit = Mathf.Max(1f, 1f / Mathf.Max(0.0001f, columnWidth));
             EnsureTexture(chunkColumns, chunkRows, pixelsPerUnit);
 
-            bool hasAnySolid = false;
-            for (int row = startRow; row < endRow; row++)
+            if (rebuildVisual)
             {
-                int localRow = row - startRow;
-                int pixelY = chunkRows - 1 - localRow;
-
-                for (int column = startColumn; column < endColumn; column++)
+                hasSolidPixels = false;
+                for (int row = startRow; row < endRow; row++)
                 {
-                    int pixelX = column - startColumn;
-                    int pixelIndex = (pixelY * chunkColumns) + pixelX;
+                    int localRow = row - startRow;
+                    int pixelY = chunkRows - 1 - localRow;
 
-                    if (!solidCells[row, column])
+                    for (int column = startColumn; column < endColumn; column++)
                     {
-                        pixelBuffer[pixelIndex] = new Color32(0, 0, 0, 0);
-                        continue;
+                        int pixelX = column - startColumn;
+                        int pixelIndex = (pixelY * chunkColumns) + pixelX;
+
+                        if (!solidCells[row, column])
+                        {
+                            pixelBuffer[pixelIndex] = new Color32(0, 0, 0, 0);
+                            continue;
+                        }
+
+                        hasSolidPixels = true;
+                        int damageTier = GetDamageVisualTier(cellHitPoints[row, column], cellMaxHitPoints);
+                        pixelBuffer[pixelIndex] = damageTier < damageTierColors.Length
+                            ? (Color32)damageTierColors[damageTier]
+                            : new Color32(255, 255, 255, 255);
                     }
-
-                    hasAnySolid = true;
-                    int damageTier = GetDamageVisualTier(cellHitPoints[row, column], cellMaxHitPoints);
-                    pixelBuffer[pixelIndex] = damageTier < damageTierColors.Length
-                        ? (Color32)damageTierColors[damageTier]
-                        : new Color32(255, 255, 255, 255);
                 }
-            }
 
-            texture.SetPixels32(pixelBuffer);
-            texture.Apply(false, false);
-            ShootTheRockPerformance.RecordTextureApply();
+                texture.SetPixels32(pixelBuffer);
+                texture.Apply(false, false);
+                ShootTheRockPerformance.RecordTextureApply();
+                spriteRenderer.enabled = hasSolidPixels;
+            }
 
             float leftX = (-worldWidth * 0.5f) + (startColumn * columnWidth);
             float rightX = (-worldWidth * 0.5f) + (endColumn * columnWidth);
@@ -82,9 +90,7 @@ public class RockWallChunkRuntime : MonoBehaviour
             transform.localRotation = Quaternion.identity;
             transform.localScale = Vector3.one;
 
-            spriteRenderer.enabled = hasAnySolid;
-
-            if (!hasAnySolid)
+            if (!hasSolidPixels)
             {
                 polygonCollider.enabled = false;
                 polygonCollider.pathCount = 0;
@@ -178,32 +184,25 @@ public class RockWallChunkRuntime : MonoBehaviour
     {
         using (ShootTheRockPerformance.ChunkColliderMarker.Auto())
         {
-            Dictionary<Vector2Int, Vector2Int> nextEdgeByStart = BuildBoundaryEdges(
-                solidCells,
-                rowCount,
-                columnCount,
-                startRow,
-                endRow,
-                startColumn,
-                endColumn);
+            BuildBoundaryEdges(solidCells, rowCount, columnCount, startRow, endRow, startColumn, endColumn);
 
-            List<List<Vector2>> paths = new List<List<Vector2>>();
-            while (nextEdgeByStart.Count > 0)
+            colliderPaths.Clear();
+            while (boundaryEdges.Count > 0)
             {
                 Vector2Int start = default;
-                foreach (KeyValuePair<Vector2Int, Vector2Int> pair in nextEdgeByStart)
+                foreach (KeyValuePair<Vector2Int, Vector2Int> pair in boundaryEdges)
                 {
                     start = pair.Key;
                     break;
                 }
 
                 Vector2Int current = start;
-                List<Vector2> path = new List<Vector2>();
+                List<Vector2> path = new List<Vector2>(64);
                 int guard = 0;
-                while (nextEdgeByStart.TryGetValue(current, out Vector2Int next) && guard < 20000)
+                while (boundaryEdges.TryGetValue(current, out Vector2Int next) && guard < 20000)
                 {
                     path.Add(GridCornerToChunkLocal(current, worldWidth, worldHeight, rowHeight, columnWidth, chunkCenterLocal));
-                    nextEdgeByStart.Remove(current);
+                    boundaryEdges.Remove(current);
                     current = next;
                     guard++;
                     if (current == start)
@@ -211,19 +210,19 @@ public class RockWallChunkRuntime : MonoBehaviour
                 }
 
                 if (path.Count >= 3)
-                    paths.Add(path);
+                    colliderPaths.Add(path);
             }
 
-            polygonCollider.enabled = paths.Count > 0;
-            polygonCollider.pathCount = paths.Count;
-            for (int i = 0; i < paths.Count; i++)
-                polygonCollider.SetPath(i, paths[i].ToArray());
+            polygonCollider.enabled = colliderPaths.Count > 0;
+            polygonCollider.pathCount = colliderPaths.Count;
+            for (int i = 0; i < colliderPaths.Count; i++)
+                polygonCollider.SetPath(i, colliderPaths[i].ToArray());
 
-            ShootTheRockPerformance.RecordColliderRebuild(paths.Count);
+            ShootTheRockPerformance.RecordColliderRebuild(colliderPaths.Count);
         }
     }
 
-    private Dictionary<Vector2Int, Vector2Int> BuildBoundaryEdges(
+    private void BuildBoundaryEdges(
         bool[,] solidCells,
         int rowCount,
         int columnCount,
@@ -232,7 +231,7 @@ public class RockWallChunkRuntime : MonoBehaviour
         int startColumn,
         int endColumn)
     {
-        Dictionary<Vector2Int, Vector2Int> edges = new Dictionary<Vector2Int, Vector2Int>();
+        boundaryEdges.Clear();
 
         for (int row = startRow; row < endRow; row++)
         {
@@ -242,17 +241,15 @@ public class RockWallChunkRuntime : MonoBehaviour
                     continue;
 
                 if (!IsSolidForChunk(solidCells, rowCount, columnCount, startRow, endRow, startColumn, endColumn, row - 1, column))
-                    edges[new Vector2Int(column, row)] = new Vector2Int(column + 1, row);
+                    boundaryEdges[new Vector2Int(column, row)] = new Vector2Int(column + 1, row);
                 if (!IsSolidForChunk(solidCells, rowCount, columnCount, startRow, endRow, startColumn, endColumn, row, column + 1))
-                    edges[new Vector2Int(column + 1, row)] = new Vector2Int(column + 1, row + 1);
+                    boundaryEdges[new Vector2Int(column + 1, row)] = new Vector2Int(column + 1, row + 1);
                 if (!IsSolidForChunk(solidCells, rowCount, columnCount, startRow, endRow, startColumn, endColumn, row + 1, column))
-                    edges[new Vector2Int(column + 1, row + 1)] = new Vector2Int(column, row + 1);
+                    boundaryEdges[new Vector2Int(column + 1, row + 1)] = new Vector2Int(column, row + 1);
                 if (!IsSolidForChunk(solidCells, rowCount, columnCount, startRow, endRow, startColumn, endColumn, row, column - 1))
-                    edges[new Vector2Int(column, row + 1)] = new Vector2Int(column, row);
+                    boundaryEdges[new Vector2Int(column, row + 1)] = new Vector2Int(column, row);
             }
         }
-
-        return edges;
     }
 
     private bool IsSolidForChunk(

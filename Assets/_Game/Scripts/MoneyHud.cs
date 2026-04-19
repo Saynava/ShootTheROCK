@@ -9,6 +9,8 @@ public class MoneyHud : MonoBehaviour
     private const string DamageUpgradeButtonName = "DamageUpgradeButton";
     private const string NextLevelButtonName = "NextLevelButton";
     private const string StressShotgunButtonName = "StressShotgunButton";
+    private const string AirburstGrenadeButtonName = "AirburstGrenadeButton";
+    private const string LegacyComboButtonName = "ScatterGrenadeButton";
     private const string UpgradeButtonTextName = "Text";
 
     private int money;
@@ -25,6 +27,8 @@ public class MoneyHud : MonoBehaviour
     private Text nextLevelButtonText;
     private Button stressShotgunButton;
     private Text stressShotgunButtonText;
+    private Button airburstGrenadeButton;
+    private Text airburstGrenadeButtonText;
 
     public void Initialize(Text moneyText)
     {
@@ -108,6 +112,15 @@ public class MoneyHud : MonoBehaviour
         Refresh();
     }
 
+    private void ToggleAirburstGrenade()
+    {
+        if (shooter == null)
+            return;
+
+        shooter.ToggleAirburstGrenade();
+        Refresh();
+    }
+
     private void Refresh()
     {
         if (moneyText != null)
@@ -140,6 +153,8 @@ public class MoneyHud : MonoBehaviour
             "DMG  LVL " + shooter.DamageLevel +
             "  |  BLAST x" + shooter.BlastRadiusScale.ToString("0.00") + "\n" +
             "DEBUG  SG " + (shooter.StressShotgunEnabled ? "ON" : "OFF") +
+            "  |  GRENADE " + (shooter.AirburstGrenadeEnabled ? "ON" : "OFF") + "\n" +
+            "COMBO " + ((shooter.StressShotgunEnabled && shooter.AirburstGrenadeEnabled) ? "ON" : "OFF") +
             "  |  RATE " + shooter.CurrentEffectiveFireInterval.ToString("0.00") + "s";
     }
 
@@ -162,6 +177,9 @@ public class MoneyHud : MonoBehaviour
 
         if (stressShotgunButton != null)
             stressShotgunButton.interactable = shooter != null;
+
+        if (airburstGrenadeButton != null)
+            airburstGrenadeButton.interactable = shooter != null;
 
         if (attackSpeedUpgradeButtonText != null)
         {
@@ -202,11 +220,21 @@ public class MoneyHud : MonoBehaviour
             else
                 stressShotgunButtonText.text = "DEBUG SHOTGUN 0.10s  OFF";
         }
+
+        if (airburstGrenadeButtonText != null)
+        {
+            if (shooter == null)
+                airburstGrenadeButtonText.text = "GRENADE (NO CANNON)";
+            else if (shooter.AirburstGrenadeEnabled)
+                airburstGrenadeButtonText.text = "AIRBURST GRENADE  ON";
+            else
+                airburstGrenadeButtonText.text = "AIRBURST GRENADE  OFF";
+        }
     }
 
     private void EnsureUpgradeUi()
     {
-        if (upgradeStatsText != null && attackSpeedUpgradeButton != null && attackSpeedUpgradeButtonText != null && damageUpgradeButton != null && damageUpgradeButtonText != null && nextLevelButton != null && nextLevelButtonText != null && stressShotgunButton != null && stressShotgunButtonText != null)
+        if (upgradeStatsText != null && attackSpeedUpgradeButton != null && attackSpeedUpgradeButtonText != null && damageUpgradeButton != null && damageUpgradeButtonText != null && nextLevelButton != null && nextLevelButtonText != null && stressShotgunButton != null && stressShotgunButtonText != null && airburstGrenadeButton != null && airburstGrenadeButtonText != null)
             return;
 
         Canvas canvas = GetComponent<Canvas>();
@@ -216,17 +244,21 @@ public class MoneyHud : MonoBehaviour
         Transform panelTransform = transform.Find(UpgradePanelName);
         if (panelTransform == null)
             panelTransform = CreateUpgradePanel(canvas.transform).transform;
+        ApplyPanelLayout(panelTransform as RectTransform);
+
+        RemoveLegacyComboButton(panelTransform);
 
         Transform statsTransform = panelTransform.Find(UpgradeStatsName);
         if (statsTransform == null)
             statsTransform = CreateStatsText(panelTransform).transform;
+        ApplyStatsLayout(statsTransform as RectTransform);
         upgradeStatsText = statsTransform.GetComponent<Text>();
 
         Transform attackButtonTransform = panelTransform.Find(AttackSpeedUpgradeButtonName);
         if (attackButtonTransform == null)
             attackButtonTransform = CreateUpgradeButton(panelTransform, AttackSpeedUpgradeButtonName, new Vector2(12f, 112f), new Vector2(-12f, 152f)).transform;
         attackSpeedUpgradeButton = attackButtonTransform.GetComponent<Button>();
-        ApplyButtonLayout(attackButtonTransform, new Vector2(12f, 162f), new Vector2(-12f, 202f));
+        ApplyButtonLayout(attackButtonTransform, new Vector2(12f, 212f), new Vector2(-12f, 252f));
 
         Transform attackButtonTextTransform = attackButtonTransform.Find(UpgradeButtonTextName);
         if (attackButtonTextTransform == null)
@@ -237,7 +269,7 @@ public class MoneyHud : MonoBehaviour
         if (damageButtonTransform == null)
             damageButtonTransform = CreateUpgradeButton(panelTransform, DamageUpgradeButtonName, new Vector2(12f, 62f), new Vector2(-12f, 102f)).transform;
         damageUpgradeButton = damageButtonTransform.GetComponent<Button>();
-        ApplyButtonLayout(damageButtonTransform, new Vector2(12f, 112f), new Vector2(-12f, 152f));
+        ApplyButtonLayout(damageButtonTransform, new Vector2(12f, 162f), new Vector2(-12f, 202f));
 
         Transform damageButtonTextTransform = damageButtonTransform.Find(UpgradeButtonTextName);
         if (damageButtonTextTransform == null)
@@ -248,7 +280,7 @@ public class MoneyHud : MonoBehaviour
         if (nextLevelTransform == null)
             nextLevelTransform = CreateUpgradeButton(panelTransform, NextLevelButtonName, new Vector2(12f, 62f), new Vector2(-12f, 102f)).transform;
         nextLevelButton = nextLevelTransform.GetComponent<Button>();
-        ApplyButtonLayout(nextLevelTransform, new Vector2(12f, 62f), new Vector2(-12f, 102f));
+        ApplyButtonLayout(nextLevelTransform, new Vector2(12f, 112f), new Vector2(-12f, 152f));
 
         Transform nextLevelTextTransform = nextLevelTransform.Find(UpgradeButtonTextName);
         if (nextLevelTextTransform == null)
@@ -257,14 +289,25 @@ public class MoneyHud : MonoBehaviour
 
         Transform stressShotgunTransform = panelTransform.Find(StressShotgunButtonName);
         if (stressShotgunTransform == null)
-            stressShotgunTransform = CreateUpgradeButton(panelTransform, StressShotgunButtonName, new Vector2(12f, 12f), new Vector2(-12f, 52f)).transform;
+            stressShotgunTransform = CreateUpgradeButton(panelTransform, StressShotgunButtonName, new Vector2(12f, 112f), new Vector2(-12f, 152f)).transform;
         stressShotgunButton = stressShotgunTransform.GetComponent<Button>();
-        ApplyButtonLayout(stressShotgunTransform, new Vector2(12f, 12f), new Vector2(-12f, 52f));
+        ApplyButtonLayout(stressShotgunTransform, new Vector2(12f, 62f), new Vector2(-12f, 102f));
 
         Transform stressShotgunTextTransform = stressShotgunTransform.Find(UpgradeButtonTextName);
         if (stressShotgunTextTransform == null)
             stressShotgunTextTransform = CreateUpgradeButtonText(stressShotgunTransform).transform;
         stressShotgunButtonText = stressShotgunTextTransform.GetComponent<Text>();
+
+        Transform airburstGrenadeTransform = panelTransform.Find(AirburstGrenadeButtonName);
+        if (airburstGrenadeTransform == null)
+            airburstGrenadeTransform = CreateUpgradeButton(panelTransform, AirburstGrenadeButtonName, new Vector2(12f, 12f), new Vector2(-12f, 52f)).transform;
+        airburstGrenadeButton = airburstGrenadeTransform.GetComponent<Button>();
+        ApplyButtonLayout(airburstGrenadeTransform, new Vector2(12f, 12f), new Vector2(-12f, 52f));
+
+        Transform airburstGrenadeTextTransform = airburstGrenadeTransform.Find(UpgradeButtonTextName);
+        if (airburstGrenadeTextTransform == null)
+            airburstGrenadeTextTransform = CreateUpgradeButtonText(airburstGrenadeTransform).transform;
+        airburstGrenadeButtonText = airburstGrenadeTextTransform.GetComponent<Text>();
 
         attackSpeedUpgradeButton.onClick.RemoveListener(TryBuyAttackSpeedUpgrade);
         attackSpeedUpgradeButton.onClick.AddListener(TryBuyAttackSpeedUpgrade);
@@ -274,6 +317,8 @@ public class MoneyHud : MonoBehaviour
         nextLevelButton.onClick.AddListener(TryAdvanceLevelTest);
         stressShotgunButton.onClick.RemoveListener(ToggleStressShotgun);
         stressShotgunButton.onClick.AddListener(ToggleStressShotgun);
+        airburstGrenadeButton.onClick.RemoveListener(ToggleAirburstGrenade);
+        airburstGrenadeButton.onClick.AddListener(ToggleAirburstGrenade);
     }
 
     private GameObject CreateUpgradePanel(Transform parent)
@@ -282,11 +327,7 @@ public class MoneyHud : MonoBehaviour
         panelObject.transform.SetParent(parent, false);
 
         RectTransform rect = panelObject.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0f, 1f);
-        rect.anchorMax = new Vector2(0f, 1f);
-        rect.pivot = new Vector2(0f, 1f);
-        rect.anchoredPosition = new Vector2(28f, -130f);
-        rect.sizeDelta = new Vector2(380f, 360f);
+        ApplyPanelLayout(rect);
 
         Image image = panelObject.GetComponent<Image>();
         image.color = new Color(0f, 0f, 0f, 0.55f);
@@ -299,11 +340,7 @@ public class MoneyHud : MonoBehaviour
         textObject.transform.SetParent(parent, false);
 
         RectTransform rect = textObject.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0f, 1f);
-        rect.anchorMax = new Vector2(1f, 1f);
-        rect.pivot = new Vector2(0.5f, 1f);
-        rect.offsetMin = new Vector2(12f, -176f);
-        rect.offsetMax = new Vector2(-12f, -10f);
+        ApplyStatsLayout(rect);
 
         Text text = textObject.GetComponent<Text>();
         text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -312,6 +349,42 @@ public class MoneyHud : MonoBehaviour
         text.alignment = TextAnchor.UpperLeft;
         text.color = Color.white;
         return textObject;
+    }
+
+    private void ApplyPanelLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+        rect.anchoredPosition = new Vector2(28f, -130f);
+        rect.sizeDelta = new Vector2(380f, 510f);
+    }
+
+    private void ApplyStatsLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.offsetMin = new Vector2(12f, -494f);
+        rect.offsetMax = new Vector2(-12f, -270f);
+    }
+
+    private void RemoveLegacyComboButton(Transform panelTransform)
+    {
+        Transform legacyComboTransform = panelTransform.Find(LegacyComboButtonName);
+        if (legacyComboTransform == null)
+            return;
+
+        if (Application.isPlaying)
+            Destroy(legacyComboTransform.gameObject);
+        else
+            DestroyImmediate(legacyComboTransform.gameObject);
     }
 
     private GameObject CreateUpgradeButton(Transform parent, string buttonName, Vector2 offsetMin, Vector2 offsetMax)

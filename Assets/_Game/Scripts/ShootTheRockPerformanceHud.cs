@@ -92,9 +92,11 @@ public class ShootTheRockPerformanceHud : MonoBehaviour
             "HITS " + snapshot.hitsPerSecond.ToString("0.0") + "/s  |  TEX " + snapshot.textureAppliesLastFrame + "/f\n" +
             "PROJ " + snapshot.activeProjectiles + " active  |  MISS " + snapshot.projectilePoolMissesPerSecond.ToString("0.0") + "/s\n" +
             "CHIPS " + snapshot.activeChipParticles + " active  |  MISS " + snapshot.chipPoolMissesPerSecond.ToString("0.0") + "/s\n" +
+            "WFX " + snapshot.activeWallEffects + " active  |  TICKS " + snapshot.wallEffectTicksLastFrame + "/f\n" +
             "DESTROY " + snapshot.cellsDestroyedLastFrame + "/f  |  TIER " + snapshot.damageTierChangesLastFrame + "/f\n" +
             "ISLAND scan " + snapshot.islandScanCellsLastFrame + "  |  rm " + snapshot.islandRemovedCellsLastFrame + "\n" +
             "CHUNKS " + snapshot.chunkBuildsLastFrame + "/f  |  COLL " + snapshot.colliderRebuildsLastFrame + "/f\n" +
+            "DIRTY V " + snapshot.dirtyVisualChunks + "  |  DIRTY C " + snapshot.dirtyColliderChunks + "\n" +
             "PATHS " + snapshot.colliderPathsLastFrame + "/f";
     }
 
@@ -108,7 +110,7 @@ public class ShootTheRockPerformanceHud : MonoBehaviour
         rect.anchorMax = new Vector2(1f, 1f);
         rect.pivot = new Vector2(1f, 1f);
         rect.anchoredPosition = new Vector2(-24f, -24f);
-        rect.sizeDelta = new Vector2(420f, 260f);
+        rect.sizeDelta = new Vector2(440f, 300f);
 
         Image image = createdPanel.GetComponent<Image>();
         image.color = new Color(0f, 0f, 0f, 0.68f);

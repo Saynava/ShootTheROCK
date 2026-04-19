@@ -7,6 +7,13 @@ public class AutoShooter : MonoBehaviour
     private const float StressShotgunFireInterval = 0.1f;
     private const int StressShotgunPelletCount = 7;
     private const float StressShotgunSpreadAngle = 28f;
+    private const float AirburstGrenadeFuseTime = 0.43f;
+    private const float AirburstGrenadeSpeedMultiplier = 0.72f;
+    private const int AirburstFragmentCount = 9;
+    private const float AirburstFragmentSpreadAngle = 46f;
+    private const float AirburstFragmentSpeedMultiplier = 1.25f;
+    private const float AirburstFragmentBlastScaleMultiplier = 0.45f;
+    private const float AirburstFragmentGravity = 0.18f;
 
     [Header("Firing")]
     [SerializeField] private float fireInterval = 2f;
@@ -32,6 +39,7 @@ public class AutoShooter : MonoBehaviour
     private int attackSpeedLevel;
     private int damageLevel;
     private bool stressShotgunEnabled;
+    private bool airburstGrenadeEnabled;
     private Transform projectilePoolRoot;
     private readonly Queue<Projectile> projectilePool = new Queue<Projectile>();
 
@@ -45,6 +53,7 @@ public class AutoShooter : MonoBehaviour
     public int NextDamageUpgradeCost => baseDamageUpgradeCost + (damageLevel * damageUpgradeCostStep);
     public bool CanUpgradeDamage => blastRadiusScale < maximumBlastRadiusScale - 0.0001f;
     public bool StressShotgunEnabled => stressShotgunEnabled;
+    public bool AirburstGrenadeEnabled => airburstGrenadeEnabled;
     public float CurrentEffectiveFireInterval => stressShotgunEnabled ? StressShotgunFireInterval : fireInterval;
 
     public void Initialize(Transform firePoint, RockWall rockWall)
@@ -114,15 +123,33 @@ public class AutoShooter : MonoBehaviour
         nextShotTime = Time.time + 0.05f;
     }
 
+    public void ToggleAirburstGrenade()
+    {
+        airburstGrenadeEnabled = !airburstGrenadeEnabled;
+        nextShotTime = Time.time + 0.05f;
+    }
+
     private void Fire()
     {
         using (ShootTheRockPerformance.FireMarker.Auto())
         {
             ShootTheRockPerformance.RecordShot();
 
+            if (stressShotgunEnabled && airburstGrenadeEnabled)
+            {
+                FireAirburstShotgun();
+                return;
+            }
+
             if (stressShotgunEnabled)
             {
                 FireStressShotgun();
+                return;
+            }
+
+            if (airburstGrenadeEnabled)
+            {
+                FireAirburstGrenade();
                 return;
             }
 
@@ -132,12 +159,6 @@ public class AutoShooter : MonoBehaviour
 
     private void FireStressShotgun()
     {
-        if (StressShotgunPelletCount <= 1)
-        {
-            FireSingleProjectile((Vector2)firePoint.right);
-            return;
-        }
-
         float halfSpread = StressShotgunSpreadAngle * 0.5f;
         for (int i = 0; i < StressShotgunPelletCount; i++)
         {
@@ -152,7 +173,62 @@ public class AutoShooter : MonoBehaviour
     {
         ShootTheRockPerformance.RecordPellet();
         Projectile projectile = AcquireProjectile();
-        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, blastRadiusScale);
+        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, blastRadiusScale, projectileGravity);
+    }
+
+    private void FireAirburstGrenade()
+    {
+        LaunchAirburstGrenade((Vector2)firePoint.right, AirburstGrenadeFuseTime);
+    }
+
+    private void FireAirburstShotgun()
+    {
+        float halfSpread = StressShotgunSpreadAngle * 0.5f;
+        for (int i = 0; i < StressShotgunPelletCount; i++)
+        {
+            float t = StressShotgunPelletCount == 1 ? 0.5f : i / (float)(StressShotgunPelletCount - 1);
+            float angle = Mathf.Lerp(-halfSpread, halfSpread, t);
+            Vector2 direction = (Quaternion.Euler(0f, 0f, angle) * firePoint.right).normalized;
+            LaunchAirburstGrenade(direction, AirburstGrenadeFuseTime);
+        }
+    }
+
+    private void LaunchAirburstGrenade(Vector2 direction, float fuseTime)
+    {
+        ShootTheRockPerformance.RecordPellet();
+        Projectile projectile = AcquireProjectile();
+        projectile.LaunchAirburstGrenade(
+            firePoint.position,
+            direction,
+            projectileSpeed * AirburstGrenadeSpeedMultiplier,
+            rockWall,
+            blastRadiusScale,
+            fuseTime,
+            projectileGravity);
+    }
+
+    public void SpawnAirburstFragments(Vector2 worldPosition, Vector2 forwardDirection, RockWall sourceWall, float sourceBlastScale)
+    {
+        Vector2 normalizedForward = forwardDirection.sqrMagnitude > 0.0001f ? forwardDirection.normalized : (Vector2)firePoint.right;
+        float halfSpread = AirburstFragmentSpreadAngle * 0.5f;
+        float fragmentBlastScale = Mathf.Max(0.2f, sourceBlastScale * AirburstFragmentBlastScaleMultiplier);
+
+        for (int i = 0; i < AirburstFragmentCount; i++)
+        {
+            float t = AirburstFragmentCount == 1 ? 0.5f : i / (float)(AirburstFragmentCount - 1);
+            float angle = Mathf.Lerp(-halfSpread, halfSpread, t);
+            Vector2 fragmentDirection = (Quaternion.Euler(0f, 0f, angle) * normalizedForward).normalized;
+
+            ShootTheRockPerformance.RecordPellet();
+            Projectile fragment = AcquireProjectile();
+            fragment.LaunchFragment(
+                worldPosition,
+                fragmentDirection,
+                projectileSpeed * AirburstFragmentSpeedMultiplier,
+                sourceWall != null ? sourceWall : rockWall,
+                fragmentBlastScale,
+                AirburstFragmentGravity);
+        }
     }
 
     private Projectile AcquireProjectile()

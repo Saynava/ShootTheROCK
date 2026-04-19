@@ -14,6 +14,7 @@ public static class ShootTheRockPerformance
         public readonly float chipPoolMissesPerSecond;
         public readonly int activeProjectiles;
         public readonly int activeChipParticles;
+        public readonly int activeWallEffects;
         public readonly int cellsDestroyedLastFrame;
         public readonly int damageTierChangesLastFrame;
         public readonly int islandScanCellsLastFrame;
@@ -22,6 +23,9 @@ public static class ShootTheRockPerformance
         public readonly int colliderRebuildsLastFrame;
         public readonly int colliderPathsLastFrame;
         public readonly int textureAppliesLastFrame;
+        public readonly int wallEffectTicksLastFrame;
+        public readonly int dirtyVisualChunks;
+        public readonly int dirtyColliderChunks;
 
         public Snapshot(
             float fps,
@@ -33,6 +37,7 @@ public static class ShootTheRockPerformance
             float chipPoolMissesPerSecond,
             int activeProjectiles,
             int activeChipParticles,
+            int activeWallEffects,
             int cellsDestroyedLastFrame,
             int damageTierChangesLastFrame,
             int islandScanCellsLastFrame,
@@ -40,7 +45,10 @@ public static class ShootTheRockPerformance
             int chunkBuildsLastFrame,
             int colliderRebuildsLastFrame,
             int colliderPathsLastFrame,
-            int textureAppliesLastFrame)
+            int textureAppliesLastFrame,
+            int wallEffectTicksLastFrame,
+            int dirtyVisualChunks,
+            int dirtyColliderChunks)
         {
             this.fps = fps;
             this.frameMs = frameMs;
@@ -51,6 +59,7 @@ public static class ShootTheRockPerformance
             this.chipPoolMissesPerSecond = chipPoolMissesPerSecond;
             this.activeProjectiles = activeProjectiles;
             this.activeChipParticles = activeChipParticles;
+            this.activeWallEffects = activeWallEffects;
             this.cellsDestroyedLastFrame = cellsDestroyedLastFrame;
             this.damageTierChangesLastFrame = damageTierChangesLastFrame;
             this.islandScanCellsLastFrame = islandScanCellsLastFrame;
@@ -59,6 +68,9 @@ public static class ShootTheRockPerformance
             this.colliderRebuildsLastFrame = colliderRebuildsLastFrame;
             this.colliderPathsLastFrame = colliderPathsLastFrame;
             this.textureAppliesLastFrame = textureAppliesLastFrame;
+            this.wallEffectTicksLastFrame = wallEffectTicksLastFrame;
+            this.dirtyVisualChunks = dirtyVisualChunks;
+            this.dirtyColliderChunks = dirtyColliderChunks;
         }
     }
 
@@ -102,54 +114,30 @@ public static class ShootTheRockPerformance
     private static int frameColliderRebuilds;
     private static int frameColliderPaths;
     private static int frameTextureApplies;
+    private static int frameWallEffectTicks;
 
     private static int activeProjectiles;
     private static int activeChipParticles;
+    private static int activeWallEffects;
+    private static int currentDirtyVisualChunks;
+    private static int currentDirtyColliderChunks;
     private static int lastClosedFrame = -1;
 
-    public static void RecordShot()
-    {
-        frameShots++;
-    }
+    public static void RecordShot() => frameShots++;
+    public static void RecordPellet() => framePellets++;
+    public static void RecordHit() => frameHits++;
+    public static void RecordProjectilePoolMiss() => frameProjectilePoolMisses++;
+    public static void RecordChipPoolMiss() => frameChipPoolMisses++;
+    public static void RecordProjectileActivated() => activeProjectiles++;
+    public static void RecordProjectileDeactivated() => activeProjectiles = Mathf.Max(0, activeProjectiles - 1);
+    public static void RecordChipActivated() => activeChipParticles++;
+    public static void RecordChipDeactivated() => activeChipParticles = Mathf.Max(0, activeChipParticles - 1);
+    public static void SetActiveWallEffects(int count) => activeWallEffects = Mathf.Max(0, count);
 
-    public static void RecordPellet()
+    public static void SetDirtyChunkCounts(int visualDirtyChunkCount, int colliderDirtyChunkCount)
     {
-        framePellets++;
-    }
-
-    public static void RecordHit()
-    {
-        frameHits++;
-    }
-
-    public static void RecordProjectilePoolMiss()
-    {
-        frameProjectilePoolMisses++;
-    }
-
-    public static void RecordChipPoolMiss()
-    {
-        frameChipPoolMisses++;
-    }
-
-    public static void RecordProjectileActivated()
-    {
-        activeProjectiles++;
-    }
-
-    public static void RecordProjectileDeactivated()
-    {
-        activeProjectiles = Mathf.Max(0, activeProjectiles - 1);
-    }
-
-    public static void RecordChipActivated()
-    {
-        activeChipParticles++;
-    }
-
-    public static void RecordChipDeactivated()
-    {
-        activeChipParticles = Mathf.Max(0, activeChipParticles - 1);
+        currentDirtyVisualChunks = Mathf.Max(0, visualDirtyChunkCount);
+        currentDirtyColliderChunks = Mathf.Max(0, colliderDirtyChunkCount);
     }
 
     public static void RecordCellsDestroyed(int count)
@@ -194,6 +182,12 @@ public static class ShootTheRockPerformance
             frameTextureApplies += count;
     }
 
+    public static void RecordWallEffectTick(int count = 1)
+    {
+        if (count > 0)
+            frameWallEffectTicks += count;
+    }
+
     public static void EndFrame(float unscaledDeltaTime)
     {
         int frame = Time.frameCount;
@@ -223,6 +217,7 @@ public static class ShootTheRockPerformance
                 windowChipPoolMisses / divisor,
                 activeProjectiles,
                 activeChipParticles,
+                activeWallEffects,
                 frameCellsDestroyed,
                 frameDamageTierChanges,
                 frameIslandScanCells,
@@ -230,7 +225,10 @@ public static class ShootTheRockPerformance
                 frameChunkBuilds,
                 frameColliderRebuilds,
                 frameColliderPaths,
-                frameTextureApplies);
+                frameTextureApplies,
+                frameWallEffectTicks,
+                currentDirtyVisualChunks,
+                currentDirtyColliderChunks);
 
             windowTime = 0f;
             windowFrameCount = 0;
@@ -252,6 +250,7 @@ public static class ShootTheRockPerformance
                 currentSnapshot.chipPoolMissesPerSecond,
                 activeProjectiles,
                 activeChipParticles,
+                activeWallEffects,
                 frameCellsDestroyed,
                 frameDamageTierChanges,
                 frameIslandScanCells,
@@ -259,7 +258,10 @@ public static class ShootTheRockPerformance
                 frameChunkBuilds,
                 frameColliderRebuilds,
                 frameColliderPaths,
-                frameTextureApplies);
+                frameTextureApplies,
+                frameWallEffectTicks,
+                currentDirtyVisualChunks,
+                currentDirtyColliderChunks);
         }
 
         frameShots = 0;
@@ -275,5 +277,6 @@ public static class ShootTheRockPerformance
         frameColliderRebuilds = 0;
         frameColliderPaths = 0;
         frameTextureApplies = 0;
+        frameWallEffectTicks = 0;
     }
 }

@@ -20,12 +20,17 @@ public static class ShootTheRockSceneSync
 
     public static void SaveCurrentCheckpointState()
     {
+        int removedMissingScripts = ShootTheRockSceneCleanup.CleanupMissingScriptsInActiveScene();
         EditorSceneManager.SaveOpenScenes();
         AssetDatabase.SaveAssets();
         ShootTheRockSceneStateSnapshot.SaveCurrentSceneStateSnapshot();
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log("Shoot the ROCK checkpoint state saved.");
+
+        if (removedMissingScripts > 0)
+            Debug.Log($"Shoot the ROCK checkpoint state saved. Removed {removedMissingScripts} missing script component(s) first.");
+        else
+            Debug.Log("Shoot the ROCK checkpoint state saved.");
     }
 
     public static void RestoreSavedState()

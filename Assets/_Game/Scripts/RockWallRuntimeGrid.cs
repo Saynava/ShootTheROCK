@@ -9,6 +9,7 @@ public class RockWallRuntimeGrid
     private Transform chunkRoot;
     private int chunkSizeInCells;
     private readonly List<RockWallChunkRuntime> chunks = new List<RockWallChunkRuntime>();
+    private readonly HashSet<int> rebuildChunkIndices = new HashSet<int>();
 
     public void Initialize(Transform ownerTransform, int chunkSizeInCells)
     {
@@ -58,14 +59,8 @@ public class RockWallRuntimeGrid
             {
                 for (int chunkColumn = 0; chunkColumn < chunkColumns; chunkColumn++)
                 {
-                    int startRow = chunkRow * chunkSizeInCells;
-                    int endRow = Mathf.Min(rowCount, startRow + chunkSizeInCells);
-                    int startColumn = chunkColumn * chunkSizeInCells;
-                    int endColumn = Mathf.Min(columnCount, startColumn + chunkSizeInCells);
-
-                    RockWallChunkRuntime chunk = chunks[chunkIndex++];
-                    chunk.gameObject.SetActive(true);
-                    chunk.Build(
+                    BuildChunk(
+                        chunkIndex++,
                         solidCells,
                         cellHitPoints,
                         cellMaxHitPoints,
@@ -75,16 +70,13 @@ public class RockWallRuntimeGrid
                         worldHeight,
                         rowHeight,
                         columnWidth,
-                        startRow,
-                        endRow,
-                        startColumn,
-                        endColumn,
                         activeMinRow,
                         activeMaxRow,
                         activeMinColumn,
                         activeMaxColumn,
                         damageTierColors,
-                        rebuildCollider);
+                        rebuildVisual: true,
+                        rebuildCollider: rebuildCollider);
                 }
             }
 
@@ -103,10 +95,8 @@ public class RockWallRuntimeGrid
         float worldHeight,
         float rowHeight,
         float columnWidth,
-        int dirtyMinRow,
-        int dirtyMaxRow,
-        int dirtyMinColumn,
-        int dirtyMaxColumn,
+        ICollection<int> dirtyVisualChunkIndices,
+        ICollection<int> dirtyColliderChunkIndices,
         int activeMinRow,
         int activeMaxRow,
         int activeMinColumn,
@@ -126,46 +116,101 @@ public class RockWallRuntimeGrid
             int chunkColumns = Mathf.CeilToInt(columnCount / (float)chunkSizeInCells);
             EnsureChunkCount(chunkRows * chunkColumns);
 
-            int minChunkRow = Mathf.Clamp(dirtyMinRow / chunkSizeInCells, 0, Mathf.Max(0, chunkRows - 1));
-            int maxChunkRow = Mathf.Clamp(dirtyMaxRow / chunkSizeInCells, 0, Mathf.Max(0, chunkRows - 1));
-            int minChunkColumn = Mathf.Clamp(dirtyMinColumn / chunkSizeInCells, 0, Mathf.Max(0, chunkColumns - 1));
-            int maxChunkColumn = Mathf.Clamp(dirtyMaxColumn / chunkSizeInCells, 0, Mathf.Max(0, chunkColumns - 1));
-
-            for (int chunkRow = minChunkRow; chunkRow <= maxChunkRow; chunkRow++)
+            rebuildChunkIndices.Clear();
+            if (dirtyVisualChunkIndices != null)
             {
-                for (int chunkColumn = minChunkColumn; chunkColumn <= maxChunkColumn; chunkColumn++)
-                {
-                    int chunkIndex = (chunkRow * chunkColumns) + chunkColumn;
-                    int startRow = chunkRow * chunkSizeInCells;
-                    int endRow = Mathf.Min(rowCount, startRow + chunkSizeInCells);
-                    int startColumn = chunkColumn * chunkSizeInCells;
-                    int endColumn = Mathf.Min(columnCount, startColumn + chunkSizeInCells);
+                foreach (int chunkIndex in dirtyVisualChunkIndices)
+                    rebuildChunkIndices.Add(chunkIndex);
+            }
 
-                    RockWallChunkRuntime chunk = chunks[chunkIndex];
-                    chunk.gameObject.SetActive(true);
-                    chunk.Build(
-                        solidCells,
-                        cellHitPoints,
-                        cellMaxHitPoints,
-                        rowCount,
-                        columnCount,
-                        worldWidth,
-                        worldHeight,
-                        rowHeight,
-                        columnWidth,
-                        startRow,
-                        endRow,
-                        startColumn,
-                        endColumn,
-                        activeMinRow,
-                        activeMaxRow,
-                        activeMinColumn,
-                        activeMaxColumn,
-                        damageTierColors,
-                        rebuildCollider);
-                }
+            if (rebuildCollider && dirtyColliderChunkIndices != null)
+            {
+                foreach (int chunkIndex in dirtyColliderChunkIndices)
+                    rebuildChunkIndices.Add(chunkIndex);
+            }
+
+            foreach (int chunkIndex in rebuildChunkIndices)
+            {
+                if (chunkIndex < 0 || chunkIndex >= chunks.Count)
+                    continue;
+
+                bool rebuildVisual = dirtyVisualChunkIndices != null && dirtyVisualChunkIndices.Contains(chunkIndex);
+                bool chunkNeedsCollider = rebuildCollider && dirtyColliderChunkIndices != null && dirtyColliderChunkIndices.Contains(chunkIndex);
+                if (!rebuildVisual && !chunkNeedsCollider)
+                    continue;
+
+                BuildChunk(
+                    chunkIndex,
+                    solidCells,
+                    cellHitPoints,
+                    cellMaxHitPoints,
+                    rowCount,
+                    columnCount,
+                    worldWidth,
+                    worldHeight,
+                    rowHeight,
+                    columnWidth,
+                    activeMinRow,
+                    activeMaxRow,
+                    activeMinColumn,
+                    activeMaxColumn,
+                    damageTierColors,
+                    rebuildVisual,
+                    chunkNeedsCollider);
             }
         }
+    }
+
+    private void BuildChunk(
+        int chunkIndex,
+        bool[,] solidCells,
+        float[,] cellHitPoints,
+        float cellMaxHitPoints,
+        int rowCount,
+        int columnCount,
+        float worldWidth,
+        float worldHeight,
+        float rowHeight,
+        float columnWidth,
+        int activeMinRow,
+        int activeMaxRow,
+        int activeMinColumn,
+        int activeMaxColumn,
+        Color[] damageTierColors,
+        bool rebuildVisual,
+        bool rebuildCollider)
+    {
+        int chunkColumns = Mathf.CeilToInt(columnCount / (float)chunkSizeInCells);
+        int chunkRow = chunkIndex / chunkColumns;
+        int chunkColumn = chunkIndex % chunkColumns;
+        int startRow = chunkRow * chunkSizeInCells;
+        int endRow = Mathf.Min(rowCount, startRow + chunkSizeInCells);
+        int startColumn = chunkColumn * chunkSizeInCells;
+        int endColumn = Mathf.Min(columnCount, startColumn + chunkSizeInCells);
+
+        RockWallChunkRuntime chunk = chunks[chunkIndex];
+        chunk.gameObject.SetActive(true);
+        chunk.Build(
+            solidCells,
+            cellHitPoints,
+            cellMaxHitPoints,
+            rowCount,
+            columnCount,
+            worldWidth,
+            worldHeight,
+            rowHeight,
+            columnWidth,
+            startRow,
+            endRow,
+            startColumn,
+            endColumn,
+            activeMinRow,
+            activeMaxRow,
+            activeMinColumn,
+            activeMaxColumn,
+            damageTierColors,
+            rebuildVisual,
+            rebuildCollider);
     }
 
     private void EnsureChunkRoot()

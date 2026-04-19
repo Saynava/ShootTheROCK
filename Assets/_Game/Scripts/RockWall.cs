@@ -5,6 +5,41 @@ using UnityEngine.Rendering;
 [ExecuteAlways]
 public class RockWall : MonoBehaviour
 {
+    private readonly struct WallEffectKey : System.IEquatable<WallEffectKey>
+    {
+        public readonly RockWallEffectType effectType;
+        public readonly int row;
+        public readonly int column;
+
+        public WallEffectKey(RockWallEffectType effectType, int row, int column)
+        {
+            this.effectType = effectType;
+            this.row = row;
+            this.column = column;
+        }
+
+        public bool Equals(WallEffectKey other)
+        {
+            return effectType == other.effectType && row == other.row && column == other.column;
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is WallEffectKey other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = (int)effectType;
+                hash = (hash * 397) ^ row;
+                hash = (hash * 397) ^ column;
+                return hash;
+            }
+        }
+    }
+
     private struct LegacyLevelShape
     {
         public readonly float WorldWidth;
@@ -109,6 +144,12 @@ public class RockWall : MonoBehaviour
     [Min(0.01f)]
     [SerializeField] private float islandCleanupInterval = 0.15f;
 
+    [Header("Wall Effects")]
+    [Min(1)]
+    [SerializeField] private int maxWallEffectTicksPerFrame = 24;
+    [Min(4)]
+    [SerializeField] private int maxWallEffectEvaluationsPerFrame = 96;
+
     [Header("Debug View")]
     [SerializeField] private bool drawDebugGizmos = true;
     [SerializeField] private bool drawChunkGizmos = true;
@@ -134,23 +175,20 @@ public class RockWall : MonoBehaviour
     private int minimumColumnsRemaining;
     private RockWallRuntimeGrid runtimeGrid;
     private bool runtimeChunkFullRebuildRequired = true;
-    private bool hasDirtyChunkRegion;
-    private int dirtyMinRow;
-    private int dirtyMaxRow;
-    private int dirtyMinColumn;
-    private int dirtyMaxColumn;
-    private bool hasPendingColliderDirtyRegion;
-    private int colliderDirtyMinRow;
-    private int colliderDirtyMaxRow;
-    private int colliderDirtyMinColumn;
-    private int colliderDirtyMaxColumn;
+    private readonly HashSet<int> dirtyVisualChunkIndices = new HashSet<int>();
+    private readonly HashSet<int> dirtyColliderChunkIndices = new HashSet<int>();
     private float nextColliderRebuildTime;
     private bool hasPendingIslandCleanup;
     private float nextIslandCleanupTime;
     private bool[,] islandConnectedBuffer;
     private readonly Queue<Vector2Int> islandCleanupQueue = new Queue<Vector2Int>();
     private readonly List<Vector2> islandCleanupRemovedPixelCenters = new List<Vector2>();
+    private readonly List<Vector2> hitRemovedPixelCenters = new List<Vector2>(64);
+    private readonly List<RockWallEffectRuntime> activeWallEffects = new List<RockWallEffectRuntime>(64);
+    private readonly Dictionary<WallEffectKey, int> wallEffectIndexByKey = new Dictionary<WallEffectKey, int>();
+    private readonly List<Vector2> wallEffectRemovedPixelCenters = new List<Vector2>(64);
     private readonly Queue<ChipParticle> chipParticlePool = new Queue<ChipParticle>();
+    private int wallEffectCursor;
 
     public float WorldWidth => worldWidth;
     public float WorldHeight => worldHeight;
@@ -257,17 +295,33 @@ public class RockWall : MonoBehaviour
 
             ShootTheRockPerformance.RecordHit();
             moneyHud?.AddMoney(1);
-            List<Vector2> removedPixelCenters = CarveRock(resolvedWorldPoint, pushDirection, Mathf.Max(0.25f, blastRadiusScale));
-            if (removedPixelCenters.Count == 0)
-                removedPixelCenters = ForceImpactAtNearestVisibleCell(resolvedLocalPoint, Mathf.Max(0.25f, blastRadiusScale));
 
-            ShootTheRockPerformance.RecordCellsDestroyed(removedPixelCenters.Count);
-            if (removedPixelCenters.Count > 0)
+            hitRemovedPixelCenters.Clear();
+            CarveRock(resolvedWorldPoint, pushDirection, Mathf.Max(0.25f, blastRadiusScale), hitRemovedPixelCenters);
+            if (hitRemovedPixelCenters.Count == 0)
+                ForceImpactAtNearestVisibleCell(resolvedLocalPoint, Mathf.Max(0.25f, blastRadiusScale), hitRemovedPixelCenters);
+
+            ShootTheRockPerformance.RecordCellsDestroyed(hitRemovedPixelCenters.Count);
+            if (hitRemovedPixelCenters.Count > 0)
                 QueueIslandCleanup();
 
-            SpawnHitParticles(removedPixelCenters, pushDirection);
+            SpawnHitParticles(hitRemovedPixelCenters, pushDirection);
             RebuildRockShape();
         }
+    }
+
+    public bool QueueWallEffect(Vector2 worldPoint, RockWallEffectType effectType, float duration, float tickInterval, float damagePerTick, float blastRadiusScale = 1f, bool allowDestroyCells = true)
+    {
+        EnsureRuntimeState(null);
+        if (solidCells == null || rowCount <= 0 || columnCount <= 0)
+            RebuildFromAuthoring(resetDamage: true);
+
+        Vector2 localPoint = ClampLocalPointToWallBounds(transform.InverseTransformPoint(worldPoint));
+        if (!TryGetCellIndexFromLocal(localPoint, out int row, out int column))
+            return false;
+
+        QueueWallEffectAtCell(row, column, effectType, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+        return true;
     }
 
     public bool TryGetCameraFrameData(out Bounds wallBounds, out Vector2 resolvedCameraPadding, out Vector2 lookOffset)
@@ -355,6 +409,8 @@ public class RockWall : MonoBehaviour
         centerDamageMultiplier = Mathf.Clamp(centerDamageMultiplier, 0.1f, 2f);
         colliderRebuildInterval = Mathf.Max(0.01f, colliderRebuildInterval);
         islandCleanupInterval = Mathf.Max(0.01f, islandCleanupInterval);
+        maxWallEffectTicksPerFrame = Mathf.Max(1, maxWallEffectTicksPerFrame);
+        maxWallEffectEvaluationsPerFrame = Mathf.Max(4, maxWallEffectEvaluationsPerFrame);
         cameraPadding.x = Mathf.Max(0f, cameraPadding.x);
         cameraPadding.y = Mathf.Max(0f, cameraPadding.y);
         ValidateProgressionFrames();
@@ -376,13 +432,18 @@ public class RockWall : MonoBehaviour
         if (hasPendingIslandCleanup && Time.time >= nextIslandCleanupTime)
             ProcessPendingIslandCleanup();
 
+        ProcessWallEffects();
+
+        ShootTheRockPerformance.SetActiveWallEffects(activeWallEffects.Count);
+        ShootTheRockPerformance.SetDirtyChunkCounts(dirtyVisualChunkIndices.Count, dirtyColliderChunkIndices.Count);
+
         if (!ShouldUseChunkedRuntime())
             return;
-        if (!hasPendingColliderDirtyRegion)
+        if (dirtyColliderChunkIndices.Count == 0)
             return;
         if (Time.time < nextColliderRebuildTime)
             return;
-        if (hasDirtyChunkRegion)
+        if (dirtyVisualChunkIndices.Count > 0)
             return;
 
         RebuildRockShape();
@@ -496,17 +557,15 @@ public class RockWall : MonoBehaviour
             Mathf.Clamp(localPoint.y, (-worldHeight * 0.5f) + halfRow, (worldHeight * 0.5f) - halfRow));
     }
 
-    private List<Vector2> ForceImpactAtNearestVisibleCell(Vector2 localPoint, float blastRadiusScale)
+    private void ForceImpactAtNearestVisibleCell(Vector2 localPoint, float blastRadiusScale, List<Vector2> removedPixelCenters)
     {
-        List<Vector2> removedPixelCenters = new List<Vector2>();
         int centerRow = GetRowIndexFromLocalY(localPoint.y);
         int centerColumn = GetColumnIndexFromLocalX(localPoint.x);
         if (!TryFindNearestSolidCell(centerRow, centerColumn, 8, out int foundRow, out int foundColumn))
-            return removedPixelCenters;
+            return;
 
         float forcedDamage = Mathf.Max(baseImpactDamage * 1.25f, cellMaxHitPoints);
         ApplyPointDamage(foundRow, foundColumn, forcedDamage, removedPixelCenters);
-        return removedPixelCenters;
     }
 
     private void GetActiveFrameCellBounds(out int minRow, out int maxRow, out int minColumn, out int maxColumn)
@@ -642,7 +701,13 @@ public class RockWall : MonoBehaviour
         ClearDirtyChunkRegion();
         ClearColliderDirtyChunkRegion();
         ClearPendingIslandCleanup();
+        activeWallEffects.Clear();
+        wallEffectIndexByKey.Clear();
+        wallEffectRemovedPixelCenters.Clear();
+        wallEffectCursor = 0;
         EnsureIslandCleanupBuffer();
+        ShootTheRockPerformance.SetActiveWallEffects(0);
+        ShootTheRockPerformance.SetDirtyChunkCounts(0, 0);
         RebuildRockShape();
     }
 
@@ -661,11 +726,10 @@ public class RockWall : MonoBehaviour
         }
     }
 
-    private List<Vector2> CarveRock(Vector2 worldPoint, Vector2 pushDirection, float blastRadiusScale)
+    private void CarveRock(Vector2 worldPoint, Vector2 pushDirection, float blastRadiusScale, List<Vector2> removedPixelCenters)
     {
         using (ShootTheRockPerformance.CarveRockMarker.Auto())
         {
-            List<Vector2> removedPixelCenters = new List<Vector2>();
             Vector2 localPoint = transform.InverseTransformPoint(worldPoint);
             Vector2 baseDirection = pushDirection.sqrMagnitude > 0.0001f
                 ? pushDirection.normalized
@@ -717,8 +781,6 @@ public class RockWall : MonoBehaviour
             int minimumCellsRemoved = Mathf.Max(MinimumCellsRemovedPerHit, Mathf.RoundToInt(MinimumCellsRemovedPerHit * clampedBlastScale));
             if (removedPixelCenters.Count < minimumCellsRemoved)
                 EnsureMinimumImpact(coreCenter, removedPixelCenters, clampedBlastScale, minimumCellsRemoved, impactDamage);
-
-            return removedPixelCenters;
         }
     }
 
@@ -766,7 +828,7 @@ public class RockWall : MonoBehaviour
         return false;
     }
 
-    private void ApplyEllipseDamage(Vector2 centerLocal, float radiusColumns, float radiusRows, float threshold, float damageAmount, List<Vector2> removedPixelCenters, bool allowEdgeNoise)
+    private void ApplyEllipseDamage(Vector2 centerLocal, float radiusColumns, float radiusRows, float threshold, float damageAmount, List<Vector2> removedPixelCenters, bool allowEdgeNoise, bool allowDestroyCells = true)
     {
         using (ShootTheRockPerformance.ApplyEllipseDamageMarker.Auto())
         {
@@ -796,13 +858,13 @@ public class RockWall : MonoBehaviour
                         continue;
 
                     float distanceFactor = Mathf.Lerp(centerDamageMultiplier, edgeDamageMultiplier, Mathf.Clamp01(ellipseDistance));
-                    ApplyPointDamage(row, column, damageAmount * distanceFactor, removedPixelCenters);
+                    ApplyPointDamage(row, column, damageAmount * distanceFactor, removedPixelCenters, allowDestroyCells);
                 }
             }
         }
     }
 
-    private void ApplyPointDamage(int row, int column, float damageAmount, List<Vector2> removedPixelCenters)
+    private void ApplyPointDamage(int row, int column, float damageAmount, List<Vector2> removedPixelCenters, bool allowDestroyCell = true)
     {
         if (row < 0 || row >= rowCount || column < 0 || column >= columnCount - minimumColumnsRemaining)
             return;
@@ -812,6 +874,12 @@ public class RockWall : MonoBehaviour
         int previousDamageTier = GetDamageVisualTier(row, column);
         float updatedHitPoints = Mathf.Max(0f, cellHitPoints[row, column] - damageAmount);
         bool cellDestroyed = updatedHitPoints <= 0f;
+
+        if (!allowDestroyCell && cellDestroyed)
+        {
+            updatedHitPoints = Mathf.Max(0.01f, cellMaxHitPoints * 0.08f);
+            cellDestroyed = false;
+        }
 
         cellHitPoints[row, column] = updatedHitPoints;
 
@@ -1008,8 +1076,8 @@ public class RockWall : MonoBehaviour
                 runtimeGrid.Initialize(transform, chunkSizeInCells);
                 GetActiveFrameCellBounds(out int activeMinRow, out int activeMaxRow, out int activeMinColumn, out int activeMaxColumn);
 
-                bool colliderDue = runtimeChunkFullRebuildRequired || (hasPendingColliderDirtyRegion && Time.time >= nextColliderRebuildTime);
-                bool hasAnyDirtyWork = runtimeChunkFullRebuildRequired || hasDirtyChunkRegion || colliderDue;
+                bool colliderDue = runtimeChunkFullRebuildRequired || (dirtyColliderChunkIndices.Count > 0 && Time.time >= nextColliderRebuildTime);
+                bool hasAnyDirtyWork = runtimeChunkFullRebuildRequired || dirtyVisualChunkIndices.Count > 0 || colliderDue;
                 if (!hasAnyDirtyWork)
                     return;
 
@@ -1034,7 +1102,6 @@ public class RockWall : MonoBehaviour
                 }
                 else
                 {
-                    GetCombinedDirtyChunkRegion(colliderDue, out int rebuildMinRow, out int rebuildMaxRow, out int rebuildMinColumn, out int rebuildMaxColumn);
                     runtimeGrid.RebuildDirty(
                         solidCells,
                         cellHitPoints,
@@ -1045,10 +1112,8 @@ public class RockWall : MonoBehaviour
                         worldHeight,
                         rowHeight,
                         columnWidth,
-                        rebuildMinRow,
-                        rebuildMaxRow,
-                        rebuildMinColumn,
-                        rebuildMaxColumn,
+                        dirtyVisualChunkIndices,
+                        dirtyColliderChunkIndices,
                         activeMinRow,
                         activeMaxRow,
                         activeMinColumn,
@@ -1230,18 +1295,7 @@ public class RockWall : MonoBehaviour
         if (row < 0 || row >= rowCount || column < 0 || column >= columnCount)
             return;
 
-        if (!hasDirtyChunkRegion)
-        {
-            dirtyMinRow = dirtyMaxRow = row;
-            dirtyMinColumn = dirtyMaxColumn = column;
-            hasDirtyChunkRegion = true;
-            return;
-        }
-
-        dirtyMinRow = Mathf.Min(dirtyMinRow, row);
-        dirtyMaxRow = Mathf.Max(dirtyMaxRow, row);
-        dirtyMinColumn = Mathf.Min(dirtyMinColumn, column);
-        dirtyMaxColumn = Mathf.Max(dirtyMaxColumn, column);
+        dirtyVisualChunkIndices.Add(GetChunkIndexFromCell(row, column));
     }
 
     private void MarkColliderChunkDirty(int row, int column)
@@ -1251,33 +1305,19 @@ public class RockWall : MonoBehaviour
         if (row < 0 || row >= rowCount || column < 0 || column >= columnCount)
             return;
 
-        if (!hasPendingColliderDirtyRegion)
-        {
-            colliderDirtyMinRow = colliderDirtyMaxRow = row;
-            colliderDirtyMinColumn = colliderDirtyMaxColumn = column;
-            hasPendingColliderDirtyRegion = true;
+        dirtyColliderChunkIndices.Add(GetChunkIndexFromCell(row, column));
+        if (nextColliderRebuildTime <= 0f)
             nextColliderRebuildTime = Time.time + colliderRebuildInterval;
-            return;
-        }
-
-        colliderDirtyMinRow = Mathf.Min(colliderDirtyMinRow, row);
-        colliderDirtyMaxRow = Mathf.Max(colliderDirtyMaxRow, row);
-        colliderDirtyMinColumn = Mathf.Min(colliderDirtyMinColumn, column);
-        colliderDirtyMaxColumn = Mathf.Max(colliderDirtyMaxColumn, column);
     }
 
     private void ClearDirtyChunkRegion()
     {
-        hasDirtyChunkRegion = false;
-        dirtyMinRow = dirtyMaxRow = 0;
-        dirtyMinColumn = dirtyMaxColumn = 0;
+        dirtyVisualChunkIndices.Clear();
     }
 
     private void ClearColliderDirtyChunkRegion()
     {
-        hasPendingColliderDirtyRegion = false;
-        colliderDirtyMinRow = colliderDirtyMaxRow = 0;
-        colliderDirtyMinColumn = colliderDirtyMaxColumn = 0;
+        dirtyColliderChunkIndices.Clear();
         nextColliderRebuildTime = 0f;
     }
 
@@ -1328,38 +1368,135 @@ public class RockWall : MonoBehaviour
         islandCleanupRemovedPixelCenters.Clear();
     }
 
-    private void GetCombinedDirtyChunkRegion(bool includeColliderRegion, out int minRow, out int maxRow, out int minColumn, out int maxColumn)
+    private void ProcessWallEffects()
     {
-        bool hasRegion = false;
-        minRow = maxRow = minColumn = maxColumn = 0;
+        if (!Application.isPlaying || activeWallEffects.Count == 0)
+            return;
 
-        if (hasDirtyChunkRegion)
-        {
-            minRow = dirtyMinRow;
-            maxRow = dirtyMaxRow;
-            minColumn = dirtyMinColumn;
-            maxColumn = dirtyMaxColumn;
-            hasRegion = true;
-        }
+        int evaluationBudget = Mathf.Max(maxWallEffectTicksPerFrame, maxWallEffectEvaluationsPerFrame);
+        int ticksRemaining = maxWallEffectTicksPerFrame;
+        int evaluations = 0;
+        bool changedWall = false;
+        float now = Time.time;
 
-        if (includeColliderRegion && hasPendingColliderDirtyRegion)
+        wallEffectRemovedPixelCenters.Clear();
+
+        while (activeWallEffects.Count > 0 && evaluations < evaluationBudget && ticksRemaining > 0)
         {
-            if (!hasRegion)
+            if (wallEffectCursor >= activeWallEffects.Count)
+                wallEffectCursor = 0;
+
+            RockWallEffectRuntime effect = activeWallEffects[wallEffectCursor];
+            evaluations++;
+
+            if (effect == null)
             {
-                minRow = colliderDirtyMinRow;
-                maxRow = colliderDirtyMaxRow;
-                minColumn = colliderDirtyMinColumn;
-                maxColumn = colliderDirtyMaxColumn;
-                hasRegion = true;
+                RemoveWallEffectAt(wallEffectCursor);
+                continue;
+            }
+
+            if (effect.IsExpired(now) || !solidCells[effect.row, effect.column])
+            {
+                RemoveWallEffectAt(wallEffectCursor);
+                continue;
+            }
+
+            wallEffectCursor++;
+            if (!effect.IsDue(now))
+                continue;
+
+            effect.ScheduleNextTick(now);
+            ticksRemaining--;
+            ShootTheRockPerformance.RecordWallEffectTick();
+
+            if (effect.blastRadiusScale > 1.05f)
+            {
+                float radiusScale = Mathf.Lerp(0.75f, 1.65f, Mathf.InverseLerp(1f, 3f, effect.blastRadiusScale)) * effect.blastRadiusScale;
+                ApplyEllipseDamage(
+                    GetCellCenterLocal(effect.row, effect.column),
+                    radiusScale,
+                    radiusScale,
+                    0.98f,
+                    effect.damagePerTick,
+                    wallEffectRemovedPixelCenters,
+                    allowEdgeNoise: false,
+                    allowDestroyCells: effect.allowDestroyCells);
             }
             else
             {
-                minRow = Mathf.Min(minRow, colliderDirtyMinRow);
-                maxRow = Mathf.Max(maxRow, colliderDirtyMaxRow);
-                minColumn = Mathf.Min(minColumn, colliderDirtyMinColumn);
-                maxColumn = Mathf.Max(maxColumn, colliderDirtyMaxColumn);
+                ApplyPointDamage(effect.row, effect.column, effect.damagePerTick, wallEffectRemovedPixelCenters, effect.allowDestroyCells);
             }
+
+            changedWall = true;
         }
+
+        if (wallEffectRemovedPixelCenters.Count > 0)
+        {
+            ShootTheRockPerformance.RecordCellsDestroyed(wallEffectRemovedPixelCenters.Count);
+            QueueIslandCleanup();
+        }
+
+        if (changedWall)
+            RebuildRockShape();
+
+        wallEffectRemovedPixelCenters.Clear();
+    }
+
+    private void QueueWallEffectAtCell(int row, int column, RockWallEffectType effectType, float duration, float tickInterval, float damagePerTick, float blastRadiusScale, bool allowDestroyCells)
+    {
+        if (row < 0 || row >= rowCount || column < 0 || column >= columnCount - minimumColumnsRemaining)
+            return;
+
+        WallEffectKey key = new WallEffectKey(effectType, row, column);
+        float now = Application.isPlaying ? Time.time : 0f;
+
+        if (wallEffectIndexByKey.TryGetValue(key, out int existingIndex))
+        {
+            RockWallEffectRuntime existingEffect = activeWallEffects[existingIndex];
+            existingEffect.Refresh(now, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+            ShootTheRockPerformance.SetActiveWallEffects(activeWallEffects.Count);
+            return;
+        }
+
+        RockWallEffectRuntime effect = new RockWallEffectRuntime(effectType, row, column, now, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+        wallEffectIndexByKey[key] = activeWallEffects.Count;
+        activeWallEffects.Add(effect);
+        ShootTheRockPerformance.SetActiveWallEffects(activeWallEffects.Count);
+    }
+
+    private void RemoveWallEffectAt(int index)
+    {
+        if (index < 0 || index >= activeWallEffects.Count)
+            return;
+
+        int lastIndex = activeWallEffects.Count - 1;
+        RockWallEffectRuntime removed = activeWallEffects[index];
+        wallEffectIndexByKey.Remove(new WallEffectKey(removed.effectType, removed.row, removed.column));
+
+        if (index != lastIndex)
+        {
+            RockWallEffectRuntime moved = activeWallEffects[lastIndex];
+            activeWallEffects[index] = moved;
+            wallEffectIndexByKey[new WallEffectKey(moved.effectType, moved.row, moved.column)] = index;
+        }
+
+        activeWallEffects.RemoveAt(lastIndex);
+        if (wallEffectCursor > index)
+            wallEffectCursor--;
+        if (wallEffectCursor >= activeWallEffects.Count)
+            wallEffectCursor = 0;
+
+        ShootTheRockPerformance.SetActiveWallEffects(activeWallEffects.Count);
+    }
+
+    private int GetChunkIndexFromCell(int row, int column)
+    {
+        int resolvedChunkSize = Mathf.Max(8, chunkSizeInCells);
+        int chunkColumns = Mathf.Max(1, Mathf.CeilToInt(columnCount / (float)resolvedChunkSize));
+        int chunkRows = Mathf.Max(1, Mathf.CeilToInt(rowCount / (float)resolvedChunkSize));
+        int chunkRow = Mathf.Clamp(row / resolvedChunkSize, 0, chunkRows - 1);
+        int chunkColumn = Mathf.Clamp(column / resolvedChunkSize, 0, chunkColumns - 1);
+        return (chunkRow * chunkColumns) + chunkColumn;
     }
 
     public void ReleaseChipParticle(ChipParticle chipParticle)

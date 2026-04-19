@@ -1,18 +1,115 @@
 ﻿# Shoot the ROCK Scene State Changes
 
-- Saved local time: 2026-04-19 13:49:33
+- Saved local time: 2026-04-19 18:44:27
 - Scene: Assets/Scenes/SampleScene.unity
 - Compared against previous `Assets/_Game/State/ShootTheRockSceneStateSnapshot.flat.txt` snapshot
 - Restore baseline file: `Assets/_Game/State/ShootTheRockRestoreSnapshot.json`
-- Added entries: 0
+- Added entries: 63
 - Removed entries: 0
-- Changed entries: 0
+- Changed entries: 12
 
 ## Changed
-- none
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_SizeDelta`
+  - old: `(380, 260)`
+  - new: `(380, 510)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 162)`
+  - new: `(0, 212)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -98, 0)`
+  - new: `(190, -298, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 112)`
+  - new: `(0, 162)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -148, 0)`
+  - new: `(190, -348, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 62)`
+  - new: `(0, 112)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -198, 0)`
+  - new: `(190, -398, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 12)`
+  - new: `(0, 62)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -248, 0)`
+  - new: `(190, -448, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, -10)`
+  - new: `(0, -270)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -10, 0)`
+  - new: `(190, -270, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_SizeDelta`
+  - old: `(-24, 94)`
+  - new: `(-24, 224)`
 
 ## Added
-- none
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | __type` = `Button`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | m_Interactable` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | m_TargetGraphic` = `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | m_Transition` = `Color Tint`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | CanvasRenderer#0 | __type` = `CanvasRenderer`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | siblingIndex` = `5`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | __type` = `Image`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Color` = `RGBA(1, 1, 1, 0.18)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillAmount` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillCenter` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillClockwise` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillMethod` = `Radial 360`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillOrigin` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Maskable` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Material` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_PixelsPerUnitMultiplier` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_PreserveAspect` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_RaycastTarget` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Sprite` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Type` = `Simple`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_UseSpriteMesh` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_AnchorMax` = `(1, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_AnchorMin` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_AnchoredPosition` = `(0, 12)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_LocalPosition` = `(190, -498, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_Pivot` = `(0.5, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_SizeDelta` = `(-24, 40)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | CanvasRenderer#0 | __type` = `CanvasRenderer`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | siblingIndex` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_AnchorMax` = `(1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_AnchorMin` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_AnchoredPosition` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_LocalPosition` = `(0, 20, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_Pivot` = `(0.5, 0.5)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_SizeDelta` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | __type` = `Text`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Color` = `RGBA(1, 1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Maskable` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Material` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_RaycastTarget` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Text` = `'GRENADE (NO CANNON)'`
+- `ShootTheRockScene/RockWall | RockWall#0 | maxWallEffectEvaluationsPerFrame` = `96`
+- `ShootTheRockScene/RockWall | RockWall#0 | maxWallEffectTicksPerFrame` = `24`
 
 ## Removed
 - none
