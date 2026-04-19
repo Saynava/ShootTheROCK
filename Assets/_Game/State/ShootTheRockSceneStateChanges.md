@@ -1,115 +1,259 @@
 ﻿# Shoot the ROCK Scene State Changes
 
-- Saved local time: 2026-04-19 18:44:27
+- Saved local time: 2026-04-19 21:32:41
 - Scene: Assets/Scenes/SampleScene.unity
 - Compared against previous `Assets/_Game/State/ShootTheRockSceneStateSnapshot.flat.txt` snapshot
 - Restore baseline file: `Assets/_Game/State/ShootTheRockRestoreSnapshot.json`
-- Added entries: 63
+- Added entries: 1124
 - Removed entries: 0
-- Changed entries: 12
+- Changed entries: 14
 
 ## Changed
 - `ShootTheRockScene/MoneyCanvas/UpgradePanel | RectTransform#0 | m_SizeDelta`
-  - old: `(380, 260)`
-  - new: `(380, 510)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchoredPosition`
-  - old: `(0, 162)`
-  - new: `(0, 212)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalPosition`
-  - old: `(190, -98, 0)`
-  - new: `(190, -298, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchoredPosition`
-  - old: `(0, 112)`
-  - new: `(0, 162)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalPosition`
-  - old: `(190, -148, 0)`
-  - new: `(190, -348, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchoredPosition`
-  - old: `(0, 62)`
-  - new: `(0, 112)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalPosition`
-  - old: `(190, -198, 0)`
-  - new: `(190, -398, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(380, 510)`
+  - new: `(400, 760)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_AnchoredPosition`
   - old: `(0, 12)`
   - new: `(0, 62)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -498, 0)`
+  - new: `(200, -698, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 212)`
+  - new: `(0, 262)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -298, 0)`
+  - new: `(200, -498, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 162)`
+  - new: `(0, 212)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -348, 0)`
+  - new: `(200, -548, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 112)`
+  - new: `(0, 162)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalPosition`
+  - old: `(190, -398, 0)`
+  - new: `(200, -598, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_AnchoredPosition`
+  - old: `(0, 62)`
+  - new: `(0, 112)`
 - `ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_LocalPosition`
-  - old: `(190, -248, 0)`
-  - new: `(190, -448, 0)`
+  - old: `(190, -448, 0)`
+  - new: `(200, -648, 0)`
 - `ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_AnchoredPosition`
-  - old: `(0, -10)`
-  - new: `(0, -270)`
+  - old: `(0, -270)`
+  - new: `(0, -12)`
 - `ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_LocalPosition`
-  - old: `(190, -10, 0)`
-  - new: `(190, -270, 0)`
+  - old: `(190, -270, 0)`
+  - new: `(200, -12, 0)`
 - `ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | RectTransform#0 | m_SizeDelta`
-  - old: `(-24, 94)`
-  - new: `(-24, 224)`
+  - old: `(-24, 224)`
+  - new: `(-24, 148)`
 
 ## Added
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | __type` = `Button`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | m_Interactable` = `false`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | m_TargetGraphic` = `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Button#0 | m_Transition` = `Color Tint`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | CanvasRenderer#0 | __type` = `CanvasRenderer`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | activeInHierarchy` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | activeSelf` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | layer` = `0`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | siblingIndex` = `5`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | GameObject | tag` = `Untagged`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | __type` = `Image`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Color` = `RGBA(1, 1, 1, 0.18)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillAmount` = `1`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillCenter` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillClockwise` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillMethod` = `Radial 360`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_FillOrigin` = `0`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Maskable` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Material` = `null`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_PixelsPerUnitMultiplier` = `1`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_PreserveAspect` = `false`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_RaycastTarget` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Sprite` = `null`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_Type` = `Simple`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | Image#0 | m_UseSpriteMesh` = `false`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | __type` = `RectTransform`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_AnchorMax` = `(1, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_AnchorMin` = `(0, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_AnchoredPosition` = `(0, 12)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_ConstrainProportionsScale` = `false`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_LocalPosition` = `(190, -498, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_Pivot` = `(0.5, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton | RectTransform#0 | m_SizeDelta` = `(-24, 40)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | CanvasRenderer#0 | __type` = `CanvasRenderer`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | activeInHierarchy` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | activeSelf` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | layer` = `0`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | siblingIndex` = `0`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | GameObject | tag` = `Untagged`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | __type` = `RectTransform`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_AnchorMax` = `(1, 1)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_AnchorMin` = `(0, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_AnchoredPosition` = `(0, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_ConstrainProportionsScale` = `false`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_LocalPosition` = `(0, 20, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_Pivot` = `(0.5, 0.5)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | RectTransform#0 | m_SizeDelta` = `(0, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | __type` = `Text`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Color` = `RGBA(1, 1, 1, 1)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Maskable` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Material` = `null`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_RaycastTarget` = `true`
-- `ShootTheRockScene/MoneyCanvas/UpgradePanel/AirburstGrenadeButton/Text | Text#0 | m_Text` = `'GRENADE (NO CANNON)'`
-- `ShootTheRockScene/RockWall | RockWall#0 | maxWallEffectEvaluationsPerFrame` = `96`
-- `ShootTheRockScene/RockWall | RockWall#0 | maxWallEffectTicksPerFrame` = `24`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | CanvasRenderer#0 | __type` = `CanvasRenderer`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | GameObject | siblingIndex` = `7`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | __type` = `Image`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_Color` = `RGBA(1, 1, 1, 0.08)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_FillAmount` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_FillCenter` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_FillClockwise` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_FillMethod` = `Radial 360`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_FillOrigin` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_Maskable` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_Material` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_PixelsPerUnitMultiplier` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_PreserveAspect` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_RaycastTarget` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_Sprite` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_Type` = `Simple`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | Image#0 | m_UseSpriteMesh` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_AnchorMax` = `(1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_AnchorMin` = `(0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_AnchoredPosition` = `(0, -170)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_LocalPosition` = `(200, -170, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_Pivot` = `(0.5, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow | RectTransform#0 | m_SizeDelta` = `(-24, 48)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | CanvasRenderer#0 | __type` = `CanvasRenderer`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | GameObject | siblingIndex` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_AnchorMax` = `(1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_AnchorMin` = `(0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_AnchoredPosition` = `(0, -2)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_LocalPosition` = `(0, -2, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_Pivot` = `(0.5, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | RectTransform#0 | m_SizeDelta` = `(-20, 20)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | Text#0 | __type` = `Text`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | Text#0 | m_Color` = `RGBA(1, 1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | Text#0 | m_Maskable` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | Text#0 | m_Material` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | Text#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | Text#0 | m_RaycastTarget` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label | Text#0 | m_Text` = `'BLAST SIZE  1.45'`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | GameObject | siblingIndex` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_AnchorMax` = `(1, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_AnchorMin` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_AnchoredPosition` = `(0, 8)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_LocalPosition` = `(0, -40, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_Pivot` = `(0.5, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | RectTransform#0 | m_SizeDelta` = `(-28, 20)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | __type` = `Slider`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_Direction` = `Left To Right`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_FillRect` = `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_HandleRect` = `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_Interactable` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_MaxValue` = `4`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_MinValue` = `0.5`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_TargetGraphic` = `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_Transition` = `Color Tint`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_Value` = `1.45`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider | Slider#0 | m_WholeNumbers` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | CanvasRenderer#0 | __type` = `CanvasRenderer`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | GameObject | siblingIndex` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | __type` = `Image`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_Color` = `RGBA(1, 1, 1, 0.14)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_FillAmount` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_FillCenter` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_FillClockwise` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_FillMethod` = `Radial 360`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_FillOrigin` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_Maskable` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_Material` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_PixelsPerUnitMultiplier` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_PreserveAspect` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_RaycastTarget` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_Sprite` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_Type` = `Simple`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | Image#0 | m_UseSpriteMesh` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_AnchorMax` = `(1, 0.5)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_AnchorMin` = `(0, 0.5)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_AnchoredPosition` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_LocalPosition` = `(0, 10, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_Pivot` = `(0.5, 0.5)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background | RectTransform#0 | m_SizeDelta` = `(0, 10)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | GameObject | siblingIndex` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_AnchorMax` = `(1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_AnchorMin` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_AnchoredPosition` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_LocalPosition` = `(0, 10, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_Pivot` = `(0.5, 0.5)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area | RectTransform#0 | m_SizeDelta` = `(-16, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | CanvasRenderer#0 | __type` = `CanvasRenderer`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | GameObject | siblingIndex` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | __type` = `Image`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_Color` = `RGBA(1, 1, 1, 0.45)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_FillAmount` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_FillCenter` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_FillClockwise` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_FillMethod` = `Radial 360`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_FillOrigin` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_Maskable` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_Material` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_PixelsPerUnitMultiplier` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_PreserveAspect` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_RaycastTarget` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_Sprite` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_Type` = `Simple`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | Image#0 | m_UseSpriteMesh` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_AnchorMax` = `(0.271, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_AnchorMin` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_AnchoredPosition` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_LocalPosition` = `(-166, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_Pivot` = `(0, 0.5)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill | RectTransform#0 | m_SizeDelta` = `(0, 10)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | GameObject | siblingIndex` = `2`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | __type` = `RectTransform`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_AnchorMax` = `(1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_AnchorMin` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_AnchoredPosition` = `(0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_LocalPosition` = `(0, 10, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_Pivot` = `(0.5, 0.5)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area | RectTransform#0 | m_SizeDelta` = `(-20, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | CanvasRenderer#0 | __type` = `CanvasRenderer`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | GameObject | layer` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | GameObject | siblingIndex` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | __type` = `Image`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_Color` = `RGBA(1, 1, 1, 1)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_FillAmount` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_FillCenter` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_FillClockwise` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_FillMethod` = `Radial 360`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_FillOrigin` = `0`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_Maskable` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_Material` = `null`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_PixelsPerUnitMultiplier` = `1`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_PreserveAspect` = `false`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_RaycastTarget` = `true`
+- `ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle | Image#0 | m_Sprite` = `null`
+- ... truncated, additional entries: 924
 
 ## Removed
 - none

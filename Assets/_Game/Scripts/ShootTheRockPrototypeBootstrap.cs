@@ -70,7 +70,23 @@ public class ShootTheRockPrototypeBootstrap : MonoBehaviour
         EnsureEventSystem();
         MoneyHud moneyHud = FindAnyObjectByType<MoneyHud>();
         if (moneyHud == null)
+        {
             moneyHud = EnsureMoneyHud();
+        }
+        else
+        {
+            Text existingText = null;
+            Transform moneyTextTransform = moneyHud.transform.Find("MoneyText");
+            if (moneyTextTransform != null)
+                existingText = moneyTextTransform.GetComponent<Text>();
+            if (existingText == null)
+                existingText = moneyHud.GetComponentInChildren<Text>();
+            if (existingText != null)
+                moneyHud.Initialize(existingText);
+
+            Canvas existingCanvas = moneyHud.GetComponent<Canvas>();
+            EnsurePerformanceHud(existingCanvas);
+        }
 
         float floorTopY = EnsureFloor();
         rockWall.Initialize(moneyHud, CreateUnlitMaterial(Color.white));

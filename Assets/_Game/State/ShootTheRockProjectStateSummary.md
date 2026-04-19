@@ -1,6 +1,6 @@
 ﻿# Shoot the ROCK Project State Summary
 
-- Saved local time: 2026-04-19 18:44:27
+- Saved local time: 2026-04-19 21:32:41
 - Unity version: 6000.4.0f1
 - Active scene: Assets/Scenes/SampleScene.unity
 
@@ -16,9 +16,9 @@
 - `ShootTheRockScene`
 
 ## Capture counts
-- GameObjects: 24
-- Components: 73
-- Serialized properties: 672
+- GameObjects: 66
+- Components: 175
+- Serialized properties: 1484
 
 ## Assets top-level folders
 - `Assets/Scenes`

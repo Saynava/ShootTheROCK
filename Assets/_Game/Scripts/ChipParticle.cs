@@ -36,6 +36,7 @@ public class ChipParticle : MonoBehaviour
             if (!isActiveTracked)
             {
                 isActiveTracked = true;
+                owner?.NotifyChipParticleActivated();
                 ShootTheRockPerformance.RecordChipActivated();
             }
 
@@ -82,6 +83,7 @@ public class ChipParticle : MonoBehaviour
         if (isActiveTracked)
         {
             isActiveTracked = false;
+            owner?.NotifyChipParticleDeactivated();
             ShootTheRockPerformance.RecordChipDeactivated();
         }
 

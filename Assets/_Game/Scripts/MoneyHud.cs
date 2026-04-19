@@ -10,8 +10,16 @@ public class MoneyHud : MonoBehaviour
     private const string NextLevelButtonName = "NextLevelButton";
     private const string StressShotgunButtonName = "StressShotgunButton";
     private const string AirburstGrenadeButtonName = "AirburstGrenadeButton";
+    private const string CorrosionButtonName = "CorrosionButton";
+    private const string BlastScaleSliderRowName = "BlastScaleSliderRow";
+    private const string CorrosionRadiusSliderRowName = "CorrosionRadiusSliderRow";
+    private const string StressRateSliderRowName = "StressRateSliderRow";
+    private const string StressPelletSliderRowName = "StressPelletSliderRow";
+    private const string FragmentCountSliderRowName = "FragmentCountSliderRow";
     private const string LegacyComboButtonName = "ScatterGrenadeButton";
     private const string UpgradeButtonTextName = "Text";
+    private const string SliderLabelName = "Label";
+    private const string SliderControlName = "Slider";
 
     private int money;
     private Text moneyText;
@@ -29,6 +37,18 @@ public class MoneyHud : MonoBehaviour
     private Text stressShotgunButtonText;
     private Button airburstGrenadeButton;
     private Text airburstGrenadeButtonText;
+    private Button corrosionButton;
+    private Text corrosionButtonText;
+    private Slider blastScaleSlider;
+    private Text blastScaleSliderLabel;
+    private Slider corrosionRadiusSlider;
+    private Text corrosionRadiusSliderLabel;
+    private Slider stressRateSlider;
+    private Text stressRateSliderLabel;
+    private Slider stressPelletSlider;
+    private Text stressPelletSliderLabel;
+    private Slider fragmentCountSlider;
+    private Text fragmentCountSliderLabel;
 
     public void Initialize(Text moneyText)
     {
@@ -121,6 +141,60 @@ public class MoneyHud : MonoBehaviour
         Refresh();
     }
 
+    private void ToggleCorrosion()
+    {
+        if (shooter == null)
+            return;
+
+        shooter.ToggleCorrosion();
+        Refresh();
+    }
+
+    private void OnBlastScaleSliderChanged(float value)
+    {
+        if (shooter == null)
+            return;
+
+        shooter.SetDebugBlastScaleMultiplier(value);
+        Refresh();
+    }
+
+    private void OnCorrosionRadiusSliderChanged(float value)
+    {
+        if (shooter == null)
+            return;
+
+        shooter.SetCorrosionRadiusMultiplier(value);
+        Refresh();
+    }
+
+    private void OnStressRateSliderChanged(float value)
+    {
+        if (shooter == null)
+            return;
+
+        shooter.SetStressShotgunFireInterval(value);
+        Refresh();
+    }
+
+    private void OnStressPelletSliderChanged(float value)
+    {
+        if (shooter == null)
+            return;
+
+        shooter.SetStressShotgunPelletCount(value);
+        Refresh();
+    }
+
+    private void OnFragmentCountSliderChanged(float value)
+    {
+        if (shooter == null)
+            return;
+
+        shooter.SetAirburstFragmentCount(value);
+        Refresh();
+    }
+
     private void Refresh()
     {
         if (moneyText != null)
@@ -129,6 +203,7 @@ public class MoneyHud : MonoBehaviour
         EnsureUpgradeUi();
         RefreshStatsText();
         RefreshButtons();
+        RefreshTuningControls();
     }
 
     private void RefreshStatsText()
@@ -148,14 +223,20 @@ public class MoneyHud : MonoBehaviour
 
         upgradeStatsText.text =
             levelText + "\n" +
-            "ATK SPD  LVL " + shooter.AttackSpeedLevel +
-            "  |  RATE " + shooter.CurrentFireInterval.ToString("0.00") + "s\n" +
-            "DMG  LVL " + shooter.DamageLevel +
-            "  |  BLAST x" + shooter.BlastRadiusScale.ToString("0.00") + "\n" +
-            "DEBUG  SG " + (shooter.StressShotgunEnabled ? "ON" : "OFF") +
-            "  |  GRENADE " + (shooter.AirburstGrenadeEnabled ? "ON" : "OFF") + "\n" +
-            "COMBO " + ((shooter.StressShotgunEnabled && shooter.AirburstGrenadeEnabled) ? "ON" : "OFF") +
-            "  |  RATE " + shooter.CurrentEffectiveFireInterval.ToString("0.00") + "s";
+            "ATK SPD LVL " + shooter.AttackSpeedLevel +
+            "  |  BASE " + shooter.CurrentFireInterval.ToString("0.00") + "s\n" +
+            "DMG LVL " + shooter.DamageLevel +
+            "  |  BASE BLAST x" + shooter.BlastRadiusScale.ToString("0.00") + "\n" +
+            "TEST BLAST x" + shooter.DebugBlastScaleMultiplier.ToString("0.00") +
+            "  |  TOTAL x" + shooter.CurrentProjectileBlastScale.ToString("0.00") + "\n" +
+            "SG " + (shooter.StressShotgunEnabled ? "ON" : "OFF") +
+            " @" + shooter.StressShotgunFireInterval.ToString("0.00") + "s" +
+            "  |  PELLETS " + shooter.StressShotgunPelletCount + "\n" +
+            "GRENADE " + (shooter.AirburstGrenadeEnabled ? "ON" : "OFF") +
+            "  |  FRAGS " + shooter.AirburstFragmentCount + "\n" +
+            "CORR " + (shooter.CorrosionEnabled ? "ON" : "OFF") +
+            " x" + shooter.CorrosionRadiusMultiplier.ToString("0.00") +
+            "  |  3-WAY " + ((shooter.StressShotgunEnabled && shooter.AirburstGrenadeEnabled && shooter.CorrosionEnabled) ? "ON" : "OFF");
     }
 
     private void RefreshButtons()
@@ -180,6 +261,9 @@ public class MoneyHud : MonoBehaviour
 
         if (airburstGrenadeButton != null)
             airburstGrenadeButton.interactable = shooter != null;
+
+        if (corrosionButton != null)
+            corrosionButton.interactable = shooter != null;
 
         if (attackSpeedUpgradeButtonText != null)
         {
@@ -216,9 +300,9 @@ public class MoneyHud : MonoBehaviour
             if (shooter == null)
                 stressShotgunButtonText.text = "SHOTGUN (NO CANNON)";
             else if (shooter.StressShotgunEnabled)
-                stressShotgunButtonText.text = "DEBUG SHOTGUN 0.10s  ON";
+                stressShotgunButtonText.text = "DEBUG SHOTGUN ON";
             else
-                stressShotgunButtonText.text = "DEBUG SHOTGUN 0.10s  OFF";
+                stressShotgunButtonText.text = "DEBUG SHOTGUN OFF";
         }
 
         if (airburstGrenadeButtonText != null)
@@ -226,15 +310,98 @@ public class MoneyHud : MonoBehaviour
             if (shooter == null)
                 airburstGrenadeButtonText.text = "GRENADE (NO CANNON)";
             else if (shooter.AirburstGrenadeEnabled)
-                airburstGrenadeButtonText.text = "AIRBURST GRENADE  ON";
+                airburstGrenadeButtonText.text = "AIRBURST GRENADE ON";
             else
-                airburstGrenadeButtonText.text = "AIRBURST GRENADE  OFF";
+                airburstGrenadeButtonText.text = "AIRBURST GRENADE OFF";
         }
+
+        if (corrosionButtonText != null)
+        {
+            if (shooter == null)
+                corrosionButtonText.text = "CORROSION (NO CANNON)";
+            else if (shooter.CorrosionEnabled)
+                corrosionButtonText.text = "CORROSION ON";
+            else
+                corrosionButtonText.text = "CORROSION OFF";
+        }
+    }
+
+    private void RefreshTuningControls()
+    {
+        bool interactable = shooter != null;
+
+        RefreshSlider(
+            blastScaleSlider,
+            blastScaleSliderLabel,
+            interactable,
+            shooter != null ? shooter.DebugBlastScaleMultiplier : 1.45f,
+            "BLAST SIZE",
+            "0.00",
+            isWholeNumber: false);
+
+        RefreshSlider(
+            corrosionRadiusSlider,
+            corrosionRadiusSliderLabel,
+            interactable,
+            shooter != null ? shooter.CorrosionRadiusMultiplier : 1.6f,
+            "CORROSION WIDTH",
+            "0.00",
+            isWholeNumber: false);
+
+        RefreshSlider(
+            stressRateSlider,
+            stressRateSliderLabel,
+            interactable,
+            shooter != null ? shooter.StressShotgunFireInterval : 0.06f,
+            "SHOTGUN RATE (s)",
+            "0.00",
+            isWholeNumber: false);
+
+        RefreshSlider(
+            stressPelletSlider,
+            stressPelletSliderLabel,
+            interactable,
+            shooter != null ? shooter.StressShotgunPelletCount : 11f,
+            "SHOTGUN PELLETS",
+            "0",
+            isWholeNumber: true);
+
+        RefreshSlider(
+            fragmentCountSlider,
+            fragmentCountSliderLabel,
+            interactable,
+            shooter != null ? shooter.AirburstFragmentCount : 13f,
+            "AIRBURST FRAGS",
+            "0",
+            isWholeNumber: true);
+    }
+
+    private void RefreshSlider(Slider slider, Text label, bool interactable, float value, string prefix, string format, bool isWholeNumber)
+    {
+        if (slider != null)
+        {
+            slider.interactable = interactable;
+            slider.SetValueWithoutNotify(value);
+        }
+
+        if (label != null)
+            label.text = prefix + "  " + value.ToString(format);
     }
 
     private void EnsureUpgradeUi()
     {
-        if (upgradeStatsText != null && attackSpeedUpgradeButton != null && attackSpeedUpgradeButtonText != null && damageUpgradeButton != null && damageUpgradeButtonText != null && nextLevelButton != null && nextLevelButtonText != null && stressShotgunButton != null && stressShotgunButtonText != null && airburstGrenadeButton != null && airburstGrenadeButtonText != null)
+        if (upgradeStatsText != null &&
+            attackSpeedUpgradeButton != null && attackSpeedUpgradeButtonText != null &&
+            damageUpgradeButton != null && damageUpgradeButtonText != null &&
+            nextLevelButton != null && nextLevelButtonText != null &&
+            stressShotgunButton != null && stressShotgunButtonText != null &&
+            airburstGrenadeButton != null && airburstGrenadeButtonText != null &&
+            corrosionButton != null && corrosionButtonText != null &&
+            blastScaleSlider != null && blastScaleSliderLabel != null &&
+            corrosionRadiusSlider != null && corrosionRadiusSliderLabel != null &&
+            stressRateSlider != null && stressRateSliderLabel != null &&
+            stressPelletSlider != null && stressPelletSliderLabel != null &&
+            fragmentCountSlider != null && fragmentCountSliderLabel != null)
             return;
 
         Canvas canvas = GetComponent<Canvas>();
@@ -254,11 +421,17 @@ public class MoneyHud : MonoBehaviour
         ApplyStatsLayout(statsTransform as RectTransform);
         upgradeStatsText = statsTransform.GetComponent<Text>();
 
+        EnsureSliderRow(panelTransform, BlastScaleSliderRowName, 170f, 48f, 0.5f, 4f, false, out blastScaleSlider, out blastScaleSliderLabel);
+        EnsureSliderRow(panelTransform, CorrosionRadiusSliderRowName, 226f, 48f, 0.5f, 4f, false, out corrosionRadiusSlider, out corrosionRadiusSliderLabel);
+        EnsureSliderRow(panelTransform, StressRateSliderRowName, 282f, 48f, 0.02f, 0.2f, false, out stressRateSlider, out stressRateSliderLabel);
+        EnsureSliderRow(panelTransform, StressPelletSliderRowName, 338f, 48f, 1f, 25f, true, out stressPelletSlider, out stressPelletSliderLabel);
+        EnsureSliderRow(panelTransform, FragmentCountSliderRowName, 394f, 48f, 1f, 25f, true, out fragmentCountSlider, out fragmentCountSliderLabel);
+
         Transform attackButtonTransform = panelTransform.Find(AttackSpeedUpgradeButtonName);
         if (attackButtonTransform == null)
-            attackButtonTransform = CreateUpgradeButton(panelTransform, AttackSpeedUpgradeButtonName, new Vector2(12f, 112f), new Vector2(-12f, 152f)).transform;
+            attackButtonTransform = CreateUpgradeButton(panelTransform, AttackSpeedUpgradeButtonName, new Vector2(12f, 262f), new Vector2(-12f, 302f)).transform;
         attackSpeedUpgradeButton = attackButtonTransform.GetComponent<Button>();
-        ApplyButtonLayout(attackButtonTransform, new Vector2(12f, 212f), new Vector2(-12f, 252f));
+        ApplyButtonLayout(attackButtonTransform, new Vector2(12f, 262f), new Vector2(-12f, 302f));
 
         Transform attackButtonTextTransform = attackButtonTransform.Find(UpgradeButtonTextName);
         if (attackButtonTextTransform == null)
@@ -267,9 +440,9 @@ public class MoneyHud : MonoBehaviour
 
         Transform damageButtonTransform = panelTransform.Find(DamageUpgradeButtonName);
         if (damageButtonTransform == null)
-            damageButtonTransform = CreateUpgradeButton(panelTransform, DamageUpgradeButtonName, new Vector2(12f, 62f), new Vector2(-12f, 102f)).transform;
+            damageButtonTransform = CreateUpgradeButton(panelTransform, DamageUpgradeButtonName, new Vector2(12f, 212f), new Vector2(-12f, 252f)).transform;
         damageUpgradeButton = damageButtonTransform.GetComponent<Button>();
-        ApplyButtonLayout(damageButtonTransform, new Vector2(12f, 162f), new Vector2(-12f, 202f));
+        ApplyButtonLayout(damageButtonTransform, new Vector2(12f, 212f), new Vector2(-12f, 252f));
 
         Transform damageButtonTextTransform = damageButtonTransform.Find(UpgradeButtonTextName);
         if (damageButtonTextTransform == null)
@@ -278,9 +451,9 @@ public class MoneyHud : MonoBehaviour
 
         Transform nextLevelTransform = panelTransform.Find(NextLevelButtonName);
         if (nextLevelTransform == null)
-            nextLevelTransform = CreateUpgradeButton(panelTransform, NextLevelButtonName, new Vector2(12f, 62f), new Vector2(-12f, 102f)).transform;
+            nextLevelTransform = CreateUpgradeButton(panelTransform, NextLevelButtonName, new Vector2(12f, 162f), new Vector2(-12f, 202f)).transform;
         nextLevelButton = nextLevelTransform.GetComponent<Button>();
-        ApplyButtonLayout(nextLevelTransform, new Vector2(12f, 112f), new Vector2(-12f, 152f));
+        ApplyButtonLayout(nextLevelTransform, new Vector2(12f, 162f), new Vector2(-12f, 202f));
 
         Transform nextLevelTextTransform = nextLevelTransform.Find(UpgradeButtonTextName);
         if (nextLevelTextTransform == null)
@@ -291,7 +464,7 @@ public class MoneyHud : MonoBehaviour
         if (stressShotgunTransform == null)
             stressShotgunTransform = CreateUpgradeButton(panelTransform, StressShotgunButtonName, new Vector2(12f, 112f), new Vector2(-12f, 152f)).transform;
         stressShotgunButton = stressShotgunTransform.GetComponent<Button>();
-        ApplyButtonLayout(stressShotgunTransform, new Vector2(12f, 62f), new Vector2(-12f, 102f));
+        ApplyButtonLayout(stressShotgunTransform, new Vector2(12f, 112f), new Vector2(-12f, 152f));
 
         Transform stressShotgunTextTransform = stressShotgunTransform.Find(UpgradeButtonTextName);
         if (stressShotgunTextTransform == null)
@@ -300,14 +473,25 @@ public class MoneyHud : MonoBehaviour
 
         Transform airburstGrenadeTransform = panelTransform.Find(AirburstGrenadeButtonName);
         if (airburstGrenadeTransform == null)
-            airburstGrenadeTransform = CreateUpgradeButton(panelTransform, AirburstGrenadeButtonName, new Vector2(12f, 12f), new Vector2(-12f, 52f)).transform;
+            airburstGrenadeTransform = CreateUpgradeButton(panelTransform, AirburstGrenadeButtonName, new Vector2(12f, 62f), new Vector2(-12f, 102f)).transform;
         airburstGrenadeButton = airburstGrenadeTransform.GetComponent<Button>();
-        ApplyButtonLayout(airburstGrenadeTransform, new Vector2(12f, 12f), new Vector2(-12f, 52f));
+        ApplyButtonLayout(airburstGrenadeTransform, new Vector2(12f, 62f), new Vector2(-12f, 102f));
 
         Transform airburstGrenadeTextTransform = airburstGrenadeTransform.Find(UpgradeButtonTextName);
         if (airburstGrenadeTextTransform == null)
             airburstGrenadeTextTransform = CreateUpgradeButtonText(airburstGrenadeTransform).transform;
         airburstGrenadeButtonText = airburstGrenadeTextTransform.GetComponent<Text>();
+
+        Transform corrosionTransform = panelTransform.Find(CorrosionButtonName);
+        if (corrosionTransform == null)
+            corrosionTransform = CreateUpgradeButton(panelTransform, CorrosionButtonName, new Vector2(12f, 12f), new Vector2(-12f, 52f)).transform;
+        corrosionButton = corrosionTransform.GetComponent<Button>();
+        ApplyButtonLayout(corrosionTransform, new Vector2(12f, 12f), new Vector2(-12f, 52f));
+
+        Transform corrosionTextTransform = corrosionTransform.Find(UpgradeButtonTextName);
+        if (corrosionTextTransform == null)
+            corrosionTextTransform = CreateUpgradeButtonText(corrosionTransform).transform;
+        corrosionButtonText = corrosionTextTransform.GetComponent<Text>();
 
         attackSpeedUpgradeButton.onClick.RemoveListener(TryBuyAttackSpeedUpgrade);
         attackSpeedUpgradeButton.onClick.AddListener(TryBuyAttackSpeedUpgrade);
@@ -319,6 +503,19 @@ public class MoneyHud : MonoBehaviour
         stressShotgunButton.onClick.AddListener(ToggleStressShotgun);
         airburstGrenadeButton.onClick.RemoveListener(ToggleAirburstGrenade);
         airburstGrenadeButton.onClick.AddListener(ToggleAirburstGrenade);
+        corrosionButton.onClick.RemoveListener(ToggleCorrosion);
+        corrosionButton.onClick.AddListener(ToggleCorrosion);
+
+        blastScaleSlider.onValueChanged.RemoveListener(OnBlastScaleSliderChanged);
+        blastScaleSlider.onValueChanged.AddListener(OnBlastScaleSliderChanged);
+        corrosionRadiusSlider.onValueChanged.RemoveListener(OnCorrosionRadiusSliderChanged);
+        corrosionRadiusSlider.onValueChanged.AddListener(OnCorrosionRadiusSliderChanged);
+        stressRateSlider.onValueChanged.RemoveListener(OnStressRateSliderChanged);
+        stressRateSlider.onValueChanged.AddListener(OnStressRateSliderChanged);
+        stressPelletSlider.onValueChanged.RemoveListener(OnStressPelletSliderChanged);
+        stressPelletSlider.onValueChanged.AddListener(OnStressPelletSliderChanged);
+        fragmentCountSlider.onValueChanged.RemoveListener(OnFragmentCountSliderChanged);
+        fragmentCountSlider.onValueChanged.AddListener(OnFragmentCountSliderChanged);
     }
 
     private GameObject CreateUpgradePanel(Transform parent)
@@ -351,6 +548,133 @@ public class MoneyHud : MonoBehaviour
         return textObject;
     }
 
+    private void EnsureSliderRow(Transform parent, string rowName, float topOffset, float height, float minValue, float maxValue, bool wholeNumbers, out Slider slider, out Text label)
+    {
+        Transform rowTransform = parent.Find(rowName);
+        if (rowTransform == null)
+            rowTransform = CreateSliderRow(parent, rowName, topOffset, height).transform;
+        ApplyTopSectionLayout(rowTransform as RectTransform, topOffset, height);
+
+        Transform labelTransform = rowTransform.Find(SliderLabelName);
+        if (labelTransform == null)
+            labelTransform = CreateSliderLabel(rowTransform).transform;
+        label = labelTransform.GetComponent<Text>();
+
+        Transform sliderTransform = rowTransform.Find(SliderControlName);
+        if (sliderTransform == null)
+            sliderTransform = CreateSliderControl(rowTransform).transform;
+        slider = sliderTransform.GetComponent<Slider>();
+        slider.minValue = minValue;
+        slider.maxValue = maxValue;
+        slider.wholeNumbers = wholeNumbers;
+    }
+
+    private GameObject CreateSliderRow(Transform parent, string rowName, float topOffset, float height)
+    {
+        GameObject rowObject = new GameObject(rowName, typeof(RectTransform), typeof(Image));
+        rowObject.transform.SetParent(parent, false);
+        ApplyTopSectionLayout(rowObject.GetComponent<RectTransform>(), topOffset, height);
+
+        Image image = rowObject.GetComponent<Image>();
+        image.color = new Color(1f, 1f, 1f, 0.08f);
+        return rowObject;
+    }
+
+    private GameObject CreateSliderLabel(Transform parent)
+    {
+        GameObject labelObject = new GameObject(SliderLabelName, typeof(RectTransform), typeof(Text));
+        labelObject.transform.SetParent(parent, false);
+
+        RectTransform rect = labelObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.offsetMin = new Vector2(10f, -22f);
+        rect.offsetMax = new Vector2(-10f, -2f);
+
+        Text text = labelObject.GetComponent<Text>();
+        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        text.fontSize = 16;
+        text.fontStyle = FontStyle.Bold;
+        text.alignment = TextAnchor.UpperLeft;
+        text.color = Color.white;
+        return labelObject;
+    }
+
+    private GameObject CreateSliderControl(Transform parent)
+    {
+        GameObject sliderObject = new GameObject(SliderControlName, typeof(RectTransform), typeof(Slider));
+        sliderObject.transform.SetParent(parent, false);
+
+        RectTransform sliderRect = sliderObject.GetComponent<RectTransform>();
+        sliderRect.anchorMin = new Vector2(0f, 0f);
+        sliderRect.anchorMax = new Vector2(1f, 0f);
+        sliderRect.pivot = new Vector2(0.5f, 0f);
+        sliderRect.offsetMin = new Vector2(14f, 8f);
+        sliderRect.offsetMax = new Vector2(-14f, 28f);
+
+        GameObject backgroundObject = new GameObject("Background", typeof(RectTransform), typeof(Image));
+        backgroundObject.transform.SetParent(sliderObject.transform, false);
+        RectTransform backgroundRect = backgroundObject.GetComponent<RectTransform>();
+        backgroundRect.anchorMin = new Vector2(0f, 0.5f);
+        backgroundRect.anchorMax = new Vector2(1f, 0.5f);
+        backgroundRect.pivot = new Vector2(0.5f, 0.5f);
+        backgroundRect.offsetMin = new Vector2(0f, -5f);
+        backgroundRect.offsetMax = new Vector2(0f, 5f);
+        Image backgroundImage = backgroundObject.GetComponent<Image>();
+        backgroundImage.color = new Color(1f, 1f, 1f, 0.14f);
+
+        GameObject fillAreaObject = new GameObject("Fill Area", typeof(RectTransform));
+        fillAreaObject.transform.SetParent(sliderObject.transform, false);
+        RectTransform fillAreaRect = fillAreaObject.GetComponent<RectTransform>();
+        fillAreaRect.anchorMin = new Vector2(0f, 0f);
+        fillAreaRect.anchorMax = new Vector2(1f, 1f);
+        fillAreaRect.offsetMin = new Vector2(8f, 0f);
+        fillAreaRect.offsetMax = new Vector2(-8f, 0f);
+
+        GameObject fillObject = new GameObject("Fill", typeof(RectTransform), typeof(Image));
+        fillObject.transform.SetParent(fillAreaObject.transform, false);
+        RectTransform fillRect = fillObject.GetComponent<RectTransform>();
+        fillRect.anchorMin = new Vector2(0f, 0.5f);
+        fillRect.anchorMax = new Vector2(1f, 0.5f);
+        fillRect.pivot = new Vector2(0f, 0.5f);
+        fillRect.offsetMin = new Vector2(0f, -5f);
+        fillRect.offsetMax = new Vector2(0f, 5f);
+        Image fillImage = fillObject.GetComponent<Image>();
+        fillImage.color = new Color(1f, 1f, 1f, 0.45f);
+
+        GameObject handleSlideAreaObject = new GameObject("Handle Slide Area", typeof(RectTransform));
+        handleSlideAreaObject.transform.SetParent(sliderObject.transform, false);
+        RectTransform handleSlideAreaRect = handleSlideAreaObject.GetComponent<RectTransform>();
+        handleSlideAreaRect.anchorMin = new Vector2(0f, 0f);
+        handleSlideAreaRect.anchorMax = new Vector2(1f, 1f);
+        handleSlideAreaRect.offsetMin = new Vector2(10f, 0f);
+        handleSlideAreaRect.offsetMax = new Vector2(-10f, 0f);
+
+        GameObject handleObject = new GameObject("Handle", typeof(RectTransform), typeof(Image));
+        handleObject.transform.SetParent(handleSlideAreaObject.transform, false);
+        RectTransform handleRect = handleObject.GetComponent<RectTransform>();
+        handleRect.sizeDelta = new Vector2(16f, 24f);
+        Image handleImage = handleObject.GetComponent<Image>();
+        handleImage.color = Color.white;
+
+        Slider slider = sliderObject.GetComponent<Slider>();
+        slider.targetGraphic = handleImage;
+        slider.fillRect = fillRect;
+        slider.handleRect = handleRect;
+        slider.direction = Slider.Direction.LeftToRight;
+        slider.transition = Selectable.Transition.ColorTint;
+
+        ColorBlock colors = slider.colors;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = new Color(1f, 1f, 1f, 1f);
+        colors.pressedColor = new Color(0.85f, 0.85f, 0.85f, 1f);
+        colors.disabledColor = new Color(1f, 1f, 1f, 0.3f);
+        slider.colors = colors;
+
+        return sliderObject;
+    }
+
     private void ApplyPanelLayout(RectTransform rect)
     {
         if (rect == null)
@@ -360,10 +684,15 @@ public class MoneyHud : MonoBehaviour
         rect.anchorMax = new Vector2(0f, 1f);
         rect.pivot = new Vector2(0f, 1f);
         rect.anchoredPosition = new Vector2(28f, -130f);
-        rect.sizeDelta = new Vector2(380f, 510f);
+        rect.sizeDelta = new Vector2(400f, 760f);
     }
 
     private void ApplyStatsLayout(RectTransform rect)
+    {
+        ApplyTopSectionLayout(rect, 12f, 148f);
+    }
+
+    private void ApplyTopSectionLayout(RectTransform rect, float topOffset, float height)
     {
         if (rect == null)
             return;
@@ -371,8 +700,8 @@ public class MoneyHud : MonoBehaviour
         rect.anchorMin = new Vector2(0f, 1f);
         rect.anchorMax = new Vector2(1f, 1f);
         rect.pivot = new Vector2(0.5f, 1f);
-        rect.offsetMin = new Vector2(12f, -494f);
-        rect.offsetMax = new Vector2(-12f, -270f);
+        rect.offsetMin = new Vector2(12f, -(topOffset + height));
+        rect.offsetMax = new Vector2(-12f, -topOffset);
     }
 
     private void RemoveLegacyComboButton(Transform panelTransform)

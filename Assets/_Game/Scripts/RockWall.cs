@@ -78,6 +78,17 @@ public class RockWall : MonoBehaviour
     private const float SurfaceImpactOutsideBiasColumns = 0.32f;
     private const float CoreStampRadiusColumnsMin = 1.45f;
     private const float CoreStampRadiusColumnsMax = 2.15f;
+    private static readonly Vector2Int[] CorrosionSpreadOffsets =
+    {
+        new Vector2Int(0, 1),
+        new Vector2Int(1, 0),
+        new Vector2Int(0, -1),
+        new Vector2Int(-1, 0),
+        new Vector2Int(1, 1),
+        new Vector2Int(1, -1),
+        new Vector2Int(-1, -1),
+        new Vector2Int(-1, 1),
+    };
     private const float CoreStampRadiusRowsMin = 1.6f;
     private const float CoreStampRadiusRowsMax = 2.45f;
     private const float SatelliteStampRadiusColumnsMin = 0.8f;
@@ -138,6 +149,14 @@ public class RockWall : MonoBehaviour
     [Min(8)]
     [SerializeField] private int chunkSizeInCells = 32;
 
+    [Header("Debris")]
+    [Min(0)]
+    [SerializeField] private int maxActiveChipParticles = 320;
+    [Min(0.05f)]
+    [SerializeField] private float chipLifetimeMin = 0.32f;
+    [Min(0.05f)]
+    [SerializeField] private float chipLifetimeMax = 0.7f;
+
     [Header("Runtime Performance")]
     [Min(0.01f)]
     [SerializeField] private float colliderRebuildInterval = 0.05f;
@@ -189,6 +208,7 @@ public class RockWall : MonoBehaviour
     private readonly List<Vector2> wallEffectRemovedPixelCenters = new List<Vector2>(64);
     private readonly Queue<ChipParticle> chipParticlePool = new Queue<ChipParticle>();
     private int wallEffectCursor;
+    private int activeChipParticleCount;
 
     public float WorldWidth => worldWidth;
     public float WorldHeight => worldHeight;
@@ -320,6 +340,9 @@ public class RockWall : MonoBehaviour
         if (!TryGetCellIndexFromLocal(localPoint, out int row, out int column))
             return false;
 
+        if (effectType == RockWallEffectType.Corrosion)
+            return QueueCorrosionFromBlast(localPoint, row, column, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+
         QueueWallEffectAtCell(row, column, effectType, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
         return true;
     }
@@ -409,6 +432,9 @@ public class RockWall : MonoBehaviour
         centerDamageMultiplier = Mathf.Clamp(centerDamageMultiplier, 0.1f, 2f);
         colliderRebuildInterval = Mathf.Max(0.01f, colliderRebuildInterval);
         islandCleanupInterval = Mathf.Max(0.01f, islandCleanupInterval);
+        maxActiveChipParticles = Mathf.Max(0, maxActiveChipParticles);
+        chipLifetimeMin = Mathf.Max(0.05f, chipLifetimeMin);
+        chipLifetimeMax = Mathf.Max(chipLifetimeMin, chipLifetimeMax);
         maxWallEffectTicksPerFrame = Mathf.Max(1, maxWallEffectTicksPerFrame);
         maxWallEffectEvaluationsPerFrame = Mathf.Max(4, maxWallEffectEvaluationsPerFrame);
         cameraPadding.x = Mathf.Max(0f, cameraPadding.x);
@@ -705,6 +731,7 @@ public class RockWall : MonoBehaviour
         wallEffectIndexByKey.Clear();
         wallEffectRemovedPixelCenters.Clear();
         wallEffectCursor = 0;
+        activeChipParticleCount = 0;
         EnsureIslandCleanupBuffer();
         ShootTheRockPerformance.SetActiveWallEffects(0);
         ShootTheRockPerformance.SetDirtyChunkCounts(0, 0);
@@ -737,50 +764,63 @@ public class RockWall : MonoBehaviour
             Vector2 perpendicular = new Vector2(-baseDirection.y, baseDirection.x);
             Vector2 coreCenter = ResolveImpactCenterLocal(localPoint, baseDirection);
             float clampedBlastScale = Mathf.Max(0.25f, blastRadiusScale);
-            float offsetScale = Mathf.Lerp(1f, 1.45f, Mathf.InverseLerp(1f, 2.75f, clampedBlastScale));
-            float impactDamage = baseImpactDamage * Mathf.Lerp(1f, 1.4f, Mathf.InverseLerp(1f, 2.75f, clampedBlastScale));
+            float blast01 = Mathf.InverseLerp(1f, 4f, clampedBlastScale);
+            float coreShapeScale = Mathf.Lerp(1f, 1.55f, blast01);
+            float outerRadiusScale = Mathf.Lerp(1.2f, 2.7f, blast01);
+            float offsetScale = Mathf.Lerp(1f, 2f, blast01);
+            float centerDamage = baseImpactDamage * Mathf.Lerp(1.35f, 4.2f, blast01);
+            float outerDamage = baseImpactDamage * Mathf.Lerp(0.12f, 0.95f, blast01);
+            float coreRadiusColumns = Random.Range(CoreStampRadiusColumnsMin, CoreStampRadiusColumnsMax) * coreShapeScale;
+            float coreRadiusRows = Random.Range(CoreStampRadiusRowsMin, CoreStampRadiusRowsMax) * coreShapeScale;
+
+            ApplyBlastProfileDamage(
+                coreCenter,
+                coreRadiusColumns * outerRadiusScale,
+                coreRadiusRows * outerRadiusScale,
+                centerDamage,
+                outerDamage,
+                removedPixelCenters);
 
             ApplyEllipseDamage(
                 coreCenter,
-                Random.Range(CoreStampRadiusColumnsMin, CoreStampRadiusColumnsMax) * clampedBlastScale,
-                Random.Range(CoreStampRadiusRowsMin, CoreStampRadiusRowsMax) * clampedBlastScale,
-                0.9f,
-                impactDamage,
+                coreRadiusColumns,
+                coreRadiusRows,
+                0.88f,
+                centerDamage * 0.72f,
                 removedPixelCenters,
                 allowEdgeNoise: true);
 
             int extraSatelliteCount = Mathf.Max(0, Mathf.FloorToInt((clampedBlastScale - 1f) * 2f));
-            int satelliteCount = Random.Range(SatelliteStampCountMin, SatelliteStampCountMax + 1 + extraSatelliteCount);
+            int satelliteCount = Random.Range(SatelliteStampCountMin + 1, SatelliteStampCountMax + 2 + extraSatelliteCount);
             for (int i = 0; i < satelliteCount; i++)
             {
-                Vector2 offset = (baseDirection * Random.Range(0.04f, 0.32f) * columnWidth * 1.2f * offsetScale)
-                    + (perpendicular * Random.Range(-0.8f, 0.8f) * rowHeight * offsetScale);
+                Vector2 offset = (baseDirection * Random.Range(0.08f, 0.4f) * columnWidth * 1.2f * offsetScale)
+                    + (perpendicular * Random.Range(-0.95f, 0.95f) * rowHeight * offsetScale);
 
-                ApplyEllipseDamage(
+                ApplyBlastProfileDamage(
                     coreCenter + offset,
-                    Random.Range(SatelliteStampRadiusColumnsMin, SatelliteStampRadiusColumnsMax) * clampedBlastScale,
-                    Random.Range(SatelliteStampRadiusRowsMin, SatelliteStampRadiusRowsMax) * clampedBlastScale,
-                    Random.Range(0.9f, 1.0f),
-                    impactDamage * 0.82f,
-                    removedPixelCenters,
-                    allowEdgeNoise: true);
+                    Random.Range(SatelliteStampRadiusColumnsMin, SatelliteStampRadiusColumnsMax) * Mathf.Lerp(0.95f, 1.25f, blast01),
+                    Random.Range(SatelliteStampRadiusRowsMin, SatelliteStampRadiusRowsMax) * Mathf.Lerp(0.95f, 1.25f, blast01),
+                    centerDamage * 0.62f,
+                    outerDamage * 0.55f,
+                    removedPixelCenters);
             }
 
-            int extraScatterCount = Mathf.Max(0, Mathf.CeilToInt((clampedBlastScale - 1f) * 3f));
-            int scatterCount = Random.Range(ScatterPixelCountMin, ScatterPixelCountMax + 1 + extraScatterCount);
+            int extraScatterCount = Mathf.Max(0, Mathf.CeilToInt((clampedBlastScale - 1f) * 5f));
+            int scatterCount = Random.Range(ScatterPixelCountMin + 1, ScatterPixelCountMax + 2 + extraScatterCount);
             for (int i = 0; i < scatterCount; i++)
             {
-                Vector2 scatterOffset = (baseDirection * Random.Range(0.02f, 0.35f) * columnWidth * 1.2f * offsetScale)
-                    + (perpendicular * Random.Range(-0.9f, 0.9f) * rowHeight * offsetScale);
+                Vector2 scatterOffset = (baseDirection * Random.Range(0.05f, 0.55f) * columnWidth * 1.2f * offsetScale)
+                    + (perpendicular * Random.Range(-1.15f, 1.15f) * rowHeight * offsetScale);
                 Vector2 scatterPoint = coreCenter + scatterOffset;
                 int row = GetRowIndexFromLocalY(scatterPoint.y);
                 int column = GetColumnIndexFromLocalX(scatterPoint.x);
-                ApplyPointDamage(row, column, impactDamage * 0.72f, removedPixelCenters);
+                ApplyPointDamage(row, column, Mathf.Lerp(outerDamage * 0.9f, centerDamage * 0.55f, Random.value), removedPixelCenters);
             }
 
-            int minimumCellsRemoved = Mathf.Max(MinimumCellsRemovedPerHit, Mathf.RoundToInt(MinimumCellsRemovedPerHit * clampedBlastScale));
+            int minimumCellsRemoved = Mathf.Max(MinimumCellsRemovedPerHit, Mathf.RoundToInt(Mathf.Lerp(MinimumCellsRemovedPerHit, MinimumCellsRemovedPerHit * 3.2f, blast01)));
             if (removedPixelCenters.Count < minimumCellsRemoved)
-                EnsureMinimumImpact(coreCenter, removedPixelCenters, clampedBlastScale, minimumCellsRemoved, impactDamage);
+                EnsureMinimumImpact(coreCenter, removedPixelCenters, clampedBlastScale, minimumCellsRemoved, centerDamage);
         }
     }
 
@@ -794,7 +834,7 @@ public class RockWall : MonoBehaviour
         if (!TryFindNearestSolidCell(centerRow, centerColumn, 6, out int foundRow, out int foundColumn))
             return;
 
-        float fallbackScale = Mathf.Lerp(1f, 1.35f, Mathf.InverseLerp(1f, 2.75f, blastRadiusScale));
+        float fallbackScale = Mathf.Lerp(1f, 1.18f, Mathf.InverseLerp(1f, 4f, blastRadiusScale));
         ApplyEllipseDamage(
             GetCellCenterLocal(foundRow, foundColumn),
             1.15f * fallbackScale,
@@ -816,9 +856,9 @@ public class RockWall : MonoBehaviour
                     if (!solidCells[row, column])
                         continue;
 
-                    foundRow = row;
-                    foundColumn = column;
-                    return true;
+                        foundRow = row;
+                        foundColumn = column;
+                        return true;
                 }
             }
         }
@@ -826,6 +866,14 @@ public class RockWall : MonoBehaviour
         foundRow = -1;
         foundColumn = -1;
         return false;
+    }
+
+    private bool TryFindNearestSolidCellFromLocal(Vector2 localPoint, int maxRadius, out int foundRow, out int foundColumn)
+    {
+        Vector2 clampedLocal = ClampLocalPointToWallBounds(localPoint);
+        int centerRow = GetRowIndexFromLocalY(clampedLocal.y);
+        int centerColumn = GetColumnIndexFromLocalX(clampedLocal.x);
+        return TryFindNearestSolidCell(centerRow, centerColumn, maxRadius, out foundRow, out foundColumn);
     }
 
     private void ApplyEllipseDamage(Vector2 centerLocal, float radiusColumns, float radiusRows, float threshold, float damageAmount, List<Vector2> removedPixelCenters, bool allowEdgeNoise, bool allowDestroyCells = true)
@@ -859,6 +907,44 @@ public class RockWall : MonoBehaviour
 
                     float distanceFactor = Mathf.Lerp(centerDamageMultiplier, edgeDamageMultiplier, Mathf.Clamp01(ellipseDistance));
                     ApplyPointDamage(row, column, damageAmount * distanceFactor, removedPixelCenters, allowDestroyCells);
+                }
+            }
+        }
+    }
+
+    private void ApplyBlastProfileDamage(Vector2 centerLocal, float radiusColumns, float radiusRows, float centerDamage, float outerDamage, List<Vector2> removedPixelCenters)
+    {
+        using (ShootTheRockPerformance.ApplyEllipseDamageMarker.Auto())
+        {
+            int centerRow = GetRowIndexFromLocalY(centerLocal.y);
+            int centerColumn = GetColumnIndexFromLocalX(centerLocal.x);
+            int rowRadiusCeil = Mathf.CeilToInt(radiusRows) + 1;
+            int columnRadiusCeil = Mathf.CeilToInt(radiusColumns) + 1;
+
+            for (int row = Mathf.Max(0, centerRow - rowRadiusCeil); row <= Mathf.Min(rowCount - 1, centerRow + rowRadiusCeil); row++)
+            {
+                for (int column = Mathf.Max(0, centerColumn - columnRadiusCeil); column <= Mathf.Min(columnCount - minimumColumnsRemaining - 1, centerColumn + columnRadiusCeil); column++)
+                {
+                    if (!solidCells[row, column])
+                        continue;
+
+                    Vector2 cellCenter = GetCellCenterLocal(row, column);
+                    float normalizedX = (cellCenter.x - centerLocal.x) / (columnWidth * Mathf.Max(0.01f, radiusColumns));
+                    float normalizedY = (cellCenter.y - centerLocal.y) / (rowHeight * Mathf.Max(0.01f, radiusRows));
+                    float normalizedDistance = Mathf.Sqrt((normalizedX * normalizedX) + (normalizedY * normalizedY));
+                    if (normalizedDistance > 1f)
+                        continue;
+
+                    float edgeNoise = 1f;
+                    if (normalizedDistance > 0.72f)
+                        edgeNoise += Random.Range(-0.08f, 0.08f);
+                    if (normalizedDistance > edgeNoise)
+                        continue;
+
+                    float falloff = 1f - normalizedDistance;
+                    float damageFactor = 1f - Mathf.Pow(1f - falloff, 1.85f);
+                    float damage = Mathf.Lerp(outerDamage, centerDamage, damageFactor) * Random.Range(0.96f, 1.04f);
+                    ApplyPointDamage(row, column, damage, removedPixelCenters);
                 }
             }
         }
@@ -1409,25 +1495,49 @@ public class RockWall : MonoBehaviour
             ticksRemaining--;
             ShootTheRockPerformance.RecordWallEffectTick();
 
-            if (effect.blastRadiusScale > 1.05f)
+            switch (effect.effectType)
             {
-                float radiusScale = Mathf.Lerp(0.75f, 1.65f, Mathf.InverseLerp(1f, 3f, effect.blastRadiusScale)) * effect.blastRadiusScale;
-                ApplyEllipseDamage(
-                    GetCellCenterLocal(effect.row, effect.column),
-                    radiusScale,
-                    radiusScale,
-                    0.98f,
-                    effect.damagePerTick,
-                    wallEffectRemovedPixelCenters,
-                    allowEdgeNoise: false,
-                    allowDestroyCells: effect.allowDestroyCells);
-            }
-            else
-            {
-                ApplyPointDamage(effect.row, effect.column, effect.damagePerTick, wallEffectRemovedPixelCenters, effect.allowDestroyCells);
-            }
+                case RockWallEffectType.Corrosion:
+                {
+                    float radiusScale = 1.16f;
+                    float corrosionDamage = effect.damagePerTick * Mathf.Lerp(1.0f, 1.16f, Mathf.InverseLerp(1f, 3.2f, effect.maxSpreadDistance));
+                    ApplyEllipseDamage(
+                        GetCellCenterLocal(effect.row, effect.column),
+                        radiusScale,
+                        radiusScale,
+                        1.04f,
+                        corrosionDamage,
+                        wallEffectRemovedPixelCenters,
+                        allowEdgeNoise: false,
+                        allowDestroyCells: effect.allowDestroyCells);
+                    SpreadCorrosionFromEffect(effect, now);
+                    changedWall = true;
+                    break;
+                }
+                default:
+                {
+                    if (effect.blastRadiusScale > 1.05f)
+                    {
+                        float radiusScale = Mathf.Lerp(0.75f, 1.65f, Mathf.InverseLerp(1f, 3f, effect.blastRadiusScale)) * effect.blastRadiusScale;
+                        ApplyEllipseDamage(
+                            GetCellCenterLocal(effect.row, effect.column),
+                            radiusScale,
+                            radiusScale,
+                            0.98f,
+                            effect.damagePerTick,
+                            wallEffectRemovedPixelCenters,
+                            allowEdgeNoise: false,
+                            allowDestroyCells: effect.allowDestroyCells);
+                    }
+                    else
+                    {
+                        ApplyPointDamage(effect.row, effect.column, effect.damagePerTick, wallEffectRemovedPixelCenters, effect.allowDestroyCells);
+                    }
 
-            changedWall = true;
+                    changedWall = true;
+                    break;
+                }
+            }
         }
 
         if (wallEffectRemovedPixelCenters.Count > 0)
@@ -1442,7 +1552,139 @@ public class RockWall : MonoBehaviour
         wallEffectRemovedPixelCenters.Clear();
     }
 
-    private void QueueWallEffectAtCell(int row, int column, RockWallEffectType effectType, float duration, float tickInterval, float damagePerTick, float blastRadiusScale, bool allowDestroyCells)
+    private bool QueueCorrosionFromBlast(Vector2 centerLocal, int centerRow, int centerColumn, float duration, float tickInterval, float damagePerTick, float blastRadiusScale, bool allowDestroyCells)
+    {
+        float width01 = Mathf.InverseLerp(1f, 3.2f, blastRadiusScale);
+        int centerSearchRadius = Mathf.Clamp(Mathf.CeilToInt(Mathf.Max(3f, blastRadiusScale * 3f)), 3, 12);
+        int ringSearchRadius = Mathf.Clamp(Mathf.CeilToInt(Mathf.Lerp(2f, 5f, width01)), 2, 8);
+        float ringRadiusCells = Mathf.Lerp(1.25f, 5.5f, width01);
+        int ringSampleCount = Mathf.Clamp(Mathf.RoundToInt(Mathf.Lerp(6f, 18f, width01)), 6, 18);
+        bool queuedAny = false;
+        HashSet<int> seededAnchors = new HashSet<int>();
+
+        if (TryFindNearestSolidCell(centerRow, centerColumn, centerSearchRadius, out int anchorRow, out int anchorColumn))
+        {
+            int centerKey = (anchorRow * columnCount) + anchorColumn;
+            seededAnchors.Add(centerKey);
+            queuedAny |= QueueCorrosionCluster(anchorRow, anchorColumn, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+        }
+
+        if (width01 <= 0.01f)
+            return queuedAny;
+
+        for (int i = 0; i < ringSampleCount; i++)
+        {
+            float angle = (i / (float)ringSampleCount) * Mathf.PI * 2f;
+            Vector2 ringOffset = new Vector2(
+                Mathf.Cos(angle) * columnWidth * ringRadiusCells,
+                Mathf.Sin(angle) * rowHeight * ringRadiusCells);
+            Vector2 sampleLocal = centerLocal + ringOffset;
+
+            if (!TryFindNearestSolidCellFromLocal(sampleLocal, ringSearchRadius, out int seedRow, out int seedColumn))
+                continue;
+
+            int seedKey = (seedRow * columnCount) + seedColumn;
+            if (!seededAnchors.Add(seedKey))
+                continue;
+
+            queuedAny |= QueueCorrosionCluster(seedRow, seedColumn, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+        }
+
+        return queuedAny;
+    }
+
+    private bool QueueCorrosionCluster(int row, int column, float duration, float tickInterval, float damagePerTick, float blastRadiusScale, bool allowDestroyCells)
+    {
+        float width01 = Mathf.InverseLerp(1f, 3.2f, blastRadiusScale);
+        int seedRadius = 1;
+        float maxSpreadDistance = Mathf.Lerp(2.4f, 8.5f, width01);
+        bool queuedAny = false;
+
+        for (int targetRow = row - seedRadius; targetRow <= row + seedRadius; targetRow++)
+        {
+            for (int targetColumn = column - seedRadius; targetColumn <= column + seedRadius; targetColumn++)
+            {
+                if (targetRow < 0 || targetRow >= rowCount || targetColumn < 0 || targetColumn >= columnCount - minimumColumnsRemaining)
+                    continue;
+                if (!solidCells[targetRow, targetColumn])
+                    continue;
+
+                float normalizedRow = (targetRow - row) / (seedRadius + 0.35f);
+                float normalizedColumn = (targetColumn - column) / (seedRadius + 0.35f);
+                float distance01 = Mathf.Sqrt((normalizedRow * normalizedRow) + (normalizedColumn * normalizedColumn));
+                if (distance01 > 1.06f)
+                    continue;
+
+                float falloff = Mathf.Clamp01(1f - (distance01 / 1.06f));
+                float seededDuration = Mathf.Lerp(duration * 0.68f, duration * 1.18f, falloff);
+                float seededTickInterval = Mathf.Lerp(tickInterval * 1.12f, tickInterval, falloff);
+                float seededDamage = Mathf.Lerp(damagePerTick * 0.58f, damagePerTick, falloff);
+                float seededBlast = Mathf.Lerp(1.02f, 1.18f, falloff);
+
+                QueueWallEffectAtCell(targetRow, targetColumn, RockWallEffectType.Corrosion, seededDuration, seededTickInterval, seededDamage, seededBlast, allowDestroyCells, row, column, maxSpreadDistance);
+                queuedAny = true;
+            }
+        }
+
+        return queuedAny;
+    }
+
+    private void SpreadCorrosionFromEffect(RockWallEffectRuntime effect, float now)
+    {
+        float remainingDuration = effect.expireTime - now;
+        if (remainingDuration <= effect.tickInterval * 1.5f)
+            return;
+
+        int startIndex = Mathf.Abs((effect.row * 31) + (effect.column * 17) + Mathf.FloorToInt(now / Mathf.Max(0.02f, effect.tickInterval))) % CorrosionSpreadOffsets.Length;
+        int bestRow = -1;
+        int bestColumn = -1;
+        float bestScore = float.MinValue;
+
+        for (int i = 0; i < CorrosionSpreadOffsets.Length; i++)
+        {
+            Vector2Int offset = CorrosionSpreadOffsets[(startIndex + i) % CorrosionSpreadOffsets.Length];
+            int targetRow = effect.row + offset.y;
+            int targetColumn = effect.column + offset.x;
+
+            if (targetRow < 0 || targetRow >= rowCount || targetColumn < 0 || targetColumn >= columnCount - minimumColumnsRemaining)
+                continue;
+            if (!solidCells[targetRow, targetColumn])
+                continue;
+
+            WallEffectKey key = new WallEffectKey(RockWallEffectType.Corrosion, targetRow, targetColumn);
+            if (wallEffectIndexByKey.ContainsKey(key))
+                continue;
+
+            float originDistance = Vector2.Distance(
+                new Vector2(effect.originColumn, effect.originRow),
+                new Vector2(targetColumn, targetRow));
+            if (originDistance > effect.maxSpreadDistance)
+                continue;
+
+            float frontierDistance = Vector2.Distance(
+                new Vector2(effect.originColumn, effect.originRow),
+                new Vector2(effect.column, effect.row));
+            float score = originDistance - Mathf.Abs(originDistance - frontierDistance - 1f) + ((CorrosionSpreadOffsets.Length - i) * 0.001f);
+            if (score <= bestScore)
+                continue;
+
+            bestScore = score;
+            bestRow = targetRow;
+            bestColumn = targetColumn;
+        }
+
+        if (bestRow < 0 || bestColumn < 0)
+            return;
+
+        float spreadDamage = Mathf.Max(0.03f, effect.damagePerTick * 0.82f);
+        float spreadDuration = Mathf.Max(effect.tickInterval * 2f, remainingDuration * 0.88f);
+        float spreadTickInterval = effect.tickInterval * 1.04f;
+        float spreadBlast = 1.08f;
+
+        QueueWallEffectAtCell(bestRow, bestColumn, RockWallEffectType.Corrosion, spreadDuration, spreadTickInterval, spreadDamage, spreadBlast, effect.allowDestroyCells, effect.originRow, effect.originColumn, effect.maxSpreadDistance);
+    }
+
+    private void QueueWallEffectAtCell(int row, int column, RockWallEffectType effectType, float duration, float tickInterval, float damagePerTick, float blastRadiusScale, bool allowDestroyCells, int originRow = -1, int originColumn = -1, float maxSpreadDistance = -1f)
     {
         if (row < 0 || row >= rowCount || column < 0 || column >= columnCount - minimumColumnsRemaining)
             return;
@@ -1453,12 +1695,12 @@ public class RockWall : MonoBehaviour
         if (wallEffectIndexByKey.TryGetValue(key, out int existingIndex))
         {
             RockWallEffectRuntime existingEffect = activeWallEffects[existingIndex];
-            existingEffect.Refresh(now, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+            existingEffect.Refresh(now, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells, maxSpreadDistance);
             ShootTheRockPerformance.SetActiveWallEffects(activeWallEffects.Count);
             return;
         }
 
-        RockWallEffectRuntime effect = new RockWallEffectRuntime(effectType, row, column, now, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
+        RockWallEffectRuntime effect = new RockWallEffectRuntime(effectType, row, column, now, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells, originRow, originColumn, maxSpreadDistance);
         wallEffectIndexByKey[key] = activeWallEffects.Count;
         activeWallEffects.Add(effect);
         ShootTheRockPerformance.SetActiveWallEffects(activeWallEffects.Count);
@@ -1497,6 +1739,16 @@ public class RockWall : MonoBehaviour
         int chunkRow = Mathf.Clamp(row / resolvedChunkSize, 0, chunkRows - 1);
         int chunkColumn = Mathf.Clamp(column / resolvedChunkSize, 0, chunkColumns - 1);
         return (chunkRow * chunkColumns) + chunkColumn;
+    }
+
+    public void NotifyChipParticleActivated()
+    {
+        activeChipParticleCount++;
+    }
+
+    public void NotifyChipParticleDeactivated()
+    {
+        activeChipParticleCount = Mathf.Max(0, activeChipParticleCount - 1);
     }
 
     public void ReleaseChipParticle(ChipParticle chipParticle)
@@ -1571,9 +1823,22 @@ public class RockWall : MonoBehaviour
         if (removedPixelCenters == null || removedPixelCenters.Count == 0 || particlesRoot == null)
             return;
 
+        int availableSlots = maxActiveChipParticles <= 0
+            ? 0
+            : Mathf.Max(0, maxActiveChipParticles - activeChipParticleCount);
+        if (availableSlots <= 0)
+            return;
+
         Vector2 baseDirection = pushDirection.sqrMagnitude > 0.0001f ? (-pushDirection).normalized : Vector2.left;
-        int particleCount = Mathf.Min(MaxChipParticlesPerHit, removedPixelCenters.Count);
+        float load01 = maxActiveChipParticles <= 0 ? 1f : Mathf.Clamp01(activeChipParticleCount / (float)maxActiveChipParticles);
+        int desiredParticleCount = Mathf.RoundToInt(Mathf.Lerp(MaxChipParticlesPerHit, 2f, load01));
+        int particleCount = Mathf.Min(desiredParticleCount, removedPixelCenters.Count, availableSlots);
+        if (particleCount <= 0)
+            return;
+
         int stride = Mathf.Max(1, Mathf.CeilToInt(removedPixelCenters.Count / (float)particleCount));
+        float lifetimeMin = Mathf.Lerp(chipLifetimeMin, chipLifetimeMin * 0.55f, load01);
+        float lifetimeMax = Mathf.Lerp(chipLifetimeMax, chipLifetimeMax * 0.65f, load01);
 
         for (int i = 0, spawned = 0; i < removedPixelCenters.Count && spawned < particleCount; i += stride, spawned++)
         {
@@ -1593,7 +1858,7 @@ public class RockWall : MonoBehaviour
                 Color.white,
                 directionalImpulse + scatterImpulse,
                 Random.Range(-0.02f, 0.02f),
-                Random.Range(0.8f, 1.25f));
+                Random.Range(lifetimeMin, lifetimeMax));
         }
     }
 

@@ -4,16 +4,33 @@ using UnityEngine;
 public class AutoShooter : MonoBehaviour
 {
     private const int PrewarmProjectileCount = 8;
-    private const float StressShotgunFireInterval = 0.1f;
-    private const int StressShotgunPelletCount = 7;
+    private const float DefaultStressShotgunFireInterval = 0.06f;
+    private const float MinimumStressShotgunFireInterval = 0.02f;
+    private const float MaximumStressShotgunFireInterval = 0.2f;
+    private const int DefaultStressShotgunPelletCount = 11;
+    private const int MinimumStressShotgunPelletCount = 1;
+    private const int MaximumStressShotgunPelletCount = 25;
     private const float StressShotgunSpreadAngle = 28f;
     private const float AirburstGrenadeFuseTime = 0.43f;
     private const float AirburstGrenadeSpeedMultiplier = 0.72f;
-    private const int AirburstFragmentCount = 9;
+    private const int DefaultAirburstFragmentCount = 13;
+    private const int MinimumAirburstFragmentCount = 1;
+    private const int MaximumAirburstFragmentCount = 25;
     private const float AirburstFragmentSpreadAngle = 46f;
     private const float AirburstFragmentSpeedMultiplier = 1.25f;
     private const float AirburstFragmentBlastScaleMultiplier = 0.45f;
     private const float AirburstFragmentGravity = 0.18f;
+    private const float CorrosionEffectDuration = 4.4f;
+    private const float CorrosionEffectTickInterval = 0.14f;
+    private const float CorrosionDamagePerTick = 0.42f;
+    private const float CorrosionBlastScaleMultiplier = 1.05f;
+    private const float CorrosionMinimumBlastScale = 1.15f;
+    private const float DefaultDebugBlastScaleMultiplier = 1.45f;
+    private const float MinimumDebugBlastScaleMultiplier = 0.5f;
+    private const float MaximumDebugBlastScaleMultiplier = 4f;
+    private const float DefaultCorrosionRadiusMultiplier = 1.6f;
+    private const float MinimumCorrosionRadiusMultiplier = 0.5f;
+    private const float MaximumCorrosionRadiusMultiplier = 4f;
 
     [Header("Firing")]
     [SerializeField] private float fireInterval = 2f;
@@ -33,6 +50,13 @@ public class AutoShooter : MonoBehaviour
     [SerializeField] private int baseDamageUpgradeCost = 14;
     [SerializeField] private int damageUpgradeCostStep = 12;
 
+    [Header("Debug Stress Tuning")]
+    [SerializeField] private float debugBlastScaleMultiplier = DefaultDebugBlastScaleMultiplier;
+    [SerializeField] private float corrosionRadiusMultiplier = DefaultCorrosionRadiusMultiplier;
+    [SerializeField] private float stressShotgunFireInterval = DefaultStressShotgunFireInterval;
+    [SerializeField] private int stressShotgunPelletCount = DefaultStressShotgunPelletCount;
+    [SerializeField] private int airburstFragmentCount = DefaultAirburstFragmentCount;
+
     private Transform firePoint;
     private RockWall rockWall;
     private float nextShotTime;
@@ -40,6 +64,7 @@ public class AutoShooter : MonoBehaviour
     private int damageLevel;
     private bool stressShotgunEnabled;
     private bool airburstGrenadeEnabled;
+    private bool corrosionEnabled;
     private Transform projectilePoolRoot;
     private readonly Queue<Projectile> projectilePool = new Queue<Projectile>();
 
@@ -54,7 +79,14 @@ public class AutoShooter : MonoBehaviour
     public bool CanUpgradeDamage => blastRadiusScale < maximumBlastRadiusScale - 0.0001f;
     public bool StressShotgunEnabled => stressShotgunEnabled;
     public bool AirburstGrenadeEnabled => airburstGrenadeEnabled;
-    public float CurrentEffectiveFireInterval => stressShotgunEnabled ? StressShotgunFireInterval : fireInterval;
+    public bool CorrosionEnabled => corrosionEnabled;
+    public float CurrentEffectiveFireInterval => stressShotgunEnabled ? stressShotgunFireInterval : fireInterval;
+    public float DebugBlastScaleMultiplier => debugBlastScaleMultiplier;
+    public float CorrosionRadiusMultiplier => corrosionRadiusMultiplier;
+    public float StressShotgunFireInterval => stressShotgunFireInterval;
+    public int StressShotgunPelletCount => stressShotgunPelletCount;
+    public int AirburstFragmentCount => airburstFragmentCount;
+    public float CurrentProjectileBlastScale => blastRadiusScale * debugBlastScaleMultiplier;
 
     public void Initialize(Transform firePoint, RockWall rockWall)
     {
@@ -129,6 +161,38 @@ public class AutoShooter : MonoBehaviour
         nextShotTime = Time.time + 0.05f;
     }
 
+    public void ToggleCorrosion()
+    {
+        corrosionEnabled = !corrosionEnabled;
+        nextShotTime = Time.time + 0.05f;
+    }
+
+    public void SetDebugBlastScaleMultiplier(float value)
+    {
+        debugBlastScaleMultiplier = Mathf.Clamp(value, MinimumDebugBlastScaleMultiplier, MaximumDebugBlastScaleMultiplier);
+    }
+
+    public void SetCorrosionRadiusMultiplier(float value)
+    {
+        corrosionRadiusMultiplier = Mathf.Clamp(value, MinimumCorrosionRadiusMultiplier, MaximumCorrosionRadiusMultiplier);
+    }
+
+    public void SetStressShotgunFireInterval(float value)
+    {
+        stressShotgunFireInterval = Mathf.Clamp(value, MinimumStressShotgunFireInterval, MaximumStressShotgunFireInterval);
+        nextShotTime = Mathf.Min(nextShotTime, Time.time + stressShotgunFireInterval);
+    }
+
+    public void SetStressShotgunPelletCount(float value)
+    {
+        stressShotgunPelletCount = Mathf.Clamp(Mathf.RoundToInt(value), MinimumStressShotgunPelletCount, MaximumStressShotgunPelletCount);
+    }
+
+    public void SetAirburstFragmentCount(float value)
+    {
+        airburstFragmentCount = Mathf.Clamp(Mathf.RoundToInt(value), MinimumAirburstFragmentCount, MaximumAirburstFragmentCount);
+    }
+
     private void Fire()
     {
         using (ShootTheRockPerformance.FireMarker.Auto())
@@ -160,9 +224,9 @@ public class AutoShooter : MonoBehaviour
     private void FireStressShotgun()
     {
         float halfSpread = StressShotgunSpreadAngle * 0.5f;
-        for (int i = 0; i < StressShotgunPelletCount; i++)
+        for (int i = 0; i < stressShotgunPelletCount; i++)
         {
-            float t = StressShotgunPelletCount == 1 ? 0.5f : i / (float)(StressShotgunPelletCount - 1);
+            float t = stressShotgunPelletCount == 1 ? 0.5f : i / (float)(stressShotgunPelletCount - 1);
             float angle = Mathf.Lerp(-halfSpread, halfSpread, t);
             Vector2 direction = Quaternion.Euler(0f, 0f, angle) * firePoint.right;
             FireSingleProjectile(direction);
@@ -171,9 +235,11 @@ public class AutoShooter : MonoBehaviour
 
     private void FireSingleProjectile(Vector2 direction)
     {
+        float resolvedBlastScale = CurrentProjectileBlastScale;
         ShootTheRockPerformance.RecordPellet();
         Projectile projectile = AcquireProjectile();
-        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, blastRadiusScale, projectileGravity);
+        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, resolvedBlastScale, projectileGravity);
+        ConfigureProjectileCorrosion(projectile, resolvedBlastScale);
     }
 
     private void FireAirburstGrenade()
@@ -184,9 +250,9 @@ public class AutoShooter : MonoBehaviour
     private void FireAirburstShotgun()
     {
         float halfSpread = StressShotgunSpreadAngle * 0.5f;
-        for (int i = 0; i < StressShotgunPelletCount; i++)
+        for (int i = 0; i < stressShotgunPelletCount; i++)
         {
-            float t = StressShotgunPelletCount == 1 ? 0.5f : i / (float)(StressShotgunPelletCount - 1);
+            float t = stressShotgunPelletCount == 1 ? 0.5f : i / (float)(stressShotgunPelletCount - 1);
             float angle = Mathf.Lerp(-halfSpread, halfSpread, t);
             Vector2 direction = (Quaternion.Euler(0f, 0f, angle) * firePoint.right).normalized;
             LaunchAirburstGrenade(direction, AirburstGrenadeFuseTime);
@@ -195,6 +261,7 @@ public class AutoShooter : MonoBehaviour
 
     private void LaunchAirburstGrenade(Vector2 direction, float fuseTime)
     {
+        float resolvedBlastScale = CurrentProjectileBlastScale;
         ShootTheRockPerformance.RecordPellet();
         Projectile projectile = AcquireProjectile();
         projectile.LaunchAirburstGrenade(
@@ -202,20 +269,31 @@ public class AutoShooter : MonoBehaviour
             direction,
             projectileSpeed * AirburstGrenadeSpeedMultiplier,
             rockWall,
-            blastRadiusScale,
+            resolvedBlastScale,
             fuseTime,
             projectileGravity);
+        ConfigureProjectileCorrosion(projectile, resolvedBlastScale);
     }
 
-    public void SpawnAirburstFragments(Vector2 worldPosition, Vector2 forwardDirection, RockWall sourceWall, float sourceBlastScale)
+    public void SpawnAirburstFragments(
+        Vector2 worldPosition,
+        Vector2 forwardDirection,
+        RockWall sourceWall,
+        float sourceBlastScale,
+        bool applyCorrosion,
+        float corrosionDuration,
+        float corrosionTickInterval,
+        float corrosionDamagePerTick,
+        float corrosionBlastScale,
+        bool corrosionAllowDestroyCells)
     {
         Vector2 normalizedForward = forwardDirection.sqrMagnitude > 0.0001f ? forwardDirection.normalized : (Vector2)firePoint.right;
         float halfSpread = AirburstFragmentSpreadAngle * 0.5f;
         float fragmentBlastScale = Mathf.Max(0.2f, sourceBlastScale * AirburstFragmentBlastScaleMultiplier);
 
-        for (int i = 0; i < AirburstFragmentCount; i++)
+        for (int i = 0; i < airburstFragmentCount; i++)
         {
-            float t = AirburstFragmentCount == 1 ? 0.5f : i / (float)(AirburstFragmentCount - 1);
+            float t = airburstFragmentCount == 1 ? 0.5f : i / (float)(airburstFragmentCount - 1);
             float angle = Mathf.Lerp(-halfSpread, halfSpread, t);
             Vector2 fragmentDirection = (Quaternion.Euler(0f, 0f, angle) * normalizedForward).normalized;
 
@@ -228,6 +306,13 @@ public class AutoShooter : MonoBehaviour
                 sourceWall != null ? sourceWall : rockWall,
                 fragmentBlastScale,
                 AirburstFragmentGravity);
+            fragment.ConfigureCorrosion(
+                applyCorrosion,
+                corrosionDuration,
+                corrosionTickInterval,
+                corrosionDamagePerTick,
+                corrosionBlastScale,
+                corrosionAllowDestroyCells);
         }
     }
 
@@ -242,6 +327,25 @@ public class AutoShooter : MonoBehaviour
 
         ShootTheRockPerformance.RecordProjectilePoolMiss();
         return CreateProjectileInstance();
+    }
+
+    private void ConfigureProjectileCorrosion(Projectile projectile, float sourceBlastScale)
+    {
+        if (projectile == null)
+            return;
+
+        float width01 = Mathf.InverseLerp(MinimumCorrosionRadiusMultiplier, MaximumCorrosionRadiusMultiplier, corrosionRadiusMultiplier);
+        float corrosionReachScale = Mathf.Lerp(1f, 2.7f, width01);
+        float sourceInfluence = Mathf.Lerp(1f, 1.35f, Mathf.InverseLerp(1f, 4f, sourceBlastScale));
+        float corrosionDamageBoost = Mathf.Lerp(0.9f, 2.25f, width01);
+
+        projectile.ConfigureCorrosion(
+            corrosionEnabled,
+            CorrosionEffectDuration,
+            CorrosionEffectTickInterval,
+            CorrosionDamagePerTick * corrosionDamageBoost,
+            Mathf.Max(CorrosionMinimumBlastScale, corrosionReachScale * sourceInfluence),
+            allowDestroyCells: true);
     }
 
     private void EnsureProjectilePoolRoot()

@@ -27,6 +27,12 @@ public class Projectile : MonoBehaviour
     private ProjectileMode mode;
     private float airburstFuseRemaining;
     private Vector2 lastTravelDirection = Vector2.right;
+    private bool corrosionEnabled;
+    private float corrosionDuration;
+    private float corrosionTickInterval;
+    private float corrosionDamagePerTick;
+    private float corrosionBlastRadiusScale = 1f;
+    private bool corrosionAllowDestroyCells = true;
 
     public void ConfigurePool(AutoShooter owner, Rigidbody2D body)
     {
@@ -49,6 +55,16 @@ public class Projectile : MonoBehaviour
         LaunchInternal(worldPosition, direction, speed, rockWall, blastRadiusScale, ProjectileMode.Fragment, FragmentLifetime, 0f, gravityScale, FragmentScale);
     }
 
+    public void ConfigureCorrosion(bool enabled, float duration, float tickInterval, float damagePerTick, float blastRadiusScale, bool allowDestroyCells = true)
+    {
+        corrosionEnabled = enabled;
+        corrosionDuration = Mathf.Max(0.05f, duration);
+        corrosionTickInterval = Mathf.Max(0.02f, tickInterval);
+        corrosionDamagePerTick = Mathf.Max(0.01f, damagePerTick);
+        corrosionBlastRadiusScale = Mathf.Max(0.25f, blastRadiusScale);
+        corrosionAllowDestroyCells = allowDestroyCells;
+    }
+
     private void LaunchInternal(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, float blastRadiusScale, ProjectileMode mode, float lifetime, float fuseTime, float gravityScale, Vector3 visualScale)
     {
         this.rockWall = rockWall;
@@ -58,6 +74,7 @@ public class Projectile : MonoBehaviour
         this.lastTravelDirection = direction.sqrMagnitude > 0.0001f ? direction.normalized : Vector2.right;
         didHit = false;
         lifetimeRemaining = lifetime;
+        ConfigureCorrosion(false, 0.1f, 0.1f, 0.01f, 1f, true);
 
         transform.SetParent(null, true);
         transform.position = worldPosition;
@@ -139,6 +156,7 @@ public class Projectile : MonoBehaviour
             }
 
             rockWall.ApplyHit(hitPoint, impactDirection, blastRadiusScale);
+            ApplyCorrosion(hitPoint);
             ReturnToPool();
         }
     }
@@ -150,9 +168,34 @@ public class Projectile : MonoBehaviour
 
         didHit = true;
         if (owner != null)
-            owner.SpawnAirburstFragments(worldPosition, forwardDirection, rockWall, blastRadiusScale);
+            owner.SpawnAirburstFragments(
+                worldPosition,
+                forwardDirection,
+                rockWall,
+                blastRadiusScale,
+                corrosionEnabled,
+                corrosionDuration,
+                corrosionTickInterval,
+                corrosionDamagePerTick,
+                corrosionBlastRadiusScale,
+                corrosionAllowDestroyCells);
 
         ReturnToPool();
+    }
+
+    private void ApplyCorrosion(Vector2 worldPosition)
+    {
+        if (!corrosionEnabled || rockWall == null)
+            return;
+
+        rockWall.QueueWallEffect(
+            worldPosition,
+            RockWallEffectType.Corrosion,
+            corrosionDuration,
+            corrosionTickInterval,
+            corrosionDamagePerTick,
+            corrosionBlastRadiusScale,
+            corrosionAllowDestroyCells);
     }
 
     private bool ShouldDespawnOutsideWallBounds()
@@ -192,6 +235,7 @@ public class Projectile : MonoBehaviour
         mode = ProjectileMode.Standard;
         rockWall = null;
         transform.localScale = StandardScale;
+        ConfigureCorrosion(false, 0.1f, 0.1f, 0.01f, 1f, true);
 
         if (isActiveTracked)
         {

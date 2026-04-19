@@ -660,15 +660,15 @@
                 "y": -130.0
             },
             "sizeDelta": {
-                "x": 380.0,
-                "y": 510.0
+                "x": 400.0,
+                "y": 760.0
             },
             "offsetMin": {
                 "x": 28.0,
-                "y": -640.0
+                "y": -890.0
             },
             "offsetMax": {
-                "x": 408.0,
+                "x": 428.0,
                 "y": -130.0
             },
             "components": [
@@ -692,8 +692,8 @@
             "siblingIndex": 5,
             "hasRectTransform": true,
             "localPosition": {
-                "x": 190.0,
-                "y": -498.0,
+                "x": 200.0,
+                "y": -698.0,
                 "z": 0.0
             },
             "localRotation": {
@@ -721,7 +721,7 @@
             },
             "anchoredPosition": {
                 "x": 0.0,
-                "y": 12.0
+                "y": 62.0
             },
             "sizeDelta": {
                 "x": -24.0,
@@ -729,11 +729,11 @@
             },
             "offsetMin": {
                 "x": 12.0,
-                "y": 12.0
+                "y": 62.0
             },
             "offsetMax": {
                 "x": -12.0,
-                "y": 52.0
+                "y": 102.0
             },
             "components": [
                 {
@@ -825,8 +825,8 @@
             "siblingIndex": 1,
             "hasRectTransform": true,
             "localPosition": {
-                "x": 190.0,
-                "y": -298.0,
+                "x": 200.0,
+                "y": -498.0,
                 "z": 0.0
             },
             "localRotation": {
@@ -854,7 +854,7 @@
             },
             "anchoredPosition": {
                 "x": 0.0,
-                "y": 212.0
+                "y": 262.0
             },
             "sizeDelta": {
                 "x": -24.0,
@@ -862,11 +862,11 @@
             },
             "offsetMin": {
                 "x": 12.0,
-                "y": 212.0
+                "y": 262.0
             },
             "offsetMax": {
                 "x": -12.0,
-                "y": 252.0
+                "y": 302.0
             },
             "components": [
                 {
@@ -951,15 +951,143 @@
             ]
         },
         {
-            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton",
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow",
             "activeSelf": true,
             "layer": 0,
             "tag": "Untagged",
-            "siblingIndex": 2,
+            "siblingIndex": 7,
             "hasRectTransform": true,
             "localPosition": {
-                "x": 190.0,
-                "y": -348.0,
+                "x": 200.0,
+                "y": -170.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -170.0
+            },
+            "sizeDelta": {
+                "x": -24.0,
+                "y": 48.0
+            },
+            "offsetMin": {
+                "x": 12.0,
+                "y": -218.0
+            },
+            "offsetMax": {
+                "x": -12.0,
+                "y": -170.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.07999999821186066\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Label",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -2.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": -22.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": -2.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Text\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_FontData\": {\n            \"m_Font\": {\n                \"fileID\": 10102,\n                \"guid\": \"0000000000000000e000000000000000\",\n                \"type\": 0\n            },\n            \"m_FontSize\": 16,\n            \"m_FontStyle\": 1,\n            \"m_BestFit\": false,\n            \"m_MinSize\": 10,\n            \"m_MaxSize\": 40,\n            \"m_Alignment\": 0,\n            \"m_AlignByGeometry\": false,\n            \"m_RichText\": true,\n            \"m_HorizontalOverflow\": 0,\n            \"m_VerticalOverflow\": 0,\n            \"m_LineSpacing\": 1.0\n        },\n        \"m_Text\": \"BLAST SIZE  1.45\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -40.0,
                 "z": 0.0
             },
             "localRotation": {
@@ -987,7 +1115,364 @@
             },
             "anchoredPosition": {
                 "x": 0.0,
-                "y": 162.0
+                "y": 8.0
+            },
+            "sizeDelta": {
+                "x": -28.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 14.0,
+                "y": 8.0
+            },
+            "offsetMax": {
+                "x": -14.0,
+                "y": 28.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Slider\",\n        \"m_Navigation\": {\n            \"m_Mode\": 3,\n            \"m_WrapAround\": false,\n            \"m_SelectOnUp\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnDown\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnLeft\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnRight\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_Transition\": 1,\n        \"m_Colors\": {\n            \"m_NormalColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_HighlightedColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_PressedColor\": {\n                \"r\": 0.8500000238418579,\n                \"g\": 0.8500000238418579,\n                \"b\": 0.8500000238418579,\n                \"a\": 1.0\n            },\n            \"m_SelectedColor\": {\n                \"r\": 0.9607843160629273,\n                \"g\": 0.9607843160629273,\n                \"b\": 0.9607843160629273,\n                \"a\": 1.0\n            },\n            \"m_DisabledColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.30000001192092898\n            },\n            \"m_ColorMultiplier\": 1.0,\n            \"m_FadeDuration\": 0.10000000149011612\n        },\n        \"m_SpriteState\": {\n            \"m_HighlightedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_PressedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_DisabledSprite\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_AnimationTriggers\": {\n            \"m_NormalTrigger\": \"Normal\",\n            \"m_HighlightedTrigger\": \"Highlighted\",\n            \"m_PressedTrigger\": \"Pressed\",\n            \"m_SelectedTrigger\": \"Selected\",\n            \"m_DisabledTrigger\": \"Disabled\"\n        },\n        \"m_Interactable\": false,\n        \"m_TargetGraphic\": {\n            \"instanceID\": 0\n        },\n        \"m_FillRect\": {\n            \"instanceID\": 0\n        },\n        \"m_HandleRect\": {\n            \"instanceID\": 0\n        },\n        \"m_Direction\": 0,\n        \"m_MinValue\": 0.5,\n        \"m_MaxValue\": 4.0,\n        \"m_WholeNumbers\": false,\n        \"m_Value\": 1.4500000476837159,\n        \"m_OnValueChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        }\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Background",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.5
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.14000000059604646\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -16.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 8.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -8.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Fill Area/Fill",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -166.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.27142858505249026,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.44999998807907107\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/BlastScaleSliderRow/Slider/Handle Slide Area/Handle",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -74.97142028808594,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.27142858505249026,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.27142858505249026,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 16.0,
+                "y": 24.0
+            },
+            "offsetMin": {
+                "x": -8.0,
+                "y": -12.0
+            },
+            "offsetMax": {
+                "x": 8.0,
+                "y": 12.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionButton",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 6,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 200.0,
+                "y": -748.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 12.0
             },
             "sizeDelta": {
                 "x": -24.0,
@@ -995,11 +1480,629 @@
             },
             "offsetMin": {
                 "x": 12.0,
-                "y": 162.0
+                "y": 12.0
             },
             "offsetMax": {
                 "x": -12.0,
-                "y": 202.0
+                "y": 52.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.18000000715255738\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Button, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Button\",\n        \"m_Navigation\": {\n            \"m_Mode\": 3,\n            \"m_WrapAround\": false,\n            \"m_SelectOnUp\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnDown\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnLeft\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnRight\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_Transition\": 1,\n        \"m_Colors\": {\n            \"m_NormalColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.18000000715255738\n            },\n            \"m_HighlightedColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.2800000011920929\n            },\n            \"m_PressedColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.3799999952316284\n            },\n            \"m_SelectedColor\": {\n                \"r\": 0.9607843160629273,\n                \"g\": 0.9607843160629273,\n                \"b\": 0.9607843160629273,\n                \"a\": 1.0\n            },\n            \"m_DisabledColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.07999999821186066\n            },\n            \"m_ColorMultiplier\": 1.0,\n            \"m_FadeDuration\": 0.10000000149011612\n        },\n        \"m_SpriteState\": {\n            \"m_HighlightedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_PressedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_DisabledSprite\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_AnimationTriggers\": {\n            \"m_NormalTrigger\": \"Normal\",\n            \"m_HighlightedTrigger\": \"Highlighted\",\n            \"m_PressedTrigger\": \"Pressed\",\n            \"m_SelectedTrigger\": \"Selected\",\n            \"m_DisabledTrigger\": \"Disabled\"\n        },\n        \"m_Interactable\": false,\n        \"m_TargetGraphic\": {\n            \"instanceID\": 0\n        },\n        \"m_OnClick\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        }\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionButton/Text",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 20.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Text\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_FontData\": {\n            \"m_Font\": {\n                \"fileID\": 10102,\n                \"guid\": \"0000000000000000e000000000000000\",\n                \"type\": 0\n            },\n            \"m_FontSize\": 20,\n            \"m_FontStyle\": 1,\n            \"m_BestFit\": false,\n            \"m_MinSize\": 10,\n            \"m_MaxSize\": 40,\n            \"m_Alignment\": 4,\n            \"m_AlignByGeometry\": false,\n            \"m_RichText\": true,\n            \"m_HorizontalOverflow\": 0,\n            \"m_VerticalOverflow\": 0,\n            \"m_LineSpacing\": 1.0\n        },\n        \"m_Text\": \"CORROSION (NO CANNON)\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 8,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 200.0,
+                "y": -226.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -226.0
+            },
+            "sizeDelta": {
+                "x": -24.0,
+                "y": 48.0
+            },
+            "offsetMin": {
+                "x": 12.0,
+                "y": -274.0
+            },
+            "offsetMax": {
+                "x": -12.0,
+                "y": -226.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.07999999821186066\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow/Label",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -2.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": -22.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": -2.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Text\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_FontData\": {\n            \"m_Font\": {\n                \"fileID\": 10102,\n                \"guid\": \"0000000000000000e000000000000000\",\n                \"type\": 0\n            },\n            \"m_FontSize\": 16,\n            \"m_FontStyle\": 1,\n            \"m_BestFit\": false,\n            \"m_MinSize\": 10,\n            \"m_MaxSize\": 40,\n            \"m_Alignment\": 0,\n            \"m_AlignByGeometry\": false,\n            \"m_RichText\": true,\n            \"m_HorizontalOverflow\": 0,\n            \"m_VerticalOverflow\": 0,\n            \"m_LineSpacing\": 1.0\n        },\n        \"m_Text\": \"CORROSION WIDTH  1.60\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow/Slider",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -40.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 8.0
+            },
+            "sizeDelta": {
+                "x": -28.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 14.0,
+                "y": 8.0
+            },
+            "offsetMax": {
+                "x": -14.0,
+                "y": 28.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Slider\",\n        \"m_Navigation\": {\n            \"m_Mode\": 3,\n            \"m_WrapAround\": false,\n            \"m_SelectOnUp\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnDown\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnLeft\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnRight\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_Transition\": 1,\n        \"m_Colors\": {\n            \"m_NormalColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_HighlightedColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_PressedColor\": {\n                \"r\": 0.8500000238418579,\n                \"g\": 0.8500000238418579,\n                \"b\": 0.8500000238418579,\n                \"a\": 1.0\n            },\n            \"m_SelectedColor\": {\n                \"r\": 0.9607843160629273,\n                \"g\": 0.9607843160629273,\n                \"b\": 0.9607843160629273,\n                \"a\": 1.0\n            },\n            \"m_DisabledColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.30000001192092898\n            },\n            \"m_ColorMultiplier\": 1.0,\n            \"m_FadeDuration\": 0.10000000149011612\n        },\n        \"m_SpriteState\": {\n            \"m_HighlightedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_PressedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_DisabledSprite\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_AnimationTriggers\": {\n            \"m_NormalTrigger\": \"Normal\",\n            \"m_HighlightedTrigger\": \"Highlighted\",\n            \"m_PressedTrigger\": \"Pressed\",\n            \"m_SelectedTrigger\": \"Selected\",\n            \"m_DisabledTrigger\": \"Disabled\"\n        },\n        \"m_Interactable\": false,\n        \"m_TargetGraphic\": {\n            \"instanceID\": 0\n        },\n        \"m_FillRect\": {\n            \"instanceID\": 0\n        },\n        \"m_HandleRect\": {\n            \"instanceID\": 0\n        },\n        \"m_Direction\": 0,\n        \"m_MinValue\": 0.5,\n        \"m_MaxValue\": 4.0,\n        \"m_WholeNumbers\": false,\n        \"m_Value\": 1.600000023841858,\n        \"m_OnValueChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        }\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow/Slider/Background",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.5
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.14000000059604646\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow/Slider/Fill Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -16.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 8.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -8.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow/Slider/Fill Area/Fill",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -166.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.3142857253551483,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.44999998807907107\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow/Slider/Handle Slide Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/CorrosionRadiusSliderRow/Slider/Handle Slide Area/Handle",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -60.914283752441409,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.3142857253551483,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.3142857253551483,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 16.0,
+                "y": 24.0
+            },
+            "offsetMin": {
+                "x": -8.0,
+                "y": -12.0
+            },
+            "offsetMax": {
+                "x": 8.0,
+                "y": 12.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 200.0,
+                "y": -548.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 212.0
+            },
+            "sizeDelta": {
+                "x": -24.0,
+                "y": 40.0
+            },
+            "offsetMin": {
+                "x": 12.0,
+                "y": 212.0
+            },
+            "offsetMax": {
+                "x": -12.0,
+                "y": 252.0
             },
             "components": [
                 {
@@ -1084,15 +2187,143 @@
             ]
         },
         {
-            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton",
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow",
             "activeSelf": true,
             "layer": 0,
             "tag": "Untagged",
-            "siblingIndex": 3,
+            "siblingIndex": 11,
             "hasRectTransform": true,
             "localPosition": {
-                "x": 190.0,
-                "y": -398.0,
+                "x": 200.0,
+                "y": -394.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -394.0
+            },
+            "sizeDelta": {
+                "x": -24.0,
+                "y": 48.0
+            },
+            "offsetMin": {
+                "x": 12.0,
+                "y": -442.0
+            },
+            "offsetMax": {
+                "x": -12.0,
+                "y": -394.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.07999999821186066\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow/Label",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -2.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": -22.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": -2.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Text\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_FontData\": {\n            \"m_Font\": {\n                \"fileID\": 10102,\n                \"guid\": \"0000000000000000e000000000000000\",\n                \"type\": 0\n            },\n            \"m_FontSize\": 16,\n            \"m_FontStyle\": 1,\n            \"m_BestFit\": false,\n            \"m_MinSize\": 10,\n            \"m_MaxSize\": 40,\n            \"m_Alignment\": 0,\n            \"m_AlignByGeometry\": false,\n            \"m_RichText\": true,\n            \"m_HorizontalOverflow\": 0,\n            \"m_VerticalOverflow\": 0,\n            \"m_LineSpacing\": 1.0\n        },\n        \"m_Text\": \"AIRBURST FRAGS  13\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow/Slider",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -40.0,
                 "z": 0.0
             },
             "localRotation": {
@@ -1120,7 +2351,364 @@
             },
             "anchoredPosition": {
                 "x": 0.0,
-                "y": 112.0
+                "y": 8.0
+            },
+            "sizeDelta": {
+                "x": -28.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 14.0,
+                "y": 8.0
+            },
+            "offsetMax": {
+                "x": -14.0,
+                "y": 28.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Slider\",\n        \"m_Navigation\": {\n            \"m_Mode\": 3,\n            \"m_WrapAround\": false,\n            \"m_SelectOnUp\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnDown\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnLeft\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnRight\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_Transition\": 1,\n        \"m_Colors\": {\n            \"m_NormalColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_HighlightedColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_PressedColor\": {\n                \"r\": 0.8500000238418579,\n                \"g\": 0.8500000238418579,\n                \"b\": 0.8500000238418579,\n                \"a\": 1.0\n            },\n            \"m_SelectedColor\": {\n                \"r\": 0.9607843160629273,\n                \"g\": 0.9607843160629273,\n                \"b\": 0.9607843160629273,\n                \"a\": 1.0\n            },\n            \"m_DisabledColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.30000001192092898\n            },\n            \"m_ColorMultiplier\": 1.0,\n            \"m_FadeDuration\": 0.10000000149011612\n        },\n        \"m_SpriteState\": {\n            \"m_HighlightedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_PressedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_DisabledSprite\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_AnimationTriggers\": {\n            \"m_NormalTrigger\": \"Normal\",\n            \"m_HighlightedTrigger\": \"Highlighted\",\n            \"m_PressedTrigger\": \"Pressed\",\n            \"m_SelectedTrigger\": \"Selected\",\n            \"m_DisabledTrigger\": \"Disabled\"\n        },\n        \"m_Interactable\": false,\n        \"m_TargetGraphic\": {\n            \"instanceID\": 0\n        },\n        \"m_FillRect\": {\n            \"instanceID\": 0\n        },\n        \"m_HandleRect\": {\n            \"instanceID\": 0\n        },\n        \"m_Direction\": 0,\n        \"m_MinValue\": 1.0,\n        \"m_MaxValue\": 25.0,\n        \"m_WholeNumbers\": true,\n        \"m_Value\": 13.0,\n        \"m_OnValueChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        }\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow/Slider/Background",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.5
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.14000000059604646\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow/Slider/Fill Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -16.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 8.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -8.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow/Slider/Fill Area/Fill",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -166.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.44999998807907107\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow/Slider/Handle Slide Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/FragmentCountSliderRow/Slider/Handle Slide Area/Handle",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 16.0,
+                "y": 24.0
+            },
+            "offsetMin": {
+                "x": -8.0,
+                "y": -12.0
+            },
+            "offsetMax": {
+                "x": 8.0,
+                "y": 12.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 3,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 200.0,
+                "y": -598.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 162.0
             },
             "sizeDelta": {
                 "x": -24.0,
@@ -1128,11 +2716,11 @@
             },
             "offsetMin": {
                 "x": 12.0,
-                "y": 112.0
+                "y": 162.0
             },
             "offsetMax": {
                 "x": -12.0,
-                "y": 152.0
+                "y": 202.0
             },
             "components": [
                 {
@@ -1217,15 +2805,143 @@
             ]
         },
         {
-            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton",
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow",
             "activeSelf": true,
             "layer": 0,
             "tag": "Untagged",
-            "siblingIndex": 4,
+            "siblingIndex": 10,
             "hasRectTransform": true,
             "localPosition": {
-                "x": 190.0,
-                "y": -448.0,
+                "x": 200.0,
+                "y": -338.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -338.0
+            },
+            "sizeDelta": {
+                "x": -24.0,
+                "y": 48.0
+            },
+            "offsetMin": {
+                "x": 12.0,
+                "y": -386.0
+            },
+            "offsetMax": {
+                "x": -12.0,
+                "y": -338.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.07999999821186066\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow/Label",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -2.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": -22.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": -2.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Text\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_FontData\": {\n            \"m_Font\": {\n                \"fileID\": 10102,\n                \"guid\": \"0000000000000000e000000000000000\",\n                \"type\": 0\n            },\n            \"m_FontSize\": 16,\n            \"m_FontStyle\": 1,\n            \"m_BestFit\": false,\n            \"m_MinSize\": 10,\n            \"m_MaxSize\": 40,\n            \"m_Alignment\": 0,\n            \"m_AlignByGeometry\": false,\n            \"m_RichText\": true,\n            \"m_HorizontalOverflow\": 0,\n            \"m_VerticalOverflow\": 0,\n            \"m_LineSpacing\": 1.0\n        },\n        \"m_Text\": \"SHOTGUN PELLETS  11\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow/Slider",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -40.0,
                 "z": 0.0
             },
             "localRotation": {
@@ -1253,7 +2969,849 @@
             },
             "anchoredPosition": {
                 "x": 0.0,
-                "y": 62.0
+                "y": 8.0
+            },
+            "sizeDelta": {
+                "x": -28.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 14.0,
+                "y": 8.0
+            },
+            "offsetMax": {
+                "x": -14.0,
+                "y": 28.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Slider\",\n        \"m_Navigation\": {\n            \"m_Mode\": 3,\n            \"m_WrapAround\": false,\n            \"m_SelectOnUp\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnDown\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnLeft\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnRight\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_Transition\": 1,\n        \"m_Colors\": {\n            \"m_NormalColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_HighlightedColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_PressedColor\": {\n                \"r\": 0.8500000238418579,\n                \"g\": 0.8500000238418579,\n                \"b\": 0.8500000238418579,\n                \"a\": 1.0\n            },\n            \"m_SelectedColor\": {\n                \"r\": 0.9607843160629273,\n                \"g\": 0.9607843160629273,\n                \"b\": 0.9607843160629273,\n                \"a\": 1.0\n            },\n            \"m_DisabledColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.30000001192092898\n            },\n            \"m_ColorMultiplier\": 1.0,\n            \"m_FadeDuration\": 0.10000000149011612\n        },\n        \"m_SpriteState\": {\n            \"m_HighlightedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_PressedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_DisabledSprite\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_AnimationTriggers\": {\n            \"m_NormalTrigger\": \"Normal\",\n            \"m_HighlightedTrigger\": \"Highlighted\",\n            \"m_PressedTrigger\": \"Pressed\",\n            \"m_SelectedTrigger\": \"Selected\",\n            \"m_DisabledTrigger\": \"Disabled\"\n        },\n        \"m_Interactable\": false,\n        \"m_TargetGraphic\": {\n            \"instanceID\": 0\n        },\n        \"m_FillRect\": {\n            \"instanceID\": 0\n        },\n        \"m_HandleRect\": {\n            \"instanceID\": 0\n        },\n        \"m_Direction\": 0,\n        \"m_MinValue\": 1.0,\n        \"m_MaxValue\": 25.0,\n        \"m_WholeNumbers\": true,\n        \"m_Value\": 11.0,\n        \"m_OnValueChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        }\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow/Slider/Background",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.5
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.14000000059604646\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow/Slider/Fill Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -16.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 8.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -8.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow/Slider/Fill Area/Fill",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -166.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.4166666567325592,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.44999998807907107\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow/Slider/Handle Slide Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressPelletSliderRow/Slider/Handle Slide Area/Handle",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -27.333343505859376,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.4166666567325592,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.4166666567325592,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 16.0,
+                "y": 24.0
+            },
+            "offsetMin": {
+                "x": -8.0,
+                "y": -12.0
+            },
+            "offsetMax": {
+                "x": 8.0,
+                "y": 12.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 9,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 200.0,
+                "y": -282.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -282.0
+            },
+            "sizeDelta": {
+                "x": -24.0,
+                "y": 48.0
+            },
+            "offsetMin": {
+                "x": 12.0,
+                "y": -330.0
+            },
+            "offsetMax": {
+                "x": -12.0,
+                "y": -282.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.07999999821186066\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow/Label",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -2.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -2.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": -22.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": -2.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Text\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_FontData\": {\n            \"m_Font\": {\n                \"fileID\": 10102,\n                \"guid\": \"0000000000000000e000000000000000\",\n                \"type\": 0\n            },\n            \"m_FontSize\": 16,\n            \"m_FontStyle\": 1,\n            \"m_BestFit\": false,\n            \"m_MinSize\": 10,\n            \"m_MaxSize\": 40,\n            \"m_Alignment\": 0,\n            \"m_AlignByGeometry\": false,\n            \"m_RichText\": true,\n            \"m_HorizontalOverflow\": 0,\n            \"m_VerticalOverflow\": 0,\n            \"m_LineSpacing\": 1.0\n        },\n        \"m_Text\": \"SHOTGUN RATE (s)  0.06\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow/Slider",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": -40.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 8.0
+            },
+            "sizeDelta": {
+                "x": -28.0,
+                "y": 20.0
+            },
+            "offsetMin": {
+                "x": 14.0,
+                "y": 8.0
+            },
+            "offsetMax": {
+                "x": -14.0,
+                "y": 28.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.UI.Slider, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Slider\",\n        \"m_Navigation\": {\n            \"m_Mode\": 3,\n            \"m_WrapAround\": false,\n            \"m_SelectOnUp\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnDown\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnLeft\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectOnRight\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_Transition\": 1,\n        \"m_Colors\": {\n            \"m_NormalColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_HighlightedColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 1.0\n            },\n            \"m_PressedColor\": {\n                \"r\": 0.8500000238418579,\n                \"g\": 0.8500000238418579,\n                \"b\": 0.8500000238418579,\n                \"a\": 1.0\n            },\n            \"m_SelectedColor\": {\n                \"r\": 0.9607843160629273,\n                \"g\": 0.9607843160629273,\n                \"b\": 0.9607843160629273,\n                \"a\": 1.0\n            },\n            \"m_DisabledColor\": {\n                \"r\": 1.0,\n                \"g\": 1.0,\n                \"b\": 1.0,\n                \"a\": 0.30000001192092898\n            },\n            \"m_ColorMultiplier\": 1.0,\n            \"m_FadeDuration\": 0.10000000149011612\n        },\n        \"m_SpriteState\": {\n            \"m_HighlightedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_PressedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_SelectedSprite\": {\n                \"instanceID\": 0\n            },\n            \"m_DisabledSprite\": {\n                \"instanceID\": 0\n            }\n        },\n        \"m_AnimationTriggers\": {\n            \"m_NormalTrigger\": \"Normal\",\n            \"m_HighlightedTrigger\": \"Highlighted\",\n            \"m_PressedTrigger\": \"Pressed\",\n            \"m_SelectedTrigger\": \"Selected\",\n            \"m_DisabledTrigger\": \"Disabled\"\n        },\n        \"m_Interactable\": false,\n        \"m_TargetGraphic\": {\n            \"instanceID\": 0\n        },\n        \"m_FillRect\": {\n            \"instanceID\": 0\n        },\n        \"m_HandleRect\": {\n            \"instanceID\": 0\n        },\n        \"m_Direction\": 0,\n        \"m_MinValue\": 0.019999999552965165,\n        \"m_MaxValue\": 0.20000000298023225,\n        \"m_WholeNumbers\": false,\n        \"m_Value\": 0.05999999865889549,\n        \"m_OnValueChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        }\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow/Slider/Background",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.5
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.14000000059604646\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow/Slider/Fill Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -16.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 8.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -8.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow/Slider/Fill Area/Fill",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -166.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.2222222089767456,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 10.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": -5.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 5.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.44999998807907107\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow/Slider/Handle Slide Area",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 0.0,
+                "y": 10.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": 0.0
+            },
+            "components": []
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressRateSliderRow/Slider/Handle Slide Area/Handle",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -91.11111450195313,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.2222222089767456,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.2222222089767456,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 16.0,
+                "y": 24.0
+            },
+            "offsetMin": {
+                "x": -8.0,
+                "y": -12.0
+            },
+            "offsetMax": {
+                "x": 8.0,
+                "y": 12.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 4,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 200.0,
+                "y": -648.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 112.0
             },
             "sizeDelta": {
                 "x": -24.0,
@@ -1261,11 +3819,11 @@
             },
             "offsetMin": {
                 "x": 12.0,
-                "y": 62.0
+                "y": 112.0
             },
             "offsetMax": {
                 "x": -12.0,
-                "y": 102.0
+                "y": 152.0
             },
             "components": [
                 {
@@ -1357,8 +3915,8 @@
             "siblingIndex": 0,
             "hasRectTransform": true,
             "localPosition": {
-                "x": 190.0,
-                "y": -270.0,
+                "x": 200.0,
+                "y": -12.0,
                 "z": 0.0
             },
             "localRotation": {
@@ -1386,19 +3944,19 @@
             },
             "anchoredPosition": {
                 "x": 0.0,
-                "y": -270.0
+                "y": -12.0
             },
             "sizeDelta": {
                 "x": -24.0,
-                "y": 224.0
+                "y": 148.0
             },
             "offsetMin": {
                 "x": 12.0,
-                "y": -494.0
+                "y": -160.0
             },
             "offsetMax": {
                 "x": -12.0,
-                "y": -270.0
+                "y": -12.0
             },
             "components": [
                 {
@@ -1483,7 +4041,7 @@
                 {
                     "typeName": "RockWall, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
-                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::RockWall\",\n        \"worldWidth\": 48.02400207519531,\n        \"worldHeight\": 56.02799987792969,\n        \"cellsPerUnit\": 10.8695650100708,\n        \"useCameraBoundLevels\": true,\n        \"progressionFrames\": [\n            {\n                \"label\": \"LVL 1\",\n                \"visibleWorldWidth\": 11.039999961853028,\n                \"visibleWorldHeight\": 11.407999992370606\n            },\n            {\n                \"label\": \"LVL 2\",\n                \"visibleWorldWidth\": 22.079999923706056,\n                \"visibleWorldHeight\": 22.81599998474121\n            },\n            {\n                \"label\": \"LVL 3\",\n                \"visibleWorldWidth\": 30.0,\n                \"visibleWorldHeight\": 34.0\n            }\n        ],\n        \"activeProgressionFrameIndex\": 0,\n        \"cameraPadding\": {\n            \"x\": 3.4000000953674318,\n            \"y\": 1.350000023841858\n        },\n        \"cameraLookOffset\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"cellMaxHitPoints\": 3.0,\n        \"baseImpactDamage\": 1.350000023841858,\n        \"edgeDamageMultiplier\": 0.800000011920929,\n        \"centerDamageMultiplier\": 1.2999999523162842,\n        \"useChunkedRuntime\": true,\n        \"chunkSizeInCells\": 32,\n        \"colliderRebuildInterval\": 0.05000000074505806,\n        \"islandCleanupInterval\": 0.15000000596046449,\n        \"maxWallEffectTicksPerFrame\": 24,\n        \"maxWallEffectEvaluationsPerFrame\": 96,\n        \"drawDebugGizmos\": true,\n        \"drawChunkGizmos\": true,\n        \"autoRebuildInEditMode\": true,\n        \"absorbTransformScaleIntoSize\": true\n    }\n}"
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::RockWall\",\n        \"worldWidth\": 48.02400207519531,\n        \"worldHeight\": 56.02799987792969,\n        \"cellsPerUnit\": 10.8695650100708,\n        \"useCameraBoundLevels\": true,\n        \"progressionFrames\": [\n            {\n                \"label\": \"LVL 1\",\n                \"visibleWorldWidth\": 11.039999961853028,\n                \"visibleWorldHeight\": 11.407999992370606\n            },\n            {\n                \"label\": \"LVL 2\",\n                \"visibleWorldWidth\": 22.079999923706056,\n                \"visibleWorldHeight\": 22.81599998474121\n            },\n            {\n                \"label\": \"LVL 3\",\n                \"visibleWorldWidth\": 30.0,\n                \"visibleWorldHeight\": 34.0\n            }\n        ],\n        \"activeProgressionFrameIndex\": 0,\n        \"cameraPadding\": {\n            \"x\": 3.4000000953674318,\n            \"y\": 1.350000023841858\n        },\n        \"cameraLookOffset\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"cellMaxHitPoints\": 3.0,\n        \"baseImpactDamage\": 1.350000023841858,\n        \"edgeDamageMultiplier\": 0.800000011920929,\n        \"centerDamageMultiplier\": 1.2999999523162842,\n        \"useChunkedRuntime\": true,\n        \"chunkSizeInCells\": 32,\n        \"maxActiveChipParticles\": 320,\n        \"chipLifetimeMin\": 0.3199999928474426,\n        \"chipLifetimeMax\": 0.699999988079071,\n        \"colliderRebuildInterval\": 0.05000000074505806,\n        \"islandCleanupInterval\": 0.15000000596046449,\n        \"maxWallEffectTicksPerFrame\": 24,\n        \"maxWallEffectEvaluationsPerFrame\": 96,\n        \"drawDebugGizmos\": true,\n        \"drawChunkGizmos\": true,\n        \"autoRebuildInEditMode\": true,\n        \"absorbTransformScaleIntoSize\": true\n    }\n}"
                 }
             ]
         },
