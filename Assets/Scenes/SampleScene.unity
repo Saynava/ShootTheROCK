@@ -1047,8 +1047,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92556ed2c1e26a248beaf22ad632772d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RockWall
-  worldWidth: 11.04
-  worldHeight: 11.408
+  worldWidth: 48
+  worldHeight: 56
   cellsPerUnit: 10.869565
   useCameraBoundLevels: 1
   progressionFrames:
@@ -1056,18 +1056,20 @@ MonoBehaviour:
     visibleWorldWidth: 11.04
     visibleWorldHeight: 11.408
   - label: LVL 2
-    visibleWorldWidth: 11.04
-    visibleWorldHeight: 11.408
+    visibleWorldWidth: 22.08
+    visibleWorldHeight: 22.816
   - label: LVL 3
-    visibleWorldWidth: 11.04
-    visibleWorldHeight: 11.408
+    visibleWorldWidth: 30
+    visibleWorldHeight: 34
   activeProgressionFrameIndex: 0
   cameraPadding: {x: 3.4, y: 1.35}
   cameraLookOffset: {x: 0, y: 0}
-  cellMaxHitPoints: 4
-  baseImpactDamage: 1.15
-  edgeDamageMultiplier: 0.7
-  centerDamageMultiplier: 1.2
+  cellMaxHitPoints: 3
+  baseImpactDamage: 1.35
+  edgeDamageMultiplier: 0.8
+  centerDamageMultiplier: 1.3
+  useChunkedRuntime: 1
+  chunkSizeInCells: 32
   autoRebuildInEditMode: 1
   absorbTransformScaleIntoSize: 1
 --- !u!60 &672610736
@@ -1674,7 +1676,7 @@ Transform:
   m_GameObject: {fileID: 672610734}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.52, y: -2.8209996, z: 0}
+  m_LocalPosition: {x: 29, y: 19.475, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -8,6 +8,7 @@ public class MoneyHud : MonoBehaviour
     private const string AttackSpeedUpgradeButtonName = "AttackSpeedUpgradeButton";
     private const string DamageUpgradeButtonName = "DamageUpgradeButton";
     private const string NextLevelButtonName = "NextLevelButton";
+    private const string StressShotgunButtonName = "StressShotgunButton";
     private const string UpgradeButtonTextName = "Text";
 
     private int money;
@@ -22,6 +23,8 @@ public class MoneyHud : MonoBehaviour
     private Text damageUpgradeButtonText;
     private Button nextLevelButton;
     private Text nextLevelButtonText;
+    private Button stressShotgunButton;
+    private Text stressShotgunButtonText;
 
     public void Initialize(Text moneyText)
     {
@@ -96,6 +99,15 @@ public class MoneyHud : MonoBehaviour
         Refresh();
     }
 
+    private void ToggleStressShotgun()
+    {
+        if (shooter == null)
+            return;
+
+        shooter.ToggleStressShotgun();
+        Refresh();
+    }
+
     private void Refresh()
     {
         if (moneyText != null)
@@ -126,7 +138,9 @@ public class MoneyHud : MonoBehaviour
             "ATK SPD  LVL " + shooter.AttackSpeedLevel +
             "  |  RATE " + shooter.CurrentFireInterval.ToString("0.00") + "s\n" +
             "DMG  LVL " + shooter.DamageLevel +
-            "  |  BLAST x" + shooter.BlastRadiusScale.ToString("0.00");
+            "  |  BLAST x" + shooter.BlastRadiusScale.ToString("0.00") + "\n" +
+            "DEBUG  SG " + (shooter.StressShotgunEnabled ? "ON" : "OFF") +
+            "  |  RATE " + shooter.CurrentEffectiveFireInterval.ToString("0.00") + "s";
     }
 
     private void RefreshButtons()
@@ -145,6 +159,9 @@ public class MoneyHud : MonoBehaviour
 
         if (nextLevelButton != null)
             nextLevelButton.interactable = rockWall != null && rockWall.CanAdvanceLevel;
+
+        if (stressShotgunButton != null)
+            stressShotgunButton.interactable = shooter != null;
 
         if (attackSpeedUpgradeButtonText != null)
         {
@@ -175,11 +192,21 @@ public class MoneyHud : MonoBehaviour
             else
                 nextLevelButtonText.text = "TEST NEXT LVL";
         }
+
+        if (stressShotgunButtonText != null)
+        {
+            if (shooter == null)
+                stressShotgunButtonText.text = "SHOTGUN (NO CANNON)";
+            else if (shooter.StressShotgunEnabled)
+                stressShotgunButtonText.text = "DEBUG SHOTGUN 0.10s  ON";
+            else
+                stressShotgunButtonText.text = "DEBUG SHOTGUN 0.10s  OFF";
+        }
     }
 
     private void EnsureUpgradeUi()
     {
-        if (upgradeStatsText != null && attackSpeedUpgradeButton != null && attackSpeedUpgradeButtonText != null && damageUpgradeButton != null && damageUpgradeButtonText != null && nextLevelButton != null && nextLevelButtonText != null)
+        if (upgradeStatsText != null && attackSpeedUpgradeButton != null && attackSpeedUpgradeButtonText != null && damageUpgradeButton != null && damageUpgradeButtonText != null && nextLevelButton != null && nextLevelButtonText != null && stressShotgunButton != null && stressShotgunButtonText != null)
             return;
 
         Canvas canvas = GetComponent<Canvas>();
@@ -199,6 +226,7 @@ public class MoneyHud : MonoBehaviour
         if (attackButtonTransform == null)
             attackButtonTransform = CreateUpgradeButton(panelTransform, AttackSpeedUpgradeButtonName, new Vector2(12f, 112f), new Vector2(-12f, 152f)).transform;
         attackSpeedUpgradeButton = attackButtonTransform.GetComponent<Button>();
+        ApplyButtonLayout(attackButtonTransform, new Vector2(12f, 162f), new Vector2(-12f, 202f));
 
         Transform attackButtonTextTransform = attackButtonTransform.Find(UpgradeButtonTextName);
         if (attackButtonTextTransform == null)
@@ -209,6 +237,7 @@ public class MoneyHud : MonoBehaviour
         if (damageButtonTransform == null)
             damageButtonTransform = CreateUpgradeButton(panelTransform, DamageUpgradeButtonName, new Vector2(12f, 62f), new Vector2(-12f, 102f)).transform;
         damageUpgradeButton = damageButtonTransform.GetComponent<Button>();
+        ApplyButtonLayout(damageButtonTransform, new Vector2(12f, 112f), new Vector2(-12f, 152f));
 
         Transform damageButtonTextTransform = damageButtonTransform.Find(UpgradeButtonTextName);
         if (damageButtonTextTransform == null)
@@ -217,13 +246,25 @@ public class MoneyHud : MonoBehaviour
 
         Transform nextLevelTransform = panelTransform.Find(NextLevelButtonName);
         if (nextLevelTransform == null)
-            nextLevelTransform = CreateUpgradeButton(panelTransform, NextLevelButtonName, new Vector2(12f, 12f), new Vector2(-12f, 52f)).transform;
+            nextLevelTransform = CreateUpgradeButton(panelTransform, NextLevelButtonName, new Vector2(12f, 62f), new Vector2(-12f, 102f)).transform;
         nextLevelButton = nextLevelTransform.GetComponent<Button>();
+        ApplyButtonLayout(nextLevelTransform, new Vector2(12f, 62f), new Vector2(-12f, 102f));
 
         Transform nextLevelTextTransform = nextLevelTransform.Find(UpgradeButtonTextName);
         if (nextLevelTextTransform == null)
             nextLevelTextTransform = CreateUpgradeButtonText(nextLevelTransform).transform;
         nextLevelButtonText = nextLevelTextTransform.GetComponent<Text>();
+
+        Transform stressShotgunTransform = panelTransform.Find(StressShotgunButtonName);
+        if (stressShotgunTransform == null)
+            stressShotgunTransform = CreateUpgradeButton(panelTransform, StressShotgunButtonName, new Vector2(12f, 12f), new Vector2(-12f, 52f)).transform;
+        stressShotgunButton = stressShotgunTransform.GetComponent<Button>();
+        ApplyButtonLayout(stressShotgunTransform, new Vector2(12f, 12f), new Vector2(-12f, 52f));
+
+        Transform stressShotgunTextTransform = stressShotgunTransform.Find(UpgradeButtonTextName);
+        if (stressShotgunTextTransform == null)
+            stressShotgunTextTransform = CreateUpgradeButtonText(stressShotgunTransform).transform;
+        stressShotgunButtonText = stressShotgunTextTransform.GetComponent<Text>();
 
         attackSpeedUpgradeButton.onClick.RemoveListener(TryBuyAttackSpeedUpgrade);
         attackSpeedUpgradeButton.onClick.AddListener(TryBuyAttackSpeedUpgrade);
@@ -231,6 +272,8 @@ public class MoneyHud : MonoBehaviour
         damageUpgradeButton.onClick.AddListener(TryBuyDamageUpgrade);
         nextLevelButton.onClick.RemoveListener(TryAdvanceLevelTest);
         nextLevelButton.onClick.AddListener(TryAdvanceLevelTest);
+        stressShotgunButton.onClick.RemoveListener(ToggleStressShotgun);
+        stressShotgunButton.onClick.AddListener(ToggleStressShotgun);
     }
 
     private GameObject CreateUpgradePanel(Transform parent)
@@ -243,7 +286,7 @@ public class MoneyHud : MonoBehaviour
         rect.anchorMax = new Vector2(0f, 1f);
         rect.pivot = new Vector2(0f, 1f);
         rect.anchoredPosition = new Vector2(28f, -130f);
-        rect.sizeDelta = new Vector2(380f, 260f);
+        rect.sizeDelta = new Vector2(380f, 360f);
 
         Image image = panelObject.GetComponent<Image>();
         image.color = new Color(0f, 0f, 0f, 0.55f);
@@ -259,7 +302,7 @@ public class MoneyHud : MonoBehaviour
         rect.anchorMin = new Vector2(0f, 1f);
         rect.anchorMax = new Vector2(1f, 1f);
         rect.pivot = new Vector2(0.5f, 1f);
-        rect.offsetMin = new Vector2(12f, -104f);
+        rect.offsetMin = new Vector2(12f, -176f);
         rect.offsetMax = new Vector2(-12f, -10f);
 
         Text text = textObject.GetComponent<Text>();
@@ -275,13 +318,7 @@ public class MoneyHud : MonoBehaviour
     {
         GameObject buttonObject = new GameObject(buttonName, typeof(RectTransform), typeof(Image), typeof(Button));
         buttonObject.transform.SetParent(parent, false);
-
-        RectTransform rect = buttonObject.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0f, 0f);
-        rect.anchorMax = new Vector2(1f, 0f);
-        rect.pivot = new Vector2(0.5f, 0f);
-        rect.offsetMin = offsetMin;
-        rect.offsetMax = offsetMax;
+        ApplyButtonLayout(buttonObject.transform, offsetMin, offsetMax);
 
         Image image = buttonObject.GetComponent<Image>();
         image.color = new Color(1f, 1f, 1f, 0.18f);
@@ -293,6 +330,19 @@ public class MoneyHud : MonoBehaviour
         colors.disabledColor = new Color(1f, 1f, 1f, 0.08f);
         buttonObject.GetComponent<Button>().colors = colors;
         return buttonObject;
+    }
+
+    private void ApplyButtonLayout(Transform buttonTransform, Vector2 offsetMin, Vector2 offsetMax)
+    {
+        RectTransform rect = buttonTransform as RectTransform;
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 0f);
+        rect.anchorMax = new Vector2(1f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.offsetMin = offsetMin;
+        rect.offsetMax = offsetMax;
     }
 
     private GameObject CreateUpgradeButtonText(Transform parent)

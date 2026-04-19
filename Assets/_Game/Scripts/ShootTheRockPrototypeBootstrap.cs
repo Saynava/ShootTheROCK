@@ -154,6 +154,9 @@ public class ShootTheRockPrototypeBootstrap : MonoBehaviour
                 existingText = existingHud.GetComponentInChildren<Text>();
             if (existingText != null)
                 existingHud.Initialize(existingText);
+
+            Canvas existingCanvas = existingHud.GetComponent<Canvas>();
+            EnsurePerformanceHud(existingCanvas);
             return existingHud;
         }
 
@@ -185,7 +188,20 @@ public class ShootTheRockPrototypeBootstrap : MonoBehaviour
 
         MoneyHud hud = canvasObject.AddComponent<MoneyHud>();
         hud.Initialize(moneyText);
+        EnsurePerformanceHud(canvas);
         return hud;
+    }
+
+    private void EnsurePerformanceHud(Canvas canvas)
+    {
+        if (canvas == null)
+            return;
+
+        ShootTheRockPerformanceHud performanceHud = canvas.GetComponent<ShootTheRockPerformanceHud>();
+        if (performanceHud == null)
+            performanceHud = canvas.gameObject.AddComponent<ShootTheRockPerformanceHud>();
+
+        performanceHud.Initialize();
     }
 
     private float EnsureFloor()
@@ -244,8 +260,8 @@ public class ShootTheRockPrototypeBootstrap : MonoBehaviour
     private void GetDefaultWallAnchor(float floorTopY, out float bottomLeftX, out float bottomLeftY, out float fullWallWidth, out float fullWallHeight)
     {
         const float levelOneWidth = 11.04f;
-        fullWallWidth = 33.12f;
-        fullWallHeight = 34.224f;
+        fullWallWidth = 48f;
+        fullWallHeight = 56f;
         bottomLeftX = 4.27f - (levelOneWidth * 0.5f);
         bottomLeftY = floorTopY;
     }

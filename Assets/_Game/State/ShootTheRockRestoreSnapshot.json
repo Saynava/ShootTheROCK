@@ -1155,8 +1155,8 @@
             "siblingIndex": 3,
             "hasRectTransform": false,
             "localPosition": {
-                "x": 10.520000457763672,
-                "y": -2.8209996223449709,
+                "x": 29.0,
+                "y": 19.475000381469728,
                 "z": 0.0
             },
             "localRotation": {
@@ -1217,7 +1217,7 @@
                 {
                     "typeName": "RockWall, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
-                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::RockWall\",\n        \"worldWidth\": 11.039999961853028,\n        \"worldHeight\": 11.407999992370606,\n        \"cellsPerUnit\": 10.8695650100708,\n        \"useCameraBoundLevels\": true,\n        \"progressionFrames\": [\n            {\n                \"label\": \"LVL 1\",\n                \"visibleWorldWidth\": 11.039999961853028,\n                \"visibleWorldHeight\": 11.407999992370606\n            },\n            {\n                \"label\": \"LVL 2\",\n                \"visibleWorldWidth\": 11.039999961853028,\n                \"visibleWorldHeight\": 11.407999992370606\n            },\n            {\n                \"label\": \"LVL 3\",\n                \"visibleWorldWidth\": 11.039999961853028,\n                \"visibleWorldHeight\": 11.407999992370606\n            }\n        ],\n        \"activeProgressionFrameIndex\": 0,\n        \"cameraPadding\": {\n            \"x\": 3.4000000953674318,\n            \"y\": 1.350000023841858\n        },\n        \"cameraLookOffset\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"cellMaxHitPoints\": 4.0,\n        \"baseImpactDamage\": 1.149999976158142,\n        \"edgeDamageMultiplier\": 0.699999988079071,\n        \"centerDamageMultiplier\": 1.2000000476837159,\n        \"autoRebuildInEditMode\": true,\n        \"absorbTransformScaleIntoSize\": true\n    }\n}"
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::RockWall\",\n        \"worldWidth\": 48.0,\n        \"worldHeight\": 56.0,\n        \"cellsPerUnit\": 10.8695650100708,\n        \"useCameraBoundLevels\": true,\n        \"progressionFrames\": [\n            {\n                \"label\": \"LVL 1\",\n                \"visibleWorldWidth\": 11.039999961853028,\n                \"visibleWorldHeight\": 11.407999992370606\n            },\n            {\n                \"label\": \"LVL 2\",\n                \"visibleWorldWidth\": 22.079999923706056,\n                \"visibleWorldHeight\": 22.81599998474121\n            },\n            {\n                \"label\": \"LVL 3\",\n                \"visibleWorldWidth\": 30.0,\n                \"visibleWorldHeight\": 34.0\n            }\n        ],\n        \"activeProgressionFrameIndex\": 0,\n        \"cameraPadding\": {\n            \"x\": 3.4000000953674318,\n            \"y\": 1.350000023841858\n        },\n        \"cameraLookOffset\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"cellMaxHitPoints\": 3.0,\n        \"baseImpactDamage\": 1.350000023841858,\n        \"edgeDamageMultiplier\": 0.800000011920929,\n        \"centerDamageMultiplier\": 1.2999999523162842,\n        \"useChunkedRuntime\": true,\n        \"chunkSizeInCells\": 32,\n        \"autoRebuildInEditMode\": true,\n        \"absorbTransformScaleIntoSize\": true\n    }\n}"
                 }
             ]
         },

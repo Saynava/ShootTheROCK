@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: DefaultRockWallDefinition
   m_EditorClassIdentifier: Assembly-CSharp::RockWallDefinition
   revealStages:
-  - worldWidth: 11.04
-    worldHeight: 11.408
+  - worldWidth: 48
+    worldHeight: 56
     cellsPerUnit: 10.869565
     revealThreshold: 0.2
     cameraPadding: {x: 3.4, y: 1.35}
     cameraLookOffset: {x: 0, y: 0}
-  - worldWidth: 20.24
-    worldHeight: 20.976
+  - worldWidth: 64
+    worldHeight: 72
     cellsPerUnit: 10.869565
     revealThreshold: 0.22
-    cameraPadding: {x: 4.2, y: 1.8}
-    cameraLookOffset: {x: 0.8, y: 0.4}
-  - worldWidth: 33.12
-    worldHeight: 31.648
+    cameraPadding: {x: 4.8, y: 1.9}
+    cameraLookOffset: {x: 1.2, y: 0.6}
+  - worldWidth: 80
+    worldHeight: 88
     cellsPerUnit: 10.869565
     revealThreshold: 1
-    cameraPadding: {x: 5.4, y: 2.4}
-    cameraLookOffset: {x: 1.8, y: 0.8}
+    cameraPadding: {x: 6.4, y: 2.8}
+    cameraLookOffset: {x: 2.4, y: 1.2}

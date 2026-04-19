@@ -26,9 +26,9 @@ public class RockWallDefinition : ScriptableObject
 
     [SerializeField] private RevealStage[] revealStages =
     {
-        new RevealStage(11.04f, 11.408f, 10.869565f, 0.20f, new Vector2(3.4f, 1.35f), new Vector2(0f, 0f)),
-        new RevealStage(20.24f, 20.976f, 10.869565f, 0.22f, new Vector2(4.2f, 1.8f), new Vector2(0.8f, 0.4f)),
-        new RevealStage(33.12f, 31.648f, 10.869565f, 1f, new Vector2(5.4f, 2.4f), new Vector2(1.8f, 0.8f)),
+        new RevealStage(48f, 56f, 10.869565f, 0.20f, new Vector2(3.4f, 1.35f), new Vector2(0f, 0f)),
+        new RevealStage(64f, 72f, 10.869565f, 0.22f, new Vector2(4.8f, 1.9f), new Vector2(1.2f, 0.6f)),
+        new RevealStage(80f, 88f, 10.869565f, 1f, new Vector2(6.4f, 2.8f), new Vector2(2.4f, 1.2f)),
     };
 
     public RevealStage[] RevealStages => revealStages;
@@ -53,9 +53,9 @@ public class RockWallDefinition : ScriptableObject
     {
         return new[]
         {
-            new RevealStage(11.04f, 11.408f, 10.869565f, 0.20f, new Vector2(3.4f, 1.35f), new Vector2(0f, 0f)),
-            new RevealStage(20.24f, 20.976f, 10.869565f, 0.22f, new Vector2(4.2f, 1.8f), new Vector2(0.8f, 0.4f)),
-            new RevealStage(33.12f, 31.648f, 10.869565f, 1f, new Vector2(5.4f, 2.4f), new Vector2(1.8f, 0.8f)),
+            new RevealStage(48f, 56f, 10.869565f, 0.20f, new Vector2(3.4f, 1.35f), new Vector2(0f, 0f)),
+            new RevealStage(64f, 72f, 10.869565f, 0.22f, new Vector2(4.8f, 1.9f), new Vector2(1.2f, 0.6f)),
+            new RevealStage(80f, 88f, 10.869565f, 1f, new Vector2(6.4f, 2.8f), new Vector2(2.4f, 1.2f)),
         };
     }
 

@@ -6,13 +6,49 @@ public class ChipParticle : MonoBehaviour
     private float lifetime;
     private float startLifetime;
     private SpriteRenderer spriteRenderer;
+    private RockWall owner;
+    private bool isActiveTracked;
 
-    public void Initialize(Rigidbody2D body, float lifetime)
+    public void ConfigurePool(RockWall owner, Rigidbody2D body, SpriteRenderer spriteRenderer)
     {
+        this.owner = owner;
         this.body = body;
-        this.lifetime = lifetime;
-        startLifetime = lifetime;
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        this.spriteRenderer = spriteRenderer;
+    }
+
+    public void Launch(Vector2 worldPosition, Vector2 size, Color color, Vector2 impulse, float torque, float lifetime)
+    {
+        using (ShootTheRockPerformance.ChipLaunchMarker.Auto())
+        {
+            transform.position = worldPosition;
+            transform.localScale = new Vector3(size.x, size.y, 1f);
+            this.lifetime = lifetime;
+            startLifetime = lifetime;
+
+            if (spriteRenderer != null)
+            {
+                color.a = 1f;
+                spriteRenderer.color = color;
+                spriteRenderer.enabled = true;
+            }
+
+            gameObject.SetActive(true);
+            if (!isActiveTracked)
+            {
+                isActiveTracked = true;
+                ShootTheRockPerformance.RecordChipActivated();
+            }
+
+            if (body != null)
+            {
+                body.position = worldPosition;
+                body.linearVelocity = Vector2.zero;
+                body.angularVelocity = 0f;
+                body.simulated = true;
+                body.AddForce(impulse, ForceMode2D.Impulse);
+                body.AddTorque(torque, ForceMode2D.Impulse);
+            }
+        }
     }
 
     private void Update()
@@ -31,7 +67,30 @@ public class ChipParticle : MonoBehaviour
             body.simulated = false;
 
         if (lifetime <= 0f)
-            Destroy(gameObject);
+            ReturnToPool();
+    }
+
+    private void ReturnToPool()
+    {
+        if (body != null)
+        {
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+            body.simulated = false;
+        }
+
+        if (isActiveTracked)
+        {
+            isActiveTracked = false;
+            ShootTheRockPerformance.RecordChipDeactivated();
+        }
+
+        if (owner != null)
+        {
+            owner.ReleaseChipParticle(this);
+            return;
+        }
+
+        Destroy(gameObject);
     }
 }
-
