@@ -1,7 +1,7 @@
 ﻿# Shoot the ROCK Scene State Flat Snapshot
 # Deterministic line-oriented snapshot for git diffs
 # Scene: Assets/Scenes/SampleScene.unity
-# Saved: 2026-04-18 22:19:41
+# Saved: 2026-04-19 13:49:33
 
 Global Light 2D | GameObject | activeInHierarchy	true
 Global Light 2D | GameObject | activeSelf	true
@@ -92,7 +92,7 @@ Main Camera | CameraFramingController#0 | minimumAnimatedZoomStep	1.16
 Main Camera | CameraFramingController#0 | minimumOrthographicSize	1
 Main Camera | CameraFramingController#0 | preserveCannonViewportAnchor	true
 Main Camera | CameraFramingController#0 | revealZoomOutMultiplier	1.18
-Main Camera | CameraFramingController#0 | revealZoomOutPerLevel	0.12
+Main Camera | CameraFramingController#0 | revealZoomOutPerLevel	0.45
 Main Camera | CameraFramingController#0 | settlePositionDistance	0.025
 Main Camera | CameraFramingController#0 | settleSizeDistance	0.025
 Main Camera | CameraFramingController#0 | smoothTime	0.55
@@ -476,9 +476,9 @@ ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | Image#0 | 
 ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | __type	RectTransform
 ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchorMax	(1, 0)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchorMin	(0, 0)
-ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchoredPosition	(0, 112)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_AnchoredPosition	(0, 162)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalPosition	(190, -148, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalPosition	(190, -98, 0)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/AttackSpeedUpgradeButton | RectTransform#0 | m_Pivot	(0.5, 0)
@@ -537,9 +537,9 @@ ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | Image#0 | m_Use
 ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | __type	RectTransform
 ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchorMax	(1, 0)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchorMin	(0, 0)
-ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchoredPosition	(0, 62)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_AnchoredPosition	(0, 112)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalPosition	(190, -198, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalPosition	(190, -148, 0)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/DamageUpgradeButton | RectTransform#0 | m_Pivot	(0.5, 0)
@@ -598,9 +598,9 @@ ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | Image#0 | m_UseSpri
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | __type	RectTransform
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchorMax	(1, 0)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchorMin	(0, 0)
-ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchoredPosition	(0, 12)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_AnchoredPosition	(0, 62)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalPosition	(190, -248, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalPosition	(190, -198, 0)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton | RectTransform#0 | m_Pivot	(0.5, 0)
@@ -629,6 +629,67 @@ ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_Mat
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_RaycastTarget	true
 ShootTheRockScene/MoneyCanvas/UpgradePanel/NextLevelButton/Text | Text#0 | m_Text	"NEXT LVL (NO WALL)"
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Button#0 | __type	Button
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Button#0 | m_Interactable	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Button#0 | m_TargetGraphic	ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Button#0 | m_Transition	Color Tint
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | GameObject | siblingIndex	4
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_Color	RGBA(1, 1, 1, 0.18)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_AnchorMax	(1, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_AnchoredPosition	(0, 12)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_LocalPosition	(190, -248, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_Pivot	(0.5, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton | RectTransform#0 | m_SizeDelta	(-24, 40)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | GameObject | activeInHierarchy	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_AnchorMax	(1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_AnchoredPosition	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_LocalPosition	(0, 20, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_Pivot	(0.5, 0.5)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | RectTransform#0 | m_SizeDelta	(0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | Text#0 | __type	Text
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | Text#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | Text#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | Text#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | Text#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/UpgradePanel/StressShotgunButton/Text | Text#0 | m_Text	"SHOTGUN (NO CANNON)"
 ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | CanvasRenderer#0 | __type	CanvasRenderer
 ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | CanvasRenderer#0 | m_CullTransparentMesh	true
 ShootTheRockScene/MoneyCanvas/UpgradePanel/UpgradeStats | GameObject | activeInHierarchy	true
@@ -712,20 +773,26 @@ ShootTheRockScene/RockWall | RockWall#0 | __type	RockWall
 ShootTheRockScene/RockWall | RockWall#0 | absorbTransformScaleIntoSize	true
 ShootTheRockScene/RockWall | RockWall#0 | activeProgressionFrameIndex	0
 ShootTheRockScene/RockWall | RockWall#0 | autoRebuildInEditMode	true
-ShootTheRockScene/RockWall | RockWall#0 | baseImpactDamage	1.15
+ShootTheRockScene/RockWall | RockWall#0 | baseImpactDamage	1.35
 ShootTheRockScene/RockWall | RockWall#0 | cameraLookOffset	(0, 0)
 ShootTheRockScene/RockWall | RockWall#0 | cameraPadding	(3.4, 1.35)
-ShootTheRockScene/RockWall | RockWall#0 | cellMaxHitPoints	4
+ShootTheRockScene/RockWall | RockWall#0 | cellMaxHitPoints	3
 ShootTheRockScene/RockWall | RockWall#0 | cellsPerUnit	10.87
-ShootTheRockScene/RockWall | RockWall#0 | centerDamageMultiplier	1.2
-ShootTheRockScene/RockWall | RockWall#0 | edgeDamageMultiplier	0.7
+ShootTheRockScene/RockWall | RockWall#0 | centerDamageMultiplier	1.3
+ShootTheRockScene/RockWall | RockWall#0 | chunkSizeInCells	32
+ShootTheRockScene/RockWall | RockWall#0 | colliderRebuildInterval	0.05
+ShootTheRockScene/RockWall | RockWall#0 | drawChunkGizmos	true
+ShootTheRockScene/RockWall | RockWall#0 | drawDebugGizmos	true
+ShootTheRockScene/RockWall | RockWall#0 | edgeDamageMultiplier	0.8
+ShootTheRockScene/RockWall | RockWall#0 | islandCleanupInterval	0.15
 ShootTheRockScene/RockWall | RockWall#0 | progressionFrames	Array(size=3)
 ShootTheRockScene/RockWall | RockWall#0 | useCameraBoundLevels	true
-ShootTheRockScene/RockWall | RockWall#0 | worldHeight	11.408
-ShootTheRockScene/RockWall | RockWall#0 | worldWidth	11.04
+ShootTheRockScene/RockWall | RockWall#0 | useChunkedRuntime	true
+ShootTheRockScene/RockWall | RockWall#0 | worldHeight	56.028
+ShootTheRockScene/RockWall | RockWall#0 | worldWidth	48.024
 ShootTheRockScene/RockWall | Transform#0 | __type	Transform
 ShootTheRockScene/RockWall | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/RockWall | Transform#0 | m_LocalPosition	(10.52, -2.821, 0)
+ShootTheRockScene/RockWall | Transform#0 | m_LocalPosition	(29, 19.475, 0)
 ShootTheRockScene/RockWall | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/RockWall | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/WallAnchor | GameObject | activeInHierarchy	true

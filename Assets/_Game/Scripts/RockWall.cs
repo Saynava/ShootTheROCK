@@ -106,6 +106,8 @@ public class RockWall : MonoBehaviour
     [Header("Runtime Performance")]
     [Min(0.01f)]
     [SerializeField] private float colliderRebuildInterval = 0.05f;
+    [Min(0.01f)]
+    [SerializeField] private float islandCleanupInterval = 0.15f;
 
     [Header("Debug View")]
     [SerializeField] private bool drawDebugGizmos = true;
@@ -143,6 +145,11 @@ public class RockWall : MonoBehaviour
     private int colliderDirtyMinColumn;
     private int colliderDirtyMaxColumn;
     private float nextColliderRebuildTime;
+    private bool hasPendingIslandCleanup;
+    private float nextIslandCleanupTime;
+    private bool[,] islandConnectedBuffer;
+    private readonly Queue<Vector2Int> islandCleanupQueue = new Queue<Vector2Int>();
+    private readonly List<Vector2> islandCleanupRemovedPixelCenters = new List<Vector2>();
     private readonly Queue<ChipParticle> chipParticlePool = new Queue<ChipParticle>();
 
     public float WorldWidth => worldWidth;
@@ -255,6 +262,9 @@ public class RockWall : MonoBehaviour
                 removedPixelCenters = ForceImpactAtNearestVisibleCell(resolvedLocalPoint, Mathf.Max(0.25f, blastRadiusScale));
 
             ShootTheRockPerformance.RecordCellsDestroyed(removedPixelCenters.Count);
+            if (removedPixelCenters.Count > 0)
+                QueueIslandCleanup();
+
             SpawnHitParticles(removedPixelCenters, pushDirection);
             RebuildRockShape();
         }
@@ -344,6 +354,7 @@ public class RockWall : MonoBehaviour
         edgeDamageMultiplier = Mathf.Clamp(edgeDamageMultiplier, 0.1f, 2f);
         centerDamageMultiplier = Mathf.Clamp(centerDamageMultiplier, 0.1f, 2f);
         colliderRebuildInterval = Mathf.Max(0.01f, colliderRebuildInterval);
+        islandCleanupInterval = Mathf.Max(0.01f, islandCleanupInterval);
         cameraPadding.x = Mathf.Max(0f, cameraPadding.x);
         cameraPadding.y = Mathf.Max(0f, cameraPadding.y);
         ValidateProgressionFrames();
@@ -359,7 +370,13 @@ public class RockWall : MonoBehaviour
 
     private void Update()
     {
-        if (!Application.isPlaying || !ShouldUseChunkedRuntime())
+        if (!Application.isPlaying)
+            return;
+
+        if (hasPendingIslandCleanup && Time.time >= nextIslandCleanupTime)
+            ProcessPendingIslandCleanup();
+
+        if (!ShouldUseChunkedRuntime())
             return;
         if (!hasPendingColliderDirtyRegion)
             return;
@@ -624,6 +641,8 @@ public class RockWall : MonoBehaviour
         runtimeChunkFullRebuildRequired = true;
         ClearDirtyChunkRegion();
         ClearColliderDirtyChunkRegion();
+        ClearPendingIslandCleanup();
+        EnsureIslandCleanupBuffer();
         RebuildRockShape();
     }
 
@@ -699,8 +718,6 @@ public class RockWall : MonoBehaviour
             if (removedPixelCenters.Count < minimumCellsRemoved)
                 EnsureMinimumImpact(coreCenter, removedPixelCenters, clampedBlastScale, minimumCellsRemoved, impactDamage);
 
-            if (removedPixelCenters.Count > 0)
-                RemoveDisconnectedIslands(removedPixelCenters);
             return removedPixelCenters;
         }
     }
@@ -820,31 +837,33 @@ public class RockWall : MonoBehaviour
     {
         using (ShootTheRockPerformance.RemoveDisconnectedIslandsMarker.Auto())
         {
+            EnsureIslandCleanupBuffer();
+            System.Array.Clear(islandConnectedBuffer, 0, islandConnectedBuffer.Length);
+            islandCleanupQueue.Clear();
+
             int scanCount = 0;
             int removedCountBeforeIslandCleanup = removedPixelCenters.Count;
-            bool[,] connected = new bool[rowCount, columnCount];
-            Queue<Vector2Int> queue = new Queue<Vector2Int>();
 
             for (int row = 0; row < rowCount; row++)
             {
                 for (int column = columnCount - minimumColumnsRemaining; column < columnCount; column++)
                 {
                     scanCount++;
-                    if (!solidCells[row, column] || connected[row, column])
+                    if (!solidCells[row, column] || islandConnectedBuffer[row, column])
                         continue;
 
-                    connected[row, column] = true;
-                    queue.Enqueue(new Vector2Int(row, column));
+                    islandConnectedBuffer[row, column] = true;
+                    islandCleanupQueue.Enqueue(new Vector2Int(row, column));
                 }
             }
 
-            while (queue.Count > 0)
+            while (islandCleanupQueue.Count > 0)
             {
-                Vector2Int current = queue.Dequeue();
-                TryVisitConnectedCell(current.x - 1, current.y, connected, queue);
-                TryVisitConnectedCell(current.x + 1, current.y, connected, queue);
-                TryVisitConnectedCell(current.x, current.y - 1, connected, queue);
-                TryVisitConnectedCell(current.x, current.y + 1, connected, queue);
+                Vector2Int current = islandCleanupQueue.Dequeue();
+                TryVisitConnectedCell(current.x - 1, current.y, islandConnectedBuffer, islandCleanupQueue);
+                TryVisitConnectedCell(current.x + 1, current.y, islandConnectedBuffer, islandCleanupQueue);
+                TryVisitConnectedCell(current.x, current.y - 1, islandConnectedBuffer, islandCleanupQueue);
+                TryVisitConnectedCell(current.x, current.y + 1, islandConnectedBuffer, islandCleanupQueue);
             }
 
             for (int row = 0; row < rowCount; row++)
@@ -852,7 +871,7 @@ public class RockWall : MonoBehaviour
                 for (int column = 0; column < columnCount; column++)
                 {
                     scanCount++;
-                    if (!solidCells[row, column] || connected[row, column])
+                    if (!solidCells[row, column] || islandConnectedBuffer[row, column])
                         continue;
 
                     solidCells[row, column] = false;
@@ -1260,6 +1279,53 @@ public class RockWall : MonoBehaviour
         colliderDirtyMinRow = colliderDirtyMaxRow = 0;
         colliderDirtyMinColumn = colliderDirtyMaxColumn = 0;
         nextColliderRebuildTime = 0f;
+    }
+
+    private void EnsureIslandCleanupBuffer()
+    {
+        if (rowCount <= 0 || columnCount <= 0)
+            return;
+
+        if (islandConnectedBuffer != null && islandConnectedBuffer.GetLength(0) == rowCount && islandConnectedBuffer.GetLength(1) == columnCount)
+            return;
+
+        islandConnectedBuffer = new bool[rowCount, columnCount];
+    }
+
+    private void QueueIslandCleanup()
+    {
+        if (!Application.isPlaying)
+            return;
+
+        hasPendingIslandCleanup = true;
+        if (nextIslandCleanupTime <= 0f)
+            nextIslandCleanupTime = Time.time + islandCleanupInterval;
+    }
+
+    private void ClearPendingIslandCleanup()
+    {
+        hasPendingIslandCleanup = false;
+        nextIslandCleanupTime = 0f;
+        islandCleanupRemovedPixelCenters.Clear();
+        islandCleanupQueue.Clear();
+    }
+
+    private void ProcessPendingIslandCleanup()
+    {
+        if (!hasPendingIslandCleanup)
+            return;
+
+        hasPendingIslandCleanup = false;
+        nextIslandCleanupTime = Time.time + islandCleanupInterval;
+        islandCleanupRemovedPixelCenters.Clear();
+        RemoveDisconnectedIslands(islandCleanupRemovedPixelCenters);
+
+        if (islandCleanupRemovedPixelCenters.Count <= 0)
+            return;
+
+        ShootTheRockPerformance.RecordCellsDestroyed(islandCleanupRemovedPixelCenters.Count);
+        RebuildRockShape();
+        islandCleanupRemovedPixelCenters.Clear();
     }
 
     private void GetCombinedDirtyChunkRegion(bool includeColliderRegion, out int minRow, out int maxRow, out int minColumn, out int maxColumn)
