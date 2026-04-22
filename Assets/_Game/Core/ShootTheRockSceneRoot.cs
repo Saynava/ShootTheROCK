@@ -1,11 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
+public enum ShootTheRockSceneMode
+{
+    PrototypeWall,
+    Motherload
+}
+
 public class ShootTheRockSceneRoot : MonoBehaviour
 {
+    [Header("Mode")]
+    [SerializeField] private ShootTheRockSceneMode sceneMode = ShootTheRockSceneMode.PrototypeWall;
+
     [Header("Data")]
     [SerializeField] private RockWallDefinition wallDefinition;
 
@@ -23,51 +34,135 @@ public class ShootTheRockSceneRoot : MonoBehaviour
     [SerializeField] private Transform cannonBase;
     [SerializeField] private Transform cannonBarrel;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform playerSpawnAnchor;
+    [SerializeField] private Rigidbody2D testGoalBallBody;
+    [SerializeField] private TestGoalZone testGoalZone;
+    [SerializeField] private ShootTheRockPrototypeMarkers prototypeMarkers;
+    [SerializeField] private MotherloadWorldController motherloadWorldController;
+
+    [Header("Prototype Layout")]
+    [SerializeField] private Vector2 playerPocketSize = new Vector2(2.8f, 2.8f);
+    [SerializeField] private Vector2 ballPocketSize = new Vector2(2.2f, 2.8f);
+    [SerializeField] private Vector2 goalPocketSize = new Vector2(3f, 2.4f);
+    [SerializeField] private bool keepSceneCameraTransform = true;
+    [SerializeField] private bool fitWallToSceneCamera = true;
+    [SerializeField] private Vector2 sceneWallExtraSize = Vector2.zero;
+
+    [Header("Player Runtime")]
+    [Min(0f)] [SerializeField] private float playerGravityScale = 3f;
 
     [Header("Editor Preview")]
     [SerializeField] private bool autoRefreshPreview = true;
 
     private RockWallDefinition runtimeFallbackDefinition;
+    private RockWallDefinition sceneCameraWallDefinition;
 
     public Camera SceneCamera => sceneCamera;
     public MoneyHud MoneyHud => moneyHud;
     public RockWall RockWall => rockWall;
     public Transform CannonRoot => cannonRoot;
     public Transform FirePoint => firePoint;
+    public Transform PlayerSpawnAnchor => playerSpawnAnchor;
+    public Rigidbody2D TestGoalBallBody => testGoalBallBody;
+    public TestGoalZone TestGoalZone => testGoalZone;
     public RockWallDefinition EffectiveWallDefinition => GetEffectiveWallDefinition();
+
+    private bool IsMotherloadModeActive => sceneMode == ShootTheRockSceneMode.Motherload;
 
     public void EnsureSceneObjectsExist()
     {
         EnsureCamera();
         EnsureMoneyCanvas();
+        EnsureCannon();
+        EnsureCameraFramingController();
+
+        CacheSceneReferencesForModeRouting();
+        EnsurePlayerSpawnAnchor();
+
+        if (IsMotherloadModeActive && ResolveMotherloadMode(activeIfMissing: true))
+            return;
+
         EnsureFloor();
         EnsureWallAnchor();
         EnsureRockWall();
-        EnsureCannon();
-        EnsureCameraFramingController();
+        EnsurePrototypeMarkers();
+        EnsureTestGoalBall();
+        EnsureTestGoalZone();
     }
 
     public void BuildPreview()
     {
+        if (IsMotherloadModeActive)
+        {
+            EnsureCamera();
+            EnsureMoneyCanvas();
+            EnsureCannon();
+            EnsureCameraFramingController();
+            EnsureMotherloadWorldController();
+            CacheSceneReferencesForModeRouting();
+            EnsurePlayerSpawnAnchor();
+            PrepareMotherloadEditorPreviewState();
+
+            if (motherloadWorldController != null)
+            {
+                motherloadWorldController.gameObject.SetActive(true);
+                motherloadWorldController.SetSceneCamera(sceneCamera);
+                motherloadWorldController.SetFocusTarget(cannonRoot);
+                motherloadWorldController.SetMoneyHud(moneyHud);
+                motherloadWorldController.SetLockCameraXToStrip(false);
+            }
+
+            AlignPlayerSpawnAnchorToMotherloadBase();
+            SnapCannonToSpawnAnchor();
+
+            if (motherloadWorldController != null)
+                motherloadWorldController.BuildEditorPreview();
+
+            return;
+        }
+
         EnsureSceneObjectsExist();
+
+        if (ResolveMotherloadMode(activeIfMissing: false))
+        {
+            BuildMotherloadPreview();
+            return;
+        }
+
+        PreparePrototypeSceneState();
+        SyncPrototypeObjectsFromMarkers();
         InitializeWall();
-        EnsureCameraFramingController();
-        if (cameraFramingController != null && sceneCamera != null && rockWall != null)
-            cameraFramingController.Initialize(sceneCamera, rockWall, cannonRoot);
+        ApplyPrototypePockets();
+        ConfigureCameraFramingForSceneTruth();
     }
 
     public void InitializeRuntime()
     {
+        EnsureEventSystem();
         EnsureSceneObjectsExist();
+
+        if (ResolveMotherloadMode(activeIfMissing: false))
+        {
+            InitializeMotherloadRuntime();
+            return;
+        }
+
+        PreparePrototypeSceneState();
+        SyncPrototypeObjectsFromMarkers();
         InitializeWall();
+        ApplyPrototypePockets();
         InitializeCannonRuntime();
-        EnsureCameraFramingController();
-        if (cameraFramingController != null && sceneCamera != null && rockWall != null)
-            cameraFramingController.Initialize(sceneCamera, rockWall, cannonRoot);
+        InitializeGoalRuntime();
+        ConfigureCameraFramingForSceneTruth();
+        if (moneyHud != null)
+            moneyHud.BindProgression(rockWall, keepSceneCameraTransform ? null : cameraFramingController);
     }
 
     public Vector2 GetWallBottomLeftAnchor()
     {
+        if (ShouldFitWallToSceneCamera() && TryGetSceneCameraRect(out Rect cameraRect))
+            return cameraRect.min;
+
         if (wallAnchor != null)
             return wallAnchor.position;
 
@@ -88,6 +183,9 @@ public class ShootTheRockSceneRoot : MonoBehaviour
 
     private RockWallDefinition GetEffectiveWallDefinition()
     {
+        if (ShouldFitWallToSceneCamera() && TryBuildSceneCameraWallDefinition(out RockWallDefinition fittedDefinition))
+            return fittedDefinition;
+
         if (wallDefinition != null)
             return wallDefinition;
 
@@ -107,13 +205,93 @@ public class ShootTheRockSceneRoot : MonoBehaviour
             return;
 
         rockWall.transform.localScale = Vector3.one;
+        rockWall.SetGenerateEssenceDeposits(false);
         rockWall.Initialize(moneyHud, ShootTheRockPrototypeBootstrap.CreateUnlitMaterial(Color.white), GetWallBottomLeftAnchor(), GetEffectiveWallDefinition());
+
+        if (ShouldFitWallToSceneCamera())
+            rockWall.ConfigureSingleCameraFrame("SCENE", rockWall.WorldWidth, rockWall.WorldHeight, Vector2.zero, Vector2.zero, centerWithinWall: true);
     }
 
     private void InitializeCannonRuntime()
     {
         if (cannonRoot == null || sceneCamera == null || rockWall == null)
             return;
+
+        CircleCollider2D movementCollider = cannonRoot.GetComponent<CircleCollider2D>();
+        if (movementCollider == null)
+            movementCollider = cannonRoot.gameObject.AddComponent<CircleCollider2D>();
+        movementCollider.radius = 0.36f;
+        movementCollider.offset = Vector2.zero;
+        movementCollider.isTrigger = false;
+
+        Rigidbody2D body = cannonRoot.GetComponent<Rigidbody2D>();
+        if (body == null)
+            body = cannonRoot.gameObject.AddComponent<Rigidbody2D>();
+        body.bodyType = RigidbodyType2D.Dynamic;
+        body.gravityScale = playerGravityScale;
+        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        body.interpolation = RigidbodyInterpolation2D.Interpolate;
+        body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        body.useFullKinematicContacts = false;
+        body.linearVelocity = Vector2.zero;
+        body.angularVelocity = 0f;
+
+        CannonAim aim = cannonRoot.GetComponent<CannonAim>();
+        if (aim == null)
+            aim = cannonRoot.gameObject.AddComponent<CannonAim>();
+        aim.Initialize(sceneCamera);
+
+        AutoShooter shooter = cannonRoot.GetComponent<AutoShooter>();
+        if (shooter == null)
+            shooter = cannonRoot.gameObject.AddComponent<AutoShooter>();
+        shooter.enabled = true;
+
+        Transform effectiveFirePoint = firePoint != null ? firePoint : cannonRoot.Find("FirePoint");
+        shooter.Initialize(effectiveFirePoint, rockWall);
+        if (moneyHud != null)
+            moneyHud.BindShooter(shooter);
+    }
+
+    private void BuildMotherloadPreview()
+    {
+        PrepareMotherloadSceneState();
+        AlignPlayerSpawnAnchorToMotherloadBase();
+        SnapCannonToSpawnAnchor();
+        ConfigureMotherloadWorldRuntime();
+    }
+
+    private void InitializeMotherloadRuntime()
+    {
+        PrepareMotherloadSceneState();
+        ConfigureMotherloadWorldRuntime();
+        AlignPlayerSpawnAnchorToMotherloadBase();
+        SnapCannonToSpawnAnchor();
+        InitializeMotherloadCannonRuntime();
+    }
+
+    private void InitializeMotherloadCannonRuntime()
+    {
+        if (cannonRoot == null || sceneCamera == null)
+            return;
+
+        CircleCollider2D movementCollider = cannonRoot.GetComponent<CircleCollider2D>();
+        if (movementCollider == null)
+            movementCollider = cannonRoot.gameObject.AddComponent<CircleCollider2D>();
+        movementCollider.radius = 0.36f;
+        movementCollider.offset = Vector2.zero;
+        movementCollider.isTrigger = false;
+
+        Rigidbody2D body = cannonRoot.GetComponent<Rigidbody2D>();
+        if (body == null)
+            body = cannonRoot.gameObject.AddComponent<Rigidbody2D>();
+        body.bodyType = RigidbodyType2D.Dynamic;
+        body.gravityScale = playerGravityScale;
+        body.constraints = RigidbodyConstraints2D.FreezeRotation;
+        body.interpolation = RigidbodyInterpolation2D.Interpolate;
+        body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        body.useFullKinematicContacts = false;
+        body.linearVelocity = Vector2.zero;
+        body.angularVelocity = 0f;
 
         CannonAim aim = cannonRoot.GetComponent<CannonAim>();
         if (aim == null)
@@ -125,7 +303,193 @@ public class ShootTheRockSceneRoot : MonoBehaviour
             shooter = cannonRoot.gameObject.AddComponent<AutoShooter>();
 
         Transform effectiveFirePoint = firePoint != null ? firePoint : cannonRoot.Find("FirePoint");
-        shooter.Initialize(effectiveFirePoint, rockWall);
+        shooter.enabled = motherloadWorldController != null;
+        shooter.Initialize(effectiveFirePoint, null, motherloadWorldController);
+
+        if (moneyHud != null)
+        {
+            moneyHud.BindShooter(shooter);
+            moneyHud.BindProgression(null, null);
+            moneyHud.SetUpgradeUiVisible(false);
+        }
+    }
+
+    private void ConfigureMotherloadWorldRuntime()
+    {
+        if (motherloadWorldController == null)
+            return;
+
+        motherloadWorldController.gameObject.SetActive(true);
+        motherloadWorldController.SetSceneCamera(sceneCamera);
+        motherloadWorldController.SetFocusTarget(cannonRoot);
+        motherloadWorldController.SetMoneyHud(moneyHud);
+        motherloadWorldController.SetLockCameraXToStrip(false);
+        motherloadWorldController.InitializeRuntime();
+    }
+
+    private void PrepareMotherloadSceneState()
+    {
+        SetObjectActive(floorTransform, false);
+        SetObjectActive(wallAnchor, false);
+        SetObjectActive(rockWall, false);
+        SetObjectActive(testGoalBallBody, false);
+        SetObjectActive(testGoalZone, false);
+        SetObjectActive(prototypeMarkers, false);
+        SetObjectActive(moneyCanvas, true);
+
+        if (cameraFramingController != null)
+            cameraFramingController.enabled = false;
+
+        if (motherloadWorldController != null)
+            motherloadWorldController.gameObject.SetActive(true);
+    }
+
+    private void AlignPlayerSpawnAnchorToMotherloadBase()
+    {
+        if (playerSpawnAnchor == null || motherloadWorldController == null)
+            return;
+
+        playerSpawnAnchor.position = motherloadWorldController.GetSuggestedPlayerSpawnWorldPosition();
+    }
+
+    private void PrepareMotherloadEditorPreviewState()
+    {
+        SetObjectActive(floorTransform, false);
+        SetObjectActive(wallAnchor, false);
+        SetObjectActive(rockWall, false);
+        SetObjectActive(testGoalBallBody, false);
+        SetObjectActive(testGoalZone, false);
+        SetObjectActive(prototypeMarkers, false);
+        SetObjectActive(moneyCanvas, false);
+
+        if (cameraFramingController != null)
+            cameraFramingController.enabled = false;
+
+        if (motherloadWorldController == null)
+            motherloadWorldController = ResolveMotherloadWorldController();
+
+        if (motherloadWorldController != null)
+            motherloadWorldController.gameObject.SetActive(false);
+    }
+
+    private void PreparePrototypeSceneState()
+    {
+        SetObjectActive(floorTransform, true);
+        SetObjectActive(wallAnchor, true);
+        SetObjectActive(rockWall, true);
+        SetObjectActive(testGoalBallBody, true);
+        SetObjectActive(testGoalZone, true);
+        SetObjectActive(prototypeMarkers, true);
+        SetObjectActive(moneyCanvas, true);
+
+        if (motherloadWorldController != null)
+            motherloadWorldController.gameObject.SetActive(false);
+
+        if (cameraFramingController != null)
+            cameraFramingController.enabled = true;
+    }
+
+    private void SnapCannonToSpawnAnchor()
+    {
+        if (cannonRoot == null || playerSpawnAnchor == null)
+            return;
+
+        cannonRoot.position = playerSpawnAnchor.position;
+        cannonRoot.rotation = Quaternion.identity;
+
+        Rigidbody2D body = cannonRoot.GetComponent<Rigidbody2D>();
+        if (body != null)
+        {
+            body.position = playerSpawnAnchor.position;
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+        }
+    }
+
+    private void EnsureMotherloadWorldController()
+    {
+        motherloadWorldController = ResolveMotherloadWorldController();
+
+        if (motherloadWorldController != null)
+            return;
+
+        GameObject worldObject = new GameObject("MotherloadWorld");
+        worldObject.transform.SetParent(transform, false);
+        motherloadWorldController = worldObject.AddComponent<MotherloadWorldController>();
+    }
+
+    private MotherloadWorldController ResolveMotherloadWorldController()
+    {
+        if (motherloadWorldController != null)
+            return motherloadWorldController;
+
+        MotherloadWorldController controller = GetComponentInChildren<MotherloadWorldController>(true);
+        if (controller != null)
+            return controller;
+
+        controller = FindAnyObjectByType<MotherloadWorldController>();
+        if (controller != null)
+            return controller;
+
+        MotherloadWorldController[] allControllers = Resources.FindObjectsOfTypeAll<MotherloadWorldController>();
+        for (int i = 0; i < allControllers.Length; i++)
+        {
+            if (allControllers[i] == null || allControllers[i].gameObject == null)
+                continue;
+
+            if (!allControllers[i].gameObject.scene.IsValid())
+                continue;
+
+            return allControllers[i];
+        }
+
+        return null;
+    }
+
+    private bool ResolveMotherloadMode(bool activeIfMissing)
+    {
+        if (!IsMotherloadModeActive)
+            return false;
+
+        if (motherloadWorldController == null)
+            motherloadWorldController = ResolveMotherloadWorldController();
+
+        if (motherloadWorldController == null && activeIfMissing)
+            EnsureMotherloadWorldController();
+
+        if (motherloadWorldController == null)
+            return false;
+
+        if (activeIfMissing)
+            SetObjectActive(motherloadWorldController, true);
+
+        return true;
+    }
+
+    [ContextMenu("Switch to Motherload Mode")]
+    public void SwitchToMotherloadMode()
+    {
+        sceneMode = ShootTheRockSceneMode.Motherload;
+        BuildPreview();
+    }
+
+    [ContextMenu("Switch to Prototype Wall Mode")]
+    public void SwitchToPrototypeWallMode()
+    {
+        sceneMode = ShootTheRockSceneMode.PrototypeWall;
+        BuildPreview();
+    }
+
+    private static void SetObjectActive(Component component, bool value)
+    {
+        if (component != null)
+            component.gameObject.SetActive(value);
+    }
+
+    private static void SetObjectActive(Transform target, bool value)
+    {
+        if (target != null)
+            target.gameObject.SetActive(value);
     }
 
     private void EnsureCamera()
@@ -155,8 +519,22 @@ public class ShootTheRockSceneRoot : MonoBehaviour
 
         if (cameraFramingController == null)
             cameraFramingController = sceneCamera.GetComponent<CameraFramingController>();
-        if (cameraFramingController == null)
+        if (cameraFramingController == null && !keepSceneCameraTransform)
             cameraFramingController = sceneCamera.gameObject.AddComponent<CameraFramingController>();
+    }
+
+    private void EnsureEventSystem()
+    {
+        EventSystem existingEventSystem = FindAnyObjectByType<EventSystem>();
+        if (existingEventSystem != null)
+        {
+            if (existingEventSystem.GetComponent<InputSystemUIInputModule>() == null)
+                existingEventSystem.gameObject.AddComponent<InputSystemUIInputModule>();
+            return;
+        }
+
+        GameObject eventSystemObject = new GameObject("EventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
+        DontDestroyOnLoad(eventSystemObject);
     }
 
     private void EnsureMoneyCanvas()
@@ -286,6 +664,27 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         }
     }
 
+    private void EnsurePrototypeMarkers()
+    {
+        if (prototypeMarkers == null)
+            prototypeMarkers = FindAnyObjectByType<ShootTheRockPrototypeMarkers>();
+
+        if (prototypeMarkers == null)
+        {
+            GameObject existing = GameObject.Find("PrototypeMarkers");
+            if (existing != null)
+                prototypeMarkers = existing.GetComponent<ShootTheRockPrototypeMarkers>();
+        }
+
+        if (prototypeMarkers == null)
+        {
+            GameObject markersObject = new GameObject("PrototypeMarkers");
+            prototypeMarkers = markersObject.AddComponent<ShootTheRockPrototypeMarkers>();
+        }
+
+        prototypeMarkers.EnsureMarkers();
+    }
+
     private void EnsureCannon()
     {
         if (cannonRoot == null)
@@ -299,7 +698,7 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         {
             GameObject root = new GameObject("CannonRoot");
             root.transform.SetParent(transform, false);
-            root.transform.position = new Vector3(-13.8f, GetFloorTopY() + 0.24f, 0f);
+            root.transform.localPosition = Vector3.zero;
             cannonRoot = root.transform;
         }
 
@@ -339,6 +738,299 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         EnsureSpriteVisual(cannonBarrel, 6);
     }
 
+    private void EnsurePlayerSpawnAnchor()
+    {
+        if (playerSpawnAnchor == null)
+            playerSpawnAnchor = transform.Find("PlayerSpawnAnchor");
+
+        if (playerSpawnAnchor != null)
+            return;
+
+        GameObject anchorObject = new GameObject("PlayerSpawnAnchor");
+        anchorObject.transform.SetParent(transform, false);
+        anchorObject.transform.position = ResolveDefaultPlayerSpawnAnchorPosition();
+        anchorObject.transform.rotation = Quaternion.identity;
+        anchorObject.transform.localScale = Vector3.one;
+        playerSpawnAnchor = anchorObject.transform;
+    }
+
+    private Vector3 ResolveDefaultPlayerSpawnAnchorPosition()
+    {
+        if (prototypeMarkers != null && prototypeMarkers.PlayerStartMarker != null)
+            return prototypeMarkers.PlayerStartMarker.position;
+
+        if (motherloadWorldController != null)
+            return motherloadWorldController.GetSuggestedPlayerSpawnWorldPosition();
+
+        if (cannonRoot != null)
+            return cannonRoot.position;
+
+        return transform.position;
+    }
+
+    private void CacheSceneReferencesForModeRouting()
+    {
+        if (floorTransform == null)
+            floorTransform = transform.Find("GroundFloor");
+
+        if (wallAnchor == null)
+            wallAnchor = transform.Find("WallAnchor");
+
+        if (rockWall == null)
+            rockWall = transform.Find("RockWall")?.GetComponent<RockWall>();
+
+        if (cannonBase == null && cannonRoot != null)
+            cannonBase = cannonRoot.Find("Base");
+
+        if (cannonBarrel == null && cannonRoot != null)
+            cannonBarrel = cannonRoot.Find("Barrel");
+
+        if (firePoint == null && cannonRoot != null)
+            firePoint = cannonRoot.Find("FirePoint");
+
+        if (playerSpawnAnchor == null)
+            playerSpawnAnchor = transform.Find("PlayerSpawnAnchor");
+
+        if (testGoalBallBody == null)
+        {
+            Transform existing = transform.Find("TestGoalBall");
+            if (existing != null)
+                testGoalBallBody = existing.GetComponent<Rigidbody2D>();
+        }
+
+        if (testGoalZone == null)
+        {
+            Transform existing = transform.Find("TestGoalZone");
+            if (existing != null)
+                testGoalZone = existing.GetComponent<TestGoalZone>();
+        }
+
+        if (prototypeMarkers == null)
+            prototypeMarkers = transform.Find("PrototypeMarkers")?.GetComponent<ShootTheRockPrototypeMarkers>();
+
+        if (prototypeMarkers == null)
+            prototypeMarkers = FindAnyObjectByType<ShootTheRockPrototypeMarkers>();
+
+        if (moneyCanvas == null)
+            moneyCanvas = transform.Find("MoneyCanvas")?.GetComponent<Canvas>();
+
+        if (moneyCanvas != null && moneyText == null)
+            moneyText = moneyCanvas.transform.Find("MoneyText")?.GetComponent<Text>();
+
+        if (moneyCanvas != null && moneyHud == null)
+            moneyHud = moneyCanvas.GetComponent<MoneyHud>();
+
+        if (motherloadWorldController == null)
+            motherloadWorldController = ResolveMotherloadWorldController();
+
+        if (cameraFramingController == null && sceneCamera != null)
+            cameraFramingController = sceneCamera.GetComponent<CameraFramingController>();
+    }
+
+    private void EnsureTestGoalBall()
+    {
+        if (testGoalBallBody == null)
+        {
+            Transform existing = transform.Find("TestGoalBall");
+            if (existing != null)
+                testGoalBallBody = existing.GetComponent<Rigidbody2D>();
+        }
+
+        if (testGoalBallBody == null)
+        {
+            GameObject ballObject = new GameObject("TestGoalBall", typeof(SpriteRenderer), typeof(CircleCollider2D), typeof(Rigidbody2D));
+            ballObject.transform.SetParent(transform, false);
+            ballObject.transform.localPosition = new Vector3(-2f, -2f, 0f);
+            ballObject.transform.localRotation = Quaternion.identity;
+            ballObject.transform.localScale = new Vector3(0.68f, 0.68f, 1f);
+            testGoalBallBody = ballObject.GetComponent<Rigidbody2D>();
+        }
+
+        SpriteRenderer renderer = testGoalBallBody.GetComponent<SpriteRenderer>();
+        renderer.sprite = ShootTheRockPrototypeBootstrap.GetOrCreateCircleSprite();
+        renderer.color = new Color(1f, 0.87f, 0.2f, 1f);
+        renderer.sortingOrder = 9;
+
+        CircleCollider2D collider = testGoalBallBody.GetComponent<CircleCollider2D>();
+        collider.radius = 0.5f;
+        collider.sharedMaterial = ShootTheRockPrototypeBootstrap.GetOrCreateGoalBallPhysicsMaterial();
+
+        ShootTheRockPrototypeBootstrap.ApplyGoalBallPhysicsProfile(testGoalBallBody);
+    }
+
+    private void EnsureTestGoalZone()
+    {
+        if (testGoalZone == null)
+        {
+            Transform existing = transform.Find("TestGoalZone");
+            if (existing != null)
+                testGoalZone = existing.GetComponent<TestGoalZone>();
+        }
+
+        if (testGoalZone == null)
+        {
+            GameObject zoneObject = new GameObject("TestGoalZone", typeof(SpriteRenderer), typeof(BoxCollider2D), typeof(TestGoalZone));
+            zoneObject.transform.SetParent(transform, false);
+            zoneObject.transform.localPosition = new Vector3(-10f, -8f, 0f);
+            zoneObject.transform.localRotation = Quaternion.identity;
+            zoneObject.transform.localScale = new Vector3(2.4f, 1.2f, 1f);
+            testGoalZone = zoneObject.GetComponent<TestGoalZone>();
+        }
+
+        SpriteRenderer renderer = testGoalZone.GetComponent<SpriteRenderer>();
+        renderer.sprite = ShootTheRockPrototypeBootstrap.GetOrCreateWhiteSprite();
+        renderer.color = new Color(0.18f, 0.95f, 0.35f, 0.42f);
+        renderer.sortingOrder = 4;
+
+        BoxCollider2D collider = testGoalZone.GetComponent<BoxCollider2D>();
+        collider.isTrigger = true;
+        collider.size = Vector2.one;
+    }
+
+    private void SyncPrototypeObjectsFromMarkers()
+    {
+        if (cannonRoot != null && playerSpawnAnchor != null)
+        {
+            cannonRoot.position = playerSpawnAnchor.position;
+            cannonRoot.rotation = Quaternion.identity;
+        }
+
+        if (prototypeMarkers == null)
+            return;
+
+        playerPocketSize = prototypeMarkers.PlayerPocketSize;
+        ballPocketSize = prototypeMarkers.BallPocketSize;
+        goalPocketSize = prototypeMarkers.GoalPocketSize;
+
+        if (testGoalBallBody != null && prototypeMarkers.BallStartMarker != null)
+        {
+            testGoalBallBody.transform.position = prototypeMarkers.BallStartMarker.position;
+            testGoalBallBody.transform.rotation = Quaternion.identity;
+        }
+
+        if (testGoalZone != null && prototypeMarkers.GoalMarker != null)
+        {
+            testGoalZone.transform.position = prototypeMarkers.GoalMarker.position;
+            testGoalZone.transform.rotation = Quaternion.identity;
+        }
+    }
+
+    private void ApplyPrototypePockets()
+    {
+        if (rockWall == null)
+            return;
+
+        Vector3 playerSpawnPosition = playerSpawnAnchor != null
+            ? playerSpawnAnchor.position
+            : (cannonRoot != null ? cannonRoot.position : transform.position);
+        rockWall.CreateDebugPocket(playerSpawnPosition, playerPocketSize);
+
+        if (testGoalBallBody != null)
+            rockWall.CreateDebugPocket(testGoalBallBody.transform.position, ballPocketSize);
+
+        if (testGoalZone != null)
+            rockWall.CreateDebugPocket(testGoalZone.transform.position, goalPocketSize);
+    }
+
+    private void InitializeGoalRuntime()
+    {
+        if (testGoalBallBody != null)
+        {
+            testGoalBallBody.linearVelocity = Vector2.zero;
+            testGoalBallBody.angularVelocity = 0f;
+            testGoalBallBody.sleepMode = RigidbodySleepMode2D.StartAwake;
+        }
+
+        if (testGoalZone != null)
+            testGoalZone.Initialize(testGoalBallBody != null ? testGoalBallBody.gameObject.name : "TestGoalBall");
+    }
+
+    private void ConfigureCameraFramingForSceneTruth()
+    {
+        EnsureCameraFramingController();
+        if (cameraFramingController == null || sceneCamera == null || rockWall == null)
+            return;
+
+        cameraFramingController.Initialize(sceneCamera, rockWall, cannonRoot);
+        cameraFramingController.SetPreserveCannonViewportAnchor(false);
+        cameraFramingController.SetAutoFrameEnabled(!keepSceneCameraTransform);
+
+        if (!keepSceneCameraTransform)
+            cameraFramingController.SnapToCurrentFrame();
+    }
+
+    private bool ShouldFitWallToSceneCamera()
+    {
+        return keepSceneCameraTransform && fitWallToSceneCamera && sceneCamera != null;
+    }
+
+    private bool TryGetSceneCameraRect(out Rect rect)
+    {
+        if (sceneCamera == null || !sceneCamera.orthographic)
+        {
+            rect = default;
+            return false;
+        }
+
+        float halfHeight = Mathf.Max(0.01f, sceneCamera.orthographicSize);
+        float halfWidth = halfHeight * Mathf.Max(0.01f, sceneCamera.aspect);
+        Vector2 extraHalfSize = new Vector2(
+            Mathf.Max(0f, sceneWallExtraSize.x) * 0.5f,
+            Mathf.Max(0f, sceneWallExtraSize.y) * 0.5f);
+
+        Vector2 min = new Vector2(
+            sceneCamera.transform.position.x - halfWidth - extraHalfSize.x,
+            sceneCamera.transform.position.y - halfHeight - extraHalfSize.y);
+        Vector2 max = new Vector2(
+            sceneCamera.transform.position.x + halfWidth + extraHalfSize.x,
+            sceneCamera.transform.position.y + halfHeight + extraHalfSize.y);
+
+        rect = Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        return rect.width > 0f && rect.height > 0f;
+    }
+
+    private bool TryBuildSceneCameraWallDefinition(out RockWallDefinition definition)
+    {
+        if (!TryGetSceneCameraRect(out Rect cameraRect))
+        {
+            definition = null;
+            return false;
+        }
+
+        RockWallDefinition sourceDefinition = wallDefinition != null ? wallDefinition : runtimeFallbackDefinition;
+        if (sourceDefinition == null)
+        {
+            runtimeFallbackDefinition = ScriptableObject.CreateInstance<RockWallDefinition>();
+            runtimeFallbackDefinition.hideFlags = HideFlags.DontSave;
+            runtimeFallbackDefinition.ResetToDefaults();
+            sourceDefinition = runtimeFallbackDefinition;
+        }
+
+        RockWallDefinition.RevealStage sourceStage = sourceDefinition != null && sourceDefinition.HasStages
+            ? sourceDefinition.GetStageOrLast(0)
+            : RockWallDefinition.CreateDefaultStages()[0];
+
+        if (sceneCameraWallDefinition == null)
+        {
+            sceneCameraWallDefinition = ScriptableObject.CreateInstance<RockWallDefinition>();
+            sceneCameraWallDefinition.hideFlags = HideFlags.DontSave;
+        }
+
+        sceneCameraWallDefinition.SetStages(new[]
+        {
+            new RockWallDefinition.RevealStage(
+                cameraRect.width,
+                cameraRect.height,
+                Mathf.Max(1f, sourceStage.cellsPerUnit),
+                1f,
+                Vector2.zero,
+                Vector2.zero)
+        });
+
+        definition = sceneCameraWallDefinition;
+        return true;
+    }
+
     private void EnsureSpriteVisual(Transform target, int sortingOrder)
     {
         SpriteRenderer renderer = target.GetComponent<SpriteRenderer>();
@@ -355,6 +1047,14 @@ public class ShootTheRockSceneRoot : MonoBehaviour
             return -8.95f + (0.85f * 0.5f);
 
         return floorTransform.position.y + (floorTransform.localScale.y * 0.5f);
+    }
+
+    private void Reset()
+    {
+        EnsureCannon();
+        EnsurePlayerSpawnAnchor();
+        if (cannonRoot != null && playerSpawnAnchor != null)
+            cannonRoot.position = playerSpawnAnchor.position;
     }
 
 #if UNITY_EDITOR

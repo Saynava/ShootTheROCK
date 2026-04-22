@@ -11,9 +11,10 @@ public class ShootTheRockSceneRootEditor : Editor
 
         EditorGUILayout.Space(8f);
         EditorGUILayout.HelpBox(
-            "ShootTheRockSceneRoot is now legacy. The simplified workflow uses normal scene transforms as the source of truth. " +
-            "Move the camera, cannon, floor, and RockWall directly in the scene. Resize the wall from the RockWall component, not from importer/root tooling.",
-            MessageType.Warning);
+            "ShootTheRockSceneRoot supports two isolated modes: Prototype-Wall and Motherload. " +
+            "Motherload mode disables prototype-only objects (floor/wall/goal/prototype overlays) and uses chunk streaming + camera follow. " +
+            "Use the context menu to switch mode if needed, or set sceneMode in the component manually.",
+            MessageType.Info);
     }
 }
 #endif

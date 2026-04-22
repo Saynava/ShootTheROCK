@@ -19,9 +19,11 @@ public class Projectile : MonoBehaviour
 
     private float lifetimeRemaining = MaxLifetime;
     private Rigidbody2D body;
+    private Collider2D triggerCollider;
     private bool didHit;
     private float blastRadiusScale = 1f;
     private RockWall rockWall;
+    private MotherloadWorldController motherloadWorldController;
     private AutoShooter owner;
     private bool isActiveTracked;
     private ProjectileMode mode;
@@ -34,25 +36,28 @@ public class Projectile : MonoBehaviour
     private float corrosionBlastRadiusScale = 1f;
     private bool corrosionAllowDestroyCells = true;
 
+    private bool ShouldLogMotherloadDebug => motherloadWorldController != null && motherloadWorldController.ShouldLogProjectileHits;
+
     public void ConfigurePool(AutoShooter owner, Rigidbody2D body)
     {
         this.owner = owner;
         this.body = body;
+        triggerCollider = body != null ? body.GetComponent<Collider2D>() : GetComponent<Collider2D>();
     }
 
-    public void Launch(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, float blastRadiusScale, float gravityScale)
+    public void Launch(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, MotherloadWorldController motherloadWorldController, float blastRadiusScale, float gravityScale)
     {
-        LaunchInternal(worldPosition, direction, speed, rockWall, blastRadiusScale, ProjectileMode.Standard, MaxLifetime, 0f, gravityScale, StandardScale);
+        LaunchInternal(worldPosition, direction, speed, rockWall, motherloadWorldController, blastRadiusScale, ProjectileMode.Standard, MaxLifetime, 0f, gravityScale, StandardScale);
     }
 
-    public void LaunchAirburstGrenade(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, float blastRadiusScale, float fuseTime, float gravityScale)
+    public void LaunchAirburstGrenade(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, MotherloadWorldController motherloadWorldController, float blastRadiusScale, float fuseTime, float gravityScale)
     {
-        LaunchInternal(worldPosition, direction, speed, rockWall, blastRadiusScale, ProjectileMode.AirburstGrenade, MaxLifetime, fuseTime, gravityScale, AirburstGrenadeScale);
+        LaunchInternal(worldPosition, direction, speed, rockWall, motherloadWorldController, blastRadiusScale, ProjectileMode.AirburstGrenade, MaxLifetime, fuseTime, gravityScale, AirburstGrenadeScale);
     }
 
-    public void LaunchFragment(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, float blastRadiusScale, float gravityScale)
+    public void LaunchFragment(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, MotherloadWorldController motherloadWorldController, float blastRadiusScale, float gravityScale)
     {
-        LaunchInternal(worldPosition, direction, speed, rockWall, blastRadiusScale, ProjectileMode.Fragment, FragmentLifetime, 0f, gravityScale, FragmentScale);
+        LaunchInternal(worldPosition, direction, speed, rockWall, motherloadWorldController, blastRadiusScale, ProjectileMode.Fragment, FragmentLifetime, 0f, gravityScale, FragmentScale);
     }
 
     public void ConfigureCorrosion(bool enabled, float duration, float tickInterval, float damagePerTick, float blastRadiusScale, bool allowDestroyCells = true)
@@ -65,9 +70,10 @@ public class Projectile : MonoBehaviour
         corrosionAllowDestroyCells = allowDestroyCells;
     }
 
-    private void LaunchInternal(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, float blastRadiusScale, ProjectileMode mode, float lifetime, float fuseTime, float gravityScale, Vector3 visualScale)
+    private void LaunchInternal(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, MotherloadWorldController motherloadWorldController, float blastRadiusScale, ProjectileMode mode, float lifetime, float fuseTime, float gravityScale, Vector3 visualScale)
     {
         this.rockWall = rockWall;
+        this.motherloadWorldController = motherloadWorldController;
         this.mode = mode;
         this.blastRadiusScale = Mathf.Max(0.2f, blastRadiusScale);
         this.airburstFuseRemaining = fuseTime;
@@ -75,6 +81,9 @@ public class Projectile : MonoBehaviour
         didHit = false;
         lifetimeRemaining = lifetime;
         ConfigureCorrosion(false, 0.1f, 0.1f, 0.01f, 1f, true);
+
+        if (triggerCollider != null)
+            triggerCollider.enabled = true;
 
         transform.SetParent(null, true);
         transform.position = worldPosition;
@@ -94,6 +103,18 @@ public class Projectile : MonoBehaviour
             body.position = worldPosition;
             body.linearVelocity = lastTravelDirection * speed;
             body.angularVelocity = 0f;
+        }
+
+        if (ShouldLogMotherloadDebug)
+        {
+            motherloadWorldController.LogDebug(
+                "Projectile launch"
+                + " | mode=" + mode
+                + " | from=" + worldPosition.ToString("F3")
+                + " | dir=" + lastTravelDirection.ToString("F3")
+                + " | speed=" + speed.ToString("F2")
+                + " | blastScale=" + this.blastRadiusScale.ToString("F2"),
+                this);
         }
     }
 
@@ -133,13 +154,28 @@ public class Projectile : MonoBehaviour
             RockWall hitWall = other.GetComponent<RockWall>();
             if (hitWall == null)
                 hitWall = other.GetComponentInParent<RockWall>();
-            if (hitWall == null)
+
+            MotherloadChunkRuntime motherloadChunk = other.GetComponent<MotherloadChunkRuntime>();
+            if (motherloadChunk == null)
+                motherloadChunk = other.GetComponentInParent<MotherloadChunkRuntime>();
+
+            if (hitWall == null && motherloadChunk == null)
                 return;
 
             didHit = true;
+            if (triggerCollider != null)
+                triggerCollider.enabled = false;
+
             Vector2 impactDirection = body != null && body.linearVelocity.sqrMagnitude > 0.0001f
                 ? body.linearVelocity.normalized
                 : lastTravelDirection;
+
+            if (body != null)
+            {
+                body.linearVelocity = Vector2.zero;
+                body.angularVelocity = 0f;
+                body.simulated = false;
+            }
 
             Vector2 queryPoint = (Vector2)transform.position - (impactDirection * 0.18f);
             Vector2 hitPoint = other.ClosestPoint(queryPoint);
@@ -149,15 +185,39 @@ public class Projectile : MonoBehaviour
             if (rockWall == null)
                 rockWall = hitWall;
 
+            if (motherloadWorldController == null && motherloadChunk != null)
+                motherloadWorldController = motherloadChunk.GetComponentInParent<MotherloadWorldController>();
+
             if (mode == ProjectileMode.AirburstGrenade)
             {
                 ExplodeIntoFragments(hitPoint, impactDirection);
                 return;
             }
 
-            rockWall.ApplyHit(hitPoint, impactDirection, blastRadiusScale);
-            ApplyCorrosion(hitPoint);
-            ReturnToPool();
+            if (rockWall != null)
+            {
+                rockWall.ApplyHit(hitPoint, impactDirection, blastRadiusScale);
+                ApplyCorrosion(hitPoint);
+                ReturnToPool();
+                return;
+            }
+
+            if (motherloadWorldController != null)
+            {
+                bool changed = motherloadWorldController.TryApplyProjectileHit(hitPoint, impactDirection, blastRadiusScale);
+                if (motherloadWorldController.ShouldLogProjectileHits)
+                {
+                    string chunkName = motherloadChunk != null ? motherloadChunk.name : "no-chunk";
+                    motherloadWorldController.LogDebug(
+                        "Projectile impact"
+                        + " | collider=" + other.name
+                        + " | chunk=" + chunkName
+                        + " | hitPoint=" + hitPoint.ToString("F3")
+                        + " | changed=" + changed,
+                        other);
+                }
+                ReturnToPool();
+            }
         }
     }
 
@@ -172,6 +232,7 @@ public class Projectile : MonoBehaviour
                 worldPosition,
                 forwardDirection,
                 rockWall,
+                motherloadWorldController,
                 blastRadiusScale,
                 corrosionEnabled,
                 corrosionDuration,
@@ -229,11 +290,11 @@ public class Projectile : MonoBehaviour
 
     private void ReturnToPool()
     {
-        didHit = false;
         lifetimeRemaining = MaxLifetime;
         airburstFuseRemaining = 0f;
         mode = ProjectileMode.Standard;
         rockWall = null;
+        motherloadWorldController = null;
         transform.localScale = StandardScale;
         ConfigureCorrosion(false, 0.1f, 0.1f, 0.01f, 1f, true);
 

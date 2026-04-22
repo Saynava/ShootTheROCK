@@ -59,6 +59,7 @@ public class AutoShooter : MonoBehaviour
 
     private Transform firePoint;
     private RockWall rockWall;
+    private MotherloadWorldController motherloadWorldController;
     private float nextShotTime;
     private int attackSpeedLevel;
     private int damageLevel;
@@ -88,10 +89,11 @@ public class AutoShooter : MonoBehaviour
     public int AirburstFragmentCount => airburstFragmentCount;
     public float CurrentProjectileBlastScale => blastRadiusScale * debugBlastScaleMultiplier;
 
-    public void Initialize(Transform firePoint, RockWall rockWall)
+    public void Initialize(Transform firePoint, RockWall rockWall, MotherloadWorldController motherloadWorldController = null)
     {
         this.firePoint = firePoint;
         this.rockWall = rockWall;
+        this.motherloadWorldController = motherloadWorldController;
         nextShotTime = Time.time + 0.15f;
         EnsureProjectilePoolRoot();
         PrewarmProjectilePool();
@@ -99,7 +101,7 @@ public class AutoShooter : MonoBehaviour
 
     private void Update()
     {
-        if (firePoint == null || rockWall == null)
+        if (firePoint == null || (rockWall == null && motherloadWorldController == null))
             return;
 
         if (Time.time < nextShotTime)
@@ -238,7 +240,7 @@ public class AutoShooter : MonoBehaviour
         float resolvedBlastScale = CurrentProjectileBlastScale;
         ShootTheRockPerformance.RecordPellet();
         Projectile projectile = AcquireProjectile();
-        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, resolvedBlastScale, projectileGravity);
+        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, motherloadWorldController, resolvedBlastScale, projectileGravity);
         ConfigureProjectileCorrosion(projectile, resolvedBlastScale);
     }
 
@@ -269,6 +271,7 @@ public class AutoShooter : MonoBehaviour
             direction,
             projectileSpeed * AirburstGrenadeSpeedMultiplier,
             rockWall,
+            motherloadWorldController,
             resolvedBlastScale,
             fuseTime,
             projectileGravity);
@@ -279,6 +282,7 @@ public class AutoShooter : MonoBehaviour
         Vector2 worldPosition,
         Vector2 forwardDirection,
         RockWall sourceWall,
+        MotherloadWorldController sourceMotherloadWorldController,
         float sourceBlastScale,
         bool applyCorrosion,
         float corrosionDuration,
@@ -304,6 +308,7 @@ public class AutoShooter : MonoBehaviour
                 fragmentDirection,
                 projectileSpeed * AirburstFragmentSpeedMultiplier,
                 sourceWall != null ? sourceWall : rockWall,
+                sourceMotherloadWorldController != null ? sourceMotherloadWorldController : motherloadWorldController,
                 fragmentBlastScale,
                 AirburstFragmentGravity);
             fragment.ConfigureCorrosion(

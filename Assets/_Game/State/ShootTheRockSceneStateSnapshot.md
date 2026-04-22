@@ -1,6 +1,6 @@
 ﻿# Shoot the ROCK Scene State Snapshot
 
-- Saved local time: 2026-04-19 21:32:41
+- Saved local time: 2026-04-22 23:14:33
 - Scene: Assets/Scenes/SampleScene.unity
 - Unity version: 6000.4.0f1
 - Purpose: compact but inspectable current-state snapshot for agent follow-up work
@@ -10,16 +10,17 @@
 - Restore snapshot used by Restore: `Assets/_Game/State/ShootTheRockRestoreSnapshot.json`
 
 ## Snapshot coverage
-- Tracked roots: 3
-- GameObjects captured: 66
-- Components captured: 175
-- Serialized property lines captured: 1484
-- Total flat records: 1989
+- Tracked roots: 4
+- GameObjects captured: 120
+- Components captured: 369
+- Serialized property lines captured: 4332
+- Total flat records: 5301
 
 ## Tracked roots
 - `Main Camera`
 - `Global Light 2D`
 - `ShootTheRockScene`
+- `PrototypeMarkers`
 
 ## What this is good for
 - seeing the current scene / inspector state without opening full scene YAML

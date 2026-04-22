@@ -21,11 +21,13 @@ public class MoneyHud : MonoBehaviour
     private const string SliderLabelName = "Label";
     private const string SliderControlName = "Slider";
 
-    private int money;
+    private ShootTheRockProgressionState progressionState;
     private Text moneyText;
     private AutoShooter shooter;
     private RockWall rockWall;
     private CameraFramingController cameraFramingController;
+    private GameObject upgradePanel;
+    private bool upgradeUiVisible = true;
     private Text upgradeStatsText;
     private Button attackSpeedUpgradeButton;
     private Text attackSpeedUpgradeButtonText;
@@ -50,10 +52,36 @@ public class MoneyHud : MonoBehaviour
     private Slider fragmentCountSlider;
     private Text fragmentCountSliderLabel;
 
+    public ShootTheRockProgressionState ProgressionState
+    {
+        get
+        {
+            if (progressionState == null)
+                BindProgressionState(new ShootTheRockProgressionState());
+
+            return progressionState;
+        }
+    }
+
     public void Initialize(Text moneyText)
     {
         this.moneyText = moneyText;
+        if (progressionState == null)
+            BindProgressionState(new ShootTheRockProgressionState());
         EnsureUpgradeUi();
+        Refresh();
+    }
+
+    public void BindProgressionState(ShootTheRockProgressionState progressionState)
+    {
+        if (ReferenceEquals(this.progressionState, progressionState) && progressionState != null)
+            return;
+
+        if (this.progressionState != null)
+            this.progressionState.Changed -= HandleProgressionStateChanged;
+
+        this.progressionState = progressionState ?? new ShootTheRockProgressionState();
+        this.progressionState.Changed += HandleProgressionStateChanged;
         Refresh();
     }
 
@@ -72,10 +100,16 @@ public class MoneyHud : MonoBehaviour
         Refresh();
     }
 
+    public void SetUpgradeUiVisible(bool visible)
+    {
+        upgradeUiVisible = visible;
+        EnsureUpgradeUi();
+        ApplyUpgradePanelVisibility();
+    }
+
     public void AddMoney(int amount)
     {
-        money += amount;
-        Refresh();
+        ProgressionState.AddMoney(amount);
     }
 
     private void TryBuyAttackSpeedUpgrade()
@@ -84,14 +118,14 @@ public class MoneyHud : MonoBehaviour
             return;
 
         int cost = shooter.NextAttackSpeedUpgradeCost;
-        if (money < cost)
+        if (ProgressionState.Money < cost)
             return;
 
         if (!shooter.TryUpgradeAttackSpeed())
             return;
 
-        money -= cost;
-        Refresh();
+        if (!ProgressionState.TrySpendMoney(cost))
+            return;
     }
 
     private void TryBuyDamageUpgrade()
@@ -100,14 +134,14 @@ public class MoneyHud : MonoBehaviour
             return;
 
         int cost = shooter.NextDamageUpgradeCost;
-        if (money < cost)
+        if (ProgressionState.Money < cost)
             return;
 
         if (!shooter.TryUpgradeDamage())
             return;
 
-        money -= cost;
-        Refresh();
+        if (!ProgressionState.TrySpendMoney(cost))
+            return;
     }
 
     private void TryAdvanceLevelTest()
@@ -198,9 +232,10 @@ public class MoneyHud : MonoBehaviour
     private void Refresh()
     {
         if (moneyText != null)
-            moneyText.text = "$" + money;
+            moneyText.text = "$" + ProgressionState.Money;
 
         EnsureUpgradeUi();
+        ApplyUpgradePanelVisibility();
         RefreshStatsText();
         RefreshButtons();
         RefreshTuningControls();
@@ -214,15 +249,18 @@ public class MoneyHud : MonoBehaviour
         string levelText = rockWall == null
             ? "LVL ?/?"
             : rockWall.CurrentLevelLabel + "  (" + rockWall.CurrentLevelNumber + "/" + rockWall.TotalLevelCount + ")";
+        string headerText = levelText + "  |  " + BuildEssenceSummaryLine();
 
         if (shooter == null)
         {
-            upgradeStatsText.text = levelText + "\nCANNON\nWaiting for cannon";
+            upgradeStatsText.text =
+                headerText + "\n" +
+                "CANNON\nWaiting for cannon";
             return;
         }
 
         upgradeStatsText.text =
-            levelText + "\n" +
+            headerText + "\n" +
             "ATK SPD LVL " + shooter.AttackSpeedLevel +
             "  |  BASE " + shooter.CurrentFireInterval.ToString("0.00") + "s\n" +
             "DMG LVL " + shooter.DamageLevel +
@@ -243,13 +281,13 @@ public class MoneyHud : MonoBehaviour
     {
         if (attackSpeedUpgradeButton != null)
         {
-            bool canUpgradeAttackSpeed = shooter != null && shooter.CanUpgradeAttackSpeed && money >= shooter.NextAttackSpeedUpgradeCost;
+            bool canUpgradeAttackSpeed = shooter != null && shooter.CanUpgradeAttackSpeed && ProgressionState.Money >= shooter.NextAttackSpeedUpgradeCost;
             attackSpeedUpgradeButton.interactable = canUpgradeAttackSpeed;
         }
 
         if (damageUpgradeButton != null)
         {
-            bool canUpgradeDamage = shooter != null && shooter.CanUpgradeDamage && money >= shooter.NextDamageUpgradeCost;
+            bool canUpgradeDamage = shooter != null && shooter.CanUpgradeDamage && ProgressionState.Money >= shooter.NextDamageUpgradeCost;
             damageUpgradeButton.interactable = canUpgradeDamage;
         }
 
@@ -411,6 +449,7 @@ public class MoneyHud : MonoBehaviour
         Transform panelTransform = transform.Find(UpgradePanelName);
         if (panelTransform == null)
             panelTransform = CreateUpgradePanel(canvas.transform).transform;
+        upgradePanel = panelTransform.gameObject;
         ApplyPanelLayout(panelTransform as RectTransform);
 
         RemoveLegacyComboButton(panelTransform);
@@ -516,6 +555,14 @@ public class MoneyHud : MonoBehaviour
         stressPelletSlider.onValueChanged.AddListener(OnStressPelletSliderChanged);
         fragmentCountSlider.onValueChanged.RemoveListener(OnFragmentCountSliderChanged);
         fragmentCountSlider.onValueChanged.AddListener(OnFragmentCountSliderChanged);
+
+        ApplyUpgradePanelVisibility();
+    }
+
+    private void ApplyUpgradePanelVisibility()
+    {
+        if (upgradePanel != null)
+            upgradePanel.SetActive(upgradeUiVisible);
     }
 
     private GameObject CreateUpgradePanel(Transform parent)
@@ -765,5 +812,23 @@ public class MoneyHud : MonoBehaviour
         text.alignment = TextAnchor.MiddleCenter;
         text.color = Color.white;
         return textObject;
+    }
+
+    private string BuildEssenceSummaryLine()
+    {
+        return "R " + ProgressionState.RedEssence +
+               "  B " + ProgressionState.BlueEssence +
+               "  G " + ProgressionState.GreenEssence;
+    }
+
+    private void HandleProgressionStateChanged()
+    {
+        Refresh();
+    }
+
+    private void OnDestroy()
+    {
+        if (progressionState != null)
+            progressionState.Changed -= HandleProgressionStateChanged;
     }
 }

@@ -38,6 +38,11 @@ public class CameraFramingController : MonoBehaviour
             SnapToCurrentFrame();
     }
 
+    public void SetPreserveCannonViewportAnchor(bool value)
+    {
+        preserveCannonViewportAnchor = value;
+    }
+
     public void SnapToCurrentFrame()
     {
         if (!TryBuildTarget(out Vector3 targetPosition, out float targetSize))

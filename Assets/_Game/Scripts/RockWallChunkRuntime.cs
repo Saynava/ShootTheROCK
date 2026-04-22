@@ -18,6 +18,8 @@ public class RockWallChunkRuntime : MonoBehaviour
     public void Build(
         bool[,] solidCells,
         float[,] cellHitPoints,
+        float[,] cellMaxHitPointsByCell,
+        EssenceType[,] cellEssenceTypes,
         float cellMaxHitPoints,
         int rowCount,
         int columnCount,
@@ -67,10 +69,19 @@ public class RockWallChunkRuntime : MonoBehaviour
                         }
 
                         hasSolidPixels = true;
-                        int damageTier = GetDamageVisualTier(cellHitPoints[row, column], cellMaxHitPoints);
-                        pixelBuffer[pixelIndex] = damageTier < damageTierColors.Length
-                            ? (Color32)damageTierColors[damageTier]
-                            : new Color32(255, 255, 255, 255);
+                        float perCellMaxHitPoints = cellMaxHitPointsByCell != null
+                            ? cellMaxHitPointsByCell[row, column]
+                            : cellMaxHitPoints;
+                        int damageTier = GetDamageVisualTier(cellHitPoints[row, column], perCellMaxHitPoints);
+                        pixelBuffer[pixelIndex] = (Color32)GetCellRenderColor(
+                            row,
+                            column,
+                            cellEssenceTypes != null ? cellEssenceTypes[row, column] : EssenceType.None,
+                            cellEssenceTypes,
+                            damageTier,
+                            cellHitPoints[row, column],
+                            perCellMaxHitPoints,
+                            damageTierColors);
                     }
                 }
 
@@ -166,6 +177,89 @@ public class RockWallChunkRuntime : MonoBehaviour
         if (ratio > 0.25f)
             return 2;
         return 3;
+    }
+
+    private Color GetCellRenderColor(int row, int column, EssenceType essenceType, EssenceType[,] cellEssenceTypes, int damageTier, float currentHitPoints, float cellMaxHitPoints, Color[] damageTierColors)
+    {
+        if (essenceType == EssenceType.None)
+        {
+            if (damageTierColors != null && damageTier >= 0 && damageTier < damageTierColors.Length)
+                return damageTierColors[damageTier];
+
+            return Color.white;
+        }
+
+        Color baseColor = GetEssenceBaseColor(essenceType);
+        float clusterShade = GetEssenceClusterShade(row, column, essenceType, cellEssenceTypes);
+        Color paleColor = Color.Lerp(Color.white, baseColor, 0.28f);
+        Color richColor = Color.Lerp(baseColor, Color.white, 0.06f);
+        Color toneColor = Color.Lerp(paleColor, richColor, clusterShade);
+
+        float ratio = Mathf.Clamp01(currentHitPoints / Mathf.Max(0.0001f, cellMaxHitPoints));
+        float brightness = Mathf.Lerp(0.22f, 1f, ratio);
+        return new Color(toneColor.r * brightness, toneColor.g * brightness, toneColor.b * brightness, 1f);
+    }
+
+    private float GetEssenceClusterShade(int row, int column, EssenceType essenceType, EssenceType[,] cellEssenceTypes)
+    {
+        if (cellEssenceTypes == null)
+            return 0.7f;
+
+        int sameTypeNeighbors = 0;
+        int checkedNeighbors = 0;
+        int rowCount = cellEssenceTypes.GetLength(0);
+        int columnCount = cellEssenceTypes.GetLength(1);
+
+        for (int offsetY = -1; offsetY <= 1; offsetY++)
+        {
+            for (int offsetX = -1; offsetX <= 1; offsetX++)
+            {
+                if (offsetX == 0 && offsetY == 0)
+                    continue;
+
+                int neighborRow = row + offsetY;
+                int neighborColumn = column + offsetX;
+                if (neighborRow < 0 || neighborRow >= rowCount || neighborColumn < 0 || neighborColumn >= columnCount)
+                    continue;
+
+                checkedNeighbors++;
+                if (cellEssenceTypes[neighborRow, neighborColumn] == essenceType)
+                    sameTypeNeighbors++;
+            }
+        }
+
+        float density = checkedNeighbors <= 0 ? 0.5f : sameTypeNeighbors / (float)checkedNeighbors;
+        float noise = HashToUnit(row, column);
+        return Mathf.Clamp01((density * 0.78f) + (noise * 0.22f));
+    }
+
+    private float HashToUnit(int row, int column)
+    {
+        unchecked
+        {
+            int hash = row;
+            hash = (hash * 397) ^ column;
+            hash ^= (hash << 13);
+            hash ^= (hash >> 17);
+            hash ^= (hash << 5);
+            int positive = hash & 0x7fffffff;
+            return positive / 2147483647f;
+        }
+    }
+
+    private Color GetEssenceBaseColor(EssenceType essenceType)
+    {
+        switch (essenceType)
+        {
+            case EssenceType.Red:
+                return new Color(1f, 0.28f, 0.28f, 1f);
+            case EssenceType.Blue:
+                return new Color(0.28f, 0.62f, 1f, 1f);
+            case EssenceType.Green:
+                return new Color(0.32f, 1f, 0.45f, 1f);
+            default:
+                return Color.white;
+        }
     }
 
     private void RebuildColliderPaths(

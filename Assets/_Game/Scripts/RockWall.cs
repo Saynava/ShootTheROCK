@@ -120,6 +120,9 @@ public class RockWall : MonoBehaviour
     [Min(1f)]
     [SerializeField] private float cellsPerUnit = 10.869565f;
 
+    [Header("Authoring Map")]
+    [SerializeField] private RockWallAuthoringMap authoringMap;
+
     [Header("Level Progression")]
     [SerializeField] private bool useCameraBoundLevels = true;
     [SerializeField] private ProgressionFrame[] progressionFrames =
@@ -133,6 +136,7 @@ public class RockWall : MonoBehaviour
     [Header("Optional Camera Framing")]
     [SerializeField] private Vector2 cameraPadding = new Vector2(1.8f, 0.85f);
     [SerializeField] private Vector2 cameraLookOffset = new Vector2(-1.1f, 0f);
+    [SerializeField] private bool centerActiveFrameInWall;
 
     [Header("Cell Durability")]
     [Min(1f)]
@@ -143,6 +147,24 @@ public class RockWall : MonoBehaviour
     [SerializeField] private float edgeDamageMultiplier = 0.8f;
     [Range(0.1f, 2f)]
     [SerializeField] private float centerDamageMultiplier = 1.3f;
+
+    [Header("Essence Deposits")]
+    [SerializeField] private bool generateEssenceDeposits = true;
+    [Min(1f)]
+    [SerializeField] private float essenceHardnessMultiplier = 2.4f;
+    [Min(1)]
+    [SerializeField] private int essenceNuggetsPerColor = 18;
+    [Min(1)]
+    [SerializeField] private int essenceVeinsPerColor = 4;
+    [SerializeField] private Vector2Int essenceVeinLengthRange = new Vector2Int(18, 56);
+    [Range(0f, 1f)]
+    [SerializeField] private float essenceVeinTurnChance = 0.3f;
+    [Range(0f, 1f)]
+    [SerializeField] private float essenceVeinThicknessChance = 0.32f;
+    [Min(1)]
+    [SerializeField] private int minEssenceClusterCells = 4;
+    [Min(1)]
+    [SerializeField] private int essencePerCellReward = 1;
 
     [Header("Runtime Chunking")]
     [SerializeField] private bool useChunkedRuntime = true;
@@ -178,6 +200,7 @@ public class RockWall : MonoBehaviour
     [SerializeField] private bool absorbTransformScaleIntoSize = true;
 
     private MoneyHud moneyHud;
+    private ShootTheRockProgressionState progressionState;
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
     private PolygonCollider2D polygonCollider;
@@ -187,6 +210,8 @@ public class RockWall : MonoBehaviour
     private Material[] damageTierMaterials;
     private bool[,] solidCells;
     private float[,] cellHitPoints;
+    private float[,] cellMaxHitPointsByCell;
+    private EssenceType[,] cellEssenceTypes;
     private float rowHeight;
     private float columnWidth;
     private int rowCount;
@@ -213,7 +238,111 @@ public class RockWall : MonoBehaviour
     public float WorldWidth => worldWidth;
     public float WorldHeight => worldHeight;
     public float CellsPerUnit => cellsPerUnit;
+    public RockWallAuthoringMap AuthoringMap => authoringMap;
     public int TotalLevelCount => useCameraBoundLevels && progressionFrames != null && progressionFrames.Length > 0 ? progressionFrames.Length : 1;
+
+    public void SetGenerateEssenceDeposits(bool value)
+    {
+        generateEssenceDeposits = value;
+    }
+
+    public Vector2Int GetExpectedAuthoringMapResolution()
+    {
+        return new Vector2Int(
+            Mathf.Max(8, Mathf.RoundToInt(worldWidth * cellsPerUnit)),
+            Mathf.Max(8, Mathf.RoundToInt(worldHeight * cellsPerUnit)));
+    }
+
+    public bool HasAuthoringMapResolutionMismatch()
+    {
+        if (authoringMap == null)
+            return false;
+
+        Vector2Int expectedResolution = GetExpectedAuthoringMapResolution();
+        return !authoringMap.IsCompatible(expectedResolution.x, expectedResolution.y);
+    }
+
+    public void AssignAuthoringMap(RockWallAuthoringMap map)
+    {
+        authoringMap = map;
+    }
+
+    public void RecreateAuthoringMapToCurrentResolution()
+    {
+        if (authoringMap == null)
+            return;
+
+        Vector2Int expectedResolution = GetExpectedAuthoringMapResolution();
+        authoringMap.Resize(expectedResolution.x, expectedResolution.y, RockWallAuthoringMap.RockMaterialId);
+    }
+
+    public void CaptureCurrentWallIntoAuthoringMap()
+    {
+        if (authoringMap == null)
+            return;
+
+        EnsureRuntimeState(null);
+        if (solidCells == null || rowCount <= 0 || columnCount <= 0)
+            RebuildFromAuthoring(resetDamage: true);
+
+        authoringMap.CaptureFromSolidCells(solidCells, rowCount, columnCount);
+    }
+
+    public bool PaintAuthoringCircle(Vector2 worldPoint, float radiusWorld, byte materialId, float hardness01)
+    {
+        if (authoringMap == null || HasAuthoringMapResolutionMismatch())
+            return false;
+
+        EnsureRuntimeState(null);
+        if (solidCells == null || rowCount <= 0 || columnCount <= 0)
+            RebuildFromAuthoring(resetDamage: true);
+
+        Vector2 localCenter = ClampLocalPointToWallBounds(transform.InverseTransformPoint(worldPoint));
+        float resolvedRadius = Mathf.Max(Mathf.Max(columnWidth, rowHeight) * 0.5f, radiusWorld);
+        int rowRadius = Mathf.CeilToInt(resolvedRadius / Mathf.Max(0.0001f, rowHeight)) + 1;
+        int columnRadius = Mathf.CeilToInt(resolvedRadius / Mathf.Max(0.0001f, columnWidth)) + 1;
+        float innerRadius01 = Mathf.Lerp(0.18f, 0.94f, Mathf.Clamp01(hardness01));
+        bool changed = false;
+
+        int centerRow = GetRowIndexFromLocalY(localCenter.y);
+        int centerColumn = GetColumnIndexFromLocalX(localCenter.x);
+
+        for (int row = Mathf.Max(0, centerRow - rowRadius); row <= Mathf.Min(rowCount - 1, centerRow + rowRadius); row++)
+        {
+            for (int column = Mathf.Max(0, centerColumn - columnRadius); column <= Mathf.Min(columnCount - 1, centerColumn + columnRadius); column++)
+            {
+                Vector2 cellCenter = GetCellCenterLocal(row, column);
+                float normalizedX = (cellCenter.x - localCenter.x) / Mathf.Max(0.0001f, resolvedRadius);
+                float normalizedY = (cellCenter.y - localCenter.y) / Mathf.Max(0.0001f, resolvedRadius);
+                float normalizedDistance = Mathf.Sqrt((normalizedX * normalizedX) + (normalizedY * normalizedY));
+                if (normalizedDistance > 1f)
+                    continue;
+
+                bool shouldApply = normalizedDistance <= innerRadius01;
+                if (!shouldApply)
+                {
+                    float falloff01 = 1f - Mathf.InverseLerp(innerRadius01, 1f, normalizedDistance);
+                    shouldApply = falloff01 >= GetAuthoringBrushNoise01(row, column);
+                }
+
+                if (!shouldApply)
+                    continue;
+
+                if (authoringMap.GetMaterialId(row, column) == materialId)
+                    continue;
+
+                authoringMap.SetMaterialId(row, column, materialId);
+                changed = true;
+            }
+        }
+
+        if (!changed)
+            return false;
+
+        RebuildFromAuthoring(resetDamage: true);
+        return true;
+    }
+
     public int CurrentLevelNumber => Mathf.Clamp(activeProgressionFrameIndex + 1, 1, TotalLevelCount);
     public bool CanAdvanceLevel => CurrentLevelNumber < TotalLevelCount;
     public string CurrentLevelLabel => GetCurrentFrameLabel();
@@ -258,10 +387,16 @@ public class RockWall : MonoBehaviour
     public void Initialize(MoneyHud moneyHud, Material rockMaterial)
     {
         this.moneyHud = moneyHud;
+        progressionState = moneyHud != null ? moneyHud.ProgressionState : progressionState;
         EnsureRuntimeState(rockMaterial);
         AbsorbTransformScaleIntoAuthoring();
         ValidateProgressionFrames();
         RebuildFromAuthoring(resetDamage: true);
+    }
+
+    public void BindProgressionState(ShootTheRockProgressionState progressionState)
+    {
+        this.progressionState = progressionState;
     }
 
     public void Initialize(MoneyHud moneyHud, Material rockMaterial, Vector2 wallBottomLeftAnchor)
@@ -308,13 +443,18 @@ public class RockWall : MonoBehaviour
 
             if (moneyHud == null)
                 moneyHud = FindAnyObjectByType<MoneyHud>();
+            if (progressionState == null && moneyHud != null)
+                progressionState = moneyHud.ProgressionState;
 
             Vector2 localPoint = transform.InverseTransformPoint(worldPoint);
             Vector2 resolvedLocalPoint = ClampLocalPointToWallBounds(localPoint);
             Vector2 resolvedWorldPoint = transform.TransformPoint(resolvedLocalPoint);
 
             ShootTheRockPerformance.RecordHit();
-            moneyHud?.AddMoney(1);
+            if (progressionState != null)
+                progressionState.AddMoney(1);
+            else
+                moneyHud?.AddMoney(1);
 
             hitRemovedPixelCenters.Clear();
             CarveRock(resolvedWorldPoint, pushDirection, Mathf.Max(0.25f, blastRadiusScale), hitRemovedPixelCenters);
@@ -345,6 +485,109 @@ public class RockWall : MonoBehaviour
 
         QueueWallEffectAtCell(row, column, effectType, duration, tickInterval, damagePerTick, blastRadiusScale, allowDestroyCells);
         return true;
+    }
+
+    public void CreateDebugPocket(Vector2 worldCenter, Vector2 worldSize)
+    {
+        EnsureRuntimeState(null);
+        if (solidCells == null || rowCount <= 0 || columnCount <= 0)
+            RebuildFromAuthoring(resetDamage: true);
+
+        Vector2 localCenter = ClampLocalPointToWallBounds(transform.InverseTransformPoint(worldCenter));
+        int centerRow = GetRowIndexFromLocalY(localCenter.y);
+        int centerColumn = GetColumnIndexFromLocalX(localCenter.x);
+        int halfRows = Mathf.Max(1, Mathf.CeilToInt((Mathf.Max(rowHeight, worldSize.y) * 0.5f) / Mathf.Max(0.0001f, rowHeight)));
+        int halfColumns = Mathf.Max(1, Mathf.CeilToInt((Mathf.Max(columnWidth, worldSize.x) * 0.5f) / Mathf.Max(0.0001f, columnWidth)));
+        int maxEditableColumn = Mathf.Max(0, columnCount - minimumColumnsRemaining - 1);
+        List<Vector2> removedPixelCenters = new List<Vector2>(64);
+
+        bool changed = false;
+        for (int row = Mathf.Max(0, centerRow - halfRows - 2); row <= Mathf.Min(rowCount - 1, centerRow + halfRows + 2); row++)
+        {
+            for (int column = Mathf.Max(0, centerColumn - halfColumns - 2); column <= Mathf.Min(maxEditableColumn, centerColumn + halfColumns + 2); column++)
+            {
+                if (!solidCells[row, column])
+                    continue;
+
+                EvaluateDebugPocketCell(row, column, centerRow, centerColumn, halfRows, halfColumns, out float ellipseDistance, out float edgeThreshold, out float wobble);
+
+                bool shouldCarve = ellipseDistance <= 0.62f || ellipseDistance <= edgeThreshold * edgeThreshold;
+                if (shouldCarve)
+                {
+                    solidCells[row, column] = false;
+                    cellHitPoints[row, column] = 0f;
+                    cellMaxHitPointsByCell[row, column] = 0f;
+                    cellEssenceTypes[row, column] = EssenceType.None;
+                    MarkChunkCellDirty(row, column);
+                    MarkColliderChunkDirty(row, column);
+                    removedPixelCenters.Add(transform.TransformPoint(GetCellCenterLocal(row, column)));
+                    changed = true;
+                    continue;
+                }
+
+                float damageRingThreshold = edgeThreshold + 0.2f;
+                float damageRingDistance = damageRingThreshold * damageRingThreshold;
+                if (ellipseDistance > damageRingDistance)
+                    continue;
+
+                float ring01 = Mathf.InverseLerp(damageRingDistance, edgeThreshold * edgeThreshold, ellipseDistance);
+                float damageRatio = Mathf.Clamp01(Mathf.Lerp(0.2f, 0.82f, ring01) + (wobble * 0.2f));
+                float damageAmount = GetCellMaxHitPoints(row, column) * damageRatio;
+                ApplyPointDamage(row, column, damageAmount, removedPixelCenters, allowDestroyCell: false);
+                changed = true;
+            }
+        }
+
+        if (!changed)
+            return;
+
+        RebuildRockShape();
+    }
+
+    private void EvaluateDebugPocketCell(int row, int column, int centerRow, int centerColumn, int halfRows, int halfColumns, out float ellipseDistance, out float edgeThreshold, out float wobble)
+    {
+        float normalizedX = (column - centerColumn) / Mathf.Max(1f, halfColumns + 0.35f);
+        float normalizedY = (row - centerRow) / Mathf.Max(1f, halfRows + 0.35f);
+
+        float skewedX = normalizedX + (normalizedY * 0.24f) - 0.08f;
+        float skewedY = normalizedY - (normalizedX * 0.17f) + 0.05f;
+        ellipseDistance = (skewedX * skewedX) + (skewedY * skewedY);
+
+        wobble =
+            (Mathf.Sin((row + (centerColumn * 0.37f)) * 0.75f) * 0.11f) +
+            (Mathf.Cos((column - (centerRow * 0.23f)) * 0.9f) * 0.08f) +
+            (Mathf.Sin((row + column) * 0.45f) * 0.05f);
+
+        edgeThreshold = Mathf.Clamp(1f + wobble, 0.78f, 1.18f);
+    }
+
+    public void ConfigureCameraFrame(Vector2 padding, Vector2 lookOffset)
+    {
+        cameraPadding = new Vector2(Mathf.Max(0f, padding.x), Mathf.Max(0f, padding.y));
+        cameraLookOffset = lookOffset;
+    }
+
+    public void ConfigureSingleCameraFrame(string label, float visibleWorldWidth, float visibleWorldHeight, Vector2 padding, Vector2 lookOffset, bool centerWithinWall = false)
+    {
+        progressionFrames = new[]
+        {
+            new ProgressionFrame(
+                string.IsNullOrWhiteSpace(label) ? "PROTO" : label,
+                Mathf.Clamp(visibleWorldWidth, 1f, worldWidth),
+                Mathf.Clamp(visibleWorldHeight, 1f, worldHeight))
+        };
+
+        useCameraBoundLevels = true;
+        activeProgressionFrameIndex = 0;
+        centerActiveFrameInWall = centerWithinWall;
+        cameraPadding = new Vector2(Mathf.Max(0f, padding.x), Mathf.Max(0f, padding.y));
+        cameraLookOffset = lookOffset;
+        runtimeChunkFullRebuildRequired = true;
+        ClearDirtyChunkRegion();
+        ClearColliderDirtyChunkRegion();
+
+        if (Application.isPlaying)
+            RebuildRockShape();
     }
 
     public bool TryGetCameraFrameData(out Bounds wallBounds, out Vector2 resolvedCameraPadding, out Vector2 lookOffset)
@@ -430,6 +673,15 @@ public class RockWall : MonoBehaviour
         baseImpactDamage = Mathf.Max(0.1f, baseImpactDamage);
         edgeDamageMultiplier = Mathf.Clamp(edgeDamageMultiplier, 0.1f, 2f);
         centerDamageMultiplier = Mathf.Clamp(centerDamageMultiplier, 0.1f, 2f);
+        essenceHardnessMultiplier = Mathf.Max(1f, essenceHardnessMultiplier);
+        essenceNuggetsPerColor = Mathf.Max(1, essenceNuggetsPerColor);
+        essenceVeinsPerColor = Mathf.Max(1, essenceVeinsPerColor);
+        essenceVeinLengthRange.x = Mathf.Max(1, essenceVeinLengthRange.x);
+        essenceVeinLengthRange.y = Mathf.Max(essenceVeinLengthRange.x, essenceVeinLengthRange.y);
+        essenceVeinTurnChance = Mathf.Clamp01(essenceVeinTurnChance);
+        essenceVeinThicknessChance = Mathf.Clamp01(essenceVeinThicknessChance);
+        minEssenceClusterCells = Mathf.Max(1, minEssenceClusterCells);
+        essencePerCellReward = Mathf.Max(1, essencePerCellReward);
         colliderRebuildInterval = Mathf.Max(0.01f, colliderRebuildInterval);
         islandCleanupInterval = Mathf.Max(0.01f, islandCleanupInterval);
         maxActiveChipParticles = Mathf.Max(0, maxActiveChipParticles);
@@ -552,7 +804,14 @@ public class RockWall : MonoBehaviour
             height = Mathf.Clamp(frame.visibleWorldHeight, 1f, worldHeight);
         }
 
-        localRect = new Rect(-worldWidth * 0.5f, -worldHeight * 0.5f, width, height);
+        float localRectX = centerActiveFrameInWall
+            ? -width * 0.5f
+            : -worldWidth * 0.5f;
+        float localRectY = centerActiveFrameInWall
+            ? -height * 0.5f
+            : -worldHeight * 0.5f;
+
+        localRect = new Rect(localRectX, localRectY, width, height);
         return width > 0f && height > 0f;
     }
 
@@ -590,7 +849,7 @@ public class RockWall : MonoBehaviour
         if (!TryFindNearestSolidCell(centerRow, centerColumn, 8, out int foundRow, out int foundColumn))
             return;
 
-        float forcedDamage = Mathf.Max(baseImpactDamage * 1.25f, cellMaxHitPoints);
+        float forcedDamage = Mathf.Max(baseImpactDamage * 1.25f, GetCellMaxHitPoints(foundRow, foundColumn));
         ApplyPointDamage(foundRow, foundColumn, forcedDamage, removedPixelCenters);
     }
 
@@ -716,10 +975,12 @@ public class RockWall : MonoBehaviour
             MinimumAnchorColumnsAbsolute,
             Mathf.Max(MinimumAnchorColumnsAbsolute, columnCount - 1));
 
-        if (resetDamage || !sameShape || solidCells == null || cellHitPoints == null)
+        if (resetDamage || !sameShape || solidCells == null || cellHitPoints == null || cellMaxHitPointsByCell == null || cellEssenceTypes == null)
         {
             solidCells = new bool[rowCount, columnCount];
             cellHitPoints = new float[rowCount, columnCount];
+            cellMaxHitPointsByCell = new float[rowCount, columnCount];
+            cellEssenceTypes = new EssenceType[rowCount, columnCount];
             ResetAllCellsToFullHealth();
         }
 
@@ -740,17 +1001,278 @@ public class RockWall : MonoBehaviour
 
     private void ResetAllCellsToFullHealth()
     {
-        if (solidCells == null || cellHitPoints == null)
+        if (solidCells == null || cellHitPoints == null || cellMaxHitPointsByCell == null || cellEssenceTypes == null)
             return;
+
+        if (TryApplyAuthoringMapToCells())
+        {
+            if (generateEssenceDeposits)
+                GenerateEssenceDeposits();
+            return;
+        }
 
         for (int row = 0; row < rowCount; row++)
         {
             for (int column = 0; column < columnCount; column++)
             {
                 solidCells[row, column] = true;
+                cellEssenceTypes[row, column] = EssenceType.None;
+                cellMaxHitPointsByCell[row, column] = cellMaxHitPoints;
                 cellHitPoints[row, column] = cellMaxHitPoints;
             }
         }
+
+        if (generateEssenceDeposits)
+            GenerateEssenceDeposits();
+    }
+
+    private bool TryApplyAuthoringMapToCells()
+    {
+        if (authoringMap == null || !authoringMap.IsCompatible(columnCount, rowCount))
+            return false;
+
+        for (int row = 0; row < rowCount; row++)
+        {
+            for (int column = 0; column < columnCount; column++)
+            {
+                byte materialId = authoringMap.GetMaterialId(row, column);
+                bool isSolid = materialId != RockWallAuthoringMap.EmptyMaterialId;
+                solidCells[row, column] = isSolid;
+                cellEssenceTypes[row, column] = GetEssenceTypeForMaterialId(materialId);
+                cellMaxHitPointsByCell[row, column] = GetMaterialHitPoints(materialId, isSolid);
+                cellHitPoints[row, column] = cellMaxHitPointsByCell[row, column];
+            }
+        }
+
+        return true;
+    }
+
+    private EssenceType GetEssenceTypeForMaterialId(byte materialId)
+    {
+        switch (materialId)
+        {
+            case RockWallAuthoringMap.CopperMaterialId:
+                return EssenceType.Red;
+            case RockWallAuthoringMap.SilverMaterialId:
+                return EssenceType.Blue;
+            case RockWallAuthoringMap.GoldMaterialId:
+                return EssenceType.Green;
+            default:
+                return EssenceType.None;
+        }
+    }
+
+    private float GetMaterialHitPoints(byte materialId, bool isSolid)
+    {
+        if (!isSolid)
+            return 0f;
+
+        switch (materialId)
+        {
+            case RockWallAuthoringMap.CopperMaterialId:
+                return cellMaxHitPoints * 1.15f;
+            case RockWallAuthoringMap.SilverMaterialId:
+                return cellMaxHitPoints * 1.4f;
+            case RockWallAuthoringMap.GoldMaterialId:
+                return cellMaxHitPoints * 1.8f;
+            case RockWallAuthoringMap.BedrockMaterialId:
+                return cellMaxHitPoints * 4.5f;
+            default:
+                return cellMaxHitPoints;
+        }
+    }
+
+    private float GetAuthoringBrushNoise01(int row, int column)
+    {
+        float value = Mathf.Sin((row * 12.9898f) + (column * 78.233f)) * 43758.5453f;
+        return Mathf.Abs(value - Mathf.Floor(value));
+    }
+
+    private void GenerateEssenceDeposits()
+    {
+        int availableColumns = Mathf.Max(1, columnCount - minimumColumnsRemaining);
+        if (rowCount <= 4 || availableColumns <= 4)
+            return;
+
+        int seed = rowCount;
+        seed = (seed * 397) ^ columnCount;
+        seed = (seed * 397) ^ Mathf.RoundToInt(worldWidth * 100f);
+        seed = (seed * 397) ^ Mathf.RoundToInt(worldHeight * 100f);
+        System.Random random = new System.Random(seed);
+        EssenceType[] essenceTypes = { EssenceType.Red, EssenceType.Blue, EssenceType.Green };
+
+        for (int i = 0; i < essenceTypes.Length; i++)
+        {
+            PaintEssenceNuggets(essenceTypes[i], random);
+            PaintEssenceVeins(essenceTypes[i], random);
+        }
+
+        PruneTinyEssenceDeposits();
+    }
+
+    private void PaintEssenceNuggets(EssenceType essenceType, System.Random random)
+    {
+        int nuggetCount = essenceNuggetsPerColor + Mathf.Max(0, Mathf.RoundToInt((rowCount * columnCount) / 3500f));
+        for (int i = 0; i < nuggetCount; i++)
+        {
+            if (!TryGetRandomDepositCell(random, out int row, out int column))
+                continue;
+
+            int radius = random.NextDouble() < 0.28d ? 2 : 1;
+            PaintEssencePatch(row, column, radius, essenceType, random, fillChance: radius >= 2 ? 0.9f : 0.96f);
+        }
+    }
+
+    private void PaintEssenceVeins(EssenceType essenceType, System.Random random)
+    {
+        for (int i = 0; i < essenceVeinsPerColor; i++)
+        {
+            if (!TryGetRandomDepositCell(random, out int row, out int column))
+                continue;
+
+            Vector2Int direction = GetRandomDirection(random);
+            int steps = random.Next(essenceVeinLengthRange.x, essenceVeinLengthRange.y + 1);
+            for (int step = 0; step < steps; step++)
+            {
+                int radius = random.NextDouble() < essenceVeinThicknessChance ? 1 : 0;
+                PaintEssencePatch(row, column, radius, essenceType, random, fillChance: radius > 0 ? 0.78f : 0.9f);
+
+                if (random.NextDouble() < essenceVeinTurnChance)
+                    direction = GetRandomDirection(random);
+
+                row = Mathf.Clamp(row + direction.y, 1, rowCount - 2);
+                column = Mathf.Clamp(column + direction.x, 1, columnCount - minimumColumnsRemaining - 2);
+            }
+        }
+    }
+
+    private void PaintEssencePatch(int centerRow, int centerColumn, int radius, EssenceType essenceType, System.Random random, float fillChance)
+    {
+        for (int row = centerRow - radius; row <= centerRow + radius; row++)
+        {
+            if (row < 0 || row >= rowCount)
+                continue;
+
+            for (int column = centerColumn - radius; column <= centerColumn + radius; column++)
+            {
+                if (column < 0 || column >= columnCount - minimumColumnsRemaining)
+                    continue;
+                if (!solidCells[row, column])
+                    continue;
+
+                int distance = Mathf.Abs(row - centerRow) + Mathf.Abs(column - centerColumn);
+                float localFillChance = fillChance;
+                if (radius > 0)
+                    localFillChance -= distance * 0.08f;
+                if (random.NextDouble() > Mathf.Clamp01(localFillChance))
+                    continue;
+
+                cellEssenceTypes[row, column] = essenceType;
+                cellMaxHitPointsByCell[row, column] = cellMaxHitPoints * essenceHardnessMultiplier;
+                cellHitPoints[row, column] = cellMaxHitPointsByCell[row, column];
+            }
+        }
+    }
+
+    private void PruneTinyEssenceDeposits()
+    {
+        if (cellEssenceTypes == null)
+            return;
+
+        bool[,] visited = new bool[rowCount, columnCount];
+        Queue<Vector2Int> queue = new Queue<Vector2Int>();
+        List<Vector2Int> cluster = new List<Vector2Int>(32);
+
+        for (int row = 0; row < rowCount; row++)
+        {
+            for (int column = 0; column < columnCount - minimumColumnsRemaining; column++)
+            {
+                if (visited[row, column])
+                    continue;
+
+                EssenceType essenceType = cellEssenceTypes[row, column];
+                if (essenceType == EssenceType.None)
+                    continue;
+
+                visited[row, column] = true;
+                queue.Enqueue(new Vector2Int(row, column));
+                cluster.Clear();
+
+                while (queue.Count > 0)
+                {
+                    Vector2Int current = queue.Dequeue();
+                    cluster.Add(current);
+
+                    for (int offsetY = -1; offsetY <= 1; offsetY++)
+                    {
+                        for (int offsetX = -1; offsetX <= 1; offsetX++)
+                        {
+                            if (offsetX == 0 && offsetY == 0)
+                                continue;
+
+                            int nextRow = current.x + offsetY;
+                            int nextColumn = current.y + offsetX;
+                            if (nextRow < 0 || nextRow >= rowCount || nextColumn < 0 || nextColumn >= columnCount - minimumColumnsRemaining)
+                                continue;
+                            if (visited[nextRow, nextColumn])
+                                continue;
+                            if (cellEssenceTypes[nextRow, nextColumn] != essenceType)
+                                continue;
+
+                            visited[nextRow, nextColumn] = true;
+                            queue.Enqueue(new Vector2Int(nextRow, nextColumn));
+                        }
+                    }
+                }
+
+                if (cluster.Count >= minEssenceClusterCells)
+                    continue;
+
+                for (int i = 0; i < cluster.Count; i++)
+                {
+                    Vector2Int cell = cluster[i];
+                    cellEssenceTypes[cell.x, cell.y] = EssenceType.None;
+                    cellMaxHitPointsByCell[cell.x, cell.y] = cellMaxHitPoints;
+                    cellHitPoints[cell.x, cell.y] = cellMaxHitPoints;
+                }
+            }
+        }
+    }
+
+    private bool TryGetRandomDepositCell(System.Random random, out int row, out int column)
+    {
+        int availableColumns = columnCount - minimumColumnsRemaining;
+        if (rowCount <= 2 || availableColumns <= 2)
+        {
+            row = 0;
+            column = 0;
+            return false;
+        }
+
+        for (int attempt = 0; attempt < 24; attempt++)
+        {
+            row = random.Next(1, rowCount - 1);
+            column = random.Next(1, availableColumns - 1);
+            if (solidCells != null && solidCells[row, column])
+                return true;
+        }
+
+        row = 0;
+        column = 0;
+        return false;
+    }
+
+    private Vector2Int GetRandomDirection(System.Random random)
+    {
+        int dirX = 0;
+        int dirY = 0;
+        while (dirX == 0 && dirY == 0)
+        {
+            dirX = random.Next(-1, 2);
+            dirY = random.Next(-1, 2);
+        }
+
+        return new Vector2Int(dirX, dirY);
     }
 
     private void CarveRock(Vector2 worldPoint, Vector2 pushDirection, float blastRadiusScale, List<Vector2> removedPixelCenters)
@@ -958,12 +1480,13 @@ public class RockWall : MonoBehaviour
             return;
 
         int previousDamageTier = GetDamageVisualTier(row, column);
+        float maxHitPoints = GetCellMaxHitPoints(row, column);
         float updatedHitPoints = Mathf.Max(0f, cellHitPoints[row, column] - damageAmount);
         bool cellDestroyed = updatedHitPoints <= 0f;
 
         if (!allowDestroyCell && cellDestroyed)
         {
-            updatedHitPoints = Mathf.Max(0.01f, cellMaxHitPoints * 0.08f);
+            updatedHitPoints = Mathf.Max(0.01f, maxHitPoints * 0.08f);
             cellDestroyed = false;
         }
 
@@ -980,8 +1503,11 @@ public class RockWall : MonoBehaviour
             return;
         }
 
+        AwardCellBreakRewards(row, column);
         solidCells[row, column] = false;
         cellHitPoints[row, column] = 0f;
+        cellMaxHitPointsByCell[row, column] = 0f;
+        cellEssenceTypes[row, column] = EssenceType.None;
         MarkChunkCellDirty(row, column);
         MarkColliderChunkDirty(row, column);
         removedPixelCenters.Add(transform.TransformPoint(GetCellCenterLocal(row, column)));
@@ -1028,8 +1554,11 @@ public class RockWall : MonoBehaviour
                     if (!solidCells[row, column] || islandConnectedBuffer[row, column])
                         continue;
 
+                    AwardCellBreakRewards(row, column);
                     solidCells[row, column] = false;
                     cellHitPoints[row, column] = 0f;
+                    cellMaxHitPointsByCell[row, column] = 0f;
+                    cellEssenceTypes[row, column] = EssenceType.None;
                     MarkChunkCellDirty(row, column);
                     MarkColliderChunkDirty(row, column);
                     removedPixelCenters.Add(transform.TransformPoint(GetCellCenterLocal(row, column)));
@@ -1135,7 +1664,7 @@ public class RockWall : MonoBehaviour
         if (cellHitPoints == null)
             return 0;
 
-        float ratio = Mathf.Clamp01(cellHitPoints[row, column] / Mathf.Max(0.0001f, cellMaxHitPoints));
+        float ratio = Mathf.Clamp01(cellHitPoints[row, column] / Mathf.Max(0.0001f, GetCellMaxHitPoints(row, column)));
         if (ratio > 0.75f)
             return 0;
         if (ratio > 0.5f)
@@ -1143,6 +1672,30 @@ public class RockWall : MonoBehaviour
         if (ratio > 0.25f)
             return 2;
         return 3;
+    }
+
+    private float GetCellMaxHitPoints(int row, int column)
+    {
+        if (cellMaxHitPointsByCell == null)
+            return cellMaxHitPoints;
+
+        float perCellMaxHitPoints = cellMaxHitPointsByCell[row, column];
+        if (perCellMaxHitPoints <= 0f)
+            return cellMaxHitPoints;
+
+        return perCellMaxHitPoints;
+    }
+
+    private void AwardCellBreakRewards(int row, int column)
+    {
+        if (cellEssenceTypes == null || progressionState == null)
+            return;
+
+        EssenceType essenceType = cellEssenceTypes[row, column];
+        if (essenceType == EssenceType.None)
+            return;
+
+        progressionState.AddEssence(essenceType, essencePerCellReward);
     }
 
     private bool ShouldUseChunkedRuntime()
@@ -1172,6 +1725,8 @@ public class RockWall : MonoBehaviour
                     runtimeGrid.RebuildAll(
                         solidCells,
                         cellHitPoints,
+                        cellMaxHitPointsByCell,
+                        cellEssenceTypes,
                         cellMaxHitPoints,
                         rowCount,
                         columnCount,
@@ -1191,6 +1746,8 @@ public class RockWall : MonoBehaviour
                     runtimeGrid.RebuildDirty(
                         solidCells,
                         cellHitPoints,
+                        cellMaxHitPointsByCell,
+                        cellEssenceTypes,
                         cellMaxHitPoints,
                         rowCount,
                         columnCount,

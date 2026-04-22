@@ -49,6 +49,17 @@ public class RockWallDefinition : ScriptableObject
         revealStages = CreateDefaultStages();
     }
 
+    public void SetStages(RevealStage[] stages)
+    {
+        if (stages == null || stages.Length == 0)
+        {
+            revealStages = CreateDefaultStages();
+            return;
+        }
+
+        revealStages = (RevealStage[])stages.Clone();
+    }
+
     public static RevealStage[] CreateDefaultStages()
     {
         return new[]
