@@ -76,6 +76,12 @@ public class MotherloadChunkRuntime : MonoBehaviour
 
     public bool TryApplyBlast(Vector2 worldPoint, float radiusWorld, float centerDamage, float outerDamage)
     {
+        return TryApplyBlast(worldPoint, radiusWorld, centerDamage, outerDamage, out _);
+    }
+
+    public bool TryApplyBlast(Vector2 worldPoint, float radiusWorld, float centerDamage, float outerDamage, out MotherloadOreYield oreYield)
+    {
+        oreYield = default;
         if (data == null || !OverlapsCircle(worldPoint, radiusWorld))
             return false;
 
@@ -84,7 +90,7 @@ public class MotherloadChunkRuntime : MonoBehaviour
         float centerRow = local.y * cellsPerUnit;
         int radiusCells = Mathf.CeilToInt(Mathf.Max(0.1f, radiusWorld) * cellsPerUnit);
         bool allowNearestFallback = centerColumn >= 0f && centerColumn < data.Width && centerRow >= 0f && centerRow < data.Height;
-        bool changed = data.ApplyBlast(centerColumn, centerRow, radiusCells, centerDamage, outerDamage, allowNearestFallback);
+        bool changed = data.ApplyBlast(centerColumn, centerRow, radiusCells, centerDamage, outerDamage, allowNearestFallback, out oreYield);
         if (controller != null && controller.ShouldLogProjectileHits)
         {
             controller.LogDebug(
@@ -93,7 +99,8 @@ public class MotherloadChunkRuntime : MonoBehaviour
                 + " | localCell=(" + centerColumn.ToString("F2") + ", " + centerRow.ToString("F2") + ")"
                 + " | radiusCells=" + radiusCells
                 + " | fallback=" + allowNearestFallback
-                + " | changed=" + changed,
+                + " | changed=" + changed
+                + " | ore=" + oreYield,
                 this);
         }
 

@@ -1,5 +1,19 @@
 using UnityEngine;
 
+public struct MotherloadOreYield
+{
+    public int Copper;
+    public int Silver;
+    public int Gold;
+
+    public int TotalCount => Copper + Silver + Gold;
+
+    public override string ToString()
+    {
+        return "copper=" + Copper + ", silver=" + Silver + ", gold=" + Gold;
+    }
+}
+
 public sealed class MotherloadChunkData
 {
     private const float BedrockHitPoints = 999999f;
@@ -166,16 +180,22 @@ public sealed class MotherloadChunkData
     public bool DigCircle(int centerColumn, int centerRow, int radiusCells)
     {
         float digDamage = 999999f;
-        return ApplyBlast(centerColumn + 0.5f, centerRow + 0.5f, radiusCells, digDamage, digDamage, allowNearestFallback: true);
+        return ApplyBlast(centerColumn + 0.5f, centerRow + 0.5f, radiusCells, digDamage, digDamage, allowNearestFallback: true, out _);
     }
 
     public bool ApplyBlast(int centerColumn, int centerRow, int radiusCells, float centerDamage, float outerDamage)
     {
-        return ApplyBlast(centerColumn + 0.5f, centerRow + 0.5f, radiusCells, centerDamage, outerDamage, allowNearestFallback: true);
+        return ApplyBlast(centerColumn + 0.5f, centerRow + 0.5f, radiusCells, centerDamage, outerDamage, allowNearestFallback: true, out _);
     }
 
     public bool ApplyBlast(float centerColumn, float centerRow, int radiusCells, float centerDamage, float outerDamage, bool allowNearestFallback)
     {
+        return ApplyBlast(centerColumn, centerRow, radiusCells, centerDamage, outerDamage, allowNearestFallback, out _);
+    }
+
+    public bool ApplyBlast(float centerColumn, float centerRow, int radiusCells, float centerDamage, float outerDamage, bool allowNearestFallback, out MotherloadOreYield oreYield)
+    {
+        oreYield = default;
         radiusCells = Mathf.Max(1, radiusCells);
         centerDamage = Mathf.Max(0.01f, centerDamage);
         outerDamage = Mathf.Max(0.01f, outerDamage);
@@ -213,7 +233,7 @@ public sealed class MotherloadChunkData
                 float damageFactor = 1f - Mathf.Pow(1f - falloff, 1.85f);
                 float noise = Mathf.Lerp(0.96f, 1.04f, HashToUnit(row * 3, column * 5));
                 float damage = Mathf.Lerp(outerDamage, centerDamage, damageFactor) * noise;
-                if (ApplyPointDamage(row, column, damage))
+                if (ApplyPointDamage(row, column, damage, ref oreYield))
                     changed = true;
             }
         }
@@ -224,10 +244,10 @@ public sealed class MotherloadChunkData
         if (!allowNearestFallback)
             return false;
 
-        return ForceImpactAtNearestSolidCell(Mathf.RoundToInt(centerRow), Mathf.RoundToInt(centerColumn), centerDamage);
+        return ForceImpactAtNearestSolidCell(Mathf.RoundToInt(centerRow), Mathf.RoundToInt(centerColumn), centerDamage, ref oreYield);
     }
 
-    private bool ForceImpactAtNearestSolidCell(int centerRow, int centerColumn, float damageAmount)
+    private bool ForceImpactAtNearestSolidCell(int centerRow, int centerColumn, float damageAmount, ref MotherloadOreYield oreYield)
     {
         int bestRow = -1;
         int bestColumn = -1;
@@ -256,10 +276,10 @@ public sealed class MotherloadChunkData
         if (bestRow < 0 || bestColumn < 0)
             return false;
 
-        return ApplyPointDamage(bestRow, bestColumn, damageAmount);
+        return ApplyPointDamage(bestRow, bestColumn, damageAmount, ref oreYield);
     }
 
-    private bool ApplyPointDamage(int row, int column, float damageAmount)
+    private bool ApplyPointDamage(int row, int column, float damageAmount, ref MotherloadOreYield oreYield)
     {
         if (!IsInBounds(row, column))
             return false;
@@ -278,6 +298,19 @@ public sealed class MotherloadChunkData
         if (updatedHitPoints > 0f)
             return true;
 
+        switch (material)
+        {
+            case MotherloadCellMaterial.Copper:
+                oreYield.Copper++;
+                break;
+            case MotherloadCellMaterial.Silver:
+                oreYield.Silver++;
+                break;
+            case MotherloadCellMaterial.Gold:
+                oreYield.Gold++;
+                break;
+        }
+
         materials[index] = MotherloadCellMaterial.Empty;
         currentHitPoints[index] = 0f;
         maxHitPoints[index] = 0f;
@@ -293,11 +326,11 @@ public sealed class MotherloadChunkData
             case MotherloadCellMaterial.Stone:
                 return 2.4f;
             case MotherloadCellMaterial.Copper:
-                return 3.1f;
+                return 2f;
             case MotherloadCellMaterial.Silver:
-                return 3.8f;
+                return 2.75f;
             case MotherloadCellMaterial.Gold:
-                return 4.6f;
+                return 3.5f;
             case MotherloadCellMaterial.Bedrock:
                 return BedrockHitPoints;
             default:

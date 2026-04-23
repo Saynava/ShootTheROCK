@@ -51,6 +51,10 @@ public class ShootTheRockSceneRoot : MonoBehaviour
     [Header("Player Runtime")]
     [Min(0f)] [SerializeField] private float playerGravityScale = 3f;
 
+    [Header("Motherload Layout")]
+    [SerializeField] private MotherloadVerticalFlowDirection motherloadVerticalFlowDirection = MotherloadVerticalFlowDirection.Upward;
+    [Min(1f)] [SerializeField] private float motherloadUpwardTerrainStartOffset = 4.75f;
+
     [Header("Editor Preview")]
     [SerializeField] private bool autoRefreshPreview = true;
 
@@ -106,6 +110,7 @@ public class ShootTheRockSceneRoot : MonoBehaviour
             if (motherloadWorldController != null)
             {
                 motherloadWorldController.gameObject.SetActive(true);
+                ConfigureMotherloadWorldLayout();
                 motherloadWorldController.SetSceneCamera(sceneCamera);
                 motherloadWorldController.SetFocusTarget(cannonRoot);
                 motherloadWorldController.SetMoneyHud(moneyHud);
@@ -240,6 +245,7 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         if (aim == null)
             aim = cannonRoot.gameObject.AddComponent<CannonAim>();
         aim.Initialize(sceneCamera);
+        aim.ConfigureFuelSystem(false);
 
         AutoShooter shooter = cannonRoot.GetComponent<AutoShooter>();
         if (shooter == null)
@@ -249,7 +255,10 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         Transform effectiveFirePoint = firePoint != null ? firePoint : cannonRoot.Find("FirePoint");
         shooter.Initialize(effectiveFirePoint, rockWall);
         if (moneyHud != null)
+        {
             moneyHud.BindShooter(shooter);
+            moneyHud.BindCannon(aim);
+        }
     }
 
     private void BuildMotherloadPreview()
@@ -297,6 +306,7 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         if (aim == null)
             aim = cannonRoot.gameObject.AddComponent<CannonAim>();
         aim.Initialize(sceneCamera);
+        aim.ConfigureFuelSystem(true);
 
         AutoShooter shooter = cannonRoot.GetComponent<AutoShooter>();
         if (shooter == null)
@@ -309,6 +319,7 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         if (moneyHud != null)
         {
             moneyHud.BindShooter(shooter);
+            moneyHud.BindCannon(aim);
             moneyHud.BindProgression(null, null);
             moneyHud.SetUpgradeUiVisible(false);
         }
@@ -320,6 +331,7 @@ public class ShootTheRockSceneRoot : MonoBehaviour
             return;
 
         motherloadWorldController.gameObject.SetActive(true);
+        ConfigureMotherloadWorldLayout();
         motherloadWorldController.SetSceneCamera(sceneCamera);
         motherloadWorldController.SetFocusTarget(cannonRoot);
         motherloadWorldController.SetMoneyHud(moneyHud);
@@ -341,7 +353,10 @@ public class ShootTheRockSceneRoot : MonoBehaviour
             cameraFramingController.enabled = false;
 
         if (motherloadWorldController != null)
+        {
             motherloadWorldController.gameObject.SetActive(true);
+            ConfigureMotherloadWorldLayout();
+        }
     }
 
     private void AlignPlayerSpawnAnchorToMotherloadBase()
@@ -350,6 +365,14 @@ public class ShootTheRockSceneRoot : MonoBehaviour
             return;
 
         playerSpawnAnchor.position = motherloadWorldController.GetSuggestedPlayerSpawnWorldPosition();
+    }
+
+    private void ConfigureMotherloadWorldLayout()
+    {
+        if (motherloadWorldController == null)
+            return;
+
+        motherloadWorldController.ConfigureVerticalFlow(motherloadVerticalFlowDirection, motherloadUpwardTerrainStartOffset);
     }
 
     private void PrepareMotherloadEditorPreviewState()
@@ -1060,6 +1083,8 @@ public class ShootTheRockSceneRoot : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
+        motherloadUpwardTerrainStartOffset = Mathf.Max(1f, motherloadUpwardTerrainStartOffset);
+
         if (EditorApplication.isPlayingOrWillChangePlaymode)
             return;
         if (!autoRefreshPreview)

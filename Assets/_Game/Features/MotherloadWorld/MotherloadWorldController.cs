@@ -2,6 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+public enum MotherloadVerticalFlowDirection
+{
+    Downward = 0,
+    Upward = 1,
+}
+
 [DisallowMultipleComponent]
 public class MotherloadWorldController : MonoBehaviour
 {
@@ -9,6 +15,26 @@ public class MotherloadWorldController : MonoBehaviour
     private const string SurfaceBandName = "MotherloadSurfaceBand";
     private const string BaseBuildingName = "MotherloadBaseBuilding";
     private const string BaseZoneName = "MotherloadBaseZone";
+    private static readonly Vector2[] StarterCopperPocketLayout =
+    {
+        new Vector2(0.50f, 6.5f),
+        new Vector2(0.50f, 11.5f),
+        new Vector2(0.22f, 9.5f),
+        new Vector2(0.22f, 15.5f),
+        new Vector2(0.78f, 9.5f),
+        new Vector2(0.78f, 15.5f),
+    };
+
+    private static readonly Vector2Int[] CopperVeinShape =
+    {
+        new Vector2Int(-1, 0),
+        new Vector2Int(0, 0),
+        new Vector2Int(1, 0),
+        new Vector2Int(-1, 1),
+        new Vector2Int(0, 1),
+        new Vector2Int(1, 1),
+        new Vector2Int(0, -1),
+    };
 
     [Header("References")]
     [SerializeField] private Camera sceneCamera;
@@ -27,6 +53,8 @@ public class MotherloadWorldController : MonoBehaviour
     [Min(1f)] [SerializeField] private float cellsPerUnit = 8f;
     [SerializeField] private float stripCenterX = 0f;
     [SerializeField] private float surfaceY = -1.5f;
+    [SerializeField] private MotherloadVerticalFlowDirection verticalFlowDirection = MotherloadVerticalFlowDirection.Downward;
+    [Min(1f)] [SerializeField] private float upwardTerrainStartOffset = 4.75f;
     [Min(0)] [SerializeField] private int activeRowsAboveFocus = 1;
     [Min(1)] [SerializeField] private int activeRowsBelowFocus = 5;
 
@@ -38,6 +66,30 @@ public class MotherloadWorldController : MonoBehaviour
     [Range(0.5f, 0.98f)] [SerializeField] private float caveThreshold = 0.84f;
     [Range(0f, 1f)] [SerializeField] private float caveDetailThreshold = 0.52f;
     [Min(1)] [SerializeField] private int edgeBedrockThicknessCells = 2;
+
+    [Header("Layer Layout")]
+    [Min(8f)] [SerializeField] private float dirtLayerDepth = 48f;
+
+    [Header("Starting Dirt Ores")]
+    [Min(0f)] [SerializeField] private float copperValuePerCell = 0.45f;
+    [Min(0f)] [SerializeField] private float silverValuePerCell = 14f;
+    [Min(0f)] [SerializeField] private float goldValuePerCell = 40f;
+    [Min(0)] [SerializeField] private int copperClustersPerChunk = 1;
+    [Min(0)] [SerializeField] private int silverClustersPerChunk = 1;
+    [Range(0f, 1f)] [SerializeField] private float rareGoldChunkChance = 0.06f;
+    [Min(1)] [SerializeField] private int copperClusterMinRadiusCells = 1;
+    [Min(1)] [SerializeField] private int copperClusterMaxRadiusCells = 2;
+    [Min(1)] [SerializeField] private int silverClusterMinRadiusCells = 1;
+    [Min(1)] [SerializeField] private int silverClusterMaxRadiusCells = 1;
+    [Min(1)] [SerializeField] private int goldClusterMinRadiusCells = 1;
+    [Min(1)] [SerializeField] private int goldClusterMaxRadiusCells = 1;
+
+    [Header("Starter Loop Economy")]
+    [Min(1f)] [SerializeField] private float starterCopperPocketMaxDepth = 18f;
+    [Min(1)] [SerializeField] private int starterCopperPocketSizeCells = 2;
+    [Min(0f)] [SerializeField] private float deepCopperStartDepth = 22f;
+    [Min(0f)] [SerializeField] private float silverStartDepth = 34f;
+    [Min(0f)] [SerializeField] private float goldStartDepth = 46f;
 
     [Header("Destruction")]
     [Min(0.1f)] [SerializeField] private float projectileBlastRadius = 0.95f;
@@ -72,6 +124,8 @@ public class MotherloadWorldController : MonoBehaviour
     public float WorldStripWidth => ChunkWorldWidth * Mathf.Max(1, chunkColumns);
     public float StripCenterX => stripCenterX;
     public float SurfaceY => surfaceY;
+    public bool StreamsUpward => verticalFlowDirection == MotherloadVerticalFlowDirection.Upward;
+    public float TerrainStartY => StreamsUpward ? surfaceY + upwardTerrainStartOffset : surfaceY;
     public bool DebugLoggingEnabled => enableDebugLogging;
     public bool ShouldLogChunkLifecycle => enableDebugLogging && logChunkLifecycle;
     public bool ShouldLogChunkRebuilds => enableDebugLogging && logChunkRebuilds;
@@ -164,6 +218,8 @@ public class MotherloadWorldController : MonoBehaviour
                 + " | stripWidth=" + WorldStripWidth.ToString("F2")
                 + " | chunkSize=" + cellsPerChunkX + "x" + cellsPerChunkY
                 + " | cellsPerUnit=" + cellsPerUnit.ToString("F2")
+                + " | direction=" + verticalFlowDirection
+                + " | terrainStartY=" + TerrainStartY.ToString("F2")
                 + " | active=" + activeChunks.Count
                 + " | caveGen=" + enableCaveGeneration
                 + " | debugMouseDig=" + enableDebugMouseDig,
@@ -211,6 +267,12 @@ public class MotherloadWorldController : MonoBehaviour
     public void SetLockCameraXToStrip(bool value)
     {
         lockCameraXToStrip = value;
+    }
+
+    public void ConfigureVerticalFlow(MotherloadVerticalFlowDirection direction, float upwardStartOffset)
+    {
+        verticalFlowDirection = direction;
+        upwardTerrainStartOffset = Mathf.Max(1f, upwardStartOffset);
     }
 
     public Vector3 GetSuggestedPlayerSpawnWorldPosition()
@@ -272,6 +334,7 @@ public class MotherloadWorldController : MonoBehaviour
         bool changed = false;
         int overlappedChunks = 0;
         int changedChunks = 0;
+        MotherloadOreYield totalOreYield = default;
         System.Collections.Generic.List<string> chunkHits = ShouldLogProjectileHits ? new System.Collections.Generic.List<string>() : null;
 
         foreach (MotherloadChunkRuntime runtime in activeChunks.Values)
@@ -280,7 +343,10 @@ public class MotherloadWorldController : MonoBehaviour
                 continue;
 
             overlappedChunks++;
-            bool runtimeChanged = runtime.TryApplyBlast(worldPoint, radiusWorld, centerDamage, outerDamage);
+            bool runtimeChanged = runtime.TryApplyBlast(worldPoint, radiusWorld, centerDamage, outerDamage, out MotherloadOreYield runtimeOreYield);
+            totalOreYield.Copper += runtimeOreYield.Copper;
+            totalOreYield.Silver += runtimeOreYield.Silver;
+            totalOreYield.Gold += runtimeOreYield.Gold;
             if (runtimeChanged)
             {
                 changed = true;
@@ -288,8 +354,11 @@ public class MotherloadWorldController : MonoBehaviour
             }
 
             if (chunkHits != null)
-                chunkHits.Add(runtime.Coordinate + ":" + (runtimeChanged ? "changed" : "no-change"));
+                chunkHits.Add(runtime.Coordinate + ":" + (runtimeChanged ? "changed" : "no-change") + "/" + runtimeOreYield);
         }
+
+        if (totalOreYield.TotalCount > 0)
+            AwardOreMoney(totalOreYield);
 
         if (ShouldLogProjectileHits)
         {
@@ -300,6 +369,7 @@ public class MotherloadWorldController : MonoBehaviour
                 + " | radius=" + radiusWorld.ToString("F2")
                 + " | overlapped=" + overlappedChunks
                 + " | changed=" + changedChunks
+                + " | ore=" + totalOreYield
                 + " | chunks=" + chunkSummary,
                 this);
         }
@@ -362,8 +432,9 @@ public class MotherloadWorldController : MonoBehaviour
         }
 
         const float platformHeight = 0.36f;
+        float surfaceWidth = StreamsUpward ? WorldStripWidth : ChunkWorldWidth;
         surfaceBand.position = new Vector3(stripCenterX, surfaceY - (platformHeight * 0.5f), 0f);
-        surfaceBand.localScale = new Vector3(ChunkWorldWidth, platformHeight, 1f);
+        surfaceBand.localScale = new Vector3(surfaceWidth, platformHeight, 1f);
 
         BoxCollider2D surfaceCollider = surfaceBand.GetComponent<BoxCollider2D>();
         if (surfaceCollider == null)
@@ -559,9 +630,9 @@ public class MotherloadWorldController : MonoBehaviour
             {
                 float worldX = bottomLeft.x + ((column + 0.5f) / cellsPerUnit);
                 float worldY = bottomLeft.y + ((row + 0.5f) / cellsPerUnit);
-                float depth = Mathf.Max(0f, surfaceY - worldY);
+                float depth = GetDepthAlongStream(worldY);
 
-                if (worldY >= surfaceY)
+                if (!IsInsideTerrainBand(worldY))
                 {
                     chunkData.SetMaterial(row, column, MotherloadCellMaterial.Empty);
                     continue;
@@ -590,6 +661,8 @@ public class MotherloadWorldController : MonoBehaviour
                 chunkData.SetMaterial(row, column, ResolveMaterialAt(worldX, worldY, depth));
             }
         }
+
+        StampStartingDirtOres(chunkData, bottomLeft);
     }
 
     private bool ShouldCarveCave(float worldX, float worldY, float depth)
@@ -605,22 +678,146 @@ public class MotherloadWorldController : MonoBehaviour
 
     private MotherloadCellMaterial ResolveMaterialAt(float worldX, float worldY, float depth)
     {
-        float orePrimary = SampleNoise(worldX, worldY, 0.18f, 1.33f);
-        float oreSecondary = SampleNoise(worldX, worldY, 0.37f, 2.71f);
+        return depth < dirtLayerDepth ? MotherloadCellMaterial.Dirt : MotherloadCellMaterial.Stone;
+    }
 
-        if (depth < 10f)
-            return MotherloadCellMaterial.Dirt;
+    private bool IsInsideTerrainBand(float worldY)
+    {
+        return StreamsUpward ? worldY >= TerrainStartY : worldY <= TerrainStartY;
+    }
 
-        if (depth >= 72f && orePrimary > 0.82f && oreSecondary > 0.56f)
-            return MotherloadCellMaterial.Gold;
+    private float GetDepthAlongStream(float worldY)
+    {
+        return Mathf.Max(0f, StreamsUpward ? worldY - TerrainStartY : TerrainStartY - worldY);
+    }
 
-        if (depth >= 34f && orePrimary > 0.78f && oreSecondary > 0.52f)
-            return MotherloadCellMaterial.Silver;
+    private void StampStartingDirtOres(MotherloadChunkData chunkData, Vector2 bottomLeft)
+    {
+        float chunkStartDepth = GetDepthAlongStream(bottomLeft.y);
+        float chunkEndDepth = GetDepthAlongStream(bottomLeft.y + ChunkWorldHeight);
+        float chunkMinDepth = Mathf.Min(chunkStartDepth, chunkEndDepth);
+        float chunkMaxDepth = Mathf.Max(chunkStartDepth, chunkEndDepth);
+        if (chunkMinDepth >= dirtLayerDepth || chunkMaxDepth <= 2f)
+            return;
 
-        if (depth >= 14f && orePrimary > 0.74f && oreSecondary > 0.48f)
-            return MotherloadCellMaterial.Copper;
+        StampStarterCopperPockets(chunkData, bottomLeft, chunkMinDepth, chunkMaxDepth);
+        StampOreClusters(chunkData, bottomLeft, MotherloadCellMaterial.Copper, Mathf.Max(0, copperClustersPerChunk), copperClusterMinRadiusCells, copperClusterMaxRadiusCells, deepCopperStartDepth, dirtLayerDepth - 2f, 101);
+        StampOreClusters(chunkData, bottomLeft, MotherloadCellMaterial.Silver, Mathf.Max(0, silverClustersPerChunk), silverClusterMinRadiusCells, silverClusterMaxRadiusCells, silverStartDepth, dirtLayerDepth - 2f, 211);
 
-        return depth < 18f ? MotherloadCellMaterial.Dirt : MotherloadCellMaterial.Stone;
+        if (chunkMaxDepth >= goldStartDepth && HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, 307) <= rareGoldChunkChance)
+            StampOreClusters(chunkData, bottomLeft, MotherloadCellMaterial.Gold, 1, goldClusterMinRadiusCells, goldClusterMaxRadiusCells, goldStartDepth, dirtLayerDepth - 2f, 307);
+    }
+
+    private void StampStarterCopperPockets(MotherloadChunkData chunkData, Vector2 bottomLeft, float chunkMinDepth, float chunkMaxDepth)
+    {
+        float starterMaxDepth = Mathf.Min(dirtLayerDepth - 2f, starterCopperPocketMaxDepth);
+        if (chunkMinDepth > starterMaxDepth || chunkMaxDepth < 3f)
+            return;
+
+        for (int i = 0; i < StarterCopperPocketLayout.Length; i++)
+        {
+            Vector2 pocket = StarterCopperPocketLayout[i];
+            float depth = pocket.y;
+            if (depth < chunkMinDepth || depth > chunkMaxDepth || depth > starterMaxDepth)
+                continue;
+
+            float worldX = Mathf.Lerp(stripCenterX - (WorldStripWidth * 0.5f), stripCenterX + (WorldStripWidth * 0.5f), pocket.x);
+            float worldY = StreamsUpward ? TerrainStartY + depth : TerrainStartY - depth;
+            StampCopperVein(chunkData, bottomLeft, worldX, worldY, saltBase: 500 + i, allowSecondaryLobe: false);
+        }
+    }
+
+    private void StampCopperVein(MotherloadChunkData chunkData, Vector2 bottomLeft, float worldX, float worldY, int saltBase, bool allowSecondaryLobe)
+    {
+        int centerColumn = Mathf.RoundToInt((worldX - bottomLeft.x) * cellsPerUnit);
+        int centerRow = Mathf.RoundToInt((worldY - bottomLeft.y) * cellsPerUnit);
+        int mirrorX = HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 1) >= 0.5f ? 1 : -1;
+        int mirrorY = HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 2) >= 0.5f ? 1 : -1;
+
+        StampCopperVeinCells(chunkData, centerColumn, centerRow, mirrorX, mirrorY);
+
+        if (!allowSecondaryLobe)
+            return;
+
+        if (HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 3) < 0.58f)
+            return;
+
+        int secondaryColumn = centerColumn + (mirrorX * 2);
+        int secondaryRow = centerRow + (mirrorY >= 0 ? 1 : -1);
+        StampCopperVeinCells(chunkData, secondaryColumn, secondaryRow, mirrorX, mirrorY);
+    }
+
+    private void StampCopperVeinCells(MotherloadChunkData chunkData, int centerColumn, int centerRow, int mirrorX, int mirrorY)
+    {
+        for (int i = 0; i < CopperVeinShape.Length; i++)
+        {
+            Vector2Int offset = CopperVeinShape[i];
+            int column = centerColumn + (offset.x * mirrorX);
+            int row = centerRow + (offset.y * mirrorY);
+            if (row < 0 || row >= chunkData.Height || column < 0 || column >= chunkData.Width)
+                continue;
+
+            if (chunkData.GetMaterial(row, column) != MotherloadCellMaterial.Dirt)
+                continue;
+
+            chunkData.SetMaterial(row, column, MotherloadCellMaterial.Copper);
+        }
+    }
+
+    private void StampOreClusters(MotherloadChunkData chunkData, Vector2 bottomLeft, MotherloadCellMaterial oreMaterial, int clusterCount, int minRadiusCells, int maxRadiusCells, float minDepth, float maxDepth, int saltBase)
+    {
+        if (clusterCount <= 0 || maxDepth <= minDepth)
+            return;
+
+        int minRadius = Mathf.Max(1, minRadiusCells);
+        int maxRadius = Mathf.Max(minRadius, maxRadiusCells);
+
+        for (int clusterIndex = 0; clusterIndex < clusterCount; clusterIndex++)
+        {
+            int radiusCells = Mathf.RoundToInt(Mathf.Lerp(minRadius, maxRadius, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + (clusterIndex * 13) + 1)));
+            int padding = radiusCells + 2;
+            int centerColumn = Mathf.RoundToInt(Mathf.Lerp(padding, chunkData.Width - 1 - padding, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + (clusterIndex * 17) + 5)));
+            int centerRow = Mathf.RoundToInt(Mathf.Lerp(padding, chunkData.Height - 1 - padding, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + (clusterIndex * 19) + 9)));
+
+            float centerWorldY = bottomLeft.y + (centerRow / cellsPerUnit);
+            float centerDepth = GetDepthAlongStream(centerWorldY);
+            if (centerDepth < minDepth || centerDepth > maxDepth)
+                continue;
+
+            if (oreMaterial == MotherloadCellMaterial.Copper)
+            {
+                float centerWorldX = bottomLeft.x + (centerColumn / cellsPerUnit);
+                StampCopperVein(chunkData, bottomLeft, centerWorldX, centerWorldY, saltBase + (clusterIndex * 37), allowSecondaryLobe: true);
+                continue;
+            }
+
+            for (int row = centerRow - radiusCells - 1; row <= centerRow + radiusCells + 1; row++)
+            {
+                for (int column = centerColumn - radiusCells - 1; column <= centerColumn + radiusCells + 1; column++)
+                {
+                    if (row < 0 || row >= chunkData.Height || column < 0 || column >= chunkData.Width)
+                        continue;
+
+                    if (chunkData.GetMaterial(row, column) != MotherloadCellMaterial.Dirt)
+                        continue;
+
+                    float worldY = bottomLeft.y + ((row + 0.5f) / cellsPerUnit);
+                    float depth = GetDepthAlongStream(worldY);
+                    if (depth < minDepth || depth > maxDepth)
+                        continue;
+
+                    float dx = (column + 0.5f) - (centerColumn + 0.5f);
+                    float dy = (row + 0.5f) - (centerRow + 0.5f);
+                    float distance = Mathf.Sqrt((dx * dx) + (dy * dy));
+                    float shapeNoise = Mathf.Lerp(-0.35f, 0.4f, HashToUnit(chunkData.Coordinate.Column + column, chunkData.Coordinate.Row + row, saltBase + (clusterIndex * 23) + 17));
+                    float threshold = radiusCells - 0.15f + shapeNoise;
+                    if (distance > threshold)
+                        continue;
+
+                    chunkData.SetMaterial(row, column, oreMaterial);
+                }
+            }
+        }
     }
 
     private float SampleNoise(float worldX, float worldY, float frequency, float salt)
@@ -630,9 +827,42 @@ public class MotherloadWorldController : MonoBehaviour
         return Mathf.PerlinNoise(x, y);
     }
 
+    private float HashToUnit(int x, int y, int salt)
+    {
+        unchecked
+        {
+            int hash = worldSeed;
+            hash = (hash * 397) ^ x;
+            hash = (hash * 397) ^ y;
+            hash = (hash * 397) ^ salt;
+            hash ^= (hash << 13);
+            hash ^= (hash >> 17);
+            hash ^= (hash << 5);
+            int positive = hash & 0x7fffffff;
+            return positive / 2147483647f;
+        }
+    }
+
+    private void AwardOreMoney(MotherloadOreYield oreYield)
+    {
+        if (oreYield.TotalCount <= 0 || moneyHud == null)
+            return;
+
+        float payoutFloat =
+            (oreYield.Copper * Mathf.Max(0f, copperValuePerCell)) +
+            (oreYield.Silver * Mathf.Max(0f, silverValuePerCell)) +
+            (oreYield.Gold * Mathf.Max(0f, goldValuePerCell));
+        int payout = Mathf.RoundToInt(payoutFloat);
+        if (payout <= 0)
+            return;
+
+        moneyHud.AddMoney(payout);
+        LogDebug("Ore payout | " + oreYield + " | money=$" + payout + " (raw=" + payoutFloat.ToString("0.00") + ")", this);
+    }
+
     private int ResolveChunkRowFromWorldY(float worldY)
     {
-        float depth = Mathf.Max(0f, surfaceY - worldY);
+        float depth = GetDepthAlongStream(worldY);
         return Mathf.Max(0, Mathf.FloorToInt(depth / ChunkWorldHeight));
     }
 
@@ -641,7 +871,9 @@ public class MotherloadWorldController : MonoBehaviour
         float totalWidth = WorldStripWidth;
         float stripLeft = stripCenterX - (totalWidth * 0.5f);
         float x = stripLeft + (coordinate.Column * ChunkWorldWidth);
-        float y = surfaceY - ((coordinate.Row + 1) * ChunkWorldHeight);
+        float y = StreamsUpward
+            ? TerrainStartY + (coordinate.Row * ChunkWorldHeight)
+            : TerrainStartY - ((coordinate.Row + 1) * ChunkWorldHeight);
         return new Vector2(x, y);
     }
 
@@ -779,6 +1011,12 @@ public class MotherloadWorldController : MonoBehaviour
         cellsPerUnit = Mathf.Max(1f, cellsPerUnit);
         activeRowsAboveFocus = Mathf.Max(0, activeRowsAboveFocus);
         activeRowsBelowFocus = Mathf.Max(1, activeRowsBelowFocus);
+        upwardTerrainStartOffset = Mathf.Max(1f, upwardTerrainStartOffset);
+        starterCopperPocketMaxDepth = Mathf.Max(1f, starterCopperPocketMaxDepth);
+        starterCopperPocketSizeCells = Mathf.Max(1, starterCopperPocketSizeCells);
+        deepCopperStartDepth = Mathf.Max(starterCopperPocketMaxDepth + 1f, deepCopperStartDepth);
+        silverStartDepth = Mathf.Max(deepCopperStartDepth + 2f, silverStartDepth);
+        goldStartDepth = Mathf.Max(silverStartDepth + 4f, goldStartDepth);
         starterShaftHalfWidth = Mathf.Max(0.25f, starterShaftHalfWidth);
         starterShaftDepth = Mathf.Max(0.5f, starterShaftDepth);
         edgeBedrockThicknessCells = Mathf.Max(1, edgeBedrockThicknessCells);

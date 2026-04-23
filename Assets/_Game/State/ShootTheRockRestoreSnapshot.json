@@ -408,7 +408,7 @@
                 {
                     "typeName": "ShootTheRockSceneRoot, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
-                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::ShootTheRockSceneRoot\",\n        \"sceneMode\": 1,\n        \"wallDefinition\": {\n            \"fileID\": 11400000,\n            \"guid\": \"77348de6678678d448e8cc2c1359520a\",\n            \"type\": 2\n        },\n        \"sceneCamera\": {\n            \"instanceID\": 0\n        },\n        \"cameraFramingController\": {\n            \"instanceID\": 0\n        },\n        \"moneyCanvas\": {\n            \"instanceID\": 0\n        },\n        \"moneyText\": {\n            \"instanceID\": 0\n        },\n        \"moneyHud\": {\n            \"instanceID\": 0\n        },\n        \"floorTransform\": {\n            \"instanceID\": 0\n        },\n        \"floorCollider\": {\n            \"instanceID\": 0\n        },\n        \"wallAnchor\": {\n            \"instanceID\": 0\n        },\n        \"rockWall\": {\n            \"instanceID\": 0\n        },\n        \"cannonRoot\": {\n            \"instanceID\": 0\n        },\n        \"cannonBase\": {\n            \"instanceID\": 0\n        },\n        \"cannonBarrel\": {\n            \"instanceID\": 0\n        },\n        \"firePoint\": {\n            \"instanceID\": 0\n        },\n        \"playerSpawnAnchor\": {\n            \"instanceID\": 0\n        },\n        \"testGoalBallBody\": {\n            \"instanceID\": 0\n        },\n        \"testGoalZone\": {\n            \"instanceID\": 0\n        },\n        \"prototypeMarkers\": {\n            \"instanceID\": 0\n        },\n        \"motherloadWorldController\": {\n            \"instanceID\": 0\n        },\n        \"playerPocketSize\": {\n            \"x\": 2.799999952316284,\n            \"y\": 2.799999952316284\n        },\n        \"ballPocketSize\": {\n            \"x\": 2.200000047683716,\n            \"y\": 2.799999952316284\n        },\n        \"goalPocketSize\": {\n            \"x\": 3.0,\n            \"y\": 2.4000000953674318\n        },\n        \"keepSceneCameraTransform\": true,\n        \"fitWallToSceneCamera\": true,\n        \"sceneWallExtraSize\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"playerGravityScale\": 3.0,\n        \"autoRefreshPreview\": true\n    }\n}"
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::ShootTheRockSceneRoot\",\n        \"sceneMode\": 1,\n        \"wallDefinition\": {\n            \"fileID\": 11400000,\n            \"guid\": \"77348de6678678d448e8cc2c1359520a\",\n            \"type\": 2\n        },\n        \"sceneCamera\": {\n            \"instanceID\": 0\n        },\n        \"cameraFramingController\": {\n            \"instanceID\": 0\n        },\n        \"moneyCanvas\": {\n            \"instanceID\": 0\n        },\n        \"moneyText\": {\n            \"instanceID\": 0\n        },\n        \"moneyHud\": {\n            \"instanceID\": 0\n        },\n        \"floorTransform\": {\n            \"instanceID\": 0\n        },\n        \"floorCollider\": {\n            \"instanceID\": 0\n        },\n        \"wallAnchor\": {\n            \"instanceID\": 0\n        },\n        \"rockWall\": {\n            \"instanceID\": 0\n        },\n        \"cannonRoot\": {\n            \"instanceID\": 0\n        },\n        \"cannonBase\": {\n            \"instanceID\": 0\n        },\n        \"cannonBarrel\": {\n            \"instanceID\": 0\n        },\n        \"firePoint\": {\n            \"instanceID\": 0\n        },\n        \"playerSpawnAnchor\": {\n            \"instanceID\": 0\n        },\n        \"testGoalBallBody\": {\n            \"instanceID\": 0\n        },\n        \"testGoalZone\": {\n            \"instanceID\": 0\n        },\n        \"prototypeMarkers\": {\n            \"instanceID\": 0\n        },\n        \"motherloadWorldController\": {\n            \"instanceID\": 0\n        },\n        \"playerPocketSize\": {\n            \"x\": 2.799999952316284,\n            \"y\": 2.799999952316284\n        },\n        \"ballPocketSize\": {\n            \"x\": 2.200000047683716,\n            \"y\": 2.799999952316284\n        },\n        \"goalPocketSize\": {\n            \"x\": 3.0,\n            \"y\": 2.4000000953674318\n        },\n        \"keepSceneCameraTransform\": true,\n        \"fitWallToSceneCamera\": true,\n        \"sceneWallExtraSize\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"playerGravityScale\": 3.0,\n        \"motherloadVerticalFlowDirection\": 1,\n        \"motherloadUpwardTerrainStartOffset\": 4.75,\n        \"autoRefreshPreview\": true\n    }\n}"
                 }
             ]
         },
@@ -771,6 +771,262 @@
                     "typeName": "MoneyHud, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
                     "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::MoneyHud\"\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/FuelHud",
+            "activeSelf": false,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 20.0,
+                "y": -18.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 20.0,
+                "y": -18.0
+            },
+            "sizeDelta": {
+                "x": 240.0,
+                "y": 44.0
+            },
+            "offsetMin": {
+                "x": 20.0,
+                "y": -62.0
+            },
+            "offsetMax": {
+                "x": 260.0,
+                "y": -18.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.0,\n            \"g\": 0.0,\n            \"b\": 0.0,\n            \"a\": 0.44999998807907107\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 1,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 120.0,
+                "y": -36.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 8.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 12.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": 8.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": 20.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 0.11999999731779099\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": -110.0,
+                "y": 6.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.5
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Image, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Image\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.20000000298023225,\n            \"g\": 0.8999999761581421,\n            \"b\": 0.3499999940395355,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Type\": 0,\n        \"m_PreserveAspect\": false,\n        \"m_FillCenter\": true,\n        \"m_FillMethod\": 4,\n        \"m_FillAmount\": 1.0,\n        \"m_FillClockwise\": true,\n        \"m_FillOrigin\": 0,\n        \"m_UseSpriteMesh\": false,\n        \"m_PixelsPerUnitMultiplier\": 1.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": true,
+            "localPosition": {
+                "x": 120.0,
+                "y": -4.0,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 1.0
+            },
+            "anchorMax": {
+                "x": 1.0,
+                "y": 1.0
+            },
+            "pivot": {
+                "x": 0.5,
+                "y": 1.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": -4.0
+            },
+            "sizeDelta": {
+                "x": -20.0,
+                "y": 18.0
+            },
+            "offsetMin": {
+                "x": 10.0,
+                "y": -22.0
+            },
+            "offsetMax": {
+                "x": -10.0,
+                "y": -4.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.CanvasRenderer, UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"CanvasRenderer\": {\n        \"m_CullTransparentMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.UI.Text, UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"UnityEngine.UI::UnityEngine.UI.Text\",\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 1.0,\n            \"g\": 1.0,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_RaycastTarget\": true,\n        \"m_RaycastPadding\": {\n            \"x\": 0.0,\n            \"y\": 0.0,\n            \"z\": 0.0,\n            \"w\": 0.0\n        },\n        \"m_Maskable\": true,\n        \"m_OnCullStateChanged\": {\n            \"m_PersistentCalls\": {\n                \"m_Calls\": []\n            }\n        },\n        \"m_FontData\": {\n            \"m_Font\": {\n                \"fileID\": 10102,\n                \"guid\": \"0000000000000000e000000000000000\",\n                \"type\": 0\n            },\n            \"m_FontSize\": 15,\n            \"m_FontStyle\": 1,\n            \"m_BestFit\": false,\n            \"m_MinSize\": 10,\n            \"m_MaxSize\": 40,\n            \"m_Alignment\": 0,\n            \"m_AlignByGeometry\": false,\n            \"m_RichText\": true,\n            \"m_HorizontalOverflow\": 0,\n            \"m_VerticalOverflow\": 0,\n            \"m_LineSpacing\": 1.0\n        },\n        \"m_Text\": \"\"\n    }\n}"
                 }
             ]
         },
@@ -4244,7 +4500,7 @@
                 {
                     "typeName": "MotherloadWorldController, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
-                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::MotherloadWorldController\",\n        \"sceneCamera\": {\n            \"instanceID\": 0\n        },\n        \"focusTarget\": {\n            \"instanceID\": 0\n        },\n        \"moneyHud\": {\n            \"instanceID\": 0\n        },\n        \"chunksRoot\": {\n            \"instanceID\": 0\n        },\n        \"surfaceBand\": {\n            \"instanceID\": 0\n        },\n        \"baseBuilding\": {\n            \"instanceID\": 0\n        },\n        \"baseZone\": {\n            \"instanceID\": 0\n        },\n        \"worldSeed\": 1337,\n        \"chunkColumns\": 7,\n        \"cellsPerChunkX\": 64,\n        \"cellsPerChunkY\": 64,\n        \"cellsPerUnit\": 8.0,\n        \"stripCenterX\": 0.0,\n        \"surfaceY\": -1.5,\n        \"activeRowsAboveFocus\": 1,\n        \"activeRowsBelowFocus\": 5,\n        \"enableStarterShaft\": false,\n        \"starterShaftHalfWidth\": 1.4500000476837159,\n        \"starterShaftDepth\": 6.5,\n        \"enableCaveGeneration\": false,\n        \"caveThreshold\": 0.8399999737739563,\n        \"caveDetailThreshold\": 0.5199999809265137,\n        \"edgeBedrockThicknessCells\": 2,\n        \"projectileBlastRadius\": 0.949999988079071,\n        \"projectileCenterDamage\": 1.899999976158142,\n        \"projectileOuterDamage\": 0.550000011920929,\n        \"enableDebugMouseDig\": false,\n        \"debugDigRadius\": 0.8999999761581421,\n        \"debugDigDamageMultiplier\": 3.5,\n        \"enableDebugLogging\": true,\n        \"logChunkLifecycle\": true,\n        \"logChunkRebuilds\": true,\n        \"logProjectileHits\": true,\n        \"followFocusWithCamera\": true,\n        \"lockCameraXToStrip\": false,\n        \"cameraFollowOffset\": {\n            \"x\": 0.0,\n            \"y\": -1.350000023841858\n        },\n        \"cameraFollowSmoothTime\": 0.1599999964237213\n    }\n}"
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::MotherloadWorldController\",\n        \"sceneCamera\": {\n            \"instanceID\": 0\n        },\n        \"focusTarget\": {\n            \"instanceID\": 0\n        },\n        \"moneyHud\": {\n            \"instanceID\": 0\n        },\n        \"chunksRoot\": {\n            \"instanceID\": 0\n        },\n        \"surfaceBand\": {\n            \"instanceID\": 0\n        },\n        \"baseBuilding\": {\n            \"instanceID\": 0\n        },\n        \"baseZone\": {\n            \"instanceID\": 0\n        },\n        \"worldSeed\": 1337,\n        \"chunkColumns\": 7,\n        \"cellsPerChunkX\": 64,\n        \"cellsPerChunkY\": 64,\n        \"cellsPerUnit\": 8.0,\n        \"stripCenterX\": 0.0,\n        \"surfaceY\": -1.5,\n        \"verticalFlowDirection\": 1,\n        \"upwardTerrainStartOffset\": 4.75,\n        \"activeRowsAboveFocus\": 1,\n        \"activeRowsBelowFocus\": 5,\n        \"enableStarterShaft\": false,\n        \"starterShaftHalfWidth\": 1.4500000476837159,\n        \"starterShaftDepth\": 6.5,\n        \"enableCaveGeneration\": false,\n        \"caveThreshold\": 0.8399999737739563,\n        \"caveDetailThreshold\": 0.5199999809265137,\n        \"edgeBedrockThicknessCells\": 2,\n        \"dirtLayerDepth\": 48.0,\n        \"copperValuePerCell\": 6.0,\n        \"silverValuePerCell\": 14.0,\n        \"goldValuePerCell\": 40.0,\n        \"copperClustersPerChunk\": 2,\n        \"silverClustersPerChunk\": 1,\n        \"rareGoldChunkChance\": 0.05999999865889549,\n        \"copperClusterMinRadiusCells\": 2,\n        \"copperClusterMaxRadiusCells\": 4,\n        \"silverClusterMinRadiusCells\": 1,\n        \"silverClusterMaxRadiusCells\": 2,\n        \"goldClusterMinRadiusCells\": 1,\n        \"goldClusterMaxRadiusCells\": 1,\n        \"starterCopperPocketMaxDepth\": 18.0,\n        \"starterCopperPocketSizeCells\": 2,\n        \"deepCopperStartDepth\": 22.0,\n        \"silverStartDepth\": 26.0,\n        \"goldStartDepth\": 38.0,\n        \"projectileBlastRadius\": 0.949999988079071,\n        \"projectileCenterDamage\": 1.899999976158142,\n        \"projectileOuterDamage\": 0.550000011920929,\n        \"enableDebugMouseDig\": false,\n        \"debugDigRadius\": 0.8999999761581421,\n        \"debugDigDamageMultiplier\": 3.5,\n        \"enableDebugLogging\": true,\n        \"logChunkLifecycle\": true,\n        \"logChunkRebuilds\": true,\n        \"logProjectileHits\": true,\n        \"followFocusWithCamera\": true,\n        \"lockCameraXToStrip\": false,\n        \"cameraFollowOffset\": {\n            \"x\": 0.0,\n            \"y\": -1.350000023841858\n        },\n        \"cameraFollowSmoothTime\": 0.1599999964237213\n    }\n}"
                 }
             ]
         },
@@ -4438,7 +4694,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -74.0,
-                "y": -5.5,
+                "y": 7.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4507,7 +4763,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -74.0,
-                "y": -13.5,
+                "y": 15.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4576,7 +4832,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -74.0,
-                "y": -21.5,
+                "y": 23.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4645,7 +4901,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -74.0,
-                "y": -29.5,
+                "y": 31.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4714,7 +4970,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -74.0,
-                "y": -37.5,
+                "y": 39.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4783,7 +5039,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -74.0,
-                "y": -45.5,
+                "y": 47.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4852,7 +5108,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -66.0,
-                "y": -5.5,
+                "y": 7.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4921,7 +5177,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -66.0,
-                "y": -13.5,
+                "y": 15.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -4990,7 +5246,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -66.0,
-                "y": -21.5,
+                "y": 23.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5059,7 +5315,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -66.0,
-                "y": -29.5,
+                "y": 31.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5128,7 +5384,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -66.0,
-                "y": -37.5,
+                "y": 39.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5197,7 +5453,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -66.0,
-                "y": -45.5,
+                "y": 47.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5266,7 +5522,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -58.0,
-                "y": -5.5,
+                "y": 7.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5335,7 +5591,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -58.0,
-                "y": -13.5,
+                "y": 15.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5404,7 +5660,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -58.0,
-                "y": -21.5,
+                "y": 23.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5473,7 +5729,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -58.0,
-                "y": -29.5,
+                "y": 31.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5542,7 +5798,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -58.0,
-                "y": -37.5,
+                "y": 39.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5611,7 +5867,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -58.0,
-                "y": -45.5,
+                "y": 47.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5680,7 +5936,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
-                "y": -5.5,
+                "y": 7.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5749,7 +6005,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
-                "y": -13.5,
+                "y": 15.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5818,7 +6074,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
-                "y": -21.5,
+                "y": 23.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5887,7 +6143,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
-                "y": -29.5,
+                "y": 31.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -5956,7 +6212,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
-                "y": -37.5,
+                "y": 39.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6025,7 +6281,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
-                "y": -45.5,
+                "y": 47.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6094,7 +6350,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -42.0,
-                "y": -5.5,
+                "y": 7.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6163,7 +6419,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -42.0,
-                "y": -13.5,
+                "y": 15.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6232,7 +6488,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -42.0,
-                "y": -21.5,
+                "y": 23.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6301,7 +6557,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -42.0,
-                "y": -29.5,
+                "y": 31.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6370,7 +6626,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -42.0,
-                "y": -37.5,
+                "y": 39.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6439,7 +6695,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -42.0,
-                "y": -45.5,
+                "y": 47.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6508,7 +6764,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -34.0,
-                "y": -5.5,
+                "y": 7.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6577,7 +6833,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -34.0,
-                "y": -13.5,
+                "y": 15.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6646,7 +6902,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -34.0,
-                "y": -21.5,
+                "y": 23.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6715,7 +6971,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -34.0,
-                "y": -29.5,
+                "y": 31.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6784,7 +7040,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -34.0,
-                "y": -37.5,
+                "y": 39.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6853,7 +7109,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -34.0,
-                "y": -45.5,
+                "y": 47.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6922,7 +7178,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -26.0,
-                "y": -5.5,
+                "y": 7.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -6991,7 +7247,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -26.0,
-                "y": -13.5,
+                "y": 15.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -7060,7 +7316,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -26.0,
-                "y": -21.5,
+                "y": 23.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -7129,7 +7385,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -26.0,
-                "y": -29.5,
+                "y": 31.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -7198,7 +7454,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -26.0,
-                "y": -37.5,
+                "y": 39.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -7267,7 +7523,7 @@
             "hasRectTransform": false,
             "localPosition": {
                 "x": -26.0,
-                "y": -45.5,
+                "y": 47.25,
                 "z": 0.0
             },
             "localRotation": {
@@ -7346,7 +7602,7 @@
                 "w": 1.0
             },
             "localScale": {
-                "x": 8.0,
+                "x": 56.0,
                 "y": 0.36000001430511477,
                 "z": 1.0
             },

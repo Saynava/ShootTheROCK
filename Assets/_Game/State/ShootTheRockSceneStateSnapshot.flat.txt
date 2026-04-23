@@ -1,7 +1,7 @@
 ﻿# Shoot the ROCK Scene State Flat Snapshot
 # Deterministic line-oriented snapshot for git diffs
 # Scene: Assets/Scenes/SampleScene.unity
-# Saved: 2026-04-22 23:14:33
+# Saved: 2026-04-23 21:56:44
 
 Global Light 2D | GameObject | activeInHierarchy	true
 Global Light 2D | GameObject | activeSelf	true
@@ -198,6 +198,8 @@ ShootTheRockScene | ShootTheRockSceneRoot#0 | keepSceneCameraTransform	true
 ShootTheRockScene | ShootTheRockSceneRoot#0 | moneyCanvas	ShootTheRockScene/MoneyCanvas
 ShootTheRockScene | ShootTheRockSceneRoot#0 | moneyHud	ShootTheRockScene/MoneyCanvas
 ShootTheRockScene | ShootTheRockSceneRoot#0 | moneyText	ShootTheRockScene/MoneyCanvas/MoneyText
+ShootTheRockScene | ShootTheRockSceneRoot#0 | motherloadUpwardTerrainStartOffset	4.75
+ShootTheRockScene | ShootTheRockSceneRoot#0 | motherloadVerticalFlowDirection	Upward
 ShootTheRockScene | ShootTheRockSceneRoot#0 | motherloadWorldController	ShootTheRockScene/MotherloadWorld
 ShootTheRockScene | ShootTheRockSceneRoot#0 | playerGravityScale	3
 ShootTheRockScene | ShootTheRockSceneRoot#0 | playerPocketSize	(2.8, 2.8)
@@ -449,6 +451,129 @@ ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_LocalScale	(0, 0, 0)
 ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_Pivot	(0, 0)
 ShootTheRockScene/MoneyCanvas | RectTransform#0 | m_SizeDelta	(0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/FuelHud | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/FuelHud | GameObject | activeInHierarchy	false
+ShootTheRockScene/MoneyCanvas/FuelHud | GameObject | activeSelf	false
+ShootTheRockScene/MoneyCanvas/FuelHud | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/FuelHud | GameObject | siblingIndex	2
+ShootTheRockScene/MoneyCanvas/FuelHud | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_Color	RGBA(0, 0, 0, 0.45)
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/FuelHud | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_AnchorMax	(0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_AnchorMin	(0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_AnchoredPosition	(20, -18)
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_LocalPosition	(20, -18, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_Pivot	(0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_SizeDelta	(240, 44)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | GameObject | activeInHierarchy	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | GameObject | siblingIndex	1
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_Color	RGBA(1, 1, 1, 0.12)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_AnchorMax	(1, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_AnchoredPosition	(0, 8)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_LocalPosition	(120, -36, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_Pivot	(0.5, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_SizeDelta	(-20, 12)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | GameObject | activeInHierarchy	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | __type	Image
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_Color	RGBA(0.2, 0.9, 0.35, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_FillAmount	1
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_FillCenter	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_FillClockwise	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_FillMethod	Radial 360
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_FillOrigin	0
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_PixelsPerUnitMultiplier	1
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_PreserveAspect	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_Sprite	null
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_Type	Simple
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | Image#0 | m_UseSpriteMesh	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_AnchorMax	(1, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_AnchorMin	(0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_AnchoredPosition	(0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_LocalPosition	(-110, 6, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_Pivot	(0, 0.5)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_SizeDelta	(0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | CanvasRenderer#0 | __type	CanvasRenderer
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | CanvasRenderer#0 | m_CullTransparentMesh	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | GameObject | activeInHierarchy	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | GameObject | activeSelf	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | GameObject | layer	0
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | GameObject | siblingIndex	0
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | GameObject | tag	Untagged
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | __type	RectTransform
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_AnchorMax	(1, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_AnchorMin	(0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_AnchoredPosition	(0, -4)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_LocalPosition	(120, -4, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_Pivot	(0.5, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_SizeDelta	(-20, 18)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | Text#0 | __type	Text
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | Text#0 | m_Color	RGBA(1, 1, 1, 1)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | Text#0 | m_Maskable	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | Text#0 | m_Material	null
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | Text#0 | m_RaycastPadding	(0, 0, 0, 0)
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | Text#0 | m_RaycastTarget	true
+ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | Text#0 | m_Text	""
 ShootTheRockScene/MoneyCanvas/MoneyText | CanvasRenderer#0 | __type	CanvasRenderer
 ShootTheRockScene/MoneyCanvas/MoneyText | CanvasRenderer#0 | m_CullTransparentMesh	true
 ShootTheRockScene/MoneyCanvas/MoneyText | GameObject | activeInHierarchy	false
@@ -1975,8 +2100,14 @@ ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | cellsPerChunkY
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | cellsPerUnit	8
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | chunkColumns	7
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | chunksRoot	ShootTheRockScene/MotherloadWorld/MotherloadChunks
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | copperClusterMaxRadiusCells	4
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | copperClusterMinRadiusCells	2
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | copperClustersPerChunk	2
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | copperValuePerCell	6
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | debugDigDamageMultiplier	3.5
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | debugDigRadius	0.9
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | deepCopperStartDepth	22
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | dirtLayerDepth	48
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | edgeBedrockThicknessCells	2
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | enableCaveGeneration	false
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | enableDebugLogging	true
@@ -1984,6 +2115,10 @@ ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | enableDebugMou
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | enableStarterShaft	false
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | focusTarget	ShootTheRockScene/CannonRoot
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | followFocusWithCamera	true
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | goldClusterMaxRadiusCells	1
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | goldClusterMinRadiusCells	1
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | goldStartDepth	38
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | goldValuePerCell	40
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | lockCameraXToStrip	false
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | logChunkLifecycle	true
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | logChunkRebuilds	true
@@ -1992,12 +2127,22 @@ ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | moneyHud	Shoot
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | projectileBlastRadius	0.95
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | projectileCenterDamage	1.9
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | projectileOuterDamage	0.55
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | rareGoldChunkChance	0.06
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | sceneCamera	Main Camera
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverClusterMaxRadiusCells	2
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverClusterMinRadiusCells	1
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverClustersPerChunk	1
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverStartDepth	26
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverValuePerCell	14
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterCopperPocketMaxDepth	18
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterCopperPocketSizeCells	2
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterShaftDepth	6.5
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterShaftHalfWidth	1.45
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | stripCenterX	0
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | surfaceBand	ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | surfaceY	-1.5
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | upwardTerrainStartOffset	4.75
+ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | verticalFlowDirection	Upward
 ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | worldSeed	1337
 ShootTheRockScene/MotherloadWorld | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld | Transform#0 | m_ConstrainProportionsScale	false
@@ -2177,7 +2322,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | Transform#0 | m_LocalPosition	(-74, -5.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | Transform#0 | m_LocalPosition	(-74, 7.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | GameObject | activeInHierarchy	true
@@ -2245,7 +2390,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | Transform#0 | m_LocalPosition	(-74, -13.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | Transform#0 | m_LocalPosition	(-74, 15.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | GameObject | activeInHierarchy	true
@@ -2313,7 +2458,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | Transform#0 | m_LocalPosition	(-74, -21.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | Transform#0 | m_LocalPosition	(-74, 23.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | GameObject | activeInHierarchy	true
@@ -2381,7 +2526,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | Transform#0 | m_LocalPosition	(-74, -29.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | Transform#0 | m_LocalPosition	(-74, 31.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | GameObject | activeInHierarchy	true
@@ -2449,7 +2594,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | Transform#0 | m_LocalPosition	(-74, -37.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | Transform#0 | m_LocalPosition	(-74, 39.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | GameObject | activeInHierarchy	true
@@ -2517,7 +2662,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | Transform#0 | m_LocalPosition	(-74, -45.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | Transform#0 | m_LocalPosition	(-74, 47.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | GameObject | activeInHierarchy	true
@@ -2585,7 +2730,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | Transform#0 | m_LocalPosition	(-66, -5.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | Transform#0 | m_LocalPosition	(-66, 7.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | GameObject | activeInHierarchy	true
@@ -2653,7 +2798,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | Transform#0 | m_LocalPosition	(-66, -13.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | Transform#0 | m_LocalPosition	(-66, 15.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | GameObject | activeInHierarchy	true
@@ -2721,7 +2866,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | Transform#0 | m_LocalPosition	(-66, -21.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | Transform#0 | m_LocalPosition	(-66, 23.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | GameObject | activeInHierarchy	true
@@ -2789,7 +2934,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | Transform#0 | m_LocalPosition	(-66, -29.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | Transform#0 | m_LocalPosition	(-66, 31.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | GameObject | activeInHierarchy	true
@@ -2857,7 +3002,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | Transform#0 | m_LocalPosition	(-66, -37.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | Transform#0 | m_LocalPosition	(-66, 39.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | GameObject | activeInHierarchy	true
@@ -2925,7 +3070,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | Transform#0 | m_LocalPosition	(-66, -45.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | Transform#0 | m_LocalPosition	(-66, 47.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | GameObject | activeInHierarchy	true
@@ -2993,7 +3138,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | Transform#0 | m_LocalPosition	(-58, -5.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | Transform#0 | m_LocalPosition	(-58, 7.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | GameObject | activeInHierarchy	true
@@ -3061,7 +3206,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | Transform#0 | m_LocalPosition	(-58, -13.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | Transform#0 | m_LocalPosition	(-58, 15.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | GameObject | activeInHierarchy	true
@@ -3129,7 +3274,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | Transform#0 | m_LocalPosition	(-58, -21.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | Transform#0 | m_LocalPosition	(-58, 23.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | GameObject | activeInHierarchy	true
@@ -3197,7 +3342,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | Transform#0 | m_LocalPosition	(-58, -29.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | Transform#0 | m_LocalPosition	(-58, 31.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | GameObject | activeInHierarchy	true
@@ -3265,7 +3410,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | Transform#0 | m_LocalPosition	(-58, -37.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | Transform#0 | m_LocalPosition	(-58, 39.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | GameObject | activeInHierarchy	true
@@ -3333,7 +3478,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | Transform#0 | m_LocalPosition	(-58, -45.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | Transform#0 | m_LocalPosition	(-58, 47.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | GameObject | activeInHierarchy	true
@@ -3401,7 +3546,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | Transform#0 | m_LocalPosition	(-50, -5.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | Transform#0 | m_LocalPosition	(-50, 7.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | GameObject | activeInHierarchy	true
@@ -3469,7 +3614,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | Transform#0 | m_LocalPosition	(-50, -13.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | Transform#0 | m_LocalPosition	(-50, 15.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | GameObject | activeInHierarchy	true
@@ -3537,7 +3682,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | Transform#0 | m_LocalPosition	(-50, -21.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | Transform#0 | m_LocalPosition	(-50, 23.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | GameObject | activeInHierarchy	true
@@ -3605,7 +3750,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | Transform#0 | m_LocalPosition	(-50, -29.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | Transform#0 | m_LocalPosition	(-50, 31.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | GameObject | activeInHierarchy	true
@@ -3673,7 +3818,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | Transform#0 | m_LocalPosition	(-50, -37.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | Transform#0 | m_LocalPosition	(-50, 39.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | GameObject | activeInHierarchy	true
@@ -3741,7 +3886,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | Transform#0 | m_LocalPosition	(-50, -45.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | Transform#0 | m_LocalPosition	(-50, 47.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | GameObject | activeInHierarchy	true
@@ -3809,7 +3954,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | Transform#0 | m_LocalPosition	(-42, -5.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | Transform#0 | m_LocalPosition	(-42, 7.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | GameObject | activeInHierarchy	true
@@ -3877,7 +4022,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | Transform#0 | m_LocalPosition	(-42, -13.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | Transform#0 | m_LocalPosition	(-42, 15.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | GameObject | activeInHierarchy	true
@@ -3945,7 +4090,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | Transform#0 | m_LocalPosition	(-42, -21.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | Transform#0 | m_LocalPosition	(-42, 23.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | GameObject | activeInHierarchy	true
@@ -4013,7 +4158,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | Transform#0 | m_LocalPosition	(-42, -29.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | Transform#0 | m_LocalPosition	(-42, 31.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | GameObject | activeInHierarchy	true
@@ -4081,7 +4226,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | Transform#0 | m_LocalPosition	(-42, -37.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | Transform#0 | m_LocalPosition	(-42, 39.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | GameObject | activeInHierarchy	true
@@ -4149,7 +4294,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | Transform#0 | m_LocalPosition	(-42, -45.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | Transform#0 | m_LocalPosition	(-42, 47.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | GameObject | activeInHierarchy	true
@@ -4217,7 +4362,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | Transform#0 | m_LocalPosition	(-34, -5.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | Transform#0 | m_LocalPosition	(-34, 7.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | GameObject | activeInHierarchy	true
@@ -4285,7 +4430,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | Transform#0 | m_LocalPosition	(-34, -13.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | Transform#0 | m_LocalPosition	(-34, 15.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | GameObject | activeInHierarchy	true
@@ -4353,7 +4498,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | Transform#0 | m_LocalPosition	(-34, -21.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | Transform#0 | m_LocalPosition	(-34, 23.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | GameObject | activeInHierarchy	true
@@ -4421,7 +4566,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | Transform#0 | m_LocalPosition	(-34, -29.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | Transform#0 | m_LocalPosition	(-34, 31.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | GameObject | activeInHierarchy	true
@@ -4489,7 +4634,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | Transform#0 | m_LocalPosition	(-34, -37.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | Transform#0 | m_LocalPosition	(-34, 39.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | GameObject | activeInHierarchy	true
@@ -4557,7 +4702,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | Transform#0 | m_LocalPosition	(-34, -45.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | Transform#0 | m_LocalPosition	(-34, 47.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | GameObject | activeInHierarchy	true
@@ -4625,7 +4770,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | Transform#0 | m_LocalPosition	(-26, -5.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | Transform#0 | m_LocalPosition	(-26, 7.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | GameObject | activeInHierarchy	true
@@ -4693,7 +4838,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | Transform#0 | m_LocalPosition	(-26, -13.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | Transform#0 | m_LocalPosition	(-26, 15.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | GameObject | activeInHierarchy	true
@@ -4761,7 +4906,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | Transform#0 | m_LocalPosition	(-26, -21.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | Transform#0 | m_LocalPosition	(-26, 23.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | GameObject | activeInHierarchy	true
@@ -4829,7 +4974,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | Transform#0 | m_LocalPosition	(-26, -29.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | Transform#0 | m_LocalPosition	(-26, 31.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | GameObject | activeInHierarchy	true
@@ -4897,7 +5042,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | Transform#0 | m_LocalPosition	(-26, -37.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | Transform#0 | m_LocalPosition	(-26, 39.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | GameObject | activeInHierarchy	true
@@ -4965,7 +5110,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | SpriteR
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | SpriteRenderer#0 | m_StitchLightmapSeams	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_ConstrainProportionsScale	false
-ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalPosition	(-26, -45.5, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalPosition	(-26, 47.25, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalScale	(1, 1, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | BoxCollider2D#0 | __type	BoxCollider2D
@@ -5035,7 +5180,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | Transform#0 | __type	T
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | Transform#0 | m_ConstrainProportionsScale	false
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | Transform#0 | m_LocalPosition	(-50, -1.68, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
-ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | Transform#0 | m_LocalScale	(8, 0.36, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | Transform#0 | m_LocalScale	(56, 0.36, 1)
 ShootTheRockScene/PlayerSpawnAnchor | GameObject | activeInHierarchy	true
 ShootTheRockScene/PlayerSpawnAnchor | GameObject | activeSelf	true
 ShootTheRockScene/PlayerSpawnAnchor | GameObject | layer	0

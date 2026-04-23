@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AutoShooter : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class AutoShooter : MonoBehaviour
     private const float CorrosionDamagePerTick = 0.42f;
     private const float CorrosionBlastScaleMultiplier = 1.05f;
     private const float CorrosionMinimumBlastScale = 1.15f;
-    private const float DefaultDebugBlastScaleMultiplier = 1.45f;
+    private const float DefaultDebugBlastScaleMultiplier = 1f;
     private const float MinimumDebugBlastScaleMultiplier = 0.5f;
     private const float MaximumDebugBlastScaleMultiplier = 4f;
     private const float DefaultCorrosionRadiusMultiplier = 1.6f;
@@ -33,18 +34,19 @@ public class AutoShooter : MonoBehaviour
     private const float MaximumCorrosionRadiusMultiplier = 4f;
 
     [Header("Firing")]
-    [SerializeField] private float fireInterval = 2f;
-    [SerializeField] private float projectileSpeed = 18f;
+    [SerializeField] private float fireInterval = 0.36f;
+    [SerializeField] private float projectileSpeed = 20f;
     [SerializeField] private float projectileGravity = 1.1f;
+    [SerializeField] private float projectileLifetime = 0.28f;
 
     [Header("Attack Speed Upgrade")]
     [SerializeField] private float fireIntervalStep = 0.18f;
-    [SerializeField] private float minimumFireInterval = 0.35f;
+    [SerializeField] private float minimumFireInterval = 0.32f;
     [SerializeField] private int baseAttackSpeedUpgradeCost = 10;
     [SerializeField] private int attackSpeedUpgradeCostStep = 8;
 
     [Header("Damage Upgrade")]
-    [SerializeField] private float blastRadiusScale = 1f;
+    [SerializeField] private float blastRadiusScale = 1.02f;
     [SerializeField] private float blastRadiusScaleStep = 0.22f;
     [SerializeField] private float maximumBlastRadiusScale = 2.75f;
     [SerializeField] private int baseDamageUpgradeCost = 14;
@@ -94,7 +96,7 @@ public class AutoShooter : MonoBehaviour
         this.firePoint = firePoint;
         this.rockWall = rockWall;
         this.motherloadWorldController = motherloadWorldController;
-        nextShotTime = Time.time + 0.15f;
+        nextShotTime = Time.time + 0.05f;
         EnsureProjectilePoolRoot();
         PrewarmProjectilePool();
     }
@@ -102,6 +104,10 @@ public class AutoShooter : MonoBehaviour
     private void Update()
     {
         if (firePoint == null || (rockWall == null && motherloadWorldController == null))
+            return;
+
+        Mouse mouse = Mouse.current;
+        if (mouse == null || !mouse.rightButton.isPressed)
             return;
 
         if (Time.time < nextShotTime)
@@ -240,7 +246,7 @@ public class AutoShooter : MonoBehaviour
         float resolvedBlastScale = CurrentProjectileBlastScale;
         ShootTheRockPerformance.RecordPellet();
         Projectile projectile = AcquireProjectile();
-        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, motherloadWorldController, resolvedBlastScale, projectileGravity);
+        projectile.Launch(firePoint.position, direction, projectileSpeed, rockWall, motherloadWorldController, resolvedBlastScale, projectileGravity, projectileLifetime);
         ConfigureProjectileCorrosion(projectile, resolvedBlastScale);
     }
 

@@ -35,6 +35,7 @@ public class Projectile : MonoBehaviour
     private float corrosionDamagePerTick;
     private float corrosionBlastRadiusScale = 1f;
     private bool corrosionAllowDestroyCells = true;
+    private bool explodeOnLifetimeEnd;
 
     private bool ShouldLogMotherloadDebug => motherloadWorldController != null && motherloadWorldController.ShouldLogProjectileHits;
 
@@ -45,9 +46,9 @@ public class Projectile : MonoBehaviour
         triggerCollider = body != null ? body.GetComponent<Collider2D>() : GetComponent<Collider2D>();
     }
 
-    public void Launch(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, MotherloadWorldController motherloadWorldController, float blastRadiusScale, float gravityScale)
+    public void Launch(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, MotherloadWorldController motherloadWorldController, float blastRadiusScale, float gravityScale, float lifetime = MaxLifetime)
     {
-        LaunchInternal(worldPosition, direction, speed, rockWall, motherloadWorldController, blastRadiusScale, ProjectileMode.Standard, MaxLifetime, 0f, gravityScale, StandardScale);
+        LaunchInternal(worldPosition, direction, speed, rockWall, motherloadWorldController, blastRadiusScale, ProjectileMode.Standard, Mathf.Clamp(lifetime, 0.1f, MaxLifetime), 0f, gravityScale, StandardScale);
     }
 
     public void LaunchAirburstGrenade(Vector2 worldPosition, Vector2 direction, float speed, RockWall rockWall, MotherloadWorldController motherloadWorldController, float blastRadiusScale, float fuseTime, float gravityScale)
@@ -80,6 +81,7 @@ public class Projectile : MonoBehaviour
         this.lastTravelDirection = direction.sqrMagnitude > 0.0001f ? direction.normalized : Vector2.right;
         didHit = false;
         lifetimeRemaining = lifetime;
+        explodeOnLifetimeEnd = mode == ProjectileMode.Standard;
         ConfigureCorrosion(false, 0.1f, 0.1f, 0.01f, 1f, true);
 
         if (triggerCollider != null)
@@ -141,7 +143,15 @@ public class Projectile : MonoBehaviour
         }
 
         if (lifetimeRemaining <= 0f)
+        {
+            if (explodeOnLifetimeEnd)
+            {
+                ExplodeAtCurrentPosition();
+                return;
+            }
+
             ReturnToPool();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -244,6 +254,51 @@ public class Projectile : MonoBehaviour
         ReturnToPool();
     }
 
+    private void ExplodeAtCurrentPosition()
+    {
+        if (didHit)
+            return;
+
+        didHit = true;
+        Vector2 worldPosition = transform.position;
+        Vector2 impactDirection = body != null && body.linearVelocity.sqrMagnitude > 0.0001f
+            ? body.linearVelocity.normalized
+            : lastTravelDirection;
+
+        if (triggerCollider != null)
+            triggerCollider.enabled = false;
+
+        if (body != null)
+        {
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+            body.simulated = false;
+        }
+
+        if (rockWall != null)
+        {
+            rockWall.ApplyHit(worldPosition, impactDirection, blastRadiusScale);
+            ApplyCorrosion(worldPosition);
+            ReturnToPool();
+            return;
+        }
+
+        if (motherloadWorldController != null)
+        {
+            bool changed = motherloadWorldController.TryApplyProjectileHit(worldPosition, impactDirection, blastRadiusScale);
+            if (motherloadWorldController.ShouldLogProjectileHits)
+            {
+                motherloadWorldController.LogDebug(
+                    "Projectile airburst"
+                    + " | point=" + worldPosition.ToString("F3")
+                    + " | changed=" + changed,
+                    this);
+            }
+        }
+
+        ReturnToPool();
+    }
+
     private void ApplyCorrosion(Vector2 worldPosition)
     {
         if (!corrosionEnabled || rockWall == null)
@@ -297,6 +352,7 @@ public class Projectile : MonoBehaviour
         motherloadWorldController = null;
         transform.localScale = StandardScale;
         ConfigureCorrosion(false, 0.1f, 0.1f, 0.01f, 1f, true);
+        explodeOnLifetimeEnd = false;
 
         if (isActiveTracked)
         {

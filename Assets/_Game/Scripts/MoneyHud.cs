@@ -20,9 +20,18 @@ public class MoneyHud : MonoBehaviour
     private const string UpgradeButtonTextName = "Text";
     private const string SliderLabelName = "Label";
     private const string SliderControlName = "Slider";
+    private const string FuelHudRootName = "FuelHud";
+    private const string FuelLabelName = "FuelLabel";
+    private const string FuelBarBackgroundName = "FuelBarBackground";
+    private const string FuelFillName = "FuelFill";
 
     private ShootTheRockProgressionState progressionState;
     private Text moneyText;
+    private CannonAim cannonAim;
+    private GameObject fuelHudRoot;
+    private Text fuelLabel;
+    private Image fuelFillImage;
+    private RectTransform fuelFillRect;
     private AutoShooter shooter;
     private RockWall rockWall;
     private CameraFramingController cameraFramingController;
@@ -63,6 +72,8 @@ public class MoneyHud : MonoBehaviour
         }
     }
 
+    private bool IsMotherloadShopMode => cannonAim != null && cannonAim.FuelSystemEnabled && rockWall == null;
+
     public void Initialize(Text moneyText)
     {
         this.moneyText = moneyText;
@@ -92,6 +103,26 @@ public class MoneyHud : MonoBehaviour
         Refresh();
     }
 
+    public void BindCannon(CannonAim cannonAim)
+    {
+        if (ReferenceEquals(this.cannonAim, cannonAim))
+        {
+            RefreshFuelUi();
+            return;
+        }
+
+        if (this.cannonAim != null)
+            this.cannonAim.FuelChanged -= HandleFuelChanged;
+
+        this.cannonAim = cannonAim;
+
+        if (this.cannonAim != null)
+            this.cannonAim.FuelChanged += HandleFuelChanged;
+
+        EnsureFuelUi();
+        RefreshFuelUi();
+    }
+
     public void BindProgression(RockWall rockWall, CameraFramingController cameraFramingController)
     {
         this.rockWall = rockWall;
@@ -114,6 +145,12 @@ public class MoneyHud : MonoBehaviour
 
     private void TryBuyAttackSpeedUpgrade()
     {
+        if (IsMotherloadShopMode)
+        {
+            TryBuyFuelTankRank(1);
+            return;
+        }
+
         if (shooter == null || !shooter.CanUpgradeAttackSpeed)
             return;
 
@@ -130,6 +167,12 @@ public class MoneyHud : MonoBehaviour
 
     private void TryBuyDamageUpgrade()
     {
+        if (IsMotherloadShopMode)
+        {
+            TryBuyFuelTankRank(2);
+            return;
+        }
+
         if (shooter == null || !shooter.CanUpgradeDamage)
             return;
 
@@ -146,6 +189,12 @@ public class MoneyHud : MonoBehaviour
 
     private void TryAdvanceLevelTest()
     {
+        if (IsMotherloadShopMode)
+        {
+            TryBuyFuelTankRank(3);
+            return;
+        }
+
         if (rockWall == null)
             return;
         if (!rockWall.TryAdvanceLevel())
@@ -159,6 +208,12 @@ public class MoneyHud : MonoBehaviour
 
     private void ToggleStressShotgun()
     {
+        if (IsMotherloadShopMode)
+        {
+            TryBuyFuelTankRank(4);
+            return;
+        }
+
         if (shooter == null)
             return;
 
@@ -168,6 +223,12 @@ public class MoneyHud : MonoBehaviour
 
     private void ToggleAirburstGrenade()
     {
+        if (IsMotherloadShopMode)
+        {
+            TryBuyFuelRefill();
+            return;
+        }
+
         if (shooter == null)
             return;
 
@@ -177,6 +238,9 @@ public class MoneyHud : MonoBehaviour
 
     private void ToggleCorrosion()
     {
+        if (IsMotherloadShopMode)
+            return;
+
         if (shooter == null)
             return;
 
@@ -234,6 +298,8 @@ public class MoneyHud : MonoBehaviour
         if (moneyText != null)
             moneyText.text = "$" + ProgressionState.Money;
 
+        EnsureFuelUi();
+        RefreshFuelUi();
         EnsureUpgradeUi();
         ApplyUpgradePanelVisibility();
         RefreshStatsText();
@@ -245,6 +311,19 @@ public class MoneyHud : MonoBehaviour
     {
         if (upgradeStatsText == null)
             return;
+
+        if (IsMotherloadShopMode)
+        {
+            upgradeStatsText.text =
+                "BASE SHOP\n" +
+                "TANK RANK " + (cannonAim != null ? cannonAim.FuelTankRank : 1) + "/4" +
+                "  |  CAP " + (cannonAim != null ? Mathf.CeilToInt(cannonAim.MaxFuel) : 0) + "\n" +
+                "FUEL " + (cannonAim != null ? Mathf.CeilToInt(cannonAim.CurrentFuel) : 0) + "/" + (cannonAim != null ? Mathf.CeilToInt(cannonAim.MaxFuel) : 0) +
+                (cannonAim != null && cannonAim.IsDockedAtBase ? "  |  DOCKED" : string.Empty) + "\n" +
+                "AUTO REFUEL AT BASE\n" +
+                "DIRT ORES: COPPER / SILVER / GOLD";
+            return;
+        }
 
         string levelText = rockWall == null
             ? "LVL ?/?"
@@ -279,6 +358,48 @@ public class MoneyHud : MonoBehaviour
 
     private void RefreshButtons()
     {
+        if (IsMotherloadShopMode)
+        {
+            SetControlVisible(attackSpeedUpgradeButton, true);
+            SetControlVisible(damageUpgradeButton, true);
+            SetControlVisible(nextLevelButton, true);
+            SetControlVisible(stressShotgunButton, true);
+            SetControlVisible(airburstGrenadeButton, false);
+            SetControlVisible(corrosionButton, false);
+
+            if (attackSpeedUpgradeButton != null)
+                attackSpeedUpgradeButton.interactable = false;
+            if (damageUpgradeButton != null)
+                damageUpgradeButton.interactable = cannonAim != null && cannonAim.CanBuyFuelTankRank(2) && ProgressionState.Money >= cannonAim.GetFuelTankUpgradeCostForRank(2);
+            if (nextLevelButton != null)
+                nextLevelButton.interactable = cannonAim != null && cannonAim.CanBuyFuelTankRank(3) && ProgressionState.Money >= cannonAim.GetFuelTankUpgradeCostForRank(3);
+            if (stressShotgunButton != null)
+                stressShotgunButton.interactable = cannonAim != null && cannonAim.CanBuyFuelTankRank(4) && ProgressionState.Money >= cannonAim.GetFuelTankUpgradeCostForRank(4);
+            if (airburstGrenadeButton != null)
+                airburstGrenadeButton.interactable = false;
+
+            if (attackSpeedUpgradeButtonText != null)
+                attackSpeedUpgradeButtonText.text = BuildFuelTankButtonText(1, "STANDARD");
+            if (damageUpgradeButtonText != null)
+                damageUpgradeButtonText.text = BuildFuelTankButtonText(2, "EXTENDED");
+            if (nextLevelButtonText != null)
+                nextLevelButtonText.text = BuildFuelTankButtonText(3, "LONG HAUL");
+            if (stressShotgunButtonText != null)
+                stressShotgunButtonText.text = BuildFuelTankButtonText(4, "DEEP CORE");
+            if (airburstGrenadeButtonText != null)
+                airburstGrenadeButtonText.text = "AUTO REFUEL";
+            if (corrosionButtonText != null)
+                corrosionButtonText.text = string.Empty;
+            return;
+        }
+
+        SetControlVisible(attackSpeedUpgradeButton, true);
+        SetControlVisible(damageUpgradeButton, true);
+        SetControlVisible(nextLevelButton, true);
+        SetControlVisible(stressShotgunButton, true);
+        SetControlVisible(airburstGrenadeButton, true);
+        SetControlVisible(corrosionButton, true);
+
         if (attackSpeedUpgradeButton != null)
         {
             bool canUpgradeAttackSpeed = shooter != null && shooter.CanUpgradeAttackSpeed && ProgressionState.Money >= shooter.NextAttackSpeedUpgradeCost;
@@ -366,6 +487,16 @@ public class MoneyHud : MonoBehaviour
 
     private void RefreshTuningControls()
     {
+        bool showDebugControls = !IsMotherloadShopMode;
+        SetSliderRowVisible(blastScaleSlider, showDebugControls);
+        SetSliderRowVisible(corrosionRadiusSlider, showDebugControls);
+        SetSliderRowVisible(stressRateSlider, showDebugControls);
+        SetSliderRowVisible(stressPelletSlider, showDebugControls);
+        SetSliderRowVisible(fragmentCountSlider, showDebugControls);
+
+        if (!showDebugControls)
+            return;
+
         bool interactable = shooter != null;
 
         RefreshSlider(
@@ -563,6 +694,141 @@ public class MoneyHud : MonoBehaviour
     {
         if (upgradePanel != null)
             upgradePanel.SetActive(upgradeUiVisible);
+    }
+
+    private void EnsureFuelUi()
+    {
+        if (fuelHudRoot != null && fuelLabel != null && fuelFillImage != null && fuelFillRect != null)
+            return;
+
+        Canvas canvas = GetComponent<Canvas>();
+        if (canvas == null)
+            return;
+
+        Transform rootTransform = transform.Find(FuelHudRootName);
+        if (rootTransform == null)
+            rootTransform = CreateFuelHud(canvas.transform).transform;
+
+        fuelHudRoot = rootTransform.gameObject;
+
+        Transform labelTransform = rootTransform.Find(FuelLabelName);
+        if (labelTransform == null)
+            labelTransform = CreateFuelLabel(rootTransform).transform;
+        fuelLabel = labelTransform.GetComponent<Text>();
+
+        Transform barBackgroundTransform = rootTransform.Find(FuelBarBackgroundName);
+        if (barBackgroundTransform == null)
+            barBackgroundTransform = CreateFuelBarBackground(rootTransform).transform;
+
+        Transform fillTransform = barBackgroundTransform.Find(FuelFillName);
+        if (fillTransform == null)
+            fillTransform = CreateFuelFill(barBackgroundTransform).transform;
+        fuelFillImage = fillTransform.GetComponent<Image>();
+        fuelFillRect = fillTransform as RectTransform;
+    }
+
+    private void RefreshFuelUi()
+    {
+        if (fuelHudRoot == null)
+            return;
+
+        bool showFuel = cannonAim != null && cannonAim.FuelSystemEnabled;
+        fuelHudRoot.SetActive(showFuel);
+        if (!showFuel)
+            return;
+
+        float normalizedFuel = cannonAim.FuelNormalized;
+        if (fuelFillRect != null)
+            fuelFillRect.anchorMax = new Vector2(normalizedFuel, 1f);
+
+        if (fuelFillImage != null)
+        {
+            Color okColor = Color.Lerp(new Color(0.92f, 0.24f, 0.16f, 1f), new Color(0.2f, 0.9f, 0.35f, 1f), normalizedFuel);
+            fuelFillImage.color = cannonAim.IsOutOfFuel ? new Color(0.92f, 0.16f, 0.16f, 1f) : okColor;
+        }
+
+        if (fuelLabel != null)
+        {
+            int currentFuelValue = Mathf.CeilToInt(cannonAim.CurrentFuel);
+            int maxFuelValue = Mathf.CeilToInt(cannonAim.MaxFuel);
+            string suffix = cannonAim.IsDockedAtBase ? "  AT BASE" : string.Empty;
+            fuelLabel.text = cannonAim.IsOutOfFuel
+                ? "FUEL EMPTY  " + currentFuelValue + "/" + maxFuelValue
+                : "FUEL  " + currentFuelValue + "/" + maxFuelValue + suffix;
+            fuelLabel.color = cannonAim.IsOutOfFuel ? new Color(1f, 0.55f, 0.55f, 1f) : Color.white;
+        }
+    }
+
+    private GameObject CreateFuelHud(Transform parent)
+    {
+        GameObject rootObject = new GameObject(FuelHudRootName, typeof(RectTransform), typeof(Image));
+        rootObject.transform.SetParent(parent, false);
+
+        RectTransform rect = rootObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+        rect.anchoredPosition = new Vector2(20f, -18f);
+        rect.sizeDelta = new Vector2(240f, 44f);
+
+        Image image = rootObject.GetComponent<Image>();
+        image.color = new Color(0f, 0f, 0f, 0.45f);
+        return rootObject;
+    }
+
+    private GameObject CreateFuelLabel(Transform parent)
+    {
+        GameObject labelObject = new GameObject(FuelLabelName, typeof(RectTransform), typeof(Text));
+        labelObject.transform.SetParent(parent, false);
+
+        RectTransform rect = labelObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.offsetMin = new Vector2(10f, -22f);
+        rect.offsetMax = new Vector2(-10f, -4f);
+
+        Text text = labelObject.GetComponent<Text>();
+        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        text.fontSize = 15;
+        text.fontStyle = FontStyle.Bold;
+        text.alignment = TextAnchor.UpperLeft;
+        text.color = Color.white;
+        return labelObject;
+    }
+
+    private GameObject CreateFuelBarBackground(Transform parent)
+    {
+        GameObject barObject = new GameObject(FuelBarBackgroundName, typeof(RectTransform), typeof(Image));
+        barObject.transform.SetParent(parent, false);
+
+        RectTransform rect = barObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0f, 0f);
+        rect.anchorMax = new Vector2(1f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.offsetMin = new Vector2(10f, 8f);
+        rect.offsetMax = new Vector2(-10f, 20f);
+
+        Image image = barObject.GetComponent<Image>();
+        image.color = new Color(1f, 1f, 1f, 0.12f);
+        return barObject;
+    }
+
+    private GameObject CreateFuelFill(Transform parent)
+    {
+        GameObject fillObject = new GameObject(FuelFillName, typeof(RectTransform), typeof(Image));
+        fillObject.transform.SetParent(parent, false);
+
+        RectTransform rect = fillObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0f, 0f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0f, 0.5f);
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+
+        Image image = fillObject.GetComponent<Image>();
+        image.color = new Color(0.2f, 0.9f, 0.35f, 1f);
+        return fillObject;
     }
 
     private GameObject CreateUpgradePanel(Transform parent)
@@ -814,6 +1080,86 @@ public class MoneyHud : MonoBehaviour
         return textObject;
     }
 
+    private void TryBuyFuelTankRank(int rank)
+    {
+        if (cannonAim == null || !cannonAim.CanBuyFuelTankRank(rank))
+            return;
+
+        int cost = cannonAim.GetFuelTankUpgradeCostForRank(rank);
+        if (ProgressionState.Money < cost)
+            return;
+
+        if (!ProgressionState.TrySpendMoney(cost))
+            return;
+
+        if (!cannonAim.TryUpgradeFuelTankToRank(rank))
+        {
+            ProgressionState.AddMoney(cost);
+            return;
+        }
+
+        Refresh();
+    }
+
+    private void TryBuyFuelRefill()
+    {
+        if (cannonAim == null || !cannonAim.IsDockedAtBase)
+            return;
+
+        int cost = cannonAim.GetFullRefillCost();
+        if (cost <= 0 || ProgressionState.Money < cost)
+            return;
+
+        if (!ProgressionState.TrySpendMoney(cost))
+            return;
+
+        if (!cannonAim.TryRefillToFull())
+        {
+            ProgressionState.AddMoney(cost);
+            return;
+        }
+
+        Refresh();
+    }
+
+    private string BuildFuelTankButtonText(int rank, string label)
+    {
+        if (cannonAim == null)
+            return "TANK RANK " + rank + "  (NO CANNON)";
+
+        int capacity = Mathf.CeilToInt(cannonAim.GetFuelTankCapacityForRank(rank));
+        if (cannonAim.IsFuelTankRankOwned(rank))
+            return label + "  " + capacity + "L  OWNED";
+
+        if (!cannonAim.CanBuyFuelTankRank(rank))
+            return label + "  " + capacity + "L  LOCKED";
+
+        return "BUY " + label + "  " + capacity + "L  $" + cannonAim.GetFuelTankUpgradeCostForRank(rank);
+    }
+
+    private string BuildGasStationButtonText()
+    {
+        if (cannonAim == null)
+            return "GAS STATION  (NO CANNON)";
+        if (!cannonAim.IsDockedAtBase)
+            return "GAS STATION  DOCK AT BASE";
+
+        int cost = cannonAim.GetFullRefillCost();
+        return cost <= 0 ? "GAS STATION  TANK FULL" : "FILL TANK  $" + cost;
+    }
+
+    private void SetControlVisible(Behaviour behaviour, bool visible)
+    {
+        if (behaviour != null)
+            behaviour.gameObject.SetActive(visible);
+    }
+
+    private void SetSliderRowVisible(Slider slider, bool visible)
+    {
+        if (slider != null && slider.transform.parent != null)
+            slider.transform.parent.gameObject.SetActive(visible);
+    }
+
     private string BuildEssenceSummaryLine()
     {
         return "R " + ProgressionState.RedEssence +
@@ -826,9 +1172,16 @@ public class MoneyHud : MonoBehaviour
         Refresh();
     }
 
+    private void HandleFuelChanged()
+    {
+        RefreshFuelUi();
+    }
+
     private void OnDestroy()
     {
         if (progressionState != null)
             progressionState.Changed -= HandleProgressionStateChanged;
+        if (cannonAim != null)
+            cannonAim.FuelChanged -= HandleFuelChanged;
     }
 }
