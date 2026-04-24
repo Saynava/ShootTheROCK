@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class AutoShooter : MonoBehaviour
 {
+    public event Action AmmoChanged;
+
     private const int PrewarmProjectileCount = 8;
     private const float DefaultStressShotgunFireInterval = 0.06f;
     private const float MinimumStressShotgunFireInterval = 0.02f;
@@ -39,6 +42,10 @@ public class AutoShooter : MonoBehaviour
     [SerializeField] private float projectileGravity = 1.1f;
     [SerializeField] private float projectileLifetime = 0.28f;
 
+    [Header("Motherload Ammo")]
+    [SerializeField] private bool useAmmoInMotherload = true;
+    [Min(1)] [SerializeField] private int motherloadAmmoCapacity = 32;
+
     [Header("Attack Speed Upgrade")]
     [SerializeField] private float fireIntervalStep = 0.18f;
     [SerializeField] private float minimumFireInterval = 0.32f;
@@ -71,6 +78,8 @@ public class AutoShooter : MonoBehaviour
     private bool stressShotgunEnabled;
     private bool airburstGrenadeEnabled;
     private bool corrosionEnabled;
+    private bool ammoSystemEnabled;
+    private int currentAmmo;
     private Transform projectilePoolRoot;
     private readonly Queue<Projectile> projectilePool = new Queue<Projectile>();
 
@@ -93,12 +102,18 @@ public class AutoShooter : MonoBehaviour
     public int StressShotgunPelletCount => stressShotgunPelletCount;
     public int AirburstFragmentCount => airburstFragmentCount;
     public float CurrentProjectileBlastScale => blastRadiusScale * debugBlastScaleMultiplier;
+    public bool AmmoSystemEnabled => ammoSystemEnabled;
+    public int CurrentAmmo => ammoSystemEnabled ? currentAmmo : motherloadAmmoCapacity;
+    public int MaxAmmo => Mathf.Max(1, motherloadAmmoCapacity);
+    public float AmmoNormalized => ammoSystemEnabled ? Mathf.Clamp01(currentAmmo / (float)MaxAmmo) : 1f;
+    public bool IsOutOfAmmo => ammoSystemEnabled && currentAmmo <= 0;
 
     public void Initialize(Transform firePoint, RockWall rockWall, MotherloadWorldController motherloadWorldController = null)
     {
         this.firePoint = firePoint;
         this.rockWall = rockWall;
         this.motherloadWorldController = motherloadWorldController;
+        ConfigureAmmoSystem(useAmmoInMotherload && motherloadWorldController != null);
         CaptureMotherloadBaseStats();
         nextShotTime = Time.time + 0.05f;
         EnsureProjectilePoolRoot();
@@ -117,8 +132,42 @@ public class AutoShooter : MonoBehaviour
         if (Time.time < nextShotTime)
             return;
 
+        if (!TryConsumeAmmoForShot())
+            return;
+
         nextShotTime = Time.time + CurrentEffectiveFireInterval;
         Fire();
+    }
+
+    public void ConfigureAmmoSystem(bool enabled)
+    {
+        bool changed = ammoSystemEnabled != enabled;
+        ammoSystemEnabled = enabled;
+        if (ammoSystemEnabled)
+        {
+            int clampedAmmo = Mathf.Clamp(currentAmmo <= 0 || changed ? MaxAmmo : currentAmmo, 0, MaxAmmo);
+            if (currentAmmo != clampedAmmo || changed)
+            {
+                currentAmmo = clampedAmmo;
+                NotifyAmmoChanged();
+            }
+            return;
+        }
+
+        currentAmmo = MaxAmmo;
+        if (changed)
+            NotifyAmmoChanged();
+    }
+
+    public void RefillAmmo()
+    {
+        if (!ammoSystemEnabled)
+            return;
+        if (currentAmmo == MaxAmmo)
+            return;
+
+        currentAmmo = MaxAmmo;
+        NotifyAmmoChanged();
     }
 
     public bool TryUpgradeAttackSpeed()
@@ -242,6 +291,23 @@ public class AutoShooter : MonoBehaviour
 
             FireSingleProjectile((Vector2)firePoint.right);
         }
+    }
+
+    private bool TryConsumeAmmoForShot()
+    {
+        if (!ammoSystemEnabled)
+            return true;
+        if (currentAmmo <= 0)
+            return false;
+
+        currentAmmo = Mathf.Max(0, currentAmmo - 1);
+        NotifyAmmoChanged();
+        return true;
+    }
+
+    private void NotifyAmmoChanged()
+    {
+        AmmoChanged?.Invoke();
     }
 
     private void FireStressShotgun()

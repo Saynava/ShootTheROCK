@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +28,7 @@ public class MoneyHud : MonoBehaviour
     private const string FuelFillName = "FuelFill";
     private const string GameOverRootName = "GameOverBanner";
     private const string GameOverTextName = "GameOverText";
+    private const string GameOverTryAgainButtonName = "TryAgainButton";
     private const float GameOverDurationSeconds = 2.4f;
 
     private ShootTheRockProgressionState progressionState;
@@ -39,6 +41,9 @@ public class MoneyHud : MonoBehaviour
     private RectTransform fuelFillRect;
     private GameObject gameOverRoot;
     private Text gameOverText;
+    private Button gameOverTryAgainButton;
+    private Text gameOverTryAgainButtonText;
+    private Action gameOverTryAgainAction;
     private float gameOverHideTime = -1f;
     private AutoShooter shooter;
     private RockWall rockWall;
@@ -108,7 +113,14 @@ public class MoneyHud : MonoBehaviour
 
     public void BindShooter(AutoShooter shooter)
     {
+        if (this.shooter != null)
+            this.shooter.AmmoChanged -= HandleAmmoChanged;
+
         this.shooter = shooter;
+
+        if (this.shooter != null)
+            this.shooter.AmmoChanged += HandleAmmoChanged;
+
         EnsureUpgradeUi();
         Refresh();
     }
@@ -162,15 +174,25 @@ public class MoneyHud : MonoBehaviour
 
     public void ShowGameOver(string reason)
     {
+        ShowGameOver(reason, null);
+    }
+
+    public void ShowGameOver(string reason, Action tryAgainAction)
+    {
         EnsureGameOverUi();
         if (gameOverRoot == null || gameOverText == null)
             return;
 
+        gameOverTryAgainAction = tryAgainAction;
         string resolvedReason = string.IsNullOrWhiteSpace(reason) ? string.Empty : "\n" + reason.ToUpperInvariant();
         gameOverText.text = "GAME OVER" + resolvedReason;
+        if (gameOverTryAgainButton != null)
+            gameOverTryAgainButton.gameObject.SetActive(tryAgainAction != null);
+        if (gameOverTryAgainButtonText != null)
+            gameOverTryAgainButtonText.text = "TRY AGAIN";
         gameOverRoot.SetActive(true);
         gameOverRoot.transform.SetAsLastSibling();
-        gameOverHideTime = Time.unscaledTime + GameOverDurationSeconds;
+        gameOverHideTime = tryAgainAction == null ? Time.unscaledTime + GameOverDurationSeconds : -1f;
     }
 
     private void Update()
@@ -182,6 +204,7 @@ public class MoneyHud : MonoBehaviour
 
         gameOverRoot.SetActive(false);
         gameOverHideTime = -1f;
+        gameOverTryAgainAction = null;
     }
 
     private void TryBuyAttackSpeedUpgrade()
@@ -846,10 +869,11 @@ public class MoneyHud : MonoBehaviour
 
     private void EnsureGameOverUi()
     {
-        if (gameOverRoot != null && gameOverText != null)
+        if (gameOverRoot != null && gameOverText != null && gameOverTryAgainButton != null)
         {
             ApplyGameOverLayout(gameOverRoot.transform as RectTransform);
             ApplyGameOverTextLayout(gameOverText.transform as RectTransform);
+            ApplyGameOverTryAgainButtonLayout(gameOverTryAgainButton.transform as RectTransform);
             return;
         }
 
@@ -870,6 +894,27 @@ public class MoneyHud : MonoBehaviour
 
         gameOverText = textTransform.GetComponent<Text>();
         ApplyGameOverTextLayout(textTransform as RectTransform);
+
+        Transform buttonTransform = rootTransform.Find(GameOverTryAgainButtonName);
+        if (buttonTransform == null)
+            buttonTransform = CreateGameOverTryAgainButton(rootTransform).transform;
+
+        gameOverTryAgainButton = buttonTransform.GetComponent<Button>();
+        ApplyGameOverTryAgainButtonLayout(buttonTransform as RectTransform);
+
+        Transform buttonTextTransform = buttonTransform.Find(UpgradeButtonTextName);
+        if (buttonTextTransform == null)
+            buttonTextTransform = CreateUpgradeButtonText(buttonTransform).transform;
+
+        gameOverTryAgainButtonText = buttonTextTransform.GetComponent<Text>();
+        if (gameOverTryAgainButtonText != null)
+        {
+            gameOverTryAgainButtonText.fontSize = 24;
+            gameOverTryAgainButtonText.text = "TRY AGAIN";
+        }
+
+        gameOverTryAgainButton.onClick.RemoveListener(HandleGameOverTryAgainClicked);
+        gameOverTryAgainButton.onClick.AddListener(HandleGameOverTryAgainClicked);
         gameOverRoot.SetActive(false);
     }
 
@@ -919,9 +964,13 @@ public class MoneyHud : MonoBehaviour
 
         MotherloadRunState runState = motherloadWorldController.RunState;
         string warningText = BuildMotherloadWarningText(runState);
+        string ammoText = shooter != null && shooter.AmmoSystemEnabled
+            ? "  |  AMMO " + shooter.CurrentAmmo + "/" + shooter.MaxAmmo
+            : string.Empty;
         motherloadStatusLabel.text =
             "CARGO " + runState.CargoUsed + "/" + runState.CargoCapacity +
             "  |  HP " + runState.CurrentHull + "/" + runState.MaxHull +
+            ammoText +
             (warningText.Length > 0 ? "\n" + warningText : string.Empty);
         motherloadStatusLabel.color = warningText.Length > 0 ? new Color(1f, 0.72f, 0.22f, 1f) : new Color(0.86f, 0.92f, 1f, 1f);
     }
@@ -936,6 +985,14 @@ public class MoneyHud : MonoBehaviour
                 AppendWarning(ref warnings, "FUEL EMPTY");
             else if (cannonAim.FuelNormalized <= 0.25f)
                 AppendWarning(ref warnings, "LOW FUEL");
+        }
+
+        if (shooter != null && shooter.AmmoSystemEnabled)
+        {
+            if (shooter.IsOutOfAmmo)
+                AppendWarning(ref warnings, "AMMO EMPTY");
+            else if (shooter.AmmoNormalized <= 0.25f)
+                AppendWarning(ref warnings, "LOW AMMO");
         }
 
         if (runState != null)
@@ -1089,7 +1146,7 @@ public class MoneyHud : MonoBehaviour
         ApplyGameOverLayout(bannerObject.GetComponent<RectTransform>());
 
         Image image = bannerObject.GetComponent<Image>();
-        image.color = new Color(0.02f, 0f, 0f, 0.78f);
+        image.color = new Color(0.02f, 0f, 0f, 0.86f);
         return bannerObject;
     }
 
@@ -1101,8 +1158,8 @@ public class MoneyHud : MonoBehaviour
         rect.anchorMin = new Vector2(0.5f, 0.5f);
         rect.anchorMax = new Vector2(0.5f, 0.5f);
         rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.anchoredPosition = new Vector2(0f, 95f);
-        rect.sizeDelta = new Vector2(520f, 138f);
+        rect.anchoredPosition = new Vector2(0f, 70f);
+        rect.sizeDelta = new Vector2(520f, 220f);
     }
 
     private GameObject CreateGameOverText(Transform parent)
@@ -1113,7 +1170,7 @@ public class MoneyHud : MonoBehaviour
 
         Text text = textObject.GetComponent<Text>();
         text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        text.fontSize = 36;
+        text.fontSize = 34;
         text.fontStyle = FontStyle.Bold;
         text.alignment = TextAnchor.MiddleCenter;
         text.horizontalOverflow = HorizontalWrapMode.Wrap;
@@ -1129,8 +1186,53 @@ public class MoneyHud : MonoBehaviour
 
         rect.anchorMin = Vector2.zero;
         rect.anchorMax = Vector2.one;
-        rect.offsetMin = new Vector2(18f, 12f);
-        rect.offsetMax = new Vector2(-18f, -12f);
+        rect.offsetMin = new Vector2(22f, 82f);
+        rect.offsetMax = new Vector2(-22f, -18f);
+    }
+
+    private GameObject CreateGameOverTryAgainButton(Transform parent)
+    {
+        GameObject buttonObject = CreateUpgradeButton(
+            parent,
+            GameOverTryAgainButtonName,
+            new Vector2(126f, 24f),
+            new Vector2(-126f, 72f));
+
+        Image image = buttonObject.GetComponent<Image>();
+        if (image != null)
+            image.color = new Color(1f, 0.55f, 0.16f, 0.88f);
+
+        Button button = buttonObject.GetComponent<Button>();
+        ColorBlock colors = button.colors;
+        colors.normalColor = new Color(1f, 0.55f, 0.16f, 0.88f);
+        colors.highlightedColor = new Color(1f, 0.68f, 0.26f, 1f);
+        colors.pressedColor = new Color(0.9f, 0.36f, 0.08f, 1f);
+        colors.disabledColor = new Color(1f, 1f, 1f, 0.16f);
+        button.colors = colors;
+        return buttonObject;
+    }
+
+    private void ApplyGameOverTryAgainButtonLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 0f);
+        rect.anchorMax = new Vector2(1f, 0f);
+        rect.pivot = new Vector2(0.5f, 0f);
+        rect.offsetMin = new Vector2(126f, 24f);
+        rect.offsetMax = new Vector2(-126f, 72f);
+    }
+
+    private void HandleGameOverTryAgainClicked()
+    {
+        Action action = gameOverTryAgainAction;
+        gameOverTryAgainAction = null;
+        gameOverHideTime = -1f;
+        if (gameOverRoot != null)
+            gameOverRoot.SetActive(false);
+
+        action?.Invoke();
     }
 
     private GameObject CreateUpgradePanel(Transform parent)
@@ -1488,11 +1590,18 @@ public class MoneyHud : MonoBehaviour
         RefreshFuelUi();
     }
 
+    private void HandleAmmoChanged()
+    {
+        RefreshFuelUi();
+    }
+
     private void OnDestroy()
     {
         if (progressionState != null)
             progressionState.Changed -= HandleProgressionStateChanged;
         if (cannonAim != null)
             cannonAim.FuelChanged -= HandleFuelChanged;
+        if (shooter != null)
+            shooter.AmmoChanged -= HandleAmmoChanged;
     }
 }

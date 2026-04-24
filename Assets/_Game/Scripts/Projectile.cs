@@ -13,9 +13,12 @@ public class Projectile : MonoBehaviour
     private const float FragmentLifetime = 4f;
     private const float ProjectileBoundsDespawnPadding = 18f;
     private const float FragmentBoundsDespawnPadding = 6f;
+    private const float MotherloadBaseBlastRadiusWorld = 0.95f;
     private static readonly Vector3 StandardScale = new Vector3(0.16f, 0.16f, 1f);
     private static readonly Vector3 AirburstGrenadeScale = new Vector3(0.18f, 0.18f, 1f);
     private static readonly Vector3 FragmentScale = new Vector3(0.11f, 0.11f, 1f);
+    private const float RockWallBaseBlastRadiusWorld = 0.62f;
+    private const float FragmentBlastRadiusMultiplier = 0.45f;
 
     private float lifetimeRemaining = MaxLifetime;
     private Rigidbody2D body;
@@ -204,6 +207,8 @@ public class Projectile : MonoBehaviour
                 return;
             }
 
+            SpawnImpactEffect(hitPoint);
+
             if (rockWall != null)
             {
                 rockWall.ApplyHit(hitPoint, impactDirection, blastRadiusScale);
@@ -237,6 +242,7 @@ public class Projectile : MonoBehaviour
             return;
 
         didHit = true;
+        ProjectileImpactEffect.Spawn(worldPosition, ResolveImpactEffectRadiusWorld());
         if (owner != null)
             owner.SpawnAirburstFragments(
                 worldPosition,
@@ -277,6 +283,7 @@ public class Projectile : MonoBehaviour
 
         if (rockWall != null)
         {
+            SpawnImpactEffect(worldPosition);
             rockWall.ApplyHit(worldPosition, impactDirection, blastRadiusScale);
             ApplyCorrosion(worldPosition);
             ReturnToPool();
@@ -285,6 +292,7 @@ public class Projectile : MonoBehaviour
 
         if (motherloadWorldController != null)
         {
+            SpawnImpactEffect(worldPosition);
             bool changed = motherloadWorldController.TryApplyProjectileHit(worldPosition, impactDirection, blastRadiusScale);
             if (motherloadWorldController.ShouldLogProjectileHits)
             {
@@ -297,6 +305,20 @@ public class Projectile : MonoBehaviour
         }
 
         ReturnToPool();
+    }
+
+    private void SpawnImpactEffect(Vector2 worldPosition)
+    {
+        ProjectileImpactEffect.Spawn(worldPosition, ResolveImpactEffectRadiusWorld());
+    }
+
+    private float ResolveImpactEffectRadiusWorld()
+    {
+        float baseRadius = motherloadWorldController != null ? MotherloadBaseBlastRadiusWorld : RockWallBaseBlastRadiusWorld;
+        if (mode == ProjectileMode.Fragment)
+            baseRadius *= FragmentBlastRadiusMultiplier;
+
+        return Mathf.Max(0.12f, baseRadius * blastRadiusScale);
     }
 
     private void ApplyCorrosion(Vector2 worldPosition)

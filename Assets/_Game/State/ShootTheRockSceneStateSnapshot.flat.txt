@@ -1,7 +1,7 @@
 ﻿# Shoot the ROCK Scene State Flat Snapshot
 # Deterministic line-oriented snapshot for git diffs
 # Scene: Assets/Scenes/SampleScene.unity
-# Saved: 2026-04-24 20:50:04
+# Saved: 2026-04-25 00:24:16
 
 Global Light 2D | GameObject | activeInHierarchy	true
 Global Light 2D | GameObject | activeSelf	true
@@ -2191,7 +2191,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | BoxCollider2D#0 | m_U
 ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | GameObject | activeInHierarchy	true
 ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | GameObject | activeSelf	true
 ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | GameObject | layer	0
-ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | GameObject | siblingIndex	2
+ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | GameObject | siblingIndex	10
 ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | GameObject | tag	Untagged
 ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | SpriteRenderer#0 | __type	SpriteRenderer
 ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
@@ -2259,7 +2259,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | BoxCollider2D#0 | m_UsedB
 ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | GameObject | activeInHierarchy	true
 ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | GameObject | activeSelf	true
 ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | GameObject | layer	0
-ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | GameObject | siblingIndex	3
+ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | GameObject | siblingIndex	11
 ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | GameObject | tag	Untagged
 ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | MotherloadBaseZone#0 | __type	MotherloadBaseZone
 ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | MotherloadBaseZone#0 | moneyHud	ShootTheRockScene/MoneyCanvas
@@ -2326,7 +2326,7 @@ ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | Transform#
 ShootTheRockScene/MotherloadWorld/MotherloadChunks | GameObject | activeInHierarchy	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks | GameObject | activeSelf	true
 ShootTheRockScene/MotherloadWorld/MotherloadChunks | GameObject | layer	0
-ShootTheRockScene/MotherloadWorld/MotherloadChunks | GameObject | siblingIndex	0
+ShootTheRockScene/MotherloadWorld/MotherloadChunks | GameObject | siblingIndex	8
 ShootTheRockScene/MotherloadWorld/MotherloadChunks | GameObject | tag	Untagged
 ShootTheRockScene/MotherloadWorld/MotherloadChunks | Transform#0 | __type	Transform
 ShootTheRockScene/MotherloadWorld/MotherloadChunks | Transform#0 | m_ConstrainProportionsScale	false
@@ -5189,6 +5189,419 @@ ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transfo
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalPosition	(-26, 42.5, 0)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | siblingIndex	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Color	RGBA(0.78, 0.93, 1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_LocalPosition	(-50, -0.16, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_LocalScale	(0.38, 0.18, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | siblingIndex	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Color	RGBA(0.45, 0.5, 0.58, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_LocalPosition	(-50, -0.78, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_LocalScale	(3.6, 1.152, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | siblingIndex	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Color	RGBA(0.3, 0.34, 0.4, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_LocalPosition	(-50, -1.34, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_LocalScale	(9.5, 0.32, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | siblingIndex	7
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshFilter#0 | __type	MeshFilter
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshFilter#0 | m_Mesh	MotherloadHubDomeMesh
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | __type	MeshRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_CastShadows	On
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTracingMode	2
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ReceiveShadows	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MotherloadHubDomeZone#0 | __type	MotherloadHubDomeZone
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MotherloadHubDomeZone#0 | brakeAcceleration	32
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MotherloadHubDomeZone#0 | maxDownwardSpeed	0.72
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | __type	PolygonCollider2D
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_AutoTiling	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_CallbackLayers	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_CompositeOperation	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_CompositeOrder	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_ContactCaptureLayers	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_Density	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_ExcludeLayers	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_ForceReceiveLayers	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_ForceSendLayers	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_IncludeLayers	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_IsTrigger	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_LayerOverridePriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_Material	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_Offset	(0, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_UseDelaunayMesh	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_UsedByEffector	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | Transform#0 | m_LocalPosition	(-50, -1.42, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubDome | Transform#0 | m_LocalScale	(1, 1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | GameObject | siblingIndex	2
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_Color	RGBA(0.2, 0.23, 0.28, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | Transform#0 | m_LocalPosition	(-53.99, -0.88, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon | Transform#0 | m_LocalScale	(0.22, 0.92, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | GameObject | siblingIndex	5
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_Color	RGBA(0.78, 0.84, 0.92, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | Transform#0 | m_LocalPosition	(-52.185, -1.15, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft | Transform#0 | m_LocalScale	(1.71, 0.07, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | GameObject | siblingIndex	6
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_Color	RGBA(0.78, 0.84, 0.92, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | Transform#0 | m_LocalPosition	(-47.815, -1.15, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight | Transform#0 | m_LocalScale	(1.71, 0.07, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | GameObject | activeInHierarchy	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | GameObject | activeSelf	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | GameObject | layer	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | GameObject | siblingIndex	3
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | __type	SpriteRenderer
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_AutoUVMaxAngle	89
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_CastShadows	Off
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_Color	RGBA(0.2, 0.23, 0.28, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_DrawMode	Simple
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_DynamicOccludee	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_FlipX	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_FlipY	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_ForceMeshLod	-1
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_ImportantGI	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_LightProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_LightProbeVolumeOverride	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_LightmapParameters	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_MaskInteraction	None
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_Materials	Array(size=1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_MeshLodSelectionBias	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_MinimumChartSize	4
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_MotionVectors	Per Object Motion
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_PreserveUVs	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_ProbeAnchor	null
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_RayTraceProcedural	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_RayTracingMode	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_ReceiveGI	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_ReceiveShadows	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_ReflectionProbeUsage	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_RendererPriority	0
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_RenderingLayerMask	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_ScaleInLightmap	1
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_Size	(1, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_SmallMeshCulling	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_Sprite	RuntimeWhiteSprite
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_SpriteSortPoint	Center
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_SpriteTileMode	Continuous
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_StaticShadowCaster	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | SpriteRenderer#0 | m_StitchLightmapSeams	true
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | Transform#0 | __type	Transform
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | Transform#0 | m_ConstrainProportionsScale	false
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | Transform#0 | m_LocalPosition	(-46.01, -0.88, 0)
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | Transform#0 | m_LocalRotation	(0, 0, 0, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon | Transform#0 | m_LocalScale	(0.22, 0.92, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | BoxCollider2D#0 | __type	BoxCollider2D
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | BoxCollider2D#0 | m_AutoTiling	false
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | BoxCollider2D#0 | m_CallbackLayers	-1
@@ -5210,14 +5623,18 @@ ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | BoxCollider2D#0 | m_Us
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | GameObject | activeInHierarchy	true
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | GameObject | activeSelf	true
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | GameObject | layer	0
-ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | GameObject | siblingIndex	1
+ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | GameObject | siblingIndex	9
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | GameObject | tag	Untagged
+ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | MotherloadSafeLandingZone#0 | __type	MotherloadSafeLandingZone
+ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | MotherloadSafeLandingZone#0 | centerX	0
+ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | MotherloadSafeLandingZone#0 | halfWidth	5.13
+ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | MotherloadSafeLandingZone#0 | maxSafeContactY	-1.08
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | __type	SpriteRenderer
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_AdaptiveModeThreshold	0.5
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_AutoUVMaxAngle	89
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_AutoUVMaxDistance	0.5
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_CastShadows	Off
-ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_Color	RGBA(0.2, 0.12, 0.05, 1)
+ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_Color	RGBA(0.16, 0.17, 0.19, 1)
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_DrawMode	Simple
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_DynamicOccludee	true
 ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_FlipX	false

@@ -1,272 +1,233 @@
 ﻿# Shoot the ROCK Scene State Changes
 
-- Saved local time: 2026-04-24 20:50:04
+- Saved local time: 2026-04-25 00:24:16
 - Scene: Assets/Scenes/SampleScene.unity
 - Compared against previous `Assets/_Game/State/ShootTheRockSceneStateSnapshot.flat.txt` snapshot
 - Restore baseline file: `Assets/_Game/State/ShootTheRockRestoreSnapshot.json`
-- Added entries: 91
-- Removed entries: 15
-- Changed entries: 50
+- Added entries: 417
+- Removed entries: 0
+- Changed entries: 5
 
 ## Changed
-- `ShootTheRockScene/CannonRoot | Transform#0 | m_LocalPosition`
-  - old: `(-50, 0.9, 0)`
-  - new: `(-50, 1.05, 0)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud | RectTransform#0 | m_SizeDelta`
-  - old: `(240, 44)`
-  - new: `(300, 78)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground | RectTransform#0 | m_LocalPosition`
-  - old: `(120, -36, 0)`
-  - new: `(150, -70, 0)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/FuelBarBackground/FuelFill | RectTransform#0 | m_LocalPosition`
-  - old: `(-110, 6, 0)`
-  - new: `(-140, 6, 0)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/FuelLabel | RectTransform#0 | m_LocalPosition`
-  - old: `(120, -4, 0)`
-  - new: `(150, -4, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | BoxCollider2D#0 | m_IsTrigger`
-  - old: `false`
-  - new: `true`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | Transform#0 | m_LocalPosition`
-  - old: `(-50, 0.94, 0)`
-  - new: `(-50, -0.3, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_0 | Transform#0 | m_LocalPosition`
-  - old: `(-74, 7.25, 0)`
-  - new: `(-74, 2.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_1 | Transform#0 | m_LocalPosition`
-  - old: `(-74, 15.25, 0)`
-  - new: `(-74, 10.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_2 | Transform#0 | m_LocalPosition`
-  - old: `(-74, 23.25, 0)`
-  - new: `(-74, 18.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_3 | Transform#0 | m_LocalPosition`
-  - old: `(-74, 31.25, 0)`
-  - new: `(-74, 26.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_4 | Transform#0 | m_LocalPosition`
-  - old: `(-74, 39.25, 0)`
-  - new: `(-74, 34.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_0_5 | Transform#0 | m_LocalPosition`
-  - old: `(-74, 47.25, 0)`
-  - new: `(-74, 42.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_0 | Transform#0 | m_LocalPosition`
-  - old: `(-66, 7.25, 0)`
-  - new: `(-66, 2.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_1 | Transform#0 | m_LocalPosition`
-  - old: `(-66, 15.25, 0)`
-  - new: `(-66, 10.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_2 | Transform#0 | m_LocalPosition`
-  - old: `(-66, 23.25, 0)`
-  - new: `(-66, 18.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_3 | Transform#0 | m_LocalPosition`
-  - old: `(-66, 31.25, 0)`
-  - new: `(-66, 26.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_4 | Transform#0 | m_LocalPosition`
-  - old: `(-66, 39.25, 0)`
-  - new: `(-66, 34.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_1_5 | Transform#0 | m_LocalPosition`
-  - old: `(-66, 47.25, 0)`
-  - new: `(-66, 42.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_0 | Transform#0 | m_LocalPosition`
-  - old: `(-58, 7.25, 0)`
-  - new: `(-58, 2.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_1 | Transform#0 | m_LocalPosition`
-  - old: `(-58, 15.25, 0)`
-  - new: `(-58, 10.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_2 | Transform#0 | m_LocalPosition`
-  - old: `(-58, 23.25, 0)`
-  - new: `(-58, 18.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_3 | Transform#0 | m_LocalPosition`
-  - old: `(-58, 31.25, 0)`
-  - new: `(-58, 26.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_4 | Transform#0 | m_LocalPosition`
-  - old: `(-58, 39.25, 0)`
-  - new: `(-58, 34.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_2_5 | Transform#0 | m_LocalPosition`
-  - old: `(-58, 47.25, 0)`
-  - new: `(-58, 42.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_0 | Transform#0 | m_LocalPosition`
-  - old: `(-50, 7.25, 0)`
-  - new: `(-50, 2.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_1 | Transform#0 | m_LocalPosition`
-  - old: `(-50, 15.25, 0)`
-  - new: `(-50, 10.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_2 | Transform#0 | m_LocalPosition`
-  - old: `(-50, 23.25, 0)`
-  - new: `(-50, 18.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_3 | Transform#0 | m_LocalPosition`
-  - old: `(-50, 31.25, 0)`
-  - new: `(-50, 26.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_4 | Transform#0 | m_LocalPosition`
-  - old: `(-50, 39.25, 0)`
-  - new: `(-50, 34.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_3_5 | Transform#0 | m_LocalPosition`
-  - old: `(-50, 47.25, 0)`
-  - new: `(-50, 42.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_0 | Transform#0 | m_LocalPosition`
-  - old: `(-42, 7.25, 0)`
-  - new: `(-42, 2.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_1 | Transform#0 | m_LocalPosition`
-  - old: `(-42, 15.25, 0)`
-  - new: `(-42, 10.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_2 | Transform#0 | m_LocalPosition`
-  - old: `(-42, 23.25, 0)`
-  - new: `(-42, 18.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_3 | Transform#0 | m_LocalPosition`
-  - old: `(-42, 31.25, 0)`
-  - new: `(-42, 26.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_4 | Transform#0 | m_LocalPosition`
-  - old: `(-42, 39.25, 0)`
-  - new: `(-42, 34.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_4_5 | Transform#0 | m_LocalPosition`
-  - old: `(-42, 47.25, 0)`
-  - new: `(-42, 42.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_0 | Transform#0 | m_LocalPosition`
-  - old: `(-34, 7.25, 0)`
-  - new: `(-34, 2.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_1 | Transform#0 | m_LocalPosition`
-  - old: `(-34, 15.25, 0)`
-  - new: `(-34, 10.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_2 | Transform#0 | m_LocalPosition`
-  - old: `(-34, 23.25, 0)`
-  - new: `(-34, 18.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_3 | Transform#0 | m_LocalPosition`
-  - old: `(-34, 31.25, 0)`
-  - new: `(-34, 26.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_4 | Transform#0 | m_LocalPosition`
-  - old: `(-34, 39.25, 0)`
-  - new: `(-34, 34.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_5_5 | Transform#0 | m_LocalPosition`
-  - old: `(-34, 47.25, 0)`
-  - new: `(-34, 42.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_0 | Transform#0 | m_LocalPosition`
-  - old: `(-26, 7.25, 0)`
-  - new: `(-26, 2.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_1 | Transform#0 | m_LocalPosition`
-  - old: `(-26, 15.25, 0)`
-  - new: `(-26, 10.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_2 | Transform#0 | m_LocalPosition`
-  - old: `(-26, 23.25, 0)`
-  - new: `(-26, 18.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_3 | Transform#0 | m_LocalPosition`
-  - old: `(-26, 31.25, 0)`
-  - new: `(-26, 26.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_4 | Transform#0 | m_LocalPosition`
-  - old: `(-26, 39.25, 0)`
-  - new: `(-26, 34.5, 0)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadChunks/MotherloadChunk_6_5 | Transform#0 | m_LocalPosition`
-  - old: `(-26, 47.25, 0)`
-  - new: `(-26, 42.5, 0)`
-- `ShootTheRockScene/PlayerSpawnAnchor | Transform#0 | m_LocalPosition`
-  - old: `(-50, 0.9, 0)`
-  - new: `(-50, 1.05, 0)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadBaseBuilding | GameObject | siblingIndex`
+  - old: `2`
+  - new: `10`
+- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | GameObject | siblingIndex`
+  - old: `3`
+  - new: `11`
+- `ShootTheRockScene/MotherloadWorld/MotherloadChunks | GameObject | siblingIndex`
+  - old: `0`
+  - new: `8`
+- `ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | GameObject | siblingIndex`
+  - old: `1`
+  - new: `9`
+- `ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand | SpriteRenderer#0 | m_Color`
+  - old: `RGBA(0.2, 0.12, 0.05, 1)`
+  - new: `RGBA(0.16, 0.17, 0.19, 1)`
 
 ## Added
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | CanvasRenderer#0 | __type` = `CanvasRenderer`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | CanvasRenderer#0 | m_CullTransparentMesh` = `true`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | GameObject | activeInHierarchy` = `false`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | GameObject | activeSelf` = `true`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | GameObject | layer` = `0`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | GameObject | siblingIndex` = `2`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | GameObject | tag` = `Untagged`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | __type` = `RectTransform`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_AnchorMax` = `(1, 1)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_AnchorMin` = `(0, 1)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_AnchoredPosition` = `(0, -24)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_ConstrainProportionsScale` = `false`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_LocalPosition` = `(150, -24, 0)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_LocalScale` = `(1, 1, 1)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_Pivot` = `(0.5, 1)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | RectTransform#0 | m_SizeDelta` = `(-20, 32)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | Text#0 | __type` = `Text`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | Text#0 | m_Color` = `RGBA(1, 1, 1, 1)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | Text#0 | m_Maskable` = `true`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | Text#0 | m_Material` = `null`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | Text#0 | m_RaycastPadding` = `(0, 0, 0, 0)`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | Text#0 | m_RaycastTarget` = `true`
-- `ShootTheRockScene/MoneyCanvas/FuelHud/MotherloadStatusLabel | Text#0 | m_Text` = `''`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | baseDomeHalfWidth` = `12.6`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | baseDomeHeight` = `10.05`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | carveBaseDome` = `true`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterBandChunkRows` = `7`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterBandMaxCopperPerChunk` = `2`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterBandMaxOresPerChunk` = `4`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterBandMaxSilverPerChunk` = `2`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterBandMaxTinPerChunk` = `3`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterOreBodyMaxCells` = `30`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterOreBodyMinCells` = `20`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterOreBodyPaddingCells` = `4`
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | tinValuePerCell` = `2`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone | MotherloadBaseZone#0 | worldController` = `ShootTheRockScene/MotherloadWorld`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | GameObject | activeInHierarchy` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | GameObject | activeSelf` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | GameObject | layer` = `0`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | GameObject | siblingIndex` = `0`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | GameObject | tag` = `Untagged`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | __type` = `MeshRenderer`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_AutoUVMaxAngle` = `89`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_AutoUVMaxDistance` = `0.5`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_CastShadows` = `On`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_DynamicOccludee` = `true`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_ForceMeshLod` = `-1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_IgnoreNormalsForChartDetection` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_ImportantGI` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_LightProbeUsage` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_LightProbeVolumeOverride` = `null`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_LightmapParameters` = `null`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_MaskInteraction` = `None`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_Materials` = `Array(size=1)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_MeshLodSelectionBias` = `0`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_MinimumChartSize` = `4`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_MotionVectors` = `Per Object Motion`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_PreserveUVs` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_ProbeAnchor` = `null`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_RayTraceProcedural` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_RayTracingAccelStructBuildFlags` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_RayTracingMode` = `2`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_ReceiveGI` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_ReceiveShadows` = `true`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_ReflectionProbeUsage` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_RendererPriority` = `0`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_RenderingLayerMask` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_ScaleInLightmap` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_SmallMeshCulling` = `true`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_StaticShadowCaster` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | MeshRenderer#0 | m_StitchLightmapSeams` = `true`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | __type` = `TextMesh`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_Alignment` = `Center`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_Anchor` = `Middle center`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_CharacterSize` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_Color` = `RGBA(1, 0.922, 0.349, 1)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_Font` = `null`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_FontSize` = `42`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_FontStyle` = `Bold`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_LineSpacing` = `1`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_OffsetZ` = `0`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_RichText` = `true`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_TabSize` = `4`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | TextMesh#0 | m_Text` = `'PRESS B  SHOP'`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | Transform#0 | __type` = `Transform`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | Transform#0 | m_ConstrainProportionsScale` = `false`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | Transform#0 | m_LocalPosition` = `(0, 0.95, -0.05)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | Transform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
-- `ShootTheRockScene/MotherloadWorld/MotherloadBaseZone/BaseShopPrompt | Transform#0 | m_LocalScale` = `(0.12, 0.12, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | layer` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | siblingIndex` = `4`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | __type` = `SpriteRenderer`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_AdaptiveModeThreshold` = `0.5`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_AutoUVMaxAngle` = `89`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_AutoUVMaxDistance` = `0.5`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_CastShadows` = `Off`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Color` = `RGBA(0.78, 0.93, 1, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_DrawMode` = `Simple`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_DynamicOccludee` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_FlipX` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_FlipY` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ForceMeshLod` = `-1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ImportantGI` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_LightProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_LightProbeVolumeOverride` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_LightmapParameters` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MaskInteraction` = `None`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Materials` = `Array(size=1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MeshLodSelectionBias` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MinimumChartSize` = `4`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_MotionVectors` = `Per Object Motion`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_PreserveUVs` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ProbeAnchor` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTraceProcedural` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RayTracingMode` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ReceiveGI` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ReceiveShadows` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ReflectionProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RendererPriority` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_RenderingLayerMask` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_ScaleInLightmap` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Size` = `(1, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_SmallMeshCulling` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_Sprite` = `RuntimeWhiteSprite`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_SpriteSortPoint` = `Center`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_SpriteTileMode` = `Continuous`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_StaticShadowCaster` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | SpriteRenderer#0 | m_StitchLightmapSeams` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | __type` = `Transform`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_LocalPosition` = `(-50, -0.16, 0)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon | Transform#0 | m_LocalScale` = `(0.38, 0.18, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | layer` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | siblingIndex` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | __type` = `SpriteRenderer`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_AdaptiveModeThreshold` = `0.5`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_AutoUVMaxAngle` = `89`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_AutoUVMaxDistance` = `0.5`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_CastShadows` = `Off`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Color` = `RGBA(0.45, 0.5, 0.58, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_DrawMode` = `Simple`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_DynamicOccludee` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_FlipX` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_FlipY` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ForceMeshLod` = `-1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ImportantGI` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_LightProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_LightProbeVolumeOverride` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_LightmapParameters` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MaskInteraction` = `None`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Materials` = `Array(size=1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MeshLodSelectionBias` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MinimumChartSize` = `4`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_MotionVectors` = `Per Object Motion`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_PreserveUVs` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ProbeAnchor` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTraceProcedural` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RayTracingMode` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ReceiveGI` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ReceiveShadows` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ReflectionProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RendererPriority` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_RenderingLayerMask` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_ScaleInLightmap` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Size` = `(1, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_SmallMeshCulling` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_Sprite` = `RuntimeWhiteSprite`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_SpriteSortPoint` = `Center`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_SpriteTileMode` = `Continuous`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_StaticShadowCaster` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | SpriteRenderer#0 | m_StitchLightmapSeams` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | __type` = `Transform`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_LocalPosition` = `(-50, -0.78, 0)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubCore | Transform#0 | m_LocalScale` = `(3.6, 1.152, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | layer` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | siblingIndex` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | __type` = `SpriteRenderer`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_AdaptiveModeThreshold` = `0.5`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_AutoUVMaxAngle` = `89`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_AutoUVMaxDistance` = `0.5`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_CastShadows` = `Off`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Color` = `RGBA(0.3, 0.34, 0.4, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_DrawMode` = `Simple`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_DynamicOccludee` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_FlipX` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_FlipY` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ForceMeshLod` = `-1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_IgnoreNormalsForChartDetection` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ImportantGI` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_LightProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_LightProbeVolumeOverride` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_LightmapParameters` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MaskInteraction` = `None`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Materials` = `Array(size=1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MeshLodSelectionBias` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MinimumChartSize` = `4`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_MotionVectors` = `Per Object Motion`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_PreserveUVs` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ProbeAnchor` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTraceProcedural` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlags` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RayTracingMode` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ReceiveGI` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ReceiveShadows` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ReflectionProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RendererPriority` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_RenderingLayerMask` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_ScaleInLightmap` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Size` = `(1, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_SmallMeshCulling` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_Sprite` = `RuntimeWhiteSprite`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_SpriteSortPoint` = `Center`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_SpriteTileMode` = `Continuous`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_StaticShadowCaster` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | SpriteRenderer#0 | m_StitchLightmapSeams` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | __type` = `Transform`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_ConstrainProportionsScale` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_LocalPosition` = `(-50, -1.34, 0)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_LocalRotation` = `(0, 0, 0, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDeck | Transform#0 | m_LocalScale` = `(9.5, 0.32, 1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | activeInHierarchy` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | activeSelf` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | layer` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | siblingIndex` = `7`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | GameObject | tag` = `Untagged`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshFilter#0 | __type` = `MeshFilter`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshFilter#0 | m_Mesh` = `MotherloadHubDomeMesh`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | __type` = `MeshRenderer`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_AutoUVMaxAngle` = `89`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_AutoUVMaxDistance` = `0.5`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_CastShadows` = `On`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_DynamicOccludee` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ForceMeshLod` = `-1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_IgnoreNormalsForChartDetection` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ImportantGI` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_LightProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_LightProbeVolumeOverride` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_LightmapParameters` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MaskInteraction` = `None`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_Materials` = `Array(size=1)`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MeshLodSelectionBias` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MinimumChartSize` = `4`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_MotionVectors` = `Per Object Motion`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_PreserveUVs` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ProbeAnchor` = `null`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTraceProcedural` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTracingAccelStructBuildFlags` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTracingAccelStructBuildFlagsOverride` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RayTracingMode` = `2`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ReceiveGI` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ReceiveShadows` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ReflectionProbeUsage` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RendererPriority` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_RenderingLayerMask` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_ScaleInLightmap` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_SmallMeshCulling` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_StaticShadowCaster` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MeshRenderer#0 | m_StitchLightmapSeams` = `true`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MotherloadHubDomeZone#0 | __type` = `MotherloadHubDomeZone`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MotherloadHubDomeZone#0 | brakeAcceleration` = `32`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | MotherloadHubDomeZone#0 | maxDownwardSpeed` = `0.72`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | __type` = `PolygonCollider2D`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_AutoTiling` = `false`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_CallbackLayers` = `-1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_CompositeOperation` = `None`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_CompositeOrder` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_ContactCaptureLayers` = `-1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_Density` = `1`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_ExcludeLayers` = `0`
+- `ShootTheRockScene/MotherloadWorld/MotherloadHubDome | PolygonCollider2D#0 | m_ForceReceiveLayers` = `-1`
+- ... truncated, additional entries: 217
 
 ## Removed
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | copperClusterMaxRadiusCells` (was `4`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | copperClusterMinRadiusCells` (was `2`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | copperClustersPerChunk` (was `2`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | deepCopperStartDepth` (was `22`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | dirtLayerDepth` (was `48`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | goldClusterMaxRadiusCells` (was `1`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | goldClusterMinRadiusCells` (was `1`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | goldStartDepth` (was `38`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | rareGoldChunkChance` (was `0.06`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverClusterMaxRadiusCells` (was `2`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverClusterMinRadiusCells` (was `1`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverClustersPerChunk` (was `1`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | silverStartDepth` (was `26`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterCopperPocketMaxDepth` (was `18`)
-- `ShootTheRockScene/MotherloadWorld | MotherloadWorldController#0 | starterCopperPocketSizeCells` (was `2`)
+- none
 

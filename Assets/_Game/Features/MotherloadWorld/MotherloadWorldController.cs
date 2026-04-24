@@ -15,6 +15,15 @@ public class MotherloadWorldController : MonoBehaviour
     private const string SurfaceBandName = "MotherloadSurfaceBand";
     private const string BaseBuildingName = "MotherloadBaseBuilding";
     private const string BaseZoneName = "MotherloadBaseZone";
+    private const string HubDeckName = "MotherloadHubDeck";
+    private const string HubCoreName = "MotherloadHubCore";
+    private const string HubLeftPylonName = "MotherloadHubLeftPylon";
+    private const string HubRightPylonName = "MotherloadHubRightPylon";
+    private const string HubBeaconName = "MotherloadHubBeacon";
+    private const string HubPadStripeLeftName = "MotherloadHubPadStripeLeft";
+    private const string HubPadStripeRightName = "MotherloadHubPadStripeRight";
+    private const string HubDomeName = "MotherloadHubDome";
+    private const int HubDomeSegments = 32;
     private const int StarterOrePlacementAttemptsPerBody = 48;
     private const int SilverBeltStartChunkRow = 3;
     private const int GoldPreviewStartChunkRow = 7;
@@ -104,6 +113,8 @@ public class MotherloadWorldController : MonoBehaviour
     private readonly MotherloadRunState runState = new MotherloadRunState();
     private readonly MotherloadMetaProgressionState metaProgression = new MotherloadMetaProgressionState();
     private bool initialized;
+    private bool isAwaitingTryAgain;
+    private string pendingDeathReason = string.Empty;
     private int runSequence;
     private Vector3 cameraFollowVelocity;
 
@@ -344,7 +355,12 @@ public class MotherloadWorldController : MonoBehaviour
         runState.RepairHull();
         ApplyMetaProgressionToPlayer();
         if (cannon != null)
+        {
             cannon.ForceRefillFuel();
+            AutoShooter shooter = cannon.GetComponent<AutoShooter>();
+            if (shooter != null)
+                shooter.RefillAmmo();
+        }
         if (moneyHud != null)
             moneyHud.Refresh();
     }
@@ -359,7 +375,7 @@ public class MotherloadWorldController : MonoBehaviour
             return;
         }
 
-        ResetRunAfterDeath(runState.LastDeathReason);
+        EnterDeathState(runState.LastDeathReason);
     }
 
     public Vector3 GetSuggestedPlayerSpawnWorldPosition()
@@ -524,12 +540,24 @@ public class MotherloadWorldController : MonoBehaviour
         }
     }
 
-    private void ResetRunAfterDeath(string reason)
+    private void EnterDeathState(string reason)
     {
-        LogWarning("Run reset | reason=" + reason, this);
+        if (isAwaitingTryAgain)
+            return;
+
+        isAwaitingTryAgain = true;
+        pendingDeathReason = string.IsNullOrWhiteSpace(reason) ? "Destroyed" : reason;
+        LogWarning("Run failed | reason=" + pendingDeathReason, this);
+        SetPlayerDestroyedState(true);
 
         if (moneyHud != null)
-            moneyHud.ShowGameOver(reason);
+            moneyHud.ShowGameOver(pendingDeathReason, ContinueAfterDeath);
+    }
+
+    private void ContinueAfterDeath()
+    {
+        if (!isAwaitingTryAgain)
+            return;
 
         if (moneyHud != null && moneyHud.ProgressionState.Money > 0)
             moneyHud.ProgressionState.AddMoney(-moneyHud.ProgressionState.Money);
@@ -537,12 +565,46 @@ public class MotherloadWorldController : MonoBehaviour
         runSequence++;
         worldSeed = BuildNextRunSeed();
         runState.ResetForNewRun(worldSeed, metaProgression);
-        runState.SetLastDeathReason(reason);
+        runState.SetLastDeathReason(pendingDeathReason);
         RegenerateWorldCache();
+        isAwaitingTryAgain = false;
+        pendingDeathReason = string.Empty;
         RespawnPlayerAtBase();
+        SetPlayerDestroyedState(false);
         ApplyMetaProgressionToPlayer();
         if (moneyHud != null)
             moneyHud.Refresh();
+    }
+
+    private void SetPlayerDestroyedState(bool destroyed)
+    {
+        if (focusTarget == null)
+            return;
+
+        MotherloadPlayerDeathVisual deathVisual = focusTarget.GetComponent<MotherloadPlayerDeathVisual>();
+        if (deathVisual == null)
+            deathVisual = focusTarget.gameObject.AddComponent<MotherloadPlayerDeathVisual>();
+
+        if (destroyed)
+            deathVisual.ShowWreck();
+        else
+            deathVisual.RestoreShip();
+
+        CannonAim cannon = focusTarget.GetComponent<CannonAim>();
+        if (cannon != null)
+            cannon.enabled = !destroyed;
+
+        AutoShooter shooter = focusTarget.GetComponent<AutoShooter>();
+        if (shooter != null)
+            shooter.enabled = !destroyed;
+
+        Rigidbody2D body = focusTarget.GetComponent<Rigidbody2D>();
+        if (body == null)
+            return;
+
+        body.linearVelocity = Vector2.zero;
+        body.angularVelocity = 0f;
+        body.simulated = !destroyed;
     }
 
     private int BuildNextRunSeed()
@@ -568,6 +630,10 @@ public class MotherloadWorldController : MonoBehaviour
             cannon.ResetMotion();
             cannon.ForceRefillFuel();
         }
+
+        AutoShooter shooter = focusTarget.GetComponent<AutoShooter>();
+        if (shooter != null)
+            shooter.RefillAmmo();
 
         Rigidbody2D body = focusTarget.GetComponent<Rigidbody2D>();
         if (body != null)
@@ -738,12 +804,22 @@ public class MotherloadWorldController : MonoBehaviour
         float surfaceWidth = StreamsUpward ? WorldStripWidth : ChunkWorldWidth;
         surfaceBand.position = new Vector3(stripCenterX, surfaceY - (platformHeight * 0.5f), 0f);
         surfaceBand.localScale = new Vector3(surfaceWidth, platformHeight, 1f);
+        SpriteRenderer surfaceRenderer = surfaceBand.GetComponent<SpriteRenderer>();
+        if (surfaceRenderer != null)
+        {
+            surfaceRenderer.color = new Color(0.16f, 0.17f, 0.19f, 1f);
+            surfaceRenderer.sortingOrder = 4;
+        }
 
         BoxCollider2D surfaceCollider = surfaceBand.GetComponent<BoxCollider2D>();
         if (surfaceCollider == null)
             surfaceCollider = surfaceBand.gameObject.AddComponent<BoxCollider2D>();
         surfaceCollider.isTrigger = false;
         surfaceCollider.size = Vector2.one;
+
+        MotherloadSafeLandingZone safeLandingZone = surfaceBand.GetComponent<MotherloadSafeLandingZone>();
+        if (safeLandingZone == null)
+            surfaceBand.gameObject.AddComponent<MotherloadSafeLandingZone>();
     }
 
     private void EnsureBaseInfrastructure()
@@ -777,6 +853,9 @@ public class MotherloadWorldController : MonoBehaviour
             baseBuildingCollider = baseBuilding.gameObject.AddComponent<BoxCollider2D>();
         baseBuildingCollider.isTrigger = true;
         baseBuildingCollider.size = Vector2.one;
+        SpriteRenderer baseRenderer = baseBuilding.GetComponent<SpriteRenderer>();
+        if (baseRenderer != null)
+            baseRenderer.enabled = false;
 
         if (baseZone == null)
             baseZone = transform.Find(BaseZoneName)?.GetComponent<MotherloadBaseZone>();
@@ -795,6 +874,182 @@ public class MotherloadWorldController : MonoBehaviour
         zoneCollider.isTrigger = true;
         zoneCollider.size = new Vector2(Mathf.Max(buildingWidth + 1.2f, 3.25f), zoneHeight);
         baseZone.Initialize(moneyHud);
+
+        EnsureHubPlatformVisuals(buildingWidth, baseHeight);
+    }
+
+    private void EnsureHubPlatformVisuals(float buildingWidth, float baseHeight)
+    {
+        float deckWidth = Mathf.Max(buildingWidth + 3.4f, 9.5f);
+        CreateOrUpdateHubSprite(
+            HubDeckName,
+            new Vector3(stripCenterX, surfaceY + 0.16f, 0f),
+            new Vector2(deckWidth, 0.32f),
+            new Color(0.30f, 0.34f, 0.40f, 1f),
+            5);
+
+        CreateOrUpdateHubSprite(
+            HubCoreName,
+            new Vector3(stripCenterX, surfaceY + 0.72f, 0f),
+            new Vector2(Mathf.Max(3.6f, buildingWidth * 0.42f), Mathf.Max(0.9f, baseHeight * 0.72f)),
+            new Color(0.45f, 0.50f, 0.58f, 1f),
+            6);
+
+        CreateOrUpdateHubSprite(
+            HubLeftPylonName,
+            new Vector3(stripCenterX - (deckWidth * 0.42f), surfaceY + 0.62f, 0f),
+            new Vector2(0.22f, 0.92f),
+            new Color(0.20f, 0.23f, 0.28f, 1f),
+            6);
+
+        CreateOrUpdateHubSprite(
+            HubRightPylonName,
+            new Vector3(stripCenterX + (deckWidth * 0.42f), surfaceY + 0.62f, 0f),
+            new Vector2(0.22f, 0.92f),
+            new Color(0.20f, 0.23f, 0.28f, 1f),
+            6);
+
+        CreateOrUpdateHubSprite(
+            HubBeaconName,
+            new Vector3(stripCenterX, surfaceY + 1.34f, 0f),
+            new Vector2(0.38f, 0.18f),
+            new Color(0.78f, 0.93f, 1f, 1f),
+            7);
+
+        CreateOrUpdateHubSprite(
+            HubPadStripeLeftName,
+            new Vector3(stripCenterX - (deckWidth * 0.23f), surfaceY + 0.35f, 0f),
+            new Vector2(deckWidth * 0.18f, 0.07f),
+            new Color(0.78f, 0.84f, 0.92f, 1f),
+            7);
+
+        CreateOrUpdateHubSprite(
+            HubPadStripeRightName,
+            new Vector3(stripCenterX + (deckWidth * 0.23f), surfaceY + 0.35f, 0f),
+            new Vector2(deckWidth * 0.18f, 0.07f),
+            new Color(0.78f, 0.84f, 0.92f, 1f),
+            7);
+
+        MotherloadSafeLandingZone safeLandingZone = surfaceBand != null ? surfaceBand.GetComponent<MotherloadSafeLandingZone>() : null;
+        if (safeLandingZone != null)
+            safeLandingZone.Configure(stripCenterX, deckWidth * 0.54f, surfaceY + 0.42f);
+
+        EnsureHubDome(deckWidth, baseHeight);
+    }
+
+    private void EnsureHubDome(float deckWidth, float baseHeight)
+    {
+        float domeHalfWidth = Mathf.Max(deckWidth * 0.58f, 5.2f);
+        float domeHeight = Mathf.Max(baseHeight * 2.15f, 3.4f);
+        Transform domeTransform = transform.Find(HubDomeName);
+        if (domeTransform == null)
+        {
+            GameObject domeObject = new GameObject(HubDomeName, typeof(MeshFilter), typeof(MeshRenderer), typeof(PolygonCollider2D), typeof(MotherloadHubDomeZone));
+            domeObject.transform.SetParent(transform, false);
+            domeTransform = domeObject.transform;
+        }
+
+        domeTransform.position = new Vector3(stripCenterX, surfaceY + 0.08f, 0f);
+        domeTransform.localScale = Vector3.one;
+        BuildHubDomeMesh(domeTransform, domeHalfWidth, domeHeight);
+        ConfigureHubDomeCollider(domeTransform, domeHalfWidth, domeHeight);
+
+        MeshRenderer renderer = domeTransform.GetComponent<MeshRenderer>();
+        if (renderer != null)
+        {
+            if (renderer.sharedMaterial == null)
+                renderer.sharedMaterial = ShootTheRockPrototypeBootstrap.CreateUnlitMaterial(new Color(0.45f, 0.75f, 1f, 0.18f));
+            ShootTheRockPrototypeBootstrap.SetMaterialColor(renderer.sharedMaterial, new Color(0.45f, 0.75f, 1f, 0.18f));
+            renderer.sortingOrder = 3;
+        }
+
+        MotherloadHubDomeZone domeZone = domeTransform.GetComponent<MotherloadHubDomeZone>();
+        if (domeZone != null)
+            domeZone.Configure(maxDownwardSpeed: 0.72f, brakeAcceleration: 32f);
+    }
+
+    private void BuildHubDomeMesh(Transform domeTransform, float halfWidth, float height)
+    {
+        MeshFilter meshFilter = domeTransform.GetComponent<MeshFilter>();
+        if (meshFilter == null)
+            return;
+
+        Mesh mesh = meshFilter.sharedMesh;
+        if (mesh == null)
+        {
+            mesh = new Mesh();
+            mesh.name = HubDomeName + "Mesh";
+            meshFilter.sharedMesh = mesh;
+        }
+
+        Vector3[] vertices = new Vector3[HubDomeSegments + 2];
+        int[] triangles = new int[HubDomeSegments * 3];
+        vertices[0] = Vector3.zero;
+        for (int i = 0; i <= HubDomeSegments; i++)
+        {
+            float t = i / (float)HubDomeSegments;
+            float angle = Mathf.PI - (Mathf.PI * t);
+            vertices[i + 1] = new Vector3(Mathf.Cos(angle) * halfWidth, Mathf.Sin(angle) * height, 0f);
+        }
+
+        for (int i = 0; i < HubDomeSegments; i++)
+        {
+            int triangleIndex = i * 3;
+            triangles[triangleIndex] = 0;
+            triangles[triangleIndex + 1] = i + 1;
+            triangles[triangleIndex + 2] = i + 2;
+        }
+
+        mesh.Clear();
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.RecalculateBounds();
+    }
+
+    private void ConfigureHubDomeCollider(Transform domeTransform, float halfWidth, float height)
+    {
+        PolygonCollider2D collider = domeTransform.GetComponent<PolygonCollider2D>();
+        if (collider == null)
+            return;
+
+        Vector2[] points = new Vector2[HubDomeSegments + 1];
+        for (int i = 0; i <= HubDomeSegments; i++)
+        {
+            float t = i / (float)HubDomeSegments;
+            float angle = Mathf.PI - (Mathf.PI * t);
+            points[i] = new Vector2(Mathf.Cos(angle) * halfWidth, Mathf.Sin(angle) * height);
+        }
+
+        collider.pathCount = 1;
+        collider.SetPath(0, points);
+        collider.isTrigger = true;
+    }
+
+    private Transform CreateOrUpdateHubSprite(string objectName, Vector3 worldPosition, Vector2 size, Color color, int sortingOrder)
+    {
+        Transform spriteTransform = transform.Find(objectName);
+        if (spriteTransform == null)
+        {
+            GameObject spriteObject = ShootTheRockPrototypeBootstrap.CreateSpriteObject(
+                objectName,
+                transform,
+                Vector3.zero,
+                Vector2.one,
+                color,
+                sortingOrder);
+            spriteTransform = spriteObject.transform;
+        }
+
+        spriteTransform.position = worldPosition;
+        spriteTransform.localScale = new Vector3(size.x, size.y, 1f);
+        SpriteRenderer renderer = spriteTransform.GetComponent<SpriteRenderer>();
+        if (renderer != null)
+        {
+            renderer.color = color;
+            renderer.sortingOrder = sortingOrder;
+        }
+
+        return spriteTransform;
     }
 
     private void ClearStaleRuntimeChunks()

@@ -8,11 +8,22 @@ public class CannonAim : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 9.25f;
-    [SerializeField] private float upwardThrustAcceleration = 31f;
-    [SerializeField] private float downwardThrustAcceleration = 21f;
-    [SerializeField] private float maxRiseSpeed = 9.4f;
-    [SerializeField] private float maxFallSpeed = 14f;
+    [SerializeField] private float horizontalThrustAcceleration = 8.5f;
+    [SerializeField] private float airBrakeAcceleration = 0.45f;
+    [SerializeField] private float groundBrakeAcceleration = 12f;
+    [SerializeField] private float airDrag = 0.015f;
+    [SerializeField] private float upwardThrustAcceleration = 13.5f;
+    [SerializeField] private float downwardThrustAcceleration = 5f;
+    [SerializeField] private float maxRiseSpeed = 6f;
+    [SerializeField] private float maxFallSpeed = 12.5f;
+    [SerializeField] private float controlledGravityScale = 0.55f;
+    [SerializeField] private float driftGravityScale = 0.7f;
+    [SerializeField] private float runawayFallGravityScale = 1.45f;
+    [SerializeField] private float fallGravityRampStartSpeed = 3.2f;
+    [SerializeField] private float fallGravityRampDelay = 0.38f;
+    [SerializeField] private float fallGravityRampDuration = 1.8f;
     [SerializeField] private float collisionSkin = 0.02f;
+    [SerializeField] private float groundedCheckDistance = 0.08f;
 
     [Header("Fuel")]
     [SerializeField] private bool enableFuelSystem;
@@ -21,12 +32,18 @@ public class CannonAim : MonoBehaviour
     [Min(0f)] [SerializeField] private float upwardFuelBurnPerSecond = 8.2f;
     [Min(0f)] [SerializeField] private float downwardFuelBurnPerSecond = 1.2f;
 
-    [Header("Motherload Fall Damage")]
+    [Header("Motherload Impact Damage")]
     [SerializeField] private bool enableFallDamage = true;
-    [Min(0f)] [SerializeField] private float fallDamageSafeImpactSpeed = 5.6f;
-    [Min(0f)] [SerializeField] private float fallDamageFatalImpactSpeed = 8.4f;
+    [Min(0f)] [SerializeField] private float fallDamageSafeImpactSpeed = 0.9f;
+    [Min(0f)] [SerializeField] private float mediumImpactDamageSpeed = 1.8f;
+    [Min(0f)] [SerializeField] private float heavyImpactDamageSpeed = 2.6f;
+    [Min(0f)] [SerializeField] private float severeImpactDamageSpeed = 3.5f;
+    [Min(0f)] [SerializeField] private float fallDamageFatalImpactSpeed = 6.5f;
     [Min(1)] [SerializeField] private int minorFallDamage = 1;
-    [Min(1)] [SerializeField] private int fatalFallDamage = 999;
+    [Min(1)] [SerializeField] private int mediumImpactDamage = 2;
+    [Min(1)] [SerializeField] private int heavyImpactDamage = 6;
+    [Min(1)] [SerializeField] private int severeImpactDamage = 12;
+    [Min(1)] [SerializeField] private int fatalFallDamage = 30;
     [Min(0f)] [SerializeField] private float fallDamageCooldown = 0.3f;
     [Min(0.02f)] [SerializeField] private float fallImpactMemorySeconds = 0.35f;
 
@@ -50,13 +67,18 @@ public class CannonAim : MonoBehaviour
     private Collider2D movementCollider;
     private AutoShooter shooter;
     private MotherloadPlayerVitals motherloadVitals;
+    private Transform aimBarrel;
+    private Transform aimFirePoint;
     private Vector2 moveInput;
     private ContactFilter2D movementContactFilter;
     private float currentFuel;
     private float motherloadMovementMultiplier = 1f;
     private float nextFallDamageTime;
-    private float recentImpactSpeed;
-    private float recentImpactSpeedTime;
+    private Vector2 recentImpactVelocity;
+    private float recentImpactVelocityTime;
+    private float uncontrolledFallTime;
+    private float aimBarrelDistance = 0.54f;
+    private float aimFirePointDistance = 1.06f;
     private int motherloadFuelUpgradeRank;
     private bool useMotherloadFuelCapacity;
     private bool fuelInitialized;
@@ -89,6 +111,8 @@ public class CannonAim : MonoBehaviour
     {
         enableFuelSystem = enabled;
         isDockedAtBase = false;
+        if (body != null && enableFuelSystem)
+            body.gravityScale = controlledGravityScale;
         SyncFuelCapacity(refillToFull: enabled || !fuelInitialized);
         isOutOfFuel = enableFuelSystem && currentFuel <= 0.001f;
 
@@ -204,7 +228,36 @@ public class CannonAim : MonoBehaviour
         {
             body.linearVelocity = Vector2.zero;
             body.angularVelocity = 0f;
+            body.rotation = 0f;
         }
+
+        transform.rotation = Quaternion.identity;
+        recentImpactVelocity = Vector2.zero;
+        recentImpactVelocityTime = 0f;
+        uncontrolledFallTime = 0f;
+        if (body != null && enableFuelSystem)
+            body.gravityScale = controlledGravityScale;
+    }
+
+    public void ApplyHubDomeBrake(float maxDownwardSpeed, float brakeAcceleration)
+    {
+        if (body == null)
+            CachePhysicsComponents();
+        if (body == null || body.bodyType != RigidbodyType2D.Dynamic)
+            return;
+
+        Vector2 velocity = body.linearVelocity;
+        float targetDownwardSpeed = Mathf.Max(0f, maxDownwardSpeed);
+        if (velocity.y < -targetDownwardSpeed)
+            velocity.y = Mathf.MoveTowards(velocity.y, -targetDownwardSpeed, Mathf.Max(0f, brakeAcceleration) * Time.fixedDeltaTime);
+
+        body.linearVelocity = velocity;
+        uncontrolledFallTime = 0f;
+        if (enableFuelSystem)
+            body.gravityScale = Mathf.Min(body.gravityScale, controlledGravityScale);
+
+        recentImpactVelocity = velocity;
+        recentImpactVelocityTime = Time.time;
     }
 
     public int GetFullRefillCost()
@@ -257,10 +310,24 @@ public class CannonAim : MonoBehaviour
         movementCollider = movementCollider != null ? movementCollider : GetComponent<Collider2D>();
         shooter = shooter != null ? shooter : GetComponent<AutoShooter>();
         motherloadVitals = motherloadVitals != null ? motherloadVitals : GetComponent<MotherloadPlayerVitals>();
+        CacheAimVisuals();
         movementContactFilter.useTriggers = false;
         movementContactFilter.useLayerMask = false;
         movementContactFilter.useDepth = false;
         movementContactFilter.useNormalAngle = false;
+    }
+
+    private void CacheAimVisuals()
+    {
+        if (aimBarrel == null)
+            aimBarrel = transform.Find("Barrel");
+        if (aimFirePoint == null)
+            aimFirePoint = transform.Find("FirePoint");
+
+        if (aimBarrel != null && aimBarrel.localPosition.sqrMagnitude > 0.001f)
+            aimBarrelDistance = aimBarrel.localPosition.magnitude;
+        if (aimFirePoint != null && aimFirePoint.localPosition.sqrMagnitude > 0.001f)
+            aimFirePointDistance = aimFirePoint.localPosition.magnitude;
     }
 
     private void EnsureFuelInitialized()
@@ -369,53 +436,108 @@ public class CannonAim : MonoBehaviour
     private void ApplyDynamicMovement()
     {
         Vector2 velocity = body.linearVelocity;
-        TrackPotentialFallImpactSpeed(velocity);
 
         float deltaTime = Time.fixedDeltaTime;
         UpdateFuelState(deltaTime);
+        bool grounded = IsGrounded();
+        bool applyingLift = !IsOutOfFuel && moveInput.y > 0.01f;
+        UpdateMotherloadGravityState(velocity, grounded, applyingLift, deltaTime);
 
         if (IsOutOfFuel)
         {
-            velocity.x = Mathf.MoveTowards(velocity.x, 0f, moveSpeed * 3.5f * deltaTime);
+            velocity.x = ApplyHorizontalSlowdown(velocity.x, grounded, deltaTime);
             velocity.y = Mathf.Max(velocity.y, -maxFallSpeed);
             body.linearVelocity = velocity;
-            TrackPotentialFallImpactSpeed(velocity);
+            TrackPotentialImpactVelocity(velocity);
             ClampDynamicBodyToCamera();
             return;
         }
 
-        float resolvedMoveSpeed = moveSpeed * motherloadMovementMultiplier;
-        velocity.x = moveInput.x * resolvedMoveSpeed;
+        float resolvedMaxHorizontalSpeed = moveSpeed * motherloadMovementMultiplier;
+        if (Mathf.Abs(moveInput.x) > 0.01f)
+        {
+            float targetHorizontalSpeed = moveInput.x * resolvedMaxHorizontalSpeed;
+            velocity.x = Mathf.MoveTowards(velocity.x, targetHorizontalSpeed, horizontalThrustAcceleration * motherloadMovementMultiplier * deltaTime);
+        }
+        else
+        {
+            velocity.x = ApplyHorizontalSlowdown(velocity.x, grounded, deltaTime);
+        }
+
         float gravityCompensation = Mathf.Abs(Physics2D.gravity.y) * Mathf.Max(0f, body.gravityScale);
 
         if (moveInput.y > 0.01f)
         {
             float riseAcceleration = upwardThrustAcceleration + gravityCompensation;
-            velocity.y = Mathf.MoveTowards(velocity.y, maxRiseSpeed, riseAcceleration * moveInput.y * deltaTime);
+            velocity.y += riseAcceleration * moveInput.y * deltaTime;
         }
         else if (moveInput.y < -0.01f)
         {
-            velocity.y = Mathf.MoveTowards(velocity.y, -maxFallSpeed, downwardThrustAcceleration * -moveInput.y * deltaTime);
+            velocity.y -= downwardThrustAcceleration * -moveInput.y * deltaTime;
         }
 
-        velocity.y = Mathf.Max(velocity.y, -maxFallSpeed);
+        velocity.x = Mathf.Clamp(velocity.x, -resolvedMaxHorizontalSpeed, resolvedMaxHorizontalSpeed);
+        velocity.x *= 1f / (1f + Mathf.Max(0f, airDrag) * deltaTime);
+        velocity.y = Mathf.Clamp(velocity.y, -maxFallSpeed, maxRiseSpeed);
         body.linearVelocity = velocity;
-        TrackPotentialFallImpactSpeed(velocity);
+        TrackPotentialImpactVelocity(velocity);
         ClampDynamicBodyToCamera();
     }
 
-    private void TrackPotentialFallImpactSpeed(Vector2 velocity)
+    private void TrackPotentialImpactVelocity(Vector2 velocity)
     {
-        float downwardSpeed = Mathf.Max(0f, -velocity.y);
-        float weightedLateralSpeed = Mathf.Abs(velocity.x) * 0.45f;
-        float impactSpeed = Mathf.Max(downwardSpeed, weightedLateralSpeed);
-        if (impactSpeed <= 0.01f)
-            return;
-        if (Time.time - recentImpactSpeedTime > fallImpactMemorySeconds)
-            recentImpactSpeed = 0f;
+        recentImpactVelocity = velocity.sqrMagnitude > 0.01f ? velocity : Vector2.zero;
+        recentImpactVelocityTime = Time.time;
+    }
 
-        recentImpactSpeed = Mathf.Max(recentImpactSpeed, impactSpeed);
-        recentImpactSpeedTime = Time.time;
+    private void UpdateMotherloadGravityState(Vector2 velocity, bool grounded, bool applyingLift, float deltaTime)
+    {
+        if (!enableFuelSystem || body == null)
+            return;
+
+        if (grounded || applyingLift || velocity.y > -fallGravityRampStartSpeed)
+            uncontrolledFallTime = Mathf.Max(0f, uncontrolledFallTime - (deltaTime * 2.5f));
+        else
+            uncontrolledFallTime += deltaTime;
+
+        float ramp = Mathf.InverseLerp(
+            Mathf.Max(0f, fallGravityRampDelay),
+            Mathf.Max(0.01f, fallGravityRampDelay + fallGravityRampDuration),
+            uncontrolledFallTime);
+
+        if (grounded)
+        {
+            body.gravityScale = controlledGravityScale;
+            return;
+        }
+
+        body.gravityScale = applyingLift
+            ? controlledGravityScale
+            : Mathf.Lerp(driftGravityScale, runawayFallGravityScale, ramp);
+    }
+
+    private float ApplyHorizontalSlowdown(float horizontalVelocity, bool grounded, float deltaTime)
+    {
+        float brakeAcceleration = grounded ? groundBrakeAcceleration : airBrakeAcceleration;
+        return Mathf.MoveTowards(horizontalVelocity, 0f, Mathf.Max(0f, brakeAcceleration) * deltaTime);
+    }
+
+    private bool IsGrounded()
+    {
+        if (body == null || movementCollider == null)
+            return false;
+
+        int hitCount = body.Cast(Vector2.down, movementContactFilter, castHits, groundedCheckDistance + collisionSkin);
+        for (int i = 0; i < hitCount; i++)
+        {
+            RaycastHit2D hit = castHits[i];
+            if (hit.collider == null || hit.collider.isTrigger)
+                continue;
+            if (hit.normal.y > 0.35f)
+                return true;
+        }
+
+        return false;
     }
 
     private void UpdateFuelState(float deltaTime)
@@ -533,6 +655,7 @@ public class CannonAim : MonoBehaviour
         Mouse mouse = Mouse.current;
         if (mouse == null)
             return;
+        CacheAimVisuals();
 
         Vector3 screenPoint = mouse.position.ReadValue();
         Vector3 worldPoint = sceneCamera.ScreenToWorldPoint(new Vector3(screenPoint.x, screenPoint.y, Mathf.Abs(sceneCamera.transform.position.z)));
@@ -541,7 +664,24 @@ public class CannonAim : MonoBehaviour
             return;
 
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        Vector3 localDirection = direction.normalized;
+        Quaternion aimRotation = Quaternion.Euler(0f, 0f, angle);
+
+        transform.rotation = Quaternion.identity;
+        if (body != null)
+            body.rotation = 0f;
+
+        if (aimBarrel != null)
+        {
+            aimBarrel.localPosition = localDirection * aimBarrelDistance;
+            aimBarrel.localRotation = aimRotation;
+        }
+
+        if (aimFirePoint != null)
+        {
+            aimFirePoint.localPosition = localDirection * aimFirePointDistance;
+            aimFirePoint.localRotation = aimRotation;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -577,29 +717,94 @@ public class CannonAim : MonoBehaviour
 
     private void HandleFallImpactDamage(Collision2D collision)
     {
-        if (!enableFallDamage || !enableFuelSystem || collision == null || collision.collider == null)
+        if (!enableFallDamage || collision == null || collision.collider == null)
             return;
         if (collision.collider.isTrigger || Time.time < nextFallDamageTime)
             return;
+        if (IsSafeLandingCollision(collision))
+        {
+            ClearImpactState();
+            return;
+        }
 
         if (motherloadVitals == null)
             motherloadVitals = GetComponent<MotherloadPlayerVitals>();
         if (motherloadVitals == null)
             return;
 
-        float verticalImpactSpeed = Mathf.Abs(collision.relativeVelocity.y);
-        float weightedImpactSpeed = collision.relativeVelocity.magnitude * 0.55f;
-        float impactSpeed = Mathf.Max(verticalImpactSpeed, weightedImpactSpeed);
-        if (Time.time - recentImpactSpeedTime <= fallImpactMemorySeconds)
-            impactSpeed = Mathf.Max(impactSpeed, recentImpactSpeed);
-        if (impactSpeed < fallDamageSafeImpactSpeed)
+        float impactSpeed = ResolveCollisionImpactSpeed(collision);
+        float damageImpactSpeed = impactSpeed;
+        if (damageImpactSpeed < fallDamageSafeImpactSpeed)
             return;
 
         nextFallDamageTime = Time.time + fallDamageCooldown;
-        recentImpactSpeed = 0f;
-        recentImpactSpeedTime = 0f;
-        int damage = impactSpeed >= fallDamageFatalImpactSpeed ? fatalFallDamage : minorFallDamage;
-        motherloadVitals.ApplyDamage(damage, "Killed by fall impact");
+        ClearImpactState();
+        int damage = ResolveImpactDamage(damageImpactSpeed);
+        motherloadVitals.ApplyDamage(damage, "Killed by impact");
+    }
+
+    private bool IsSafeLandingCollision(Collision2D collision)
+    {
+        if (collision == null || collision.collider == null)
+            return false;
+
+        MotherloadSafeLandingZone safeLandingZone = collision.collider.GetComponentInParent<MotherloadSafeLandingZone>();
+        if (safeLandingZone == null)
+            return false;
+        if (collision.contactCount <= 0)
+            return safeLandingZone.ContainsWorldPoint(transform.position);
+
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint2D contact = collision.GetContact(i);
+            if (contact.normal.y > 0.35f && safeLandingZone.ContainsWorldPoint(contact.point))
+                return true;
+        }
+
+        return false;
+    }
+
+    private float ResolveCollisionImpactSpeed(Collision2D collision)
+    {
+        if (collision == null || collision.contactCount <= 0)
+            return collision != null ? collision.relativeVelocity.magnitude : 0f;
+
+        Vector2 rememberedVelocity = Time.time - recentImpactVelocityTime <= fallImpactMemorySeconds
+            ? recentImpactVelocity
+            : Vector2.zero;
+        float impactSpeed = 0f;
+
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            ContactPoint2D contact = collision.GetContact(i);
+            Vector2 normal = contact.normal;
+            impactSpeed = Mathf.Max(impactSpeed, Mathf.Abs(Vector2.Dot(collision.relativeVelocity, normal)));
+            if (rememberedVelocity.sqrMagnitude > 0.0001f)
+                impactSpeed = Mathf.Max(impactSpeed, Mathf.Abs(Vector2.Dot(rememberedVelocity, normal)));
+        }
+
+        return impactSpeed;
+    }
+
+    private void ClearImpactState()
+    {
+        recentImpactVelocity = Vector2.zero;
+        recentImpactVelocityTime = 0f;
+        uncontrolledFallTime = 0f;
+    }
+
+    private int ResolveImpactDamage(float impactSpeed)
+    {
+        if (impactSpeed >= fallDamageFatalImpactSpeed)
+            return fatalFallDamage;
+        if (impactSpeed >= severeImpactDamageSpeed)
+            return severeImpactDamage;
+        if (impactSpeed >= heavyImpactDamageSpeed)
+            return heavyImpactDamage;
+        if (impactSpeed >= mediumImpactDamageSpeed)
+            return mediumImpactDamage;
+
+        return minorFallDamage;
     }
 
     private void OnCollisionExit2D(Collision2D collision)

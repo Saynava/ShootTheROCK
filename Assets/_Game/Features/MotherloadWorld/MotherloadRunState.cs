@@ -53,7 +53,7 @@ public sealed class MotherloadRunState
         int hullRank = metaProgression != null ? metaProgression.GetUpgradeRank(MotherloadUpgradeType.HullPlating) : 0;
         CargoCapacity = 30 + (cargoRank * 12);
         int previousMaxHull = Mathf.Max(1, MaxHull);
-        MaxHull = 3 + (hullRank * 2);
+        MaxHull = 6 + (hullRank * 3);
         if (CurrentHull <= 0)
             CurrentHull = MaxHull;
         else if (MaxHull != previousMaxHull)

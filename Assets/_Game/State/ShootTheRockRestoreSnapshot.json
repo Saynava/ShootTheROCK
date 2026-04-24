@@ -4573,7 +4573,7 @@
             "activeSelf": true,
             "layer": 0,
             "tag": "Untagged",
-            "siblingIndex": 2,
+            "siblingIndex": 10,
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
@@ -4623,7 +4623,7 @@
                 {
                     "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
-                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 4,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.41999998688697817,\n            \"g\": 0.4399999976158142,\n            \"b\": 0.47999998927116396,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": false,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 4,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.41999998688697817,\n            \"g\": 0.4399999976158142,\n            \"b\": 0.47999998927116396,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
                 },
                 {
                     "typeName": "UnityEngine.BoxCollider2D, UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
@@ -4637,7 +4637,7 @@
             "activeSelf": true,
             "layer": 0,
             "tag": "Untagged",
-            "siblingIndex": 3,
+            "siblingIndex": 11,
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
@@ -4765,7 +4765,7 @@
             "activeSelf": true,
             "layer": 0,
             "tag": "Untagged",
-            "siblingIndex": 0,
+            "siblingIndex": 8,
             "hasRectTransform": false,
             "localPosition": {
                 "x": 0.0,
@@ -7712,11 +7712,498 @@
             ]
         },
         {
-            "path": "ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand",
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubBeacon",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 4,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -50.0,
+                "y": -0.15999996662139893,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 0.3799999952316284,
+                "y": 0.18000000715255738,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 7,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.7799999713897705,\n            \"g\": 0.9300000071525574,\n            \"b\": 1.0,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubCore",
             "activeSelf": true,
             "layer": 0,
             "tag": "Untagged",
             "siblingIndex": 1,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -50.0,
+                "y": -0.7799999713897705,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 3.5999999046325685,
+                "y": 1.152000069618225,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 6,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.44999998807907107,\n            \"g\": 0.5,\n            \"b\": 0.5799999833106995,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubDeck",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 0,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -50.0,
+                "y": -1.340000033378601,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 9.5,
+                "y": 0.3199999928474426,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 5,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.30000001192092898,\n            \"g\": 0.3400000035762787,\n            \"b\": 0.4000000059604645,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubDome",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 7,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -50.0,
+                "y": -1.4199999570846558,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.MeshFilter, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MeshFilter\": {\n        \"m_Mesh\": {\n            \"instanceID\": 0\n        }\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.MeshRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MeshRenderer\": {\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 1,\n        \"m_ReceiveShadows\": true,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 2,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"instanceID\": 0\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 3,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 3,\n        \"m_MaskInteraction\": 0,\n        \"m_AdditionalVertexStreams\": {\n            \"instanceID\": 0\n        }\n    }\n}"
+                },
+                {
+                    "typeName": "UnityEngine.PolygonCollider2D, UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"PolygonCollider2D\": {\n        \"m_Enabled\": true,\n        \"serializedVersion\": \"3\",\n        \"m_Density\": 1.0,\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_IncludeLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 0\n        },\n        \"m_ExcludeLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 0\n        },\n        \"m_LayerOverridePriority\": 0,\n        \"m_ForceSendLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_ForceReceiveLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_ContactCaptureLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_CallbackLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_IsTrigger\": true,\n        \"m_UsedByEffector\": false,\n        \"m_CompositeOperation\": 0,\n        \"m_CompositeOrder\": 0,\n        \"m_Offset\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"m_SpriteTilingProperty\": {\n            \"border\": {\n                \"x\": 0.0,\n                \"y\": 0.0,\n                \"z\": 0.0,\n                \"w\": 0.0\n            },\n            \"pivot\": {\n                \"x\": 0.0,\n                \"y\": 0.0\n            },\n            \"oldSize\": {\n                \"x\": 0.0,\n                \"y\": 0.0\n            },\n            \"newSize\": {\n                \"x\": 0.0,\n                \"y\": 0.0\n            },\n            \"adaptiveTilingThreshold\": 0.0,\n            \"drawMode\": 0,\n            \"adaptiveTiling\": false\n        },\n        \"m_AutoTiling\": false,\n        \"m_Points\": {\n            \"m_Paths\": [\n                [\n                    {\n                        \"x\": -5.509999752044678,\n                        \"y\": -3.0073437073951938e-7\n                    },\n                    {\n                        \"x\": -5.4834675788879398,\n                        \"y\": 0.3371788263320923\n                    },\n                    {\n                        \"x\": -5.4041266441345219,\n                        \"y\": 0.6711107492446899\n                    },\n                    {\n                        \"x\": -5.272741317749023,\n                        \"y\": 0.9985795617103577\n                    },\n                    {\n                        \"x\": -5.090576648712158,\n                        \"y\": 1.3164305686950684\n                    },\n                    {\n                        \"x\": -4.859386444091797,\n                        \"y\": 1.621604561805725\n                    },\n                    {\n                        \"x\": -4.581397533416748,\n                        \"y\": 1.9111615419387818\n                    },\n                    {\n                        \"x\": -4.2592878341674809,\n                        \"y\": 2.1823129653930666\n                    },\n                    {\n                        \"x\": -3.896158218383789,\n                        \"y\": 2.4324474334716799\n                    },\n                    {\n                        \"x\": -3.495506763458252,\n                        \"y\": 2.659156322479248\n                    },\n                    {\n                        \"x\": -3.061192512512207,\n                        \"y\": 2.860255479812622\n                    },\n                    {\n                        \"x\": -2.5973963737487795,\n                        \"y\": 3.033809185028076\n                    },\n                    {\n                        \"x\": -2.108586072921753,\n                        \"y\": 3.1781458854675295\n                    },\n                    {\n                        \"x\": -1.59946870803833,\n                        \"y\": 3.291874885559082\n                    },\n                    {\n                        \"x\": -1.0749475955963135,\n                        \"y\": 3.373901605606079\n                    },\n                    {\n                        \"x\": -0.54007488489151,\n                        \"y\": 3.423435688018799\n                    },\n                    {\n                        \"x\": -2.4084974370452985e-7,\n                        \"y\": 3.440000295639038\n                    },\n                    {\n                        \"x\": 0.5400744080543518,\n                        \"y\": 3.423435688018799\n                    },\n                    {\n                        \"x\": 1.0749471187591553,\n                        \"y\": 3.373901844024658\n                    },\n                    {\n                        \"x\": 1.5994682312011719,\n                        \"y\": 3.291875123977661\n                    },\n                    {\n                        \"x\": 2.1085855960845949,\n                        \"y\": 3.1781458854675295\n                    },\n                    {\n                        \"x\": 2.597395420074463,\n                        \"y\": 3.0338094234466554\n                    },\n                    {\n                        \"x\": 3.0611915588378908,\n                        \"y\": 2.8602559566497804\n                    },\n                    {\n                        \"x\": 3.495506763458252,\n                        \"y\": 2.659156084060669\n                    },\n                    {\n                        \"x\": 3.896158218383789,\n                        \"y\": 2.4324474334716799\n                    },\n                    {\n                        \"x\": 4.259287357330322,\n                        \"y\": 2.1823132038116457\n                    },\n                    {\n                        \"x\": 4.58139705657959,\n                        \"y\": 1.9111617803573609\n                    },\n                    {\n                        \"x\": 4.859385967254639,\n                        \"y\": 1.6216049194335938\n                    },\n                    {\n                        \"x\": 5.090575695037842,\n                        \"y\": 1.3164311647415162\n                    },\n                    {\n                        \"x\": 5.272741317749023,\n                        \"y\": 0.9985793232917786\n                    },\n                    {\n                        \"x\": 5.4041266441345219,\n                        \"y\": 0.6711107492446899\n                    },\n                    {\n                        \"x\": 5.4834675788879398,\n                        \"y\": 0.3371790051460266\n                    },\n                    {\n                        \"x\": 5.509999752044678,\n                        \"y\": 0.0\n                    }\n                ]\n            ]\n        },\n        \"m_UseDelaunayMesh\": true\n    }\n}"
+                },
+                {
+                    "typeName": "MotherloadHubDomeZone, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::MotherloadHubDomeZone\",\n        \"maxDownwardSpeed\": 0.7200000286102295,\n        \"brakeAcceleration\": 32.0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubLeftPylon",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 2,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -53.98999786376953,
+                "y": -0.8799999952316284,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 0.2199999988079071,
+                "y": 0.9200000166893005,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 6,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.20000000298023225,\n            \"g\": 0.23000000417232514,\n            \"b\": 0.2800000011920929,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeLeft",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 5,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -52.185001373291019,
+                "y": -1.149999976158142,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.7100000381469727,
+                "y": 0.07000000029802323,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 7,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.7799999713897705,\n            \"g\": 0.8399999737739563,\n            \"b\": 0.9200000166893005,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubPadStripeRight",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 6,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -47.814998626708987,
+                "y": -1.149999976158142,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 1.7100000381469727,
+                "y": 0.07000000029802323,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 7,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.7799999713897705,\n            \"g\": 0.8399999737739563,\n            \"b\": 0.9200000166893005,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadHubRightPylon",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 3,
+            "hasRectTransform": false,
+            "localPosition": {
+                "x": -46.01000213623047,
+                "y": -0.8799999952316284,
+                "z": 0.0
+            },
+            "localRotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0,
+                "w": 1.0
+            },
+            "localScale": {
+                "x": 0.2199999988079071,
+                "y": 0.9200000166893005,
+                "z": 1.0
+            },
+            "anchorMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchorMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "pivot": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "anchoredPosition": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "sizeDelta": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMin": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "offsetMax": {
+                "x": 0.0,
+                "y": 0.0
+            },
+            "components": [
+                {
+                    "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 6,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.20000000298023225,\n            \"g\": 0.23000000417232514,\n            \"b\": 0.2800000011920929,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                }
+            ]
+        },
+        {
+            "path": "ShootTheRockScene/MotherloadWorld/MotherloadSurfaceBand",
+            "activeSelf": true,
+            "layer": 0,
+            "tag": "Untagged",
+            "siblingIndex": 9,
             "hasRectTransform": false,
             "localPosition": {
                 "x": -50.0,
@@ -7766,12 +8253,17 @@
                 {
                     "typeName": "UnityEngine.SpriteRenderer, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
-                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 2,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.20000000298023225,\n            \"g\": 0.11999999731779099,\n            \"b\": 0.05000000074505806,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
+                    "json": "{\n    \"SpriteRenderer\": {\n        \"serializedVersion\": \"2\",\n        \"m_Enabled\": true,\n        \"m_CastShadows\": 0,\n        \"m_ReceiveShadows\": false,\n        \"m_DynamicOccludee\": true,\n        \"m_StaticShadowCaster\": false,\n        \"m_MotionVectors\": 1,\n        \"m_LightProbeUsage\": 1,\n        \"m_ReflectionProbeUsage\": 1,\n        \"m_RayTracingMode\": 0,\n        \"m_RayTraceProcedural\": false,\n        \"m_RayTracingAccelStructBuildFlagsOverride\": false,\n        \"m_RayTracingAccelStructBuildFlags\": 1,\n        \"m_SmallMeshCulling\": true,\n        \"m_ForceMeshLod\": -1,\n        \"m_MeshLodSelectionBias\": 0.0,\n        \"m_RenderingLayerMask\": 1,\n        \"m_RendererPriority\": 0,\n        \"m_Materials\": [\n            {\n                \"fileID\": 2100000,\n                \"guid\": \"a97c105638bdf8b4a8650670310a4cd3\",\n                \"type\": 2\n            }\n        ],\n        \"m_StaticBatchInfo\": {\n            \"firstSubMesh\": 0,\n            \"subMeshCount\": 0\n        },\n        \"m_StaticBatchRoot\": {\n            \"instanceID\": 0\n        },\n        \"m_ProbeAnchor\": {\n            \"instanceID\": 0\n        },\n        \"m_LightProbeVolumeOverride\": {\n            \"instanceID\": 0\n        },\n        \"m_ScaleInLightmap\": 1.0,\n        \"m_ReceiveGI\": 1,\n        \"m_PreserveUVs\": false,\n        \"m_IgnoreNormalsForChartDetection\": false,\n        \"m_ImportantGI\": false,\n        \"m_StitchLightmapSeams\": true,\n        \"m_SelectedEditorRenderState\": 0,\n        \"m_MinimumChartSize\": 4,\n        \"m_AutoUVMaxDistance\": 0.5,\n        \"m_AutoUVMaxAngle\": 89.0,\n        \"m_LightmapParameters\": {\n            \"instanceID\": 0\n        },\n        \"m_GlobalIlluminationMeshLod\": 0,\n        \"m_SortingLayerID\": 0,\n        \"m_SortingLayer\": 0,\n        \"m_SortingOrder\": 4,\n        \"m_MaskInteraction\": 0,\n        \"m_Sprite\": {\n            \"instanceID\": 0\n        },\n        \"m_Color\": {\n            \"r\": 0.1599999964237213,\n            \"g\": 0.17000000178813935,\n            \"b\": 0.1899999976158142,\n            \"a\": 1.0\n        },\n        \"m_FlipX\": false,\n        \"m_FlipY\": false,\n        \"m_DrawMode\": 0,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_AdaptiveModeThreshold\": 0.5,\n        \"m_SpriteTileMode\": 0,\n        \"m_WasSpriteAssigned\": true,\n        \"m_SpriteSortPoint\": 0\n    }\n}"
                 },
                 {
                     "typeName": "UnityEngine.BoxCollider2D, UnityEngine.Physics2DModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                     "typeIndex": 0,
                     "json": "{\n    \"BoxCollider2D\": {\n        \"m_Enabled\": true,\n        \"serializedVersion\": \"3\",\n        \"m_Density\": 1.0,\n        \"m_Material\": {\n            \"instanceID\": 0\n        },\n        \"m_IncludeLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 0\n        },\n        \"m_ExcludeLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 0\n        },\n        \"m_LayerOverridePriority\": 0,\n        \"m_ForceSendLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_ForceReceiveLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_ContactCaptureLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_CallbackLayers\": {\n            \"serializedVersion\": \"2\",\n            \"m_Bits\": 4294967295\n        },\n        \"m_IsTrigger\": false,\n        \"m_UsedByEffector\": false,\n        \"m_CompositeOperation\": 0,\n        \"m_CompositeOrder\": 0,\n        \"m_Offset\": {\n            \"x\": 0.0,\n            \"y\": 0.0\n        },\n        \"m_SpriteTilingProperty\": {\n            \"border\": {\n                \"x\": 0.0,\n                \"y\": 0.0,\n                \"z\": 0.0,\n                \"w\": 0.0\n            },\n            \"pivot\": {\n                \"x\": 0.5,\n                \"y\": 0.5\n            },\n            \"oldSize\": {\n                \"x\": 1.0,\n                \"y\": 1.0\n            },\n            \"newSize\": {\n                \"x\": 1.0,\n                \"y\": 1.0\n            },\n            \"adaptiveTilingThreshold\": 0.5,\n            \"drawMode\": 0,\n            \"adaptiveTiling\": false\n        },\n        \"m_AutoTiling\": false,\n        \"m_Size\": {\n            \"x\": 1.0,\n            \"y\": 1.0\n        },\n        \"m_EdgeRadius\": 0.0\n    }\n}"
+                },
+                {
+                    "typeName": "MotherloadSafeLandingZone, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "typeIndex": 0,
+                    "json": "{\n    \"MonoBehaviour\": {\n        \"m_Enabled\": true,\n        \"m_EditorHideFlags\": 0,\n        \"m_Name\": \"\",\n        \"m_EditorClassIdentifier\": \"Assembly-CSharp::MotherloadSafeLandingZone\",\n        \"centerX\": 0.0,\n        \"halfWidth\": 5.130000114440918,\n        \"maxSafeContactY\": -1.0800000429153443\n    }\n}"
                 }
             ]
         },

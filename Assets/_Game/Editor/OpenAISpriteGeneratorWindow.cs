@@ -19,6 +19,11 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
     private const string QualityPrefKey = "ShootTheRock.OpenAI.SpriteGenerator.Quality";
     private const string StylePrefKey = "ShootTheRock.OpenAI.SpriteGenerator.Style";
     private const string PixelsPerUnitPrefKey = "ShootTheRock.OpenAI.SpriteGenerator.PixelsPerUnit";
+    private const string RemoveChromaKeyPrefKey = "ShootTheRock.OpenAI.SpriteGenerator.RemoveChromaKey";
+    private const string ChromaKeyTolerancePrefKey = "ShootTheRock.OpenAI.SpriteGenerator.ChromaKeyTolerance";
+    private const string ChromaKeyFeatherPrefKey = "ShootTheRock.OpenAI.SpriteGenerator.ChromaKeyFeather";
+    private const float DefaultChromaKeyTolerance = 0.26f;
+    private const float DefaultChromaKeyFeather = 0.12f;
 
     private static readonly string[] Sizes =
     {
@@ -50,6 +55,9 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
     private string selectedSize;
     private string selectedQuality;
     private int pixelsPerUnit;
+    private bool removeChromaKey;
+    private float chromaKeyTolerance;
+    private float chromaKeyFeather;
     private bool savePromptMetadata;
     private bool revealAfterGeneration;
     private bool isGenerating;
@@ -65,6 +73,29 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
         window.minSize = new Vector2(520f, 620f);
     }
 
+    [MenuItem("Tools/Shoot the ROCK/Remove Green Background From Selected Sprites")]
+    public static void RemoveGreenBackgroundFromSelection()
+    {
+        int processedCount = 0;
+        foreach (UnityEngine.Object selectedObject in Selection.objects)
+        {
+            string assetPath = AssetDatabase.GetAssetPath(selectedObject);
+            if (string.IsNullOrWhiteSpace(assetPath))
+                continue;
+
+            string extension = Path.GetExtension(assetPath);
+            if (!string.Equals(extension, ".png", StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            RemoveGreenBackground(assetPath, DefaultChromaKeyTolerance, DefaultChromaKeyFeather);
+            processedCount++;
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log($"Removed green background from {processedCount} selected sprite PNG(s).");
+    }
+
     private void OnEnable()
     {
         EditorPrefs.DeleteKey(LegacyApiKeyPrefKey);
@@ -75,6 +106,9 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
         selectedSize = EditorPrefs.GetString(SizePrefKey, "1024x1024");
         selectedQuality = EditorPrefs.GetString(QualityPrefKey, "low");
         pixelsPerUnit = EditorPrefs.GetInt(PixelsPerUnitPrefKey, 100);
+        removeChromaKey = EditorPrefs.GetBool(RemoveChromaKeyPrefKey, true);
+        chromaKeyTolerance = EditorPrefs.GetFloat(ChromaKeyTolerancePrefKey, DefaultChromaKeyTolerance);
+        chromaKeyFeather = EditorPrefs.GetFloat(ChromaKeyFeatherPrefKey, DefaultChromaKeyFeather);
         stylePrompt = EditorPrefs.GetString(StylePrefKey, DefaultStylePrompt);
         assetName = "rock_enemy";
         assetDescription = "A chunky living rock enemy with glowing cracks, made for a mining arcade action game.";
@@ -150,6 +184,13 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
         pixelsPerUnit = EditorGUILayout.IntField("Pixels Per Unit", Mathf.Max(1, pixelsPerUnit));
         selectedSize = DrawPopup("Size", selectedSize, Sizes);
         selectedQuality = DrawPopup("Quality", selectedQuality, Qualities);
+        removeChromaKey = EditorGUILayout.Toggle("Remove Green Background", removeChromaKey);
+        using (new EditorGUI.DisabledScope(!removeChromaKey))
+        {
+            chromaKeyTolerance = EditorGUILayout.Slider("Green Tolerance", chromaKeyTolerance, 0.01f, 0.65f);
+            chromaKeyFeather = EditorGUILayout.Slider("Edge Feather", chromaKeyFeather, 0f, 0.35f);
+        }
+
         savePromptMetadata = EditorGUILayout.Toggle("Save Prompt Metadata", savePromptMetadata);
         revealAfterGeneration = EditorGUILayout.Toggle("Reveal After Generate", revealAfterGeneration);
     }
@@ -247,6 +288,9 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
         EditorPrefs.SetString(QualityPrefKey, selectedQuality);
         EditorPrefs.SetString(StylePrefKey, stylePrompt);
         EditorPrefs.SetInt(PixelsPerUnitPrefKey, pixelsPerUnit);
+        EditorPrefs.SetBool(RemoveChromaKeyPrefKey, removeChromaKey);
+        EditorPrefs.SetFloat(ChromaKeyTolerancePrefKey, chromaKeyTolerance);
+        EditorPrefs.SetFloat(ChromaKeyFeatherPrefKey, chromaKeyFeather);
 
         isGenerating = true;
         progress = 0f;
@@ -264,6 +308,9 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
 
                 string prompt = BuildPrompt(job.Description);
                 string assetPath = await GenerateSpriteAsync(job.FileName, prompt, resolvedApiKey);
+                if (removeChromaKey)
+                    RemoveGreenBackground(assetPath, chromaKeyTolerance, chromaKeyFeather);
+
                 ConfigureTextureAsSprite(assetPath);
                 lastSavedAssetPath = assetPath;
 
@@ -348,6 +395,177 @@ public class OpenAISpriteGeneratorWindow : EditorWindow
         importer.filterMode = FilterMode.Point;
         importer.textureCompression = TextureImporterCompression.Uncompressed;
         importer.SaveAndReimport();
+    }
+
+    private static void RemoveGreenBackground(string assetPath, float tolerance, float feather)
+    {
+        string fullPath = Path.GetFullPath(assetPath);
+        byte[] sourceBytes = File.ReadAllBytes(fullPath);
+        Texture2D texture = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+
+        if (!texture.LoadImage(sourceBytes))
+        {
+            DestroyImmediate(texture);
+            throw new InvalidOperationException($"Could not read generated PNG: {assetPath}");
+        }
+
+        Color32[] pixels = texture.GetPixels32();
+        Color keyColor = new Color(0f, 1f, 0f, 1f);
+        float transparentDistance = Mathf.Max(0.001f, tolerance);
+        float opaqueDistance = transparentDistance + Mathf.Max(0.001f, feather);
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            Color pixel = pixels[i];
+            float distance = Vector3.Distance(
+                new Vector3(pixel.r, pixel.g, pixel.b),
+                new Vector3(keyColor.r, keyColor.g, keyColor.b));
+
+            if (distance <= transparentDistance)
+            {
+                pixels[i].a = 0;
+                continue;
+            }
+
+            if (distance < opaqueDistance)
+            {
+                float alpha = Mathf.InverseLerp(transparentDistance, opaqueDistance, distance);
+                pixels[i].a = (byte)Mathf.RoundToInt(Mathf.Min(pixels[i].a, alpha * 255f));
+            }
+        }
+
+        texture.SetPixels32(pixels);
+        RemoveGreenSpill(pixels, texture.width, texture.height);
+        BleedOpaqueColorsIntoTransparentPixels(pixels, texture.width, texture.height, 12);
+        texture.SetPixels32(pixels);
+        texture.Apply(false, false);
+        File.WriteAllBytes(fullPath, texture.EncodeToPNG());
+        DestroyImmediate(texture);
+        AssetDatabase.ImportAsset(assetPath);
+    }
+
+    private static void RemoveGreenSpill(Color32[] pixels, int width, int height)
+    {
+        Color32[] source = (Color32[])pixels.Clone();
+
+        for (int i = 0; i < pixels.Length; i++)
+        {
+            Color32 pixel = source[i];
+            if (pixel.a == 0)
+                continue;
+
+            int strongestNonGreen = Mathf.Max(pixel.r, pixel.b);
+            int greenDominance = pixel.g - strongestNonGreen;
+            if (greenDominance <= 8)
+                continue;
+
+            int x = i % width;
+            int y = i / width;
+            bool edgePixel = pixel.a < 245 || HasTransparentNeighbor(source, width, height, x, y);
+            if (!edgePixel && greenDominance < 72)
+                continue;
+
+            float strength = Mathf.InverseLerp(8f, 96f, greenDominance);
+            if (!edgePixel)
+                strength *= 0.35f;
+
+            byte cleanedGreen = (byte)Mathf.RoundToInt(Mathf.Lerp(pixel.g, strongestNonGreen, strength));
+            pixels[i].g = cleanedGreen;
+
+            if (edgePixel && pixel.g > 150 && greenDominance > 42)
+            {
+                float alphaScale = Mathf.Lerp(1f, 0.18f, strength);
+                pixels[i].a = (byte)Mathf.RoundToInt(pixel.a * alphaScale);
+            }
+        }
+    }
+
+    private static void BleedOpaqueColorsIntoTransparentPixels(Color32[] pixels, int width, int height, int iterations)
+    {
+        for (int iteration = 0; iteration < iterations; iteration++)
+        {
+            Color32[] source = (Color32[])pixels.Clone();
+            bool changed = false;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    int index = y * width + x;
+                    if (source[index].a != 0)
+                        continue;
+
+                    int red = 0;
+                    int green = 0;
+                    int blue = 0;
+                    int count = 0;
+
+                    for (int offsetY = -1; offsetY <= 1; offsetY++)
+                    {
+                        int sampleY = y + offsetY;
+                        if (sampleY < 0 || sampleY >= height)
+                            continue;
+
+                        for (int offsetX = -1; offsetX <= 1; offsetX++)
+                        {
+                            if (offsetX == 0 && offsetY == 0)
+                                continue;
+
+                            int sampleX = x + offsetX;
+                            if (sampleX < 0 || sampleX >= width)
+                                continue;
+
+                            Color32 sample = source[sampleY * width + sampleX];
+                            if (sample.a == 0)
+                                continue;
+
+                            red += sample.r;
+                            green += sample.g;
+                            blue += sample.b;
+                            count++;
+                        }
+                    }
+
+                    if (count == 0)
+                        continue;
+
+                    pixels[index] = new Color32(
+                        (byte)(red / count),
+                        (byte)(green / count),
+                        (byte)(blue / count),
+                        0);
+                    changed = true;
+                }
+            }
+
+            if (!changed)
+                return;
+        }
+    }
+
+    private static bool HasTransparentNeighbor(Color32[] pixels, int width, int height, int x, int y)
+    {
+        for (int offsetY = -1; offsetY <= 1; offsetY++)
+        {
+            int sampleY = y + offsetY;
+            if (sampleY < 0 || sampleY >= height)
+                continue;
+
+            for (int offsetX = -1; offsetX <= 1; offsetX++)
+            {
+                if (offsetX == 0 && offsetY == 0)
+                    continue;
+
+                int sampleX = x + offsetX;
+                if (sampleX < 0 || sampleX >= width)
+                    continue;
+
+                if (pixels[sampleY * width + sampleX].a < 32)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     private void SavePromptMetadata(string assetPath, string prompt)
