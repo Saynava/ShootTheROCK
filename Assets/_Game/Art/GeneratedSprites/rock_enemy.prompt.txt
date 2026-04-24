@@ -1,0 +1,7 @@
+Model: gpt-image-2
+Size: 1024x1024
+Quality: low
+
+A chunky living rock enemy with glowing cracks, made for a mining arcade action game.
+
+Create a single 2D game sprite for Shoot the ROCK. Stylized arcade mining action look, clear readable silhouette, centered object, orthographic three-quarter view, consistent top-left lighting, crisp edges, no text, no UI, no watermark. Put the object on a perfectly flat solid #00FF00 chroma-key background for easy cleanup after generation.

@@ -15,26 +15,16 @@ public class MotherloadWorldController : MonoBehaviour
     private const string SurfaceBandName = "MotherloadSurfaceBand";
     private const string BaseBuildingName = "MotherloadBaseBuilding";
     private const string BaseZoneName = "MotherloadBaseZone";
-    private static readonly Vector2[] StarterCopperPocketLayout =
-    {
-        new Vector2(0.50f, 6.5f),
-        new Vector2(0.50f, 11.5f),
-        new Vector2(0.22f, 9.5f),
-        new Vector2(0.22f, 15.5f),
-        new Vector2(0.78f, 9.5f),
-        new Vector2(0.78f, 15.5f),
-    };
-
-    private static readonly Vector2Int[] CopperVeinShape =
-    {
-        new Vector2Int(-1, 0),
-        new Vector2Int(0, 0),
-        new Vector2Int(1, 0),
-        new Vector2Int(-1, 1),
-        new Vector2Int(0, 1),
-        new Vector2Int(1, 1),
-        new Vector2Int(0, -1),
-    };
+    private const int StarterOrePlacementAttemptsPerBody = 48;
+    private const int SilverBeltStartChunkRow = 3;
+    private const int GoldPreviewStartChunkRow = 7;
+    private const float GasPocketTriggerRadius = 0.72f;
+    private const float GasPocketExplosionRadius = 2.35f;
+    private const float GasPocketExplosionCenterDamage = 14f;
+    private const float GasPocketExplosionOuterDamage = 6f;
+    private const int GasPocketHullDamage = 999;
+    private const float MinimumBaseDomeHalfWidth = 12.6f;
+    private const float MinimumBaseDomeHeight = 10.05f;
 
     [Header("References")]
     [SerializeField] private Camera sceneCamera;
@@ -67,29 +57,24 @@ public class MotherloadWorldController : MonoBehaviour
     [Range(0f, 1f)] [SerializeField] private float caveDetailThreshold = 0.52f;
     [Min(1)] [SerializeField] private int edgeBedrockThicknessCells = 2;
 
-    [Header("Layer Layout")]
-    [Min(8f)] [SerializeField] private float dirtLayerDepth = 48f;
+    [Header("Base Dome")]
+    [SerializeField] private bool carveBaseDome = true;
+    [Min(0.5f)] [SerializeField] private float baseDomeHalfWidth = MinimumBaseDomeHalfWidth;
+    [Min(0.5f)] [SerializeField] private float baseDomeHeight = MinimumBaseDomeHeight;
 
-    [Header("Starting Dirt Ores")]
-    [Min(0f)] [SerializeField] private float copperValuePerCell = 0.45f;
-    [Min(0f)] [SerializeField] private float silverValuePerCell = 14f;
-    [Min(0f)] [SerializeField] private float goldValuePerCell = 40f;
-    [Min(0)] [SerializeField] private int copperClustersPerChunk = 1;
-    [Min(0)] [SerializeField] private int silverClustersPerChunk = 1;
-    [Range(0f, 1f)] [SerializeField] private float rareGoldChunkChance = 0.06f;
-    [Min(1)] [SerializeField] private int copperClusterMinRadiusCells = 1;
-    [Min(1)] [SerializeField] private int copperClusterMaxRadiusCells = 2;
-    [Min(1)] [SerializeField] private int silverClusterMinRadiusCells = 1;
-    [Min(1)] [SerializeField] private int silverClusterMaxRadiusCells = 1;
-    [Min(1)] [SerializeField] private int goldClusterMinRadiusCells = 1;
-    [Min(1)] [SerializeField] private int goldClusterMaxRadiusCells = 1;
-
-    [Header("Starter Loop Economy")]
-    [Min(1f)] [SerializeField] private float starterCopperPocketMaxDepth = 18f;
-    [Min(1)] [SerializeField] private int starterCopperPocketSizeCells = 2;
-    [Min(0f)] [SerializeField] private float deepCopperStartDepth = 22f;
-    [Min(0f)] [SerializeField] private float silverStartDepth = 34f;
-    [Min(0f)] [SerializeField] private float goldStartDepth = 46f;
+    [Header("Starter Ore Band")]
+    [Min(1)] [SerializeField] private int starterBandChunkRows = 7;
+    [Min(0f)] [SerializeField] private float copperValuePerCell = 1f;
+    [Min(0f)] [SerializeField] private float tinValuePerCell = 2f;
+    [Min(0f)] [SerializeField] private float silverValuePerCell = 3f;
+    [Min(0f)] [SerializeField] private float goldValuePerCell = 6f;
+    [Min(1)] [SerializeField] private int starterBandMaxOresPerChunk = 4;
+    [Min(0)] [SerializeField] private int starterBandMaxCopperPerChunk = 2;
+    [Min(0)] [SerializeField] private int starterBandMaxTinPerChunk = 3;
+    [Min(0)] [SerializeField] private int starterBandMaxSilverPerChunk = 2;
+    [Min(1)] [SerializeField] private int starterOreBodyMinCells = 20;
+    [Min(1)] [SerializeField] private int starterOreBodyMaxCells = 30;
+    [Min(0)] [SerializeField] private int starterOreBodyPaddingCells = 4;
 
     [Header("Destruction")]
     [Min(0.1f)] [SerializeField] private float projectileBlastRadius = 0.95f;
@@ -116,7 +101,10 @@ public class MotherloadWorldController : MonoBehaviour
     private readonly Dictionary<MotherloadChunkCoordinate, MotherloadChunkData> chunkDataByCoordinate = new Dictionary<MotherloadChunkCoordinate, MotherloadChunkData>();
     private readonly Dictionary<MotherloadChunkCoordinate, MotherloadChunkRuntime> activeChunks = new Dictionary<MotherloadChunkCoordinate, MotherloadChunkRuntime>();
     private readonly List<MotherloadChunkCoordinate> releaseBuffer = new List<MotherloadChunkCoordinate>();
+    private readonly MotherloadRunState runState = new MotherloadRunState();
+    private readonly MotherloadMetaProgressionState metaProgression = new MotherloadMetaProgressionState();
     private bool initialized;
+    private int runSequence;
     private Vector3 cameraFollowVelocity;
 
     public float ChunkWorldWidth => cellsPerChunkX / Mathf.Max(1f, cellsPerUnit);
@@ -125,11 +113,13 @@ public class MotherloadWorldController : MonoBehaviour
     public float StripCenterX => stripCenterX;
     public float SurfaceY => surfaceY;
     public bool StreamsUpward => verticalFlowDirection == MotherloadVerticalFlowDirection.Upward;
-    public float TerrainStartY => StreamsUpward ? surfaceY + upwardTerrainStartOffset : surfaceY;
+    public float TerrainStartY => surfaceY;
     public bool DebugLoggingEnabled => enableDebugLogging;
     public bool ShouldLogChunkLifecycle => enableDebugLogging && logChunkLifecycle;
     public bool ShouldLogChunkRebuilds => enableDebugLogging && logChunkRebuilds;
     public bool ShouldLogProjectileHits => enableDebugLogging && logProjectileHits;
+    public MotherloadRunState RunState => runState;
+    public MotherloadMetaProgressionState MetaProgression => metaProgression;
 
     private void Awake()
     {
@@ -154,6 +144,7 @@ public class MotherloadWorldController : MonoBehaviour
             EnsureReferences();
 
         SyncActiveChunks();
+        HandlePlayerHazardContact();
         HandleDebugDigInput();
     }
 
@@ -197,9 +188,11 @@ public class MotherloadWorldController : MonoBehaviour
     public void InitializeRuntime()
     {
         EnsureReferences();
+        EnsureRunStateInitialized();
         EnsureRoots();
         EnsureSurfaceBand();
         EnsureBaseInfrastructure();
+        ApplyMetaProgressionToPlayer();
 
         bool wasInitialized = initialized;
         if (!wasInitialized)
@@ -257,6 +250,9 @@ public class MotherloadWorldController : MonoBehaviour
     public void SetMoneyHud(MoneyHud targetMoneyHud)
     {
         moneyHud = targetMoneyHud;
+        if (moneyHud != null)
+            moneyHud.BindMotherloadWorld(this);
+
         if (baseZone != null)
             baseZone.Initialize(moneyHud);
 
@@ -273,6 +269,97 @@ public class MotherloadWorldController : MonoBehaviour
     {
         verticalFlowDirection = direction;
         upwardTerrainStartOffset = Mathf.Max(1f, upwardStartOffset);
+    }
+
+    public bool CanBuyUpgrade(MotherloadUpgradeType upgradeType)
+    {
+        if (moneyHud == null || !metaProgression.CanUpgrade(upgradeType))
+            return false;
+
+        return moneyHud.ProgressionState.Money >= metaProgression.GetNextUpgradeCost(upgradeType);
+    }
+
+    public bool TryBuyUpgrade(MotherloadUpgradeType upgradeType)
+    {
+        if (!CanBuyUpgrade(upgradeType))
+            return false;
+
+        int cost = metaProgression.GetNextUpgradeCost(upgradeType);
+        if (!moneyHud.ProgressionState.TrySpendMoney(cost))
+            return false;
+
+        if (!metaProgression.TryUpgrade(upgradeType))
+        {
+            moneyHud.ProgressionState.AddMoney(cost);
+            return false;
+        }
+
+        runState.RefreshDerivedStats(metaProgression);
+        runState.RepairHull();
+        ApplyMetaProgressionToPlayer();
+        return true;
+    }
+
+    public int GetUpgradeRank(MotherloadUpgradeType upgradeType)
+    {
+        return metaProgression.GetUpgradeRank(upgradeType);
+    }
+
+    public int GetUpgradeCost(MotherloadUpgradeType upgradeType)
+    {
+        return metaProgression.GetNextUpgradeCost(upgradeType);
+    }
+
+    public string BuildMotherloadHudSummary()
+    {
+        EnsureRunStateInitialized();
+        string deathText = string.IsNullOrWhiteSpace(runState.LastDeathReason) ? string.Empty : "\nLAST DEATH: " + runState.LastDeathReason;
+        return "BASE SHOP\n"
+            + "MONEY $" + (moneyHud != null ? moneyHud.ProgressionState.Money : 0)
+            + "  |  CARGO " + runState.CargoUsed + "/" + runState.CargoCapacity
+            + " ($" + runState.CargoValue + ")\n"
+            + "HULL " + runState.CurrentHull + "/" + runState.MaxHull
+            + "  |  DEPTH ROW " + runState.MaxReachedChunkRow
+            + "  |  SEED " + runState.CurrentSeed + "\n"
+            + "RELICS: " + metaProgression.BuildRelicSummary()
+            + deathText;
+    }
+
+    public string BuildUpgradeButtonText(MotherloadUpgradeType upgradeType, string label)
+    {
+        int rank = metaProgression.GetUpgradeRank(upgradeType);
+        if (!metaProgression.CanUpgrade(upgradeType))
+            return label + " RANK " + rank + " MAX";
+
+        return "BUY " + label + " R" + (rank + 1) + "  $" + metaProgression.GetNextUpgradeCost(upgradeType);
+    }
+
+    public void HandlePlayerDockedAtBase(CannonAim cannon)
+    {
+        EnsureRunStateInitialized();
+        int soldValue = runState.SellCargo();
+        if (soldValue > 0 && moneyHud != null)
+            moneyHud.AddMoney(soldValue);
+
+        runState.RepairHull();
+        ApplyMetaProgressionToPlayer();
+        if (cannon != null)
+            cannon.ForceRefillFuel();
+        if (moneyHud != null)
+            moneyHud.Refresh();
+    }
+
+    public void ApplyPlayerHullDamage(int amount, string reason)
+    {
+        EnsureRunStateInitialized();
+        if (!runState.ApplyHullDamage(amount, reason, metaProgression))
+        {
+            if (moneyHud != null)
+                moneyHud.Refresh();
+            return;
+        }
+
+        ResetRunAfterDeath(runState.LastDeathReason);
     }
 
     public Vector3 GetSuggestedPlayerSpawnWorldPosition()
@@ -292,6 +379,14 @@ public class MotherloadWorldController : MonoBehaviour
         return new Vector3(stripCenterX, surfaceY + 2.4f, 0f);
     }
 
+    private void EnsureRunStateInitialized()
+    {
+        if (runState.CurrentSeed != 0)
+            return;
+
+        runState.ResetForNewRun(worldSeed, metaProgression);
+    }
+
     public void SnapCameraToFocus()
     {
         if (!TryBuildCameraTargetPosition(out Vector3 targetPosition))
@@ -309,6 +404,9 @@ public class MotherloadWorldController : MonoBehaviour
 
     public bool TryApplyProjectileHit(Vector2 worldPoint, Vector2 impactDirection, float blastScale = 1f)
     {
+        if (TryTriggerHazardAtWorldPoint(worldPoint, GasPocketTriggerRadius, "Shot gas pocket"))
+            return true;
+
         float resolvedBlastScale = Mathf.Max(0.25f, blastScale);
         float radiusWorld = projectileBlastRadius * resolvedBlastScale;
         float centerDamage = projectileCenterDamage * resolvedBlastScale;
@@ -345,8 +443,10 @@ public class MotherloadWorldController : MonoBehaviour
             overlappedChunks++;
             bool runtimeChanged = runtime.TryApplyBlast(worldPoint, radiusWorld, centerDamage, outerDamage, out MotherloadOreYield runtimeOreYield);
             totalOreYield.Copper += runtimeOreYield.Copper;
+            totalOreYield.Tin += runtimeOreYield.Tin;
             totalOreYield.Silver += runtimeOreYield.Silver;
             totalOreYield.Gold += runtimeOreYield.Gold;
+            totalOreYield.Relic += runtimeOreYield.Relic;
             if (runtimeChanged)
             {
                 changed = true;
@@ -357,8 +457,8 @@ public class MotherloadWorldController : MonoBehaviour
                 chunkHits.Add(runtime.Coordinate + ":" + (runtimeChanged ? "changed" : "no-change") + "/" + runtimeOreYield);
         }
 
-        if (totalOreYield.TotalCount > 0)
-            AwardOreMoney(totalOreYield);
+        if (totalOreYield.TotalIncludingSpecial > 0)
+            HandleOreYield(totalOreYield);
 
         if (ShouldLogProjectileHits)
         {
@@ -375,6 +475,209 @@ public class MotherloadWorldController : MonoBehaviour
         }
 
         return changed;
+    }
+
+    private void HandleOreYield(MotherloadOreYield oreYield)
+    {
+        EnsureRunStateInitialized();
+        if (oreYield.TotalCount > 0)
+        {
+            MotherloadOreYield accepted = runState.AddCargo(oreYield);
+            if (ShouldLogProjectileHits)
+                LogDebug("Cargo pickup | accepted=" + accepted + " | cargo=" + runState.CargoUsed + "/" + runState.CargoCapacity + " | value=$" + runState.CargoValue, this);
+        }
+
+        if (oreYield.Relic > 0)
+            TryGrantRelicFromPocket();
+
+        if (moneyHud != null)
+            moneyHud.Refresh();
+    }
+
+    private void TryGrantRelicFromPocket()
+    {
+        if (runState.FoundRelicThisRun)
+            return;
+
+        MotherloadRelicType[] relicPool =
+        {
+            MotherloadRelicType.GyroBoots,
+            MotherloadRelicType.MagnetCoil,
+            MotherloadRelicType.SurveyPing,
+            MotherloadRelicType.EmergencySpark,
+            MotherloadRelicType.SoftLandingModule,
+            MotherloadRelicType.RicochetPrimer,
+            MotherloadRelicType.OreLens,
+        };
+
+        for (int attempt = 0; attempt < relicPool.Length; attempt++)
+        {
+            int index = Mathf.Clamp(Mathf.FloorToInt(HashToUnit(runState.CurrentSeed + attempt, runState.MaxReachedChunkRow, 1700 + attempt) * relicPool.Length), 0, relicPool.Length - 1);
+            MotherloadRelicType relicType = relicPool[index];
+            if (!metaProgression.TryAddRelic(relicType))
+                continue;
+
+            runState.MarkRelicFound();
+            ApplyMetaProgressionToPlayer();
+            LogDebug("Relic found: " + relicType, this);
+            return;
+        }
+    }
+
+    private void ResetRunAfterDeath(string reason)
+    {
+        LogWarning("Run reset | reason=" + reason, this);
+
+        if (moneyHud != null)
+            moneyHud.ShowGameOver(reason);
+
+        if (moneyHud != null && moneyHud.ProgressionState.Money > 0)
+            moneyHud.ProgressionState.AddMoney(-moneyHud.ProgressionState.Money);
+
+        runSequence++;
+        worldSeed = BuildNextRunSeed();
+        runState.ResetForNewRun(worldSeed, metaProgression);
+        runState.SetLastDeathReason(reason);
+        RegenerateWorldCache();
+        RespawnPlayerAtBase();
+        ApplyMetaProgressionToPlayer();
+        if (moneyHud != null)
+            moneyHud.Refresh();
+    }
+
+    private int BuildNextRunSeed()
+    {
+        unchecked
+        {
+            int hash = worldSeed;
+            hash = (hash * 397) ^ (runSequence + 1);
+            hash = (hash * 397) ^ Mathf.FloorToInt(Time.realtimeSinceStartup * 1000f);
+            return hash == 0 ? 1337 + runSequence : Mathf.Abs(hash);
+        }
+    }
+
+    private void RespawnPlayerAtBase()
+    {
+        if (focusTarget == null)
+            return;
+
+        focusTarget.position = GetSuggestedPlayerSpawnWorldPosition();
+        CannonAim cannon = focusTarget.GetComponent<CannonAim>();
+        if (cannon != null)
+        {
+            cannon.ResetMotion();
+            cannon.ForceRefillFuel();
+        }
+
+        Rigidbody2D body = focusTarget.GetComponent<Rigidbody2D>();
+        if (body != null)
+        {
+            body.linearVelocity = Vector2.zero;
+            body.angularVelocity = 0f;
+        }
+
+        SnapCameraToFocus();
+    }
+
+    private void ApplyMetaProgressionToPlayer()
+    {
+        if (focusTarget == null)
+            return;
+
+        CannonAim cannon = focusTarget.GetComponent<CannonAim>();
+        if (cannon != null)
+        {
+            cannon.ApplyMotherloadFuelTankRank(metaProgression.GetUpgradeRank(MotherloadUpgradeType.FuelTank));
+            cannon.SetMotherloadMovementMultiplier(metaProgression.HasRelic(MotherloadRelicType.GyroBoots) ? 1.08f : 1f);
+        }
+
+        AutoShooter shooter = focusTarget.GetComponent<AutoShooter>();
+        if (shooter != null)
+        {
+            shooter.ApplyMotherloadUpgradeRanks(
+                metaProgression.GetUpgradeRank(MotherloadUpgradeType.BlasterDamage),
+                metaProgression.GetUpgradeRank(MotherloadUpgradeType.FireRate));
+        }
+
+        MotherloadPlayerVitals vitals = focusTarget.GetComponent<MotherloadPlayerVitals>();
+        if (vitals != null)
+            vitals.Initialize(this);
+    }
+
+    private bool TryTriggerHazardAtWorldPoint(Vector2 worldPoint, float radiusWorld, string reason)
+    {
+        Vector2 triggerPoint = default;
+        bool foundGasPocket = false;
+
+        foreach (MotherloadChunkRuntime runtime in activeChunks.Values)
+        {
+            if (runtime == null)
+                continue;
+
+            if (!runtime.TryFindHazardNearWorldPoint(worldPoint, radiusWorld, out Vector2 hazardWorldPoint, out MotherloadHazardType hazardType))
+                continue;
+
+            if (hazardType != MotherloadHazardType.GasPocket)
+                continue;
+
+            triggerPoint = hazardWorldPoint;
+            foundGasPocket = true;
+            break;
+        }
+
+        if (!foundGasPocket)
+            return false;
+
+        TriggerGasPocketExplosion(triggerPoint, reason);
+        return true;
+    }
+
+    private void TriggerGasPocketExplosion(Vector2 hazardWorldPoint, string reason)
+    {
+        foreach (MotherloadChunkRuntime runtime in activeChunks.Values)
+        {
+            if (runtime != null)
+                runtime.ClearHazardsNearWorldPoint(hazardWorldPoint, GasPocketExplosionRadius);
+        }
+
+        TryApplyExplosionAtWorldPoint(hazardWorldPoint, GasPocketExplosionRadius, GasPocketExplosionCenterDamage, GasPocketExplosionOuterDamage);
+        if (focusTarget != null)
+        {
+            float distance = Vector2.Distance(focusTarget.position, hazardWorldPoint);
+            if (distance <= GasPocketExplosionRadius + 0.7f)
+                ApplyPlayerHullDamage(GasPocketHullDamage, "Killed by gas pocket");
+        }
+
+        LogWarning("Gas pocket detonated | reason=" + reason + " | point=" + hazardWorldPoint.ToString("F3"), this);
+    }
+
+    private void HandlePlayerHazardContact()
+    {
+        if (focusTarget == null || !runState.IsAlive)
+            return;
+
+        Vector2 playerPoint = focusTarget.position;
+        Vector2 triggerPoint = default;
+        bool foundGasPocket = false;
+
+        foreach (MotherloadChunkRuntime runtime in activeChunks.Values)
+        {
+            if (runtime == null)
+                continue;
+
+            if (!runtime.TryFindHazardNearWorldPoint(playerPoint, 0.42f, out Vector2 hazardWorldPoint, out MotherloadHazardType hazardType))
+                continue;
+
+            if (hazardType == MotherloadHazardType.GasPocket)
+            {
+                triggerPoint = hazardWorldPoint;
+                foundGasPocket = true;
+                break;
+            }
+        }
+
+        if (foundGasPocket)
+            TriggerGasPocketExplosion(triggerPoint, "Player touched gas pocket");
     }
 
     private void EnsureReferences()
@@ -472,7 +775,7 @@ public class MotherloadWorldController : MonoBehaviour
         BoxCollider2D baseBuildingCollider = baseBuilding.GetComponent<BoxCollider2D>();
         if (baseBuildingCollider == null)
             baseBuildingCollider = baseBuilding.gameObject.AddComponent<BoxCollider2D>();
-        baseBuildingCollider.isTrigger = false;
+        baseBuildingCollider.isTrigger = true;
         baseBuildingCollider.size = Vector2.one;
 
         if (baseZone == null)
@@ -486,7 +789,7 @@ public class MotherloadWorldController : MonoBehaviour
         }
 
         Transform baseZoneTransform = baseZone.transform;
-        baseZoneTransform.position = new Vector3(stripCenterX, surfaceY + baseHeight + (zoneHeight * 0.35f), 0f);
+        baseZoneTransform.position = new Vector3(stripCenterX, surfaceY + (zoneHeight * 0.5f), 0f);
         baseZoneTransform.localScale = Vector3.one;
         BoxCollider2D zoneCollider = baseZone.GetComponent<BoxCollider2D>();
         zoneCollider.isTrigger = true;
@@ -520,6 +823,7 @@ public class MotherloadWorldController : MonoBehaviour
             return;
 
         int focusRow = ResolveChunkRowFromWorldY(focusTarget.position.y);
+        runState.RecordReachedChunkRow(focusRow);
         HashSet<MotherloadChunkCoordinate> desired = new HashSet<MotherloadChunkCoordinate>();
 
         int minRow = Mathf.Max(0, focusRow - activeRowsAboveFocus);
@@ -599,11 +903,58 @@ public class MotherloadWorldController : MonoBehaviour
             return false;
         }
 
-        float targetX = lockCameraXToStrip ? stripCenterX + cameraFollowOffset.x : focusTarget.position.x + cameraFollowOffset.x;
-        float targetY = focusTarget.position.y + cameraFollowOffset.y;
+        GetCameraHalfExtents(out float halfWidth, out float halfHeight);
+        float targetX = BuildCameraTargetX(focusTarget.position.x, halfWidth);
+        float targetY = BuildCameraTargetY(focusTarget.position.y, halfHeight);
         float targetZ = sceneCamera.transform.position.z <= -1f ? sceneCamera.transform.position.z : -10f;
         targetPosition = new Vector3(targetX, targetY, targetZ);
         return true;
+    }
+
+    private void GetCameraHalfExtents(out float halfWidth, out float halfHeight)
+    {
+        if (sceneCamera == null)
+        {
+            halfHeight = 1f;
+            halfWidth = 1f;
+            return;
+        }
+
+        if (sceneCamera.orthographic)
+        {
+            halfHeight = Mathf.Max(0.01f, sceneCamera.orthographicSize);
+            halfWidth = halfHeight * Mathf.Max(0.01f, sceneCamera.aspect);
+            return;
+        }
+
+        float cameraDistance = focusTarget != null ? Mathf.Abs(sceneCamera.transform.position.z - focusTarget.position.z) : Mathf.Abs(sceneCamera.transform.position.z);
+        halfHeight = Mathf.Tan(sceneCamera.fieldOfView * Mathf.Deg2Rad * 0.5f) * Mathf.Max(0.01f, cameraDistance);
+        halfWidth = halfHeight * Mathf.Max(0.01f, sceneCamera.aspect);
+    }
+
+    private float BuildCameraTargetX(float focusX, float halfWidth)
+    {
+        float stripHalfWidth = WorldStripWidth * 0.5f;
+        float stripLeft = stripCenterX - stripHalfWidth;
+        float stripRight = stripCenterX + stripHalfWidth;
+
+        if (lockCameraXToStrip || halfWidth >= stripHalfWidth)
+            return stripCenterX;
+
+        return Mathf.Clamp(focusX + cameraFollowOffset.x, stripLeft + halfWidth, stripRight - halfWidth);
+    }
+
+    private float BuildCameraTargetY(float focusY, float halfHeight)
+    {
+        float centeredY = focusY;
+        if (StreamsUpward)
+        {
+            float surfaceAtBottomY = TerrainStartY + halfHeight;
+            return Mathf.Max(surfaceAtBottomY, centeredY);
+        }
+
+        float surfaceAtTopY = TerrainStartY - halfHeight;
+        return Mathf.Min(surfaceAtTopY, centeredY);
     }
 
     private MotherloadChunkData GetOrCreateChunkData(MotherloadChunkCoordinate coordinate)
@@ -652,6 +1003,12 @@ public class MotherloadWorldController : MonoBehaviour
                     continue;
                 }
 
+                if (IsInsideBaseDome(worldX, worldY))
+                {
+                    chunkData.SetMaterial(row, column, MotherloadCellMaterial.Empty);
+                    continue;
+                }
+
                 if (ShouldCarveCave(worldX, worldY, depth))
                 {
                     chunkData.SetMaterial(row, column, MotherloadCellMaterial.Empty);
@@ -663,6 +1020,7 @@ public class MotherloadWorldController : MonoBehaviour
         }
 
         StampStartingDirtOres(chunkData, bottomLeft);
+        StampGasPockets(chunkData);
     }
 
     private bool ShouldCarveCave(float worldX, float worldY, float depth)
@@ -678,7 +1036,23 @@ public class MotherloadWorldController : MonoBehaviour
 
     private MotherloadCellMaterial ResolveMaterialAt(float worldX, float worldY, float depth)
     {
-        return depth < dirtLayerDepth ? MotherloadCellMaterial.Dirt : MotherloadCellMaterial.Stone;
+        int chunkRow = ResolveChunkRowFromWorldY(worldY);
+        return chunkRow < SilverBeltStartChunkRow ? MotherloadCellMaterial.Dirt : MotherloadCellMaterial.Stone;
+    }
+
+    private bool IsInsideBaseDome(float worldX, float worldY)
+    {
+        if (!StreamsUpward || !carveBaseDome || worldY < surfaceY)
+            return false;
+
+        float resolvedHalfWidth = Mathf.Max(MinimumBaseDomeHalfWidth, baseDomeHalfWidth);
+        float resolvedHeight = Mathf.Max(MinimumBaseDomeHeight, baseDomeHeight);
+        float normalizedXAbs = Mathf.Abs((worldX - stripCenterX) / Mathf.Max(0.01f, resolvedHalfWidth));
+        if (normalizedXAbs > 1f)
+            return false;
+
+        float domeTopY = surfaceY + (Mathf.Sqrt(Mathf.Max(0f, 1f - (normalizedXAbs * normalizedXAbs))) * resolvedHeight);
+        return worldY <= domeTopY;
     }
 
     private bool IsInsideTerrainBand(float worldY)
@@ -693,129 +1067,251 @@ public class MotherloadWorldController : MonoBehaviour
 
     private void StampStartingDirtOres(MotherloadChunkData chunkData, Vector2 bottomLeft)
     {
-        float chunkStartDepth = GetDepthAlongStream(bottomLeft.y);
-        float chunkEndDepth = GetDepthAlongStream(bottomLeft.y + ChunkWorldHeight);
-        float chunkMinDepth = Mathf.Min(chunkStartDepth, chunkEndDepth);
-        float chunkMaxDepth = Mathf.Max(chunkStartDepth, chunkEndDepth);
-        if (chunkMinDepth >= dirtLayerDepth || chunkMaxDepth <= 2f)
+        if (chunkData == null || chunkData.Coordinate.Row < 0 || chunkData.Coordinate.Row >= GoldPreviewStartChunkRow + 4)
             return;
 
-        StampStarterCopperPockets(chunkData, bottomLeft, chunkMinDepth, chunkMaxDepth);
-        StampOreClusters(chunkData, bottomLeft, MotherloadCellMaterial.Copper, Mathf.Max(0, copperClustersPerChunk), copperClusterMinRadiusCells, copperClusterMaxRadiusCells, deepCopperStartDepth, dirtLayerDepth - 2f, 101);
-        StampOreClusters(chunkData, bottomLeft, MotherloadCellMaterial.Silver, Mathf.Max(0, silverClustersPerChunk), silverClusterMinRadiusCells, silverClusterMaxRadiusCells, silverStartDepth, dirtLayerDepth - 2f, 211);
+        int targetOreCount = 1 + Mathf.FloorToInt(HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, 401) * Mathf.Clamp(starterBandMaxOresPerChunk, 1, 4));
+        if (!TryBuildStarterOrePlan(chunkData.Coordinate, targetOreCount, out int copperCount, out int tinCount, out int silverCount))
+            return;
 
-        if (chunkMaxDepth >= goldStartDepth && HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, 307) <= rareGoldChunkChance)
-            StampOreClusters(chunkData, bottomLeft, MotherloadCellMaterial.Gold, 1, goldClusterMinRadiusCells, goldClusterMaxRadiusCells, goldStartDepth, dirtLayerDepth - 2f, 307);
+        List<RectInt> reservations = new List<RectInt>(targetOreCount);
+        StampStarterOreBodies(chunkData, MotherloadCellMaterial.Copper, copperCount, 500, reservations);
+        StampStarterOreBodies(chunkData, MotherloadCellMaterial.Tin, tinCount, 700, reservations);
+        StampStarterOreBodies(chunkData, MotherloadCellMaterial.Silver, silverCount, 900, reservations);
+        StampDepthBandSpecials(chunkData, reservations);
+
+        if (reservations.Count == 0)
+            TryStampStarterOreBody(chunkData, MotherloadCellMaterial.Copper, 1200, reservations);
     }
 
-    private void StampStarterCopperPockets(MotherloadChunkData chunkData, Vector2 bottomLeft, float chunkMinDepth, float chunkMaxDepth)
+    private bool TryBuildStarterOrePlan(MotherloadChunkCoordinate coordinate, int targetOreCount, out int copperCount, out int tinCount, out int silverCount)
     {
-        float starterMaxDepth = Mathf.Min(dirtLayerDepth - 2f, starterCopperPocketMaxDepth);
-        if (chunkMinDepth > starterMaxDepth || chunkMaxDepth < 3f)
-            return;
+        copperCount = 0;
+        tinCount = 0;
+        silverCount = 0;
 
-        for (int i = 0; i < StarterCopperPocketLayout.Length; i++)
+        targetOreCount = Mathf.Clamp(targetOreCount, 1, Mathf.Clamp(starterBandMaxOresPerChunk, 1, 4));
+        for (int oreIndex = 0; oreIndex < targetOreCount; oreIndex++)
         {
-            Vector2 pocket = StarterCopperPocketLayout[i];
-            float depth = pocket.y;
-            if (depth < chunkMinDepth || depth > chunkMaxDepth || depth > starterMaxDepth)
-                continue;
+            List<MotherloadCellMaterial> weightedOptions = new List<MotherloadCellMaterial>(7);
+            bool silverBelt = coordinate.Row >= SilverBeltStartChunkRow;
+            for (int i = copperCount; i < starterBandMaxCopperPerChunk; i++)
+                weightedOptions.Add(MotherloadCellMaterial.Copper);
+            for (int i = tinCount; i < starterBandMaxTinPerChunk; i++)
+                weightedOptions.Add(MotherloadCellMaterial.Tin);
+            for (int i = silverCount; i < starterBandMaxSilverPerChunk; i++)
+                weightedOptions.Add(MotherloadCellMaterial.Silver);
+            if (silverBelt && silverCount < starterBandMaxSilverPerChunk)
+                weightedOptions.Add(MotherloadCellMaterial.Silver);
 
-            float worldX = Mathf.Lerp(stripCenterX - (WorldStripWidth * 0.5f), stripCenterX + (WorldStripWidth * 0.5f), pocket.x);
-            float worldY = StreamsUpward ? TerrainStartY + depth : TerrainStartY - depth;
-            StampCopperVein(chunkData, bottomLeft, worldX, worldY, saltBase: 500 + i, allowSecondaryLobe: false);
-        }
-    }
+            if (weightedOptions.Count == 0)
+                break;
 
-    private void StampCopperVein(MotherloadChunkData chunkData, Vector2 bottomLeft, float worldX, float worldY, int saltBase, bool allowSecondaryLobe)
-    {
-        int centerColumn = Mathf.RoundToInt((worldX - bottomLeft.x) * cellsPerUnit);
-        int centerRow = Mathf.RoundToInt((worldY - bottomLeft.y) * cellsPerUnit);
-        int mirrorX = HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 1) >= 0.5f ? 1 : -1;
-        int mirrorY = HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 2) >= 0.5f ? 1 : -1;
+            int pickIndex = Mathf.Clamp(
+                Mathf.FloorToInt(HashToUnit(coordinate.Column, coordinate.Row, 430 + (oreIndex * 17)) * weightedOptions.Count),
+                0,
+                weightedOptions.Count - 1);
 
-        StampCopperVeinCells(chunkData, centerColumn, centerRow, mirrorX, mirrorY);
-
-        if (!allowSecondaryLobe)
-            return;
-
-        if (HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 3) < 0.58f)
-            return;
-
-        int secondaryColumn = centerColumn + (mirrorX * 2);
-        int secondaryRow = centerRow + (mirrorY >= 0 ? 1 : -1);
-        StampCopperVeinCells(chunkData, secondaryColumn, secondaryRow, mirrorX, mirrorY);
-    }
-
-    private void StampCopperVeinCells(MotherloadChunkData chunkData, int centerColumn, int centerRow, int mirrorX, int mirrorY)
-    {
-        for (int i = 0; i < CopperVeinShape.Length; i++)
-        {
-            Vector2Int offset = CopperVeinShape[i];
-            int column = centerColumn + (offset.x * mirrorX);
-            int row = centerRow + (offset.y * mirrorY);
-            if (row < 0 || row >= chunkData.Height || column < 0 || column >= chunkData.Width)
-                continue;
-
-            if (chunkData.GetMaterial(row, column) != MotherloadCellMaterial.Dirt)
-                continue;
-
-            chunkData.SetMaterial(row, column, MotherloadCellMaterial.Copper);
-        }
-    }
-
-    private void StampOreClusters(MotherloadChunkData chunkData, Vector2 bottomLeft, MotherloadCellMaterial oreMaterial, int clusterCount, int minRadiusCells, int maxRadiusCells, float minDepth, float maxDepth, int saltBase)
-    {
-        if (clusterCount <= 0 || maxDepth <= minDepth)
-            return;
-
-        int minRadius = Mathf.Max(1, minRadiusCells);
-        int maxRadius = Mathf.Max(minRadius, maxRadiusCells);
-
-        for (int clusterIndex = 0; clusterIndex < clusterCount; clusterIndex++)
-        {
-            int radiusCells = Mathf.RoundToInt(Mathf.Lerp(minRadius, maxRadius, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + (clusterIndex * 13) + 1)));
-            int padding = radiusCells + 2;
-            int centerColumn = Mathf.RoundToInt(Mathf.Lerp(padding, chunkData.Width - 1 - padding, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + (clusterIndex * 17) + 5)));
-            int centerRow = Mathf.RoundToInt(Mathf.Lerp(padding, chunkData.Height - 1 - padding, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + (clusterIndex * 19) + 9)));
-
-            float centerWorldY = bottomLeft.y + (centerRow / cellsPerUnit);
-            float centerDepth = GetDepthAlongStream(centerWorldY);
-            if (centerDepth < minDepth || centerDepth > maxDepth)
-                continue;
-
-            if (oreMaterial == MotherloadCellMaterial.Copper)
+            switch (weightedOptions[pickIndex])
             {
-                float centerWorldX = bottomLeft.x + (centerColumn / cellsPerUnit);
-                StampCopperVein(chunkData, bottomLeft, centerWorldX, centerWorldY, saltBase + (clusterIndex * 37), allowSecondaryLobe: true);
-                continue;
+                case MotherloadCellMaterial.Copper:
+                    copperCount++;
+                    break;
+                case MotherloadCellMaterial.Tin:
+                    tinCount++;
+                    break;
+                case MotherloadCellMaterial.Silver:
+                    silverCount++;
+                    break;
             }
+        }
 
-            for (int row = centerRow - radiusCells - 1; row <= centerRow + radiusCells + 1; row++)
+        return (copperCount + tinCount + silverCount) > 0;
+    }
+
+    private void StampStarterOreBodies(MotherloadChunkData chunkData, MotherloadCellMaterial oreMaterial, int oreCount, int saltBase, List<RectInt> reservations)
+    {
+        for (int oreIndex = 0; oreIndex < oreCount; oreIndex++)
+            TryStampStarterOreBody(chunkData, oreMaterial, saltBase + (oreIndex * 997), reservations);
+    }
+
+    private bool TryStampStarterOreBody(MotherloadChunkData chunkData, MotherloadCellMaterial oreMaterial, int saltBase, List<RectInt> reservations)
+    {
+        int minCells = Mathf.Max(1, starterOreBodyMinCells);
+        int maxCells = Mathf.Max(minCells, starterOreBodyMaxCells);
+
+        for (int attempt = 0; attempt < StarterOrePlacementAttemptsPerBody; attempt++)
+        {
+            int attemptSalt = saltBase + (attempt * 101);
+            int targetCells = Mathf.RoundToInt(Mathf.Lerp(minCells, maxCells, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, attemptSalt + 1)));
+            float radiusX = Mathf.Lerp(2.35f, 3.4f, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, attemptSalt + 3));
+            float radiusY = Mathf.Clamp(targetCells / (Mathf.PI * Mathf.Max(1.6f, radiusX)), 2.25f, 3.8f);
+            int radiusXCells = Mathf.CeilToInt(radiusX);
+            int radiusYCells = Mathf.CeilToInt(radiusY);
+            int padding = Mathf.Max(1, starterOreBodyPaddingCells);
+
+            int minCenterColumn = edgeBedrockThicknessCells + padding + radiusXCells + 1;
+            int maxCenterColumn = chunkData.Width - edgeBedrockThicknessCells - padding - radiusXCells - 2;
+            int minCenterRow = padding + radiusYCells + 1;
+            int maxCenterRow = chunkData.Height - padding - radiusYCells - 2;
+            if (maxCenterColumn < minCenterColumn || maxCenterRow < minCenterRow)
+                return false;
+
+            int centerColumn = Mathf.RoundToInt(Mathf.Lerp(minCenterColumn, maxCenterColumn, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, attemptSalt + 5)));
+            int centerRow = Mathf.RoundToInt(Mathf.Lerp(minCenterRow, maxCenterRow, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, attemptSalt + 7)));
+
+            RectInt candidateBounds = new RectInt(
+                centerColumn - radiusXCells - 1,
+                centerRow - radiusYCells - 1,
+                (radiusXCells * 2) + 3,
+                (radiusYCells * 2) + 3);
+
+            if (DoesOreReservationOverlap(candidateBounds, reservations))
+                continue;
+
+            List<Vector2Int> candidateCells = new List<Vector2Int>(maxCells + 8);
+            for (int row = centerRow - radiusYCells - 1; row <= centerRow + radiusYCells + 1; row++)
             {
-                for (int column = centerColumn - radiusCells - 1; column <= centerColumn + radiusCells + 1; column++)
+                for (int column = centerColumn - radiusXCells - 1; column <= centerColumn + radiusXCells + 1; column++)
                 {
                     if (row < 0 || row >= chunkData.Height || column < 0 || column >= chunkData.Width)
                         continue;
 
-                    if (chunkData.GetMaterial(row, column) != MotherloadCellMaterial.Dirt)
+                    if (!CanStampOreIntoMaterial(chunkData.GetMaterial(row, column)))
                         continue;
 
-                    float worldY = bottomLeft.y + ((row + 0.5f) / cellsPerUnit);
-                    float depth = GetDepthAlongStream(worldY);
-                    if (depth < minDepth || depth > maxDepth)
+                    float normalizedX = ((column + 0.5f) - (centerColumn + 0.5f)) / radiusX;
+                    float normalizedY = ((row + 0.5f) - (centerRow + 0.5f)) / radiusY;
+                    float ellipseDistance = (normalizedX * normalizedX) + (normalizedY * normalizedY);
+                    float shapeThreshold = 1f + Mathf.Lerp(-0.16f, 0.18f, HashToUnit(chunkData.Coordinate.Column + column, chunkData.Coordinate.Row + row, attemptSalt + 17));
+                    if (ellipseDistance > shapeThreshold)
                         continue;
 
-                    float dx = (column + 0.5f) - (centerColumn + 0.5f);
-                    float dy = (row + 0.5f) - (centerRow + 0.5f);
-                    float distance = Mathf.Sqrt((dx * dx) + (dy * dy));
-                    float shapeNoise = Mathf.Lerp(-0.35f, 0.4f, HashToUnit(chunkData.Coordinate.Column + column, chunkData.Coordinate.Row + row, saltBase + (clusterIndex * 23) + 17));
-                    float threshold = radiusCells - 0.15f + shapeNoise;
-                    if (distance > threshold)
-                        continue;
-
-                    chunkData.SetMaterial(row, column, oreMaterial);
+                    candidateCells.Add(new Vector2Int(column, row));
                 }
+            }
+
+            if (candidateCells.Count < minCells)
+                continue;
+
+            candidateCells.Sort((a, b) =>
+            {
+                float aDx = (a.x + 0.5f) - (centerColumn + 0.5f);
+                float aDy = (a.y + 0.5f) - (centerRow + 0.5f);
+                float bDx = (b.x + 0.5f) - (centerColumn + 0.5f);
+                float bDy = (b.y + 0.5f) - (centerRow + 0.5f);
+                float aScore = (aDx * aDx) + (aDy * aDy);
+                float bScore = (bDx * bDx) + (bDy * bDy);
+                return aScore.CompareTo(bScore);
+            });
+
+            int cellsToPaint = Mathf.Clamp(targetCells, minCells, Mathf.Min(maxCells, candidateCells.Count));
+            int minPaintedColumn = int.MaxValue;
+            int maxPaintedColumn = int.MinValue;
+            int minPaintedRow = int.MaxValue;
+            int maxPaintedRow = int.MinValue;
+
+            for (int i = 0; i < cellsToPaint; i++)
+            {
+                Vector2Int cell = candidateCells[i];
+                chunkData.SetMaterial(cell.y, cell.x, oreMaterial);
+                minPaintedColumn = Mathf.Min(minPaintedColumn, cell.x);
+                maxPaintedColumn = Mathf.Max(maxPaintedColumn, cell.x);
+                minPaintedRow = Mathf.Min(minPaintedRow, cell.y);
+                maxPaintedRow = Mathf.Max(maxPaintedRow, cell.y);
+            }
+
+            reservations.Add(new RectInt(
+                minPaintedColumn - padding,
+                minPaintedRow - padding,
+                (maxPaintedColumn - minPaintedColumn) + (padding * 2) + 1,
+                (maxPaintedRow - minPaintedRow) + (padding * 2) + 1));
+            return true;
+        }
+
+        return false;
+    }
+
+    private static bool DoesOreReservationOverlap(RectInt candidateBounds, List<RectInt> reservations)
+    {
+        for (int i = 0; i < reservations.Count; i++)
+        {
+            if (candidateBounds.Overlaps(reservations[i]))
+                return true;
+        }
+
+        return false;
+    }
+
+    private static bool CanStampOreIntoMaterial(MotherloadCellMaterial material)
+    {
+        return material == MotherloadCellMaterial.Dirt || material == MotherloadCellMaterial.Stone;
+    }
+
+    private void StampDepthBandSpecials(MotherloadChunkData chunkData, List<RectInt> reservations)
+    {
+        if (chunkData.Coordinate.Row >= SilverBeltStartChunkRow)
+        {
+            float relicRoll = HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, 1301);
+            if (relicRoll < 0.12f)
+                TryStampStarterOreBody(chunkData, MotherloadCellMaterial.Relic, 1310, reservations);
+        }
+
+        if (chunkData.Coordinate.Row >= GoldPreviewStartChunkRow)
+        {
+            float goldRoll = HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, 1401);
+            if (goldRoll < 0.35f)
+                TryStampStarterOreBody(chunkData, MotherloadCellMaterial.Gold, 1420, reservations);
+        }
+    }
+
+    private void StampGasPockets(MotherloadChunkData chunkData)
+    {
+        if (chunkData == null || chunkData.Coordinate.Row < 0)
+            return;
+
+        int pocketCount = HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, 1500) < 0.42f ? 1 : 0;
+        if (chunkData.Coordinate.Row >= SilverBeltStartChunkRow && HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, 1501) < 0.3f)
+            pocketCount++;
+
+        for (int pocketIndex = 0; pocketIndex < pocketCount; pocketIndex++)
+            StampGasPocket(chunkData, 1510 + (pocketIndex * 61));
+    }
+
+    private void StampGasPocket(MotherloadChunkData chunkData, int saltBase)
+    {
+        float radiusX = Mathf.Lerp(2.1f, 3.1f, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 1));
+        float radiusY = Mathf.Lerp(2.1f, 3.3f, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 2));
+        int radiusXCells = Mathf.CeilToInt(radiusX);
+        int radiusYCells = Mathf.CeilToInt(radiusY);
+        int padding = Mathf.Max(4, starterOreBodyPaddingCells);
+        int minCenterColumn = edgeBedrockThicknessCells + padding + radiusXCells + 1;
+        int maxCenterColumn = chunkData.Width - edgeBedrockThicknessCells - padding - radiusXCells - 2;
+        int minCenterRow = padding + radiusYCells + 1;
+        int maxCenterRow = chunkData.Height - padding - radiusYCells - 2;
+        if (maxCenterColumn < minCenterColumn || maxCenterRow < minCenterRow)
+            return;
+
+        int centerColumn = Mathf.RoundToInt(Mathf.Lerp(minCenterColumn, maxCenterColumn, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 3)));
+        int centerRow = Mathf.RoundToInt(Mathf.Lerp(minCenterRow, maxCenterRow, HashToUnit(chunkData.Coordinate.Column, chunkData.Coordinate.Row, saltBase + 4)));
+
+        for (int row = centerRow - radiusYCells - 1; row <= centerRow + radiusYCells + 1; row++)
+        {
+            for (int column = centerColumn - radiusXCells - 1; column <= centerColumn + radiusXCells + 1; column++)
+            {
+                if (row < 0 || row >= chunkData.Height || column < 0 || column >= chunkData.Width)
+                    continue;
+
+                MotherloadCellMaterial material = chunkData.GetMaterial(row, column);
+                if (material == MotherloadCellMaterial.Empty || material == MotherloadCellMaterial.Bedrock)
+                    continue;
+
+                float normalizedX = ((column + 0.5f) - (centerColumn + 0.5f)) / radiusX;
+                float normalizedY = ((row + 0.5f) - (centerRow + 0.5f)) / radiusY;
+                if ((normalizedX * normalizedX) + (normalizedY * normalizedY) > 1f)
+                    continue;
+
+                chunkData.SetHazard(row, column, MotherloadHazardType.GasPocket);
             }
         }
     }
@@ -831,15 +1327,17 @@ public class MotherloadWorldController : MonoBehaviour
     {
         unchecked
         {
-            int hash = worldSeed;
-            hash = (hash * 397) ^ x;
-            hash = (hash * 397) ^ y;
-            hash = (hash * 397) ^ salt;
-            hash ^= (hash << 13);
-            hash ^= (hash >> 17);
-            hash ^= (hash << 5);
-            int positive = hash & 0x7fffffff;
-            return positive / 2147483647f;
+            uint hash = (uint)worldSeed
+                + ((uint)x * 0x9E3779B9u)
+                + ((uint)y * 0x85EBCA6Bu)
+                + ((uint)salt * 0xC2B2AE35u);
+
+            hash ^= hash >> 16;
+            hash *= 0x7FEB352Du;
+            hash ^= hash >> 15;
+            hash *= 0x846CA68Bu;
+            hash ^= hash >> 16;
+            return (hash >> 8) / 16777216f;
         }
     }
 
@@ -850,6 +1348,7 @@ public class MotherloadWorldController : MonoBehaviour
 
         float payoutFloat =
             (oreYield.Copper * Mathf.Max(0f, copperValuePerCell)) +
+            (oreYield.Tin * Mathf.Max(0f, tinValuePerCell)) +
             (oreYield.Silver * Mathf.Max(0f, silverValuePerCell)) +
             (oreYield.Gold * Mathf.Max(0f, goldValuePerCell));
         int payout = Mathf.RoundToInt(payoutFloat);
@@ -1012,14 +1511,20 @@ public class MotherloadWorldController : MonoBehaviour
         activeRowsAboveFocus = Mathf.Max(0, activeRowsAboveFocus);
         activeRowsBelowFocus = Mathf.Max(1, activeRowsBelowFocus);
         upwardTerrainStartOffset = Mathf.Max(1f, upwardTerrainStartOffset);
-        starterCopperPocketMaxDepth = Mathf.Max(1f, starterCopperPocketMaxDepth);
-        starterCopperPocketSizeCells = Mathf.Max(1, starterCopperPocketSizeCells);
-        deepCopperStartDepth = Mathf.Max(starterCopperPocketMaxDepth + 1f, deepCopperStartDepth);
-        silverStartDepth = Mathf.Max(deepCopperStartDepth + 2f, silverStartDepth);
-        goldStartDepth = Mathf.Max(silverStartDepth + 4f, goldStartDepth);
+        starterBandChunkRows = Mathf.Max(1, starterBandChunkRows);
+        starterBandMaxCopperPerChunk = Mathf.Max(0, starterBandMaxCopperPerChunk);
+        starterBandMaxTinPerChunk = Mathf.Max(0, starterBandMaxTinPerChunk);
+        starterBandMaxSilverPerChunk = Mathf.Max(0, starterBandMaxSilverPerChunk);
+        int maxStarterOreCapacity = Mathf.Max(1, starterBandMaxCopperPerChunk + starterBandMaxTinPerChunk + starterBandMaxSilverPerChunk);
+        starterBandMaxOresPerChunk = Mathf.Clamp(starterBandMaxOresPerChunk, 1, Mathf.Min(4, maxStarterOreCapacity));
+        starterOreBodyMinCells = Mathf.Max(1, starterOreBodyMinCells);
+        starterOreBodyMaxCells = Mathf.Max(starterOreBodyMinCells, starterOreBodyMaxCells);
+        starterOreBodyPaddingCells = Mathf.Max(0, starterOreBodyPaddingCells);
         starterShaftHalfWidth = Mathf.Max(0.25f, starterShaftHalfWidth);
         starterShaftDepth = Mathf.Max(0.5f, starterShaftDepth);
         edgeBedrockThicknessCells = Mathf.Max(1, edgeBedrockThicknessCells);
+        baseDomeHalfWidth = Mathf.Max(MinimumBaseDomeHalfWidth, baseDomeHalfWidth);
+        baseDomeHeight = Mathf.Max(MinimumBaseDomeHeight, baseDomeHeight);
         projectileBlastRadius = Mathf.Max(0.1f, projectileBlastRadius);
         projectileCenterDamage = Mathf.Max(0.05f, projectileCenterDamage);
         projectileOuterDamage = Mathf.Max(0.01f, projectileOuterDamage);

@@ -3,14 +3,17 @@ using UnityEngine;
 public struct MotherloadOreYield
 {
     public int Copper;
+    public int Tin;
     public int Silver;
     public int Gold;
+    public int Relic;
 
-    public int TotalCount => Copper + Silver + Gold;
+    public int TotalCount => Copper + Tin + Silver + Gold;
+    public int TotalIncludingSpecial => TotalCount + Relic;
 
     public override string ToString()
     {
-        return "copper=" + Copper + ", silver=" + Silver + ", gold=" + Gold;
+        return "copper=" + Copper + ", tin=" + Tin + ", silver=" + Silver + ", gold=" + Gold + ", relic=" + Relic;
     }
 }
 
@@ -19,6 +22,7 @@ public sealed class MotherloadChunkData
     private const float BedrockHitPoints = 999999f;
 
     private readonly MotherloadCellMaterial[] materials;
+    private readonly MotherloadHazardType[] hazards;
     private readonly float[] currentHitPoints;
     private readonly float[] maxHitPoints;
 
@@ -32,6 +36,7 @@ public sealed class MotherloadChunkData
         Width = Mathf.Max(1, width);
         Height = Mathf.Max(1, height);
         materials = new MotherloadCellMaterial[Width * Height];
+        hazards = new MotherloadHazardType[Width * Height];
         currentHitPoints = new float[Width * Height];
         maxHitPoints = new float[Width * Height];
     }
@@ -42,6 +47,14 @@ public sealed class MotherloadChunkData
             return MotherloadCellMaterial.Empty;
 
         return materials[GetIndex(row, column)];
+    }
+
+    public MotherloadHazardType GetHazard(int row, int column)
+    {
+        if (!IsInBounds(row, column))
+            return MotherloadHazardType.None;
+
+        return hazards[GetIndex(row, column)];
     }
 
     public float GetCurrentHitPoints(int row, int column)
@@ -105,9 +118,12 @@ public sealed class MotherloadChunkData
         int dirt = 0;
         int stone = 0;
         int copper = 0;
+        int tin = 0;
         int silver = 0;
         int gold = 0;
+        int relic = 0;
         int bedrock = 0;
+        int gas = 0;
 
         for (int row = 0; row < Height; row++)
         {
@@ -127,16 +143,25 @@ public sealed class MotherloadChunkData
                     case MotherloadCellMaterial.Copper:
                         copper++;
                         break;
+                    case MotherloadCellMaterial.Tin:
+                        tin++;
+                        break;
                     case MotherloadCellMaterial.Silver:
                         silver++;
                         break;
                     case MotherloadCellMaterial.Gold:
                         gold++;
                         break;
+                    case MotherloadCellMaterial.Relic:
+                        relic++;
+                        break;
                     case MotherloadCellMaterial.Bedrock:
                         bedrock++;
                         break;
                 }
+
+                if (GetHazard(row, column) == MotherloadHazardType.GasPocket)
+                    gas++;
             }
         }
 
@@ -146,9 +171,12 @@ public sealed class MotherloadChunkData
             + ", dirt=" + dirt
             + ", stone=" + stone
             + ", copper=" + copper
+            + ", tin=" + tin
             + ", silver=" + silver
             + ", gold=" + gold
-            + ", bedrock=" + bedrock;
+            + ", relic=" + relic
+            + ", bedrock=" + bedrock
+            + ", gas=" + gas;
     }
 
     public int GetDamageVisualTier(int row, int column)
@@ -175,6 +203,56 @@ public sealed class MotherloadChunkData
         float resolvedMaxHitPoints = ResolveMaxHitPoints(material);
         maxHitPoints[index] = resolvedMaxHitPoints;
         currentHitPoints[index] = resolvedMaxHitPoints;
+    }
+
+    public void SetHazard(int row, int column, MotherloadHazardType hazardType)
+    {
+        if (!IsInBounds(row, column))
+            return;
+
+        hazards[GetIndex(row, column)] = hazardType;
+    }
+
+    public bool ClearHazard(int row, int column)
+    {
+        if (!IsInBounds(row, column))
+            return false;
+
+        int index = GetIndex(row, column);
+        if (hazards[index] == MotherloadHazardType.None)
+            return false;
+
+        hazards[index] = MotherloadHazardType.None;
+        return true;
+    }
+
+    public bool ClearHazardsInCircle(float centerColumn, float centerRow, int radiusCells)
+    {
+        bool changed = false;
+        radiusCells = Mathf.Max(1, radiusCells);
+        int minRow = Mathf.Max(0, Mathf.FloorToInt(centerRow - radiusCells - 1f));
+        int maxRow = Mathf.Min(Height - 1, Mathf.CeilToInt(centerRow + radiusCells + 1f));
+        int minColumn = Mathf.Max(0, Mathf.FloorToInt(centerColumn - radiusCells - 1f));
+        int maxColumn = Mathf.Min(Width - 1, Mathf.CeilToInt(centerColumn + radiusCells + 1f));
+
+        for (int row = minRow; row <= maxRow; row++)
+        {
+            for (int column = minColumn; column <= maxColumn; column++)
+            {
+                if (GetHazard(row, column) == MotherloadHazardType.None)
+                    continue;
+
+                float dx = (column + 0.5f) - centerColumn;
+                float dy = (row + 0.5f) - centerRow;
+                if ((dx * dx) + (dy * dy) > radiusCells * radiusCells)
+                    continue;
+
+                hazards[GetIndex(row, column)] = MotherloadHazardType.None;
+                changed = true;
+            }
+        }
+
+        return changed;
     }
 
     public bool DigCircle(int centerColumn, int centerRow, int radiusCells)
@@ -303,15 +381,22 @@ public sealed class MotherloadChunkData
             case MotherloadCellMaterial.Copper:
                 oreYield.Copper++;
                 break;
+            case MotherloadCellMaterial.Tin:
+                oreYield.Tin++;
+                break;
             case MotherloadCellMaterial.Silver:
                 oreYield.Silver++;
                 break;
             case MotherloadCellMaterial.Gold:
                 oreYield.Gold++;
                 break;
+            case MotherloadCellMaterial.Relic:
+                oreYield.Relic++;
+                break;
         }
 
         materials[index] = MotherloadCellMaterial.Empty;
+        hazards[index] = MotherloadHazardType.None;
         currentHitPoints[index] = 0f;
         maxHitPoints[index] = 0f;
         return true;
@@ -327,10 +412,14 @@ public sealed class MotherloadChunkData
                 return 2.4f;
             case MotherloadCellMaterial.Copper:
                 return 2f;
+            case MotherloadCellMaterial.Tin:
+                return 2.35f;
             case MotherloadCellMaterial.Silver:
                 return 2.75f;
             case MotherloadCellMaterial.Gold:
                 return 3.5f;
+            case MotherloadCellMaterial.Relic:
+                return 2.2f;
             case MotherloadCellMaterial.Bedrock:
                 return BedrockHitPoints;
             default:

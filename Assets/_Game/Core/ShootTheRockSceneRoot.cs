@@ -308,6 +308,11 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         aim.Initialize(sceneCamera);
         aim.ConfigureFuelSystem(true);
 
+        MotherloadPlayerVitals vitals = cannonRoot.GetComponent<MotherloadPlayerVitals>();
+        if (vitals == null)
+            vitals = cannonRoot.gameObject.AddComponent<MotherloadPlayerVitals>();
+        vitals.Initialize(motherloadWorldController);
+
         AutoShooter shooter = cannonRoot.GetComponent<AutoShooter>();
         if (shooter == null)
             shooter = cannonRoot.gameObject.AddComponent<AutoShooter>();
@@ -320,6 +325,7 @@ public class ShootTheRockSceneRoot : MonoBehaviour
         {
             moneyHud.BindShooter(shooter);
             moneyHud.BindCannon(aim);
+            moneyHud.BindMotherloadWorld(motherloadWorldController);
             moneyHud.BindProgression(null, null);
             moneyHud.SetUpgradeUiVisible(false);
         }

@@ -111,6 +111,68 @@ public class MotherloadChunkRuntime : MonoBehaviour
         return true;
     }
 
+    public bool TryFindHazardNearWorldPoint(Vector2 worldPoint, float radiusWorld, out Vector2 hazardWorldPoint, out MotherloadHazardType hazardType)
+    {
+        hazardWorldPoint = default;
+        hazardType = MotherloadHazardType.None;
+        if (data == null || !OverlapsCircle(worldPoint, radiusWorld))
+            return false;
+
+        Vector2 local = worldPoint - bottomLeftWorld;
+        float centerColumn = local.x * cellsPerUnit;
+        float centerRow = local.y * cellsPerUnit;
+        int radiusCells = Mathf.CeilToInt(Mathf.Max(0.1f, radiusWorld) * cellsPerUnit);
+        int minRow = Mathf.Max(0, Mathf.FloorToInt(centerRow - radiusCells - 1f));
+        int maxRow = Mathf.Min(data.Height - 1, Mathf.CeilToInt(centerRow + radiusCells + 1f));
+        int minColumn = Mathf.Max(0, Mathf.FloorToInt(centerColumn - radiusCells - 1f));
+        int maxColumn = Mathf.Min(data.Width - 1, Mathf.CeilToInt(centerColumn + radiusCells + 1f));
+
+        float bestDistanceSquared = float.MaxValue;
+        int bestRow = -1;
+        int bestColumn = -1;
+        for (int row = minRow; row <= maxRow; row++)
+        {
+            for (int column = minColumn; column <= maxColumn; column++)
+            {
+                MotherloadHazardType candidateHazard = data.GetHazard(row, column);
+                if (candidateHazard == MotherloadHazardType.None)
+                    continue;
+
+                float dx = (column + 0.5f) - centerColumn;
+                float dy = (row + 0.5f) - centerRow;
+                float distanceSquared = (dx * dx) + (dy * dy);
+                if (distanceSquared > radiusCells * radiusCells || distanceSquared >= bestDistanceSquared)
+                    continue;
+
+                bestDistanceSquared = distanceSquared;
+                bestRow = row;
+                bestColumn = column;
+                hazardType = candidateHazard;
+            }
+        }
+
+        if (bestRow < 0 || bestColumn < 0)
+            return false;
+
+        hazardWorldPoint = bottomLeftWorld + new Vector2((bestColumn + 0.5f) / cellsPerUnit, (bestRow + 0.5f) / cellsPerUnit);
+        return true;
+    }
+
+    public bool ClearHazardsNearWorldPoint(Vector2 worldPoint, float radiusWorld)
+    {
+        if (data == null || !OverlapsCircle(worldPoint, radiusWorld))
+            return false;
+
+        Vector2 local = worldPoint - bottomLeftWorld;
+        float centerColumn = local.x * cellsPerUnit;
+        float centerRow = local.y * cellsPerUnit;
+        int radiusCells = Mathf.CeilToInt(Mathf.Max(0.1f, radiusWorld) * cellsPerUnit);
+        bool changed = data.ClearHazardsInCircle(centerColumn, centerRow, radiusCells);
+        if (changed)
+            RebuildVisualAndCollider();
+        return changed;
+    }
+
     public void RebuildVisualAndCollider()
     {
         if (data == null)
@@ -127,7 +189,8 @@ public class MotherloadChunkRuntime : MonoBehaviour
                 int pixelX = column;
                 int pixelIndex = (pixelY * data.Width) + pixelX;
 
-                if (!data.IsSolid(row, column))
+                MotherloadHazardType hazardType = data.GetHazard(row, column);
+                if (!data.IsSolid(row, column) && hazardType == MotherloadHazardType.None)
                 {
                     pixelBuffer[pixelIndex] = new Color32(0, 0, 0, 0);
                     continue;
@@ -157,6 +220,10 @@ public class MotherloadChunkRuntime : MonoBehaviour
     private Color GetCellRenderColor(int row, int column)
     {
         MotherloadCellMaterial material = data.GetMaterial(row, column);
+        MotherloadHazardType hazardType = data.GetHazard(row, column);
+        if (hazardType != MotherloadHazardType.None)
+            return GetHazardBaseColor(hazardType);
+
         Color baseColor = GetMaterialBaseColor(material);
         int damageTier = data.GetDamageVisualTier(row, column);
         Color damagedColor = baseColor * DamageTierColors[Mathf.Clamp(damageTier, 0, DamageTierColors.Length - 1)];
@@ -174,12 +241,27 @@ public class MotherloadChunkRuntime : MonoBehaviour
                 return new Color(0.24f, 0.24f, 0.27f, 1f);
             case MotherloadCellMaterial.Copper:
                 return new Color(0.72f, 0.42f, 0.2f, 1f);
+            case MotherloadCellMaterial.Tin:
+                return new Color(0.42f, 0.7f, 0.78f, 1f);
             case MotherloadCellMaterial.Silver:
-                return new Color(0.76f, 0.82f, 0.9f, 1f);
+                return new Color(0.9f, 0.92f, 0.98f, 1f);
             case MotherloadCellMaterial.Gold:
                 return new Color(0.9f, 0.76f, 0.18f, 1f);
+            case MotherloadCellMaterial.Relic:
+                return new Color(0.72f, 0.44f, 1f, 1f);
             case MotherloadCellMaterial.Bedrock:
                 return new Color(0.08f, 0.08f, 0.1f, 1f);
+            default:
+                return Color.clear;
+        }
+    }
+
+    private static Color GetHazardBaseColor(MotherloadHazardType hazardType)
+    {
+        switch (hazardType)
+        {
+            case MotherloadHazardType.GasPocket:
+                return new Color(0.56f, 0.86f, 0.18f, 1f);
             default:
                 return Color.clear;
         }

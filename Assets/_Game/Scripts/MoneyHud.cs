@@ -22,18 +22,27 @@ public class MoneyHud : MonoBehaviour
     private const string SliderControlName = "Slider";
     private const string FuelHudRootName = "FuelHud";
     private const string FuelLabelName = "FuelLabel";
+    private const string MotherloadStatusLabelName = "MotherloadStatusLabel";
     private const string FuelBarBackgroundName = "FuelBarBackground";
     private const string FuelFillName = "FuelFill";
+    private const string GameOverRootName = "GameOverBanner";
+    private const string GameOverTextName = "GameOverText";
+    private const float GameOverDurationSeconds = 2.4f;
 
     private ShootTheRockProgressionState progressionState;
     private Text moneyText;
     private CannonAim cannonAim;
     private GameObject fuelHudRoot;
     private Text fuelLabel;
+    private Text motherloadStatusLabel;
     private Image fuelFillImage;
     private RectTransform fuelFillRect;
+    private GameObject gameOverRoot;
+    private Text gameOverText;
+    private float gameOverHideTime = -1f;
     private AutoShooter shooter;
     private RockWall rockWall;
+    private MotherloadWorldController motherloadWorldController;
     private CameraFramingController cameraFramingController;
     private GameObject upgradePanel;
     private bool upgradeUiVisible = true;
@@ -73,6 +82,7 @@ public class MoneyHud : MonoBehaviour
     }
 
     private bool IsMotherloadShopMode => cannonAim != null && cannonAim.FuelSystemEnabled && rockWall == null;
+    private bool HasMotherloadWorld => motherloadWorldController != null;
 
     public void Initialize(Text moneyText)
     {
@@ -123,6 +133,13 @@ public class MoneyHud : MonoBehaviour
         RefreshFuelUi();
     }
 
+    public void BindMotherloadWorld(MotherloadWorldController worldController)
+    {
+        motherloadWorldController = worldController;
+        EnsureUpgradeUi();
+        Refresh();
+    }
+
     public void BindProgression(RockWall rockWall, CameraFramingController cameraFramingController)
     {
         this.rockWall = rockWall;
@@ -143,8 +160,38 @@ public class MoneyHud : MonoBehaviour
         ProgressionState.AddMoney(amount);
     }
 
+    public void ShowGameOver(string reason)
+    {
+        EnsureGameOverUi();
+        if (gameOverRoot == null || gameOverText == null)
+            return;
+
+        string resolvedReason = string.IsNullOrWhiteSpace(reason) ? string.Empty : "\n" + reason.ToUpperInvariant();
+        gameOverText.text = "GAME OVER" + resolvedReason;
+        gameOverRoot.SetActive(true);
+        gameOverRoot.transform.SetAsLastSibling();
+        gameOverHideTime = Time.unscaledTime + GameOverDurationSeconds;
+    }
+
+    private void Update()
+    {
+        if (gameOverRoot == null || !gameOverRoot.activeSelf || gameOverHideTime < 0f)
+            return;
+        if (Time.unscaledTime < gameOverHideTime)
+            return;
+
+        gameOverRoot.SetActive(false);
+        gameOverHideTime = -1f;
+    }
+
     private void TryBuyAttackSpeedUpgrade()
     {
+        if (IsMotherloadShopMode && HasMotherloadWorld)
+        {
+            TryBuyMotherloadUpgrade(MotherloadUpgradeType.CargoBay);
+            return;
+        }
+
         if (IsMotherloadShopMode)
         {
             TryBuyFuelTankRank(1);
@@ -167,6 +214,12 @@ public class MoneyHud : MonoBehaviour
 
     private void TryBuyDamageUpgrade()
     {
+        if (IsMotherloadShopMode && HasMotherloadWorld)
+        {
+            TryBuyMotherloadUpgrade(MotherloadUpgradeType.FuelTank);
+            return;
+        }
+
         if (IsMotherloadShopMode)
         {
             TryBuyFuelTankRank(2);
@@ -189,6 +242,12 @@ public class MoneyHud : MonoBehaviour
 
     private void TryAdvanceLevelTest()
     {
+        if (IsMotherloadShopMode && HasMotherloadWorld)
+        {
+            TryBuyMotherloadUpgrade(MotherloadUpgradeType.HullPlating);
+            return;
+        }
+
         if (IsMotherloadShopMode)
         {
             TryBuyFuelTankRank(3);
@@ -208,6 +267,12 @@ public class MoneyHud : MonoBehaviour
 
     private void ToggleStressShotgun()
     {
+        if (IsMotherloadShopMode && HasMotherloadWorld)
+        {
+            TryBuyMotherloadUpgrade(MotherloadUpgradeType.BlasterDamage);
+            return;
+        }
+
         if (IsMotherloadShopMode)
         {
             TryBuyFuelTankRank(4);
@@ -223,6 +288,12 @@ public class MoneyHud : MonoBehaviour
 
     private void ToggleAirburstGrenade()
     {
+        if (IsMotherloadShopMode && HasMotherloadWorld)
+        {
+            TryBuyMotherloadUpgrade(MotherloadUpgradeType.FireRate);
+            return;
+        }
+
         if (IsMotherloadShopMode)
         {
             TryBuyFuelRefill();
@@ -293,7 +364,7 @@ public class MoneyHud : MonoBehaviour
         Refresh();
     }
 
-    private void Refresh()
+    public void Refresh()
     {
         if (moneyText != null)
             moneyText.text = "$" + ProgressionState.Money;
@@ -314,6 +385,12 @@ public class MoneyHud : MonoBehaviour
 
         if (IsMotherloadShopMode)
         {
+            if (HasMotherloadWorld)
+            {
+                upgradeStatsText.text = motherloadWorldController.BuildMotherloadHudSummary();
+                return;
+            }
+
             upgradeStatsText.text =
                 "BASE SHOP\n" +
                 "TANK RANK " + (cannonAim != null ? cannonAim.FuelTankRank : 1) + "/4" +
@@ -364,8 +441,36 @@ public class MoneyHud : MonoBehaviour
             SetControlVisible(damageUpgradeButton, true);
             SetControlVisible(nextLevelButton, true);
             SetControlVisible(stressShotgunButton, true);
-            SetControlVisible(airburstGrenadeButton, false);
+            SetControlVisible(airburstGrenadeButton, HasMotherloadWorld);
             SetControlVisible(corrosionButton, false);
+
+            if (HasMotherloadWorld)
+            {
+                if (attackSpeedUpgradeButton != null)
+                    attackSpeedUpgradeButton.interactable = motherloadWorldController.CanBuyUpgrade(MotherloadUpgradeType.CargoBay);
+                if (damageUpgradeButton != null)
+                    damageUpgradeButton.interactable = motherloadWorldController.CanBuyUpgrade(MotherloadUpgradeType.FuelTank);
+                if (nextLevelButton != null)
+                    nextLevelButton.interactable = motherloadWorldController.CanBuyUpgrade(MotherloadUpgradeType.HullPlating);
+                if (stressShotgunButton != null)
+                    stressShotgunButton.interactable = motherloadWorldController.CanBuyUpgrade(MotherloadUpgradeType.BlasterDamage);
+                if (airburstGrenadeButton != null)
+                    airburstGrenadeButton.interactable = motherloadWorldController.CanBuyUpgrade(MotherloadUpgradeType.FireRate);
+
+                if (attackSpeedUpgradeButtonText != null)
+                    attackSpeedUpgradeButtonText.text = motherloadWorldController.BuildUpgradeButtonText(MotherloadUpgradeType.CargoBay, "CARGO BAY");
+                if (damageUpgradeButtonText != null)
+                    damageUpgradeButtonText.text = motherloadWorldController.BuildUpgradeButtonText(MotherloadUpgradeType.FuelTank, "FUEL TANK");
+                if (nextLevelButtonText != null)
+                    nextLevelButtonText.text = motherloadWorldController.BuildUpgradeButtonText(MotherloadUpgradeType.HullPlating, "HULL");
+                if (stressShotgunButtonText != null)
+                    stressShotgunButtonText.text = motherloadWorldController.BuildUpgradeButtonText(MotherloadUpgradeType.BlasterDamage, "BLASTER");
+                if (airburstGrenadeButtonText != null)
+                    airburstGrenadeButtonText.text = motherloadWorldController.BuildUpgradeButtonText(MotherloadUpgradeType.FireRate, "FIRE RATE");
+                if (corrosionButtonText != null)
+                    corrosionButtonText.text = string.Empty;
+                return;
+            }
 
             if (attackSpeedUpgradeButton != null)
                 attackSpeedUpgradeButton.interactable = false;
@@ -698,8 +803,11 @@ public class MoneyHud : MonoBehaviour
 
     private void EnsureFuelUi()
     {
-        if (fuelHudRoot != null && fuelLabel != null && fuelFillImage != null && fuelFillRect != null)
+        if (fuelHudRoot != null && fuelLabel != null && motherloadStatusLabel != null && fuelFillImage != null && fuelFillRect != null)
+        {
+            ApplyFuelHudLayout(fuelHudRoot.transform as RectTransform);
             return;
+        }
 
         Canvas canvas = GetComponent<Canvas>();
         if (canvas == null)
@@ -710,21 +818,59 @@ public class MoneyHud : MonoBehaviour
             rootTransform = CreateFuelHud(canvas.transform).transform;
 
         fuelHudRoot = rootTransform.gameObject;
+        ApplyFuelHudLayout(rootTransform as RectTransform);
 
         Transform labelTransform = rootTransform.Find(FuelLabelName);
         if (labelTransform == null)
             labelTransform = CreateFuelLabel(rootTransform).transform;
         fuelLabel = labelTransform.GetComponent<Text>();
+        ApplyFuelLabelLayout(labelTransform as RectTransform);
+
+        Transform statusTransform = rootTransform.Find(MotherloadStatusLabelName);
+        if (statusTransform == null)
+            statusTransform = CreateMotherloadStatusLabel(rootTransform).transform;
+        motherloadStatusLabel = statusTransform.GetComponent<Text>();
+        ApplyMotherloadStatusLayout(statusTransform as RectTransform);
 
         Transform barBackgroundTransform = rootTransform.Find(FuelBarBackgroundName);
         if (barBackgroundTransform == null)
             barBackgroundTransform = CreateFuelBarBackground(rootTransform).transform;
+        ApplyFuelBarLayout(barBackgroundTransform as RectTransform);
 
         Transform fillTransform = barBackgroundTransform.Find(FuelFillName);
         if (fillTransform == null)
             fillTransform = CreateFuelFill(barBackgroundTransform).transform;
         fuelFillImage = fillTransform.GetComponent<Image>();
         fuelFillRect = fillTransform as RectTransform;
+    }
+
+    private void EnsureGameOverUi()
+    {
+        if (gameOverRoot != null && gameOverText != null)
+        {
+            ApplyGameOverLayout(gameOverRoot.transform as RectTransform);
+            ApplyGameOverTextLayout(gameOverText.transform as RectTransform);
+            return;
+        }
+
+        Canvas canvas = GetComponent<Canvas>();
+        if (canvas == null)
+            return;
+
+        Transform rootTransform = transform.Find(GameOverRootName);
+        if (rootTransform == null)
+            rootTransform = CreateGameOverBanner(canvas.transform).transform;
+
+        gameOverRoot = rootTransform.gameObject;
+        ApplyGameOverLayout(rootTransform as RectTransform);
+
+        Transform textTransform = rootTransform.Find(GameOverTextName);
+        if (textTransform == null)
+            textTransform = CreateGameOverText(rootTransform).transform;
+
+        gameOverText = textTransform.GetComponent<Text>();
+        ApplyGameOverTextLayout(textTransform as RectTransform);
+        gameOverRoot.SetActive(false);
     }
 
     private void RefreshFuelUi()
@@ -757,6 +903,61 @@ public class MoneyHud : MonoBehaviour
                 : "FUEL  " + currentFuelValue + "/" + maxFuelValue + suffix;
             fuelLabel.color = cannonAim.IsOutOfFuel ? new Color(1f, 0.55f, 0.55f, 1f) : Color.white;
         }
+
+        RefreshMotherloadStatusUi();
+    }
+
+    private void RefreshMotherloadStatusUi()
+    {
+        if (motherloadStatusLabel == null)
+            return;
+
+        bool showStatus = HasMotherloadWorld && motherloadWorldController.RunState != null && cannonAim != null;
+        motherloadStatusLabel.gameObject.SetActive(showStatus);
+        if (!showStatus)
+            return;
+
+        MotherloadRunState runState = motherloadWorldController.RunState;
+        string warningText = BuildMotherloadWarningText(runState);
+        motherloadStatusLabel.text =
+            "CARGO " + runState.CargoUsed + "/" + runState.CargoCapacity +
+            "  |  HP " + runState.CurrentHull + "/" + runState.MaxHull +
+            (warningText.Length > 0 ? "\n" + warningText : string.Empty);
+        motherloadStatusLabel.color = warningText.Length > 0 ? new Color(1f, 0.72f, 0.22f, 1f) : new Color(0.86f, 0.92f, 1f, 1f);
+    }
+
+    private string BuildMotherloadWarningText(MotherloadRunState runState)
+    {
+        string warnings = string.Empty;
+
+        if (cannonAim != null)
+        {
+            if (cannonAim.IsOutOfFuel)
+                AppendWarning(ref warnings, "FUEL EMPTY");
+            else if (cannonAim.FuelNormalized <= 0.25f)
+                AppendWarning(ref warnings, "LOW FUEL");
+        }
+
+        if (runState != null)
+        {
+            if (runState.CargoFree <= 0)
+                AppendWarning(ref warnings, "CARGO FULL");
+            else if (runState.CargoFree <= 3)
+                AppendWarning(ref warnings, "CARGO NEAR FULL");
+
+            float hullRatio = runState.MaxHull > 0 ? runState.CurrentHull / (float)runState.MaxHull : 0f;
+            if (runState.CurrentHull <= 1 || hullRatio <= 0.34f)
+                AppendWarning(ref warnings, "LOW HP");
+        }
+
+        return warnings;
+    }
+
+    private static void AppendWarning(ref string warnings, string warning)
+    {
+        if (warnings.Length > 0)
+            warnings += "  |  ";
+        warnings += warning;
     }
 
     private GameObject CreateFuelHud(Transform parent)
@@ -764,16 +965,23 @@ public class MoneyHud : MonoBehaviour
         GameObject rootObject = new GameObject(FuelHudRootName, typeof(RectTransform), typeof(Image));
         rootObject.transform.SetParent(parent, false);
 
-        RectTransform rect = rootObject.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0f, 1f);
-        rect.anchorMax = new Vector2(0f, 1f);
-        rect.pivot = new Vector2(0f, 1f);
-        rect.anchoredPosition = new Vector2(20f, -18f);
-        rect.sizeDelta = new Vector2(240f, 44f);
+        ApplyFuelHudLayout(rootObject.GetComponent<RectTransform>());
 
         Image image = rootObject.GetComponent<Image>();
         image.color = new Color(0f, 0f, 0f, 0.45f);
         return rootObject;
+    }
+
+    private void ApplyFuelHudLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(0f, 1f);
+        rect.pivot = new Vector2(0f, 1f);
+        rect.anchoredPosition = new Vector2(20f, -18f);
+        rect.sizeDelta = HasMotherloadWorld ? new Vector2(300f, 78f) : new Vector2(240f, 44f);
     }
 
     private GameObject CreateFuelLabel(Transform parent)
@@ -781,12 +989,7 @@ public class MoneyHud : MonoBehaviour
         GameObject labelObject = new GameObject(FuelLabelName, typeof(RectTransform), typeof(Text));
         labelObject.transform.SetParent(parent, false);
 
-        RectTransform rect = labelObject.GetComponent<RectTransform>();
-        rect.anchorMin = new Vector2(0f, 1f);
-        rect.anchorMax = new Vector2(1f, 1f);
-        rect.pivot = new Vector2(0.5f, 1f);
-        rect.offsetMin = new Vector2(10f, -22f);
-        rect.offsetMax = new Vector2(-10f, -4f);
+        ApplyFuelLabelLayout(labelObject.GetComponent<RectTransform>());
 
         Text text = labelObject.GetComponent<Text>();
         text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -797,21 +1000,69 @@ public class MoneyHud : MonoBehaviour
         return labelObject;
     }
 
+    private void ApplyFuelLabelLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.offsetMin = new Vector2(10f, -22f);
+        rect.offsetMax = new Vector2(-10f, -4f);
+    }
+
+    private GameObject CreateMotherloadStatusLabel(Transform parent)
+    {
+        GameObject labelObject = new GameObject(MotherloadStatusLabelName, typeof(RectTransform), typeof(Text));
+        labelObject.transform.SetParent(parent, false);
+
+        ApplyMotherloadStatusLayout(labelObject.GetComponent<RectTransform>());
+        Text text = labelObject.GetComponent<Text>();
+        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        text.fontSize = 13;
+        text.fontStyle = FontStyle.Bold;
+        text.alignment = TextAnchor.UpperLeft;
+        text.color = Color.white;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Truncate;
+        return labelObject;
+    }
+
+    private void ApplyMotherloadStatusLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 1f);
+        rect.offsetMin = new Vector2(10f, -56f);
+        rect.offsetMax = new Vector2(-10f, -24f);
+    }
+
     private GameObject CreateFuelBarBackground(Transform parent)
     {
         GameObject barObject = new GameObject(FuelBarBackgroundName, typeof(RectTransform), typeof(Image));
         barObject.transform.SetParent(parent, false);
 
-        RectTransform rect = barObject.GetComponent<RectTransform>();
+        ApplyFuelBarLayout(barObject.GetComponent<RectTransform>());
+
+        Image image = barObject.GetComponent<Image>();
+        image.color = new Color(1f, 1f, 1f, 0.12f);
+        return barObject;
+    }
+
+    private void ApplyFuelBarLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
         rect.anchorMin = new Vector2(0f, 0f);
         rect.anchorMax = new Vector2(1f, 0f);
         rect.pivot = new Vector2(0.5f, 0f);
         rect.offsetMin = new Vector2(10f, 8f);
         rect.offsetMax = new Vector2(-10f, 20f);
-
-        Image image = barObject.GetComponent<Image>();
-        image.color = new Color(1f, 1f, 1f, 0.12f);
-        return barObject;
     }
 
     private GameObject CreateFuelFill(Transform parent)
@@ -829,6 +1080,57 @@ public class MoneyHud : MonoBehaviour
         Image image = fillObject.GetComponent<Image>();
         image.color = new Color(0.2f, 0.9f, 0.35f, 1f);
         return fillObject;
+    }
+
+    private GameObject CreateGameOverBanner(Transform parent)
+    {
+        GameObject bannerObject = new GameObject(GameOverRootName, typeof(RectTransform), typeof(Image));
+        bannerObject.transform.SetParent(parent, false);
+        ApplyGameOverLayout(bannerObject.GetComponent<RectTransform>());
+
+        Image image = bannerObject.GetComponent<Image>();
+        image.color = new Color(0.02f, 0f, 0f, 0.78f);
+        return bannerObject;
+    }
+
+    private void ApplyGameOverLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = new Vector2(0f, 95f);
+        rect.sizeDelta = new Vector2(520f, 138f);
+    }
+
+    private GameObject CreateGameOverText(Transform parent)
+    {
+        GameObject textObject = new GameObject(GameOverTextName, typeof(RectTransform), typeof(Text));
+        textObject.transform.SetParent(parent, false);
+        ApplyGameOverTextLayout(textObject.GetComponent<RectTransform>());
+
+        Text text = textObject.GetComponent<Text>();
+        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        text.fontSize = 36;
+        text.fontStyle = FontStyle.Bold;
+        text.alignment = TextAnchor.MiddleCenter;
+        text.horizontalOverflow = HorizontalWrapMode.Wrap;
+        text.verticalOverflow = VerticalWrapMode.Overflow;
+        text.color = new Color(1f, 0.28f, 0.22f, 1f);
+        return textObject;
+    }
+
+    private void ApplyGameOverTextLayout(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = new Vector2(18f, 12f);
+        rect.offsetMax = new Vector2(-18f, -12f);
     }
 
     private GameObject CreateUpgradePanel(Transform parent)
@@ -1099,6 +1401,15 @@ public class MoneyHud : MonoBehaviour
         }
 
         Refresh();
+    }
+
+    private void TryBuyMotherloadUpgrade(MotherloadUpgradeType upgradeType)
+    {
+        if (motherloadWorldController == null)
+            return;
+
+        if (motherloadWorldController.TryBuyUpgrade(upgradeType))
+            Refresh();
     }
 
     private void TryBuyFuelRefill()

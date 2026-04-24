@@ -65,6 +65,9 @@ public class AutoShooter : MonoBehaviour
     private float nextShotTime;
     private int attackSpeedLevel;
     private int damageLevel;
+    private bool capturedMotherloadBaseStats;
+    private float motherloadBaseFireInterval;
+    private float motherloadBaseBlastRadiusScale;
     private bool stressShotgunEnabled;
     private bool airburstGrenadeEnabled;
     private bool corrosionEnabled;
@@ -96,6 +99,7 @@ public class AutoShooter : MonoBehaviour
         this.firePoint = firePoint;
         this.rockWall = rockWall;
         this.motherloadWorldController = motherloadWorldController;
+        CaptureMotherloadBaseStats();
         nextShotTime = Time.time + 0.05f;
         EnsureProjectilePoolRoot();
         PrewarmProjectilePool();
@@ -143,6 +147,17 @@ public class AutoShooter : MonoBehaviour
         blastRadiusScale = updatedBlastScale;
         damageLevel++;
         return true;
+    }
+
+    public void ApplyMotherloadUpgradeRanks(int blasterDamageRank, int fireRateRank)
+    {
+        CaptureMotherloadBaseStats();
+
+        damageLevel = Mathf.Max(0, blasterDamageRank);
+        attackSpeedLevel = Mathf.Max(0, fireRateRank);
+        blastRadiusScale = Mathf.Min(maximumBlastRadiusScale, motherloadBaseBlastRadiusScale + (blastRadiusScaleStep * damageLevel));
+        fireInterval = Mathf.Max(minimumFireInterval, motherloadBaseFireInterval - (fireIntervalStep * attackSpeedLevel));
+        nextShotTime = Mathf.Min(nextShotTime, Time.time + CurrentEffectiveFireInterval);
     }
 
     public void ReleaseProjectile(Projectile projectile)
@@ -369,6 +384,16 @@ public class AutoShooter : MonoBehaviour
             poolRootObject = new GameObject("ProjectilePool");
 
         projectilePoolRoot = poolRootObject.transform;
+    }
+
+    private void CaptureMotherloadBaseStats()
+    {
+        if (capturedMotherloadBaseStats)
+            return;
+
+        motherloadBaseFireInterval = fireInterval;
+        motherloadBaseBlastRadiusScale = blastRadiusScale;
+        capturedMotherloadBaseStats = true;
     }
 
     private void PrewarmProjectilePool()
